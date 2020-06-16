@@ -1,0 +1,15 @@
+@import '../../../../assets/scss/vars';
+
+.version {
+  font-family: $title-font;
+  font-size: 40px;
+  color: $secondary-color;
+  padding: 1px;
+  border-radius: 50px;
+  border: 1px solid $secondary-color;
+  margin-bottom: 50px;
+  max-width: 170px;
+  text-align: center;
+  height: 66px;
+  line-height: 60px;
+}

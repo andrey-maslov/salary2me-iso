@@ -1,0 +1,29 @@
+.hero {
+  position: relative;
+  padding-bottom: 40px;
+
+  &:after {
+    position: absolute;
+    content: url('./../../../assets/img/long-dots-min.png');
+    top: 200px;
+    right: 0;
+    z-index: -1;
+  }
+}
+
+.title {
+  margin-bottom: 40px;
+}
+
+//.subtitle {
+//  font-size: 20px;
+//  margin-bottom: 40px;
+//}
+
+.dropzone {
+  max-width: 500px
+}
+
+.robots {
+  display: flex;
+}

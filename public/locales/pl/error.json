@@ -1,0 +1,9 @@
+{
+  "title": "Error 404",
+  "not_found": "nie znaleziono strony",
+  "description": "<p> Dotarłeś do strony, która nie istnieje. </p> <p> Prawdopodobnie było to spowodowane literówką lub nieprawidłowym układem klawiatury. </p>",
+  "meta": {
+    "description": "description for error page",
+    "title": "nie znaleziono strony"
+  }
+}

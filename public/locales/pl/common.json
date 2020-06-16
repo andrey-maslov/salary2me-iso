@@ -1,0 +1,35 @@
+{
+  "footer": {
+    "copy": "LLC Center for Technological Investments",
+    "author_text": "Opracowany przez:",
+    "sharing_text": "Pomóż naszemu projektowi, udostępniając",
+    "blocks": {
+      "salary2me": "salary2me",
+      "info": "information",
+      "contacts": "kontakty"
+    },
+    "links": {
+      "privacy_policy": "polityka prywatności",
+      "terms": "warunki użytkowania",
+      "cookie": "polityka plików cookie"
+    },
+    "address": "Białoruś, Mińsk, Czechawa str. 3"
+  },
+  "buttons": {
+    "login": "login",
+    "logOut": "logOut",
+    "send_cv": "send_cv",
+    "to_main": "to main"
+  },
+  "errors": {
+    "take_the_test": "weź test",
+    "test_failed": "test nie powiódł się"
+  },
+  "meta": {
+    "title": "Poznaj swoją stawkę rynkową - Salary2.me",
+    "description": "Bezpłatna usługa natychmiastowej analizy CV AI z wynikami dla wielu miast. Usługa pomaga również znaleźć pracę. Poznaj swój wskaźnik wznowienia!"
+  },
+  "misc": {
+    "subscribe_msg": "Chcę otrzymywać powiadomienia o nowych wakatach"
+  }
+}

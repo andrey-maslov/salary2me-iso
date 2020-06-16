@@ -1,0 +1,22 @@
+{
+  "presets": ["next/babel"],
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "root": ["."],
+        "alias": {
+          "@actions": "./actions",
+          "@assets": "./assets",
+          "@common": "./components/common",
+          "@constants": "./constants",
+          "@helper": "./helper",
+          "@layout": "./components/layout",
+          "@mobi": "./components/mobi",
+          "@web": "./components/web",
+          "@i18n": "./i18n"
+        }
+      }
+    ]
+  ]
+}

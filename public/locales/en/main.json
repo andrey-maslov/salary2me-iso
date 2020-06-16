@@ -1,0 +1,14 @@
+{
+  "title": "<span class='color-accent'>AI</span> valuation of your market salary for different locations",
+  "content": "<h2 class='color-accent'>About our project</h2><p>Our goal is to build an accurate AI tool of market salary instant analytics based on CV profile. Multiple data sources are used for that goal, but the main is your feedback. So, please, specify your real salary, it will help us to train the neural network in a best way. Of course, dynamics is very important, because market is changing rapidly from time to time.</p><p>Current state is trained on data collected during <strong>second half of 2019</strong>. We are working to adapt data for current situation, but please be forgiving of our possible mistakes, because we are only beta now.</p><p>In future we plan to provide more tools of analytics, including psychological tests and support for those who want to find a new job.</p><p>Please send all your feedback to <strong><a href='mailto:contact@salary2.me'>contact@salary2.me</a></strong></p>",
+  "dropzone": {
+    "drop_file": "Drop your CV file here",
+    "or": "or",
+    "browse": "Browse",
+    "standard": "Standardized formats are preferred (LinkedIn etc.)"
+  },
+  "meta": {
+    "title": "Know your market rate",
+    "description": "Free service of CV instant AI analytics with results for multiple cities. Also service helps you to find a job. Know your resume rate!"
+  }
+}

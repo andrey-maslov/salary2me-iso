@@ -1,0 +1,14 @@
+.features {
+  box-shadow: 0 2px 5px rgba(#000, .2);
+  background: linear-gradient(90deg, #68BFE7, #36A9E0);
+}
+
+.list {
+  padding-left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  margin-bottom: 0;
+}

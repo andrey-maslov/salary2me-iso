@@ -1,0 +1,84 @@
+@import './../../../assets/scss/_vars.scss';
+
+$text-color: #d1d1d1;
+
+.footer {
+  background-color: #4F5962;
+  color: #fff;
+  padding-top: 70px;
+}
+
+.widget {
+  margin-bottom: 30px;
+}
+
+.title {
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.content {
+  font-size: 14px;
+  color: $text-color;
+  margin-bottom: 0;
+
+  p {
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.sharing {
+  padding: 20px;
+  background-color: rgba(#fff, .1);
+  border-radius: 3px;
+  max-width: 300px;
+  margin-top: 5px;
+}
+
+.address {
+  color: $text-color;
+}
+
+.list {
+  margin-left: 0;
+  list-style: none;
+  padding-left: 0;
+}
+
+.item {
+  margin-bottom: 10px;
+
+  a {
+    color: $text-color;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+}
+
+.contacts {
+  svg {
+    position: relative;
+    margin-right: 10px;
+    bottom: -3px;
+  }
+}
+
+.copy {
+  text-align: center;
+  padding: 10px;
+  border-top: 1px solid rgba(#fff, .1);
+  font-size: 14px;
+  color: #999;
+}
+
+
+@media(max-width: 992px) {
+  .footer {
+    padding-top: 30px;
+  }
+}

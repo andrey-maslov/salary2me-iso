@@ -1,0 +1,35 @@
+{
+  "footer": {
+    "copy": "LLC Center for Technological Investments",
+    "author_text": "Developed by:  ",
+    "sharing_text": "Help our project by sharing",
+    "blocks": {
+      "salary2me": "salary2me",
+      "info": "information",
+      "contacts": "contacts"
+    },
+    "links": {
+      "privacy_policy": "privacy policy",
+      "terms": "terms of use",
+      "cookie": "cookie policy"
+    },
+    "address": "Belarus, Minsk, Czechava str. 3"
+  },
+  "buttons": {
+    "login": "login",
+    "logOut": "logOut",
+    "send_cv": "send_cv",
+    "to_main": "to main"
+  },
+  "errors": {
+    "take_the_test": "take the test",
+    "test_failed": "test failed"
+  },
+  "meta": {
+    "title": "Know your market rate",
+    "description": "Free service of CV instant AI analytics with results for multiple cities. Also service helps you to find a job. Know your resume rate!"
+  },
+  "misc": {
+    "subscribe_msg": "I want to receive notifications about new vacancies"
+  }
+}

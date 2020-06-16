@@ -1,0 +1,67 @@
+@import '../../../../assets/scss/vars';
+
+.wrapper {
+  display: inline-block;
+  position: relative;
+}
+
+
+.btn {
+  display: inline-flex;
+  justify-content: space-between;
+  padding: 11px 10px;
+  background-color: transparent;
+  border: 1px solid rgba($accent, .2);
+  line-height: 37px;
+  width: 70px;
+  border-radius: 3px;
+  align-self: stretch;
+  color: $accent;
+  font-size: 16px;
+  transition: all .2s ease-in-out;
+
+  &:hover {
+    cursor: pointer;
+    background-color: rgba($accent, .2);
+  }
+}
+
+.links {
+  min-width: 300px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-bottom: 1px solid $grey-bg;
+
+  &:last-of-type {
+    margin-bottom: 0;
+    border-bottom: 0;
+  }
+
+  .item {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    padding: 10px 20px;
+    transition: background-color .2s ease-in-out;
+
+    &:hover {
+      cursor: pointer;
+      background-color: $grey-bg;
+    }
+
+    //&.creds {
+    //
+    //  &:hover {
+    //    background-color: #fff;
+    //    cursor: auto;
+    //  }
+    //}
+  }
+
+    svg {
+      position: relative;
+      bottom: -3px;
+      margin-right: 20px;
+    }
+}

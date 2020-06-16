@@ -1,0 +1,11 @@
+{
+  "hello": "Hello ${name}. This is your profile",
+  "name": "Name",
+  "position": "Position",
+  "salary_est": "Salary_est",
+  "show": "Show me!",
+  "meta": {
+    "title": "",
+    "description": "description for profile page"
+  }
+}

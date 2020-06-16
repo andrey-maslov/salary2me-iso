@@ -1,0 +1,9 @@
+{
+  "create": "Utwórz bezpłatne konto",
+  "check_terms_text": "Przeczytałem, zrozumiałem i akceptuję <a href='/terms' target='_blank'>Warunki użytkowania</a>, <a href='/privacy-policy' target='_blank'>Politykę prywatności</a>, <a href='/cookie-policy' target='_blank'>Politykę plików cookie</a> Technological Investments Center LLC",
+  "tip": "Aby się zalogować, należy zaakceptować poniższe oświadczenie",
+  "meta": {
+    "description": "Description for login page",
+    "title": "Utwórz bezpłatne konto"
+  }
+}

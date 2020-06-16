@@ -1,0 +1,57 @@
+@import '../../../assets/scss/_vars.scss';
+
+.content {
+  position: relative;
+  padding: 30px;
+  //border: 1px solid $grey-bg;
+  border-radius: $border-radius-sm;
+  width: 400px;
+  margin: 0 auto;
+
+  [data-tooltip] {
+    width: 100%;
+  }
+}
+
+.title {
+  margin-bottom: 15px;
+  font-size: 20px;
+  color: rgba($grey, .6);
+  text-align: center;
+}
+
+.terms {
+  color: #7D7D7D;
+  font-size: 13px;
+  text-align: left;
+
+}
+
+
+.buttons {
+
+  button {
+    display: block;
+    position: relative;
+    margin-bottom: 20px;
+    border: none;
+    width: 100%;
+    color: #fff;
+    padding-bottom: 9px;
+    padding-top: 9px;
+
+    & > span {
+      position: absolute;
+      left: 15px;
+    }
+  }
+}
+
+.consent {
+  color: currentColor;
+  display: flex;
+  align-items: flex-start;
+  //outline-style: solid;
+  //outline-color: $accent;
+  //outline-width: 1px;
+}
