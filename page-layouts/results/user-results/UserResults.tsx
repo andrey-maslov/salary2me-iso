@@ -5,7 +5,6 @@ import {getSalariesLimits} from "../../../helper/helper";
 import {useMediaPredicate} from "react-media-hook";
 import SocialSharing from "../../../components/common/buttons/social-sharing/SocialSharing";
 import Subscription from "../../../components/common/subscription/Subscription";
-import {SVGSource} from "../../../components/common/media/svgflag/SVGFlag";
 import {Link, Router} from "@i18n";
 import style from './user-results.module.scss';
 import ResultsItem from "../result-item/ResultItem";
@@ -14,6 +13,7 @@ import {ApplicationModeType} from "../../../reducers/applicationMode";
 import {UserDataType} from "../../../reducers/userData";
 import ResultsSidebar from "../results-sidebar/ResultsSIdebar";
 import HelpUs from "../help-us/HelpUs";
+import {Media} from "../../../media"
 
 interface IUserResultsProps {
     results: []
@@ -69,9 +69,9 @@ const Results: React.FC<IUserResultsProps> = ({...props}) => {
         return null
     }
 
-    // if (isLoggedIn && resultsToDisplay.length === 0) {
-    //     return <NoResults/>
-    // }
+    if (isLoggedIn && resultsToDisplay.length === 0) {
+        return <NoResults/>
+    }
 
     return (
         <>
@@ -84,8 +84,9 @@ const Results: React.FC<IUserResultsProps> = ({...props}) => {
                         </div>
                     </div>
                     <div className="col-xl-3 col-lg-4 last-lg">
-                        {!biggerThan992 &&
-                        <MobileOptions/>}
+                        <Media at="xs">
+                            <MobileOptions/>
+                        </Media>
                         <div className={`${style.sidebar} ${!biggerThan992 ? mobiOptionsClass : ''}`}>
                             <ResultsSidebar/>
                             <div className={style.sharing}>

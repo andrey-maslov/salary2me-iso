@@ -1,8 +1,8 @@
 import React from 'react';
 import hrImg from '../../../../assets/img/busy.png';
 import style from './more.module.scss';
-import {useMediaPredicate} from "react-media-hook";
 import Button from "../../buttons/button/Button";
+import {Media} from "../../../../media";
 
 const moreContent = {
     title: 'Are you HR?',
@@ -12,8 +12,6 @@ const moreContent = {
 
 
 const More = () => {
-
-    const biggerThan992 = useMediaPredicate("(min-width: 992px)");
 
     return (
         <div className={`${style.wrapper} align-items-center justify-content-between`}>
@@ -28,7 +26,9 @@ const More = () => {
                     title={moreContent.btnTitle}
                 />
             </div>
-            {biggerThan992 && <img className={`${style.img} img-fluid`} src={hrImg} alt=""/>}
+            <Media greaterThanOrEqual="md">
+                <img className={`${style.img} img-fluid`} src={hrImg} alt=""/>
+            </Media>
         </div>
     )
 

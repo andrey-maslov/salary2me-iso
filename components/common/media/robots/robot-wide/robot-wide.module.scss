@@ -245,8 +245,8 @@ $border-radius-md: .4 * $em;
     position: absolute;
     right: 1.7 * $em;
     top: -.7 * $em;
-    transform: rotate(10deg); //to animate
-    animation: 3s linear 1s hands;
+    transform: rotate(10deg);
+    //animation: 3s linear 1s hands;
   }
 
   .cubit {

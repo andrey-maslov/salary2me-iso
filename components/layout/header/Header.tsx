@@ -5,6 +5,8 @@ import {clearUserData, setLoginModal} from '../../../actions/actionCreator';
 import MobiHeader from '../../../components/mobi/header/MobiHeader';
 import WebHeader from '../../../components/web/header/WebHeader';
 
+import {Media} from "../../../media"
+
 type HeaderProps = {
     isLoggedIn: boolean
     setLoginModal: (bool: boolean) => {}
@@ -27,18 +29,24 @@ const Header: React.FC<HeaderProps> = ({isLoggedIn, setLoginModal, userEmail, cl
         }
     };
 
-    if (isTablet) {
-        return <MobiHeader
-            isLoggedIn={isLoggedIn}
-            handleLoginBtn={handleLoginBtn}
-            userEmail={userEmail}
-        />;
-    }
-    return <WebHeader
-        isLoggedIn={isLoggedIn}
-        handleLoginBtn={handleLoginBtn}
-        userEmail={userEmail}
-    />;
+    return (
+        <>
+            <Media greaterThanOrEqual="md">
+                <WebHeader
+                    isLoggedIn={isLoggedIn}
+                    handleLoginBtn={handleLoginBtn}
+                    userEmail={userEmail}
+                />
+            </Media>
+            <Media at="xs">
+                <MobiHeader
+                    isLoggedIn={isLoggedIn}
+                    handleLoginBtn={handleLoginBtn}
+                    userEmail={userEmail}
+                />
+            </Media>
+        </>
+    );
 
 };
 
