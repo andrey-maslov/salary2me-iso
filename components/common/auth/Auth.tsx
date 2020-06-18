@@ -7,6 +7,7 @@ import {Tooltip} from "../tooltip/Tooltip";
 import Checkbox from "../inputs/checkbox/Checkbox";
 
 import style from './auth.module.scss';
+import SignInForm from "./sign-in-form/SignInForm";
 
 // const links = {
 //     terms
@@ -51,6 +52,7 @@ const Auth: React.FC<AuthType> = ({handleLogin, t}) => {
                     dangerouslySetInnerHTML={{__html: t('check_terms_text')}}
                 />
             </div>
+            <SignInForm/>
         </div>
     );
 }

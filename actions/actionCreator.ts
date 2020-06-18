@@ -248,6 +248,22 @@ export const sendRealSalary = (formData) => {
     }
 };
 
+export const signIn = (data) => {
+    return (dispatch) => {
+        axios.post('https://apibase.pashtaljon.by/api/v1/token/authenticate', data, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then((res) => {
+                console.log(res)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+}
+
 export const isUserInBase = (email) => {
     return (dispatch) => {
         axios(`${PREDICTIONS_URL}?email=${email}`)
