@@ -5,7 +5,7 @@
   "salary_est": "Salary_est",
   "show": "Show me!",
   "meta": {
-    "title": "",
+    "title": "title for profile page",
     "description": "description for profile page"
   }
 }

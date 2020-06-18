@@ -223,13 +223,13 @@ export const fetchSubscription = (formData) => {
 };
 
 //Send real user salary to base
-export const fetchRealSalary = (url, formData) => {
+export const sendRealSalary = (formData) => {
 
     return (dispatch) => {
 
         dispatch(updateRequestLoading(true));
 
-        axios.put(url, formData, {
+        axios.put(PREDICTIONS_URL, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }

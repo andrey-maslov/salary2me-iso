@@ -89,7 +89,13 @@ body {
 .page {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
+
+  &-results {
+    main {
+      padding: 60px 0;
+    }
+  }
 
   main {
     flex: 1 0 auto;
@@ -344,6 +350,19 @@ only screen and (min-resolution: 192dpi) {
 
 //Media
 @media (max-width: 992px) {
+
+  .page {
+    &-results {
+      main {
+        padding: 20px 0;
+      }
+    }
+
+    main {
+      flex: 1 0 auto;
+      min-height: auto;
+    }
+  }
 
   .section {
     padding-top: 30px;

@@ -13,6 +13,7 @@ import {locations} from "../../../constants/constants";
 import {ApplicationModeType} from "../../../reducers/applicationMode";
 import {UserDataType} from "../../../reducers/userData";
 import ResultsSidebar from "../results-sidebar/ResultsSIdebar";
+import HelpUs from "../help-us/HelpUs";
 
 interface IUserResultsProps {
     results: []
@@ -43,13 +44,15 @@ const Results: React.FC<IUserResultsProps> = ({...props}) => {
     const resultsToDisplay = getSorting();
     const salaryLimits = getSalariesLimits(resultsToDisplay);
 
-    const renderNoResults = () => {
-        return <div className={`section text-center ${style.noCv}`}>
-            <strong>Please, <Link href={'/'}><a>upload</a></Link> your CV</strong>
-        </div>
+    const NoResults = () => {
+        return (
+            <div className={`container text-center ${style.noCv}`}>
+                <strong>Please, <Link href={'/'}><a>upload</a></Link> your CV</strong>
+            </div>
+        )
     };
 
-    const renderMobileOptions = () => {
+    const MobileOptions = () => {
         return (
             <div className={`${style.optionsToggle} ${mobiOptionsClass}`}
                  onClick={() => setMobileOptions(!isMobileOptionsShown)}>
@@ -66,59 +69,52 @@ const Results: React.FC<IUserResultsProps> = ({...props}) => {
         return null
     }
 
+    // if (isLoggedIn && resultsToDisplay.length === 0) {
+    //     return <NoResults/>
+    // }
+
     return (
         <>
-            {resultsToDisplay.length === 0 ?
-                renderNoResults()
-                :
-                <main className={`${style.results} bg-grey`}>
-                    <div className="container">
-                        <div className="row justify-content-center">
-                            <div className="col-xl-10">
-                                <div className={style.title}>
-                                    <h3 className={`${style.position}`}>{position ? position : 'No experience detected'}:</h3>
-                                    <span> Estimated salary by city</span>
-                                </div>
-                            </div>
-                            <div className="col-xl-3 col-lg-4 order-lg-2">
-                                {!biggerThan992 &&
-                                renderMobileOptions()}
-                                <div className={`${style.sidebar} ${!biggerThan992 ? mobiOptionsClass : ''}`}>
-                                    <ResultsSidebar/>
-                                    <div className={style.sharing}>
-                                        <SocialSharing url={'https://salary2.me'}/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-xl-7 col-lg-8 order-lg-1">
-                                <ul className={style.list}>
-                                    {resultsToDisplay.map(({city, avg, max}) => {
-                                        const location = getLocation(city, locations)
-                                        return (
-                                            <ResultsItem
-                                                location={location}
-                                                maxVal={max}
-                                                avgVal={avg}
-                                                limits={salaryLimits}
-                                                applicationMode={applicationMode}
-                                                key={city}
-                                            />
-                                        )
-                                    })}
-                                </ul>
-                                <Subscription/>
+            <div className={`${style.results} container`}>
+                <div className="row center-xs">
+                    <div className="col-xl-10">
+                        <div className={style.title}>
+                            <h3 className={`${style.position}`}>{position ? position : 'No experience detected'}:</h3>
+                            <span> Estimated salary by city</span>
+                        </div>
+                    </div>
+                    <div className="col-xl-3 col-lg-4 last-lg">
+                        {!biggerThan992 &&
+                        <MobileOptions/>}
+                        <div className={`${style.sidebar} ${!biggerThan992 ? mobiOptionsClass : ''}`}>
+                            <ResultsSidebar/>
+                            <div className={style.sharing}>
+                                <SocialSharing url={'https://salary2.me'}/>
                             </div>
                         </div>
                     </div>
-                    <SVGSource/>
-                </main>
-            }
-            {resultsToDisplay.length !== 0 && (
-                <>
-                    <div className="divider"/>
-                    {/*<HelpUs/>*/}
-                </>
-            )}
+                    <div className="col-xl-7 col-lg-8">
+                        <ul className={style.list}>
+                            {resultsToDisplay.map(({city, avg, max}) => {
+                                const location = getLocation(city, locations)
+                                return (
+                                    <ResultsItem
+                                        location={location}
+                                        maxVal={max}
+                                        avgVal={avg}
+                                        limits={salaryLimits}
+                                        applicationMode={applicationMode}
+                                        key={city}
+                                    />
+                                )
+                            })}
+                        </ul>
+                        <Subscription/>
+                    </div>
+                </div>
+            </div>
+            <div className="divider"/>
+            <HelpUs/>
         </>
     );
 
@@ -166,7 +162,7 @@ const Results: React.FC<IUserResultsProps> = ({...props}) => {
             return item.city.toLowerCase() === city.toLowerCase();
         });
         return location;
-    };
+    }
 
 };
 

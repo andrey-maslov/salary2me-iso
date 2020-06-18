@@ -2,8 +2,8 @@ import {connect} from 'react-redux';
 import {FaBell} from "react-icons/fa";
 import {fetchSubscription} from "../../../actions/actionCreator";
 import {accentColor} from "../../../constants/constants";
-import style from './subscription.module.scss';
 import Checkbox from "../inputs/checkbox/Checkbox";
+import style from './subscription.module.scss';
 
 
 const Subscription = (props) => {
@@ -21,7 +21,7 @@ const Subscription = (props) => {
     return (
         <div className={style.wrapper}>
             <div className={style.icon}>
-                <span/>
+                <span className={style.lighthouse}/>
                 <FaBell color={accentColor}/>
             </div>
             <Checkbox
