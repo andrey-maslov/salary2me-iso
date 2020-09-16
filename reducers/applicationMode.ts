@@ -7,7 +7,7 @@ import {
     SET_DISPLAYED_RESULTS,
     SET_REDIRECT_URL,
     CLEAR_USER_DATA
-} from "../actions/types";
+} from "../actions/actionTypes";
 import {currencies} from '../constants/constants';
 // import {load} from 'redux-localstorage-simple';
 import {loadState} from '../store/sessionStorage';

@@ -3,7 +3,7 @@ import {
     PREDICTIONS_REQUEST_LOADING,
     UPDATE_REQUEST_LOADING,
     UPDATE_REQUEST_ERRORED,
-} from '../actions/types';
+} from '../actions/actionTypes';
 
 
 export const predictionsRequestHasErrored = (state = false, {type, hasErrored}) => {

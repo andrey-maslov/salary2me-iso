@@ -1,6 +1,6 @@
 import axios from "axios";
 import {stringToBoolean} from '../helper/helper';
-import {PREDICTIONS_URL, CONTENT_BASE_URL} from "../constants/constants";
+import {PREDICTIONS_URL} from "../constants/constants";
 
 import {
     ADD_USER_SALARY,
@@ -24,10 +24,10 @@ import {
     SET_PAY_PERIOD,
     SET_PAY_TAX,
     USER_IN_BASE,
-    ADD_TERMS_CONTENT,
-    ADD_COOKIE_POLICY_CONTENT, ADD_PRIVACY_POLICY_CONTENT, SET_SORTING, ADD_MAIN_CONTENT, SET_DISPLAYED_RESULTS,
-} from './types';
-import predictions from '../predictions.json';
+    SET_SORTING,
+    SET_DISPLAYED_RESULTS,
+    SET_ERROR, PROCESS_FAILED, LOADING,
+} from './actionTypes';
 
 export const addUserRealSalary = (userRealSalary) => ({
     type: ADD_USER_SALARY,
@@ -72,11 +72,6 @@ export const setCvSent = (bool) => ({
     isCvSent: bool,
     isUserInBase: true,
 });
-
-// export const setUserToBase = (bool) => ({
-//     type: USER_IN_BASE,
-//     isUserInBase: bool,
-// });
 
 export const parsingCvResults = (predictions, position) => ({
     type: PARSING_CV_RESULTS,
@@ -167,28 +162,22 @@ export const sendCvForResults = (formData) => {
         // @ts-ignore
         // dispatch(parsingCvResults(predictions.predictions, predictions.position));
 
-        dispatch(predictionsRequestLoading(true));
+        dispatch(predictionsRequestLoading(true))
 
-        axios.post(PREDICTIONS_URL, formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        })
+        //TODO change to PUT query, right url and put formData for use on production
+        axios.get('https://run.mocky.io/v3/62678e58-c4c0-4dfb-89ac-0cbb9b1ff44a', {})
             .then(response => {
-                if (response.statusText !== 'OK') {
-                    throw Error(response.statusText);
-                }
                 dispatch(setCvSent(true));
-                dispatch(predictionsRequestLoading(false));
+                dispatch(predictionsRequestLoading(false))
                 return response.data;
             })
             .then(data => {
-                dispatch(parsingCvResults(data.predictions, data.position));
+                dispatch(parsingCvResults(data.predictions, data.position))
                 // console.log(data);
             })
             .catch(() => {
-                dispatch(predictionsRequestError(true));
-                dispatch(predictionsRequestLoading(false));
+                dispatch(predictionsRequestError(true))
+                dispatch(predictionsRequestLoading(false))
             });
 
     }
@@ -202,16 +191,13 @@ export const fetchSubscription = (formData) => {
     return (dispatch) => {
 
         dispatch(updateRequestLoading(true));
-
-        axios.put(PREDICTIONS_URL, formData, {
+        //TODO change to PUT query, right url and put formData for use on production
+        axios.get('https://run.mocky.io/v3/62678e58-c4c0-4dfb-89ac-0cbb9b1ff44a', {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
         })
             .then(response => {
-                if (response.status !== 204) {
-                    throw Error(response.statusText);
-                }
                 dispatch(subscription(isSubscribed));
                 dispatch(updateRequestLoading(false));
             })
@@ -228,16 +214,13 @@ export const sendRealSalary = (formData) => {
     return (dispatch) => {
 
         dispatch(updateRequestLoading(true));
-
-        axios.put(PREDICTIONS_URL, formData, {
+        //TODO change to PUT query, right url and put formData for use on production
+        axios.get('https://run.mocky.io/v3/62678e58-c4c0-4dfb-89ac-0cbb9b1ff44a', {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
         })
             .then(response => {
-                if (response.status !== 204) {
-                    throw Error(response.statusText);
-                }
                 dispatch(addUserRealSalary(formData.get('salary')));
                 dispatch(updateRequestLoading(false));
             })
@@ -257,9 +240,43 @@ export const signIn = (data) => {
         })
             .then((res) => {
                 console.log(res)
+                return res.data
+            })
+            .then(data => {
+                console.log('GET next')
+                // fetchUserData(data.jwtToken)
+                axios('https://apibase.pashtaljon.by/api/v1/user/me', {
+                    headers: {
+                        'Authorization': `Bearer ${data.jwtToken}`
+                    }
+                })
+                    .then(res => {
+                        console.log('GET')
+                        console.log(res)
+                    })
+                    .catch(err => {
+                        console.error(err)
+                    })
             })
             .catch(err => {
                 console.log(err)
+            })
+    }
+}
+
+export const fetchUserData = (token) => {
+    return (dispatch) => {
+        axios('https://apibase.pashtaljon.by/api/v1/user/me', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+            .then(res => {
+                console.log('GET')
+                console.log(res)
+            })
+            .catch(err => {
+                console.error(err)
             })
     }
 }
@@ -268,9 +285,7 @@ export const isUserInBase = (email) => {
     return (dispatch) => {
         axios(`${PREDICTIONS_URL}?email=${email}`)
             .then(response => {
-                if (response.status === 200) {
-                    return response.data;
-                }
+                return response.data;
             })
             .then(data => {
                 dispatch(subscription(data.isSubscribed));
@@ -338,53 +353,52 @@ export const getCurrencyRates = () => {
                 })
             })
     }
-};
+}
+
+/*===== Fetch content =====*/
 
 
-export const fetchPageContent = (page) => {
+/*===== APPLICATION MODE (app reducer) =====*/
 
-    return (dispatch) => {
-
-        let pageId = null,
-            actionType = '';
-
-        switch (page) {
-            case 'main':
-                pageId = 39;
-                actionType = ADD_MAIN_CONTENT;
-                break;
-            case 'terms':
-                pageId = 28;
-                actionType = ADD_TERMS_CONTENT;
-                break;
-            case 'cookie-policy':
-                pageId = 33;
-                actionType = ADD_COOKIE_POLICY_CONTENT;
-                break;
-            case 'privacy-policy':
-                pageId = 31;
-                actionType = ADD_PRIVACY_POLICY_CONTENT;
-                break;
-            default:
-                pageId = null;
-        }
-
-        axios(`${CONTENT_BASE_URL}/wp/v2/pages/${pageId}`)
-            .then(response => {
-                return response.data
-            })
-            .then(data => {
-                dispatch({
-                    type: actionType,
-                    payload: data.content.rendered
-                })
-            })
-            .catch(err => {
-                console.error(err)
-                dispatch({
-                    type: actionType,
-                    payload: 'data is not available'
-                })
-            })
+export function setLoading(isLoading: boolean): { type: string, isLoading: boolean } {
+    return {
+        type: LOADING,
+        isLoading
     }
-};
+}
+
+/*===== UTILS =====*/
+
+export function clearErrors() {
+    return (dispatch: any) => {
+        dispatch({type: SET_ERROR, errorApiMessage: ''})
+        dispatch({type: PROCESS_FAILED, processFailed: false})
+    }
+}
+
+function apiErrorHandling(error: any, dispatch: any) {
+
+    if (error.response) {
+        let msg: string
+        try {
+            msg = Array.isArray(error.response.data.message) ? error.response.data.message[0].messages[0].message : 'Something wrong'
+        } catch {
+            msg = 'Something wrong'
+        }
+        console.log(msg)
+        dispatch({
+            type: SET_ERROR,
+            errorApiMessage: msg
+        })
+    } else if (error.request) {
+        // The request was made but no response was received
+        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+        // http.ClientRequest in node.js
+        console.error(error.request)
+    } else {
+        // Something happened in setting up the request that triggered an Error
+        console.error('ERROR', error.message)
+    }
+    dispatch({type: PROCESS_FAILED, processFailed: true})
+    console.log(error)
+}

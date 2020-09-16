@@ -1,8 +1,8 @@
 import Hero from '../components/common/hero/Hero'
-import Layout from "../components/layout/Layout";
-import Content from "../components/common/content-blocks/content/Content";
-import {withTranslation} from '@i18n';
-import Head from "next/head";
+import Layout from "../components/layout/Layout"
+import Content from "../components/common/content-blocks/content/Content"
+import {withTranslation} from '@i18n'
+import Head from "next/head"
 
 type HomeType = {
     t: any
@@ -29,4 +29,4 @@ const Home: React.FC<HomeType> = ({t, ...props}) => {
     )
 }
 
-export default withTranslation('main')(Home);
+export default withTranslation('main')(Home)

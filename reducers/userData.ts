@@ -7,7 +7,7 @@ import {
     CV_SENT,
     CLEAR_USER_DATA,
     USER_IN_BASE,
-} from '../actions/types';
+} from '../actions/actionTypes';
 
 import {load} from 'redux-localstorage-simple';
 let USER_DATA;

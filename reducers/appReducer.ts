@@ -1,4 +1,4 @@
-import {OPEN_LOGIN_MODAL, ONLY_LOGGED_MODAL, PARSING_MODAL, PARSING_TEXT} from "../actions/types";
+import {OPEN_LOGIN_MODAL, ONLY_LOGGED_MODAL, PARSING_MODAL, PARSING_TEXT} from "../actions/actionTypes";
 
 const APP_STATE = {
     isLoginModalOpen: false,

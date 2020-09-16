@@ -1,5 +1,5 @@
-import {HomeLayout} from '../page-layouts';
-import {withTranslation} from '@i18n';
+import {HomeLayout} from '../page-layouts'
+import {withTranslation} from '@i18n'
 
 function Home({...props}) {
 

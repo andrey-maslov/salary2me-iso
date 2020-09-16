@@ -11,8 +11,8 @@ export const LANGS = ['ru', 'en', 'pl'];
 export const accentColor = '#36A9E0';
 export const parsingDuration = 6000;
 
-export const PREDICTIONS_URL = `${REQUEST_URL}/api/Predict`;
-export const CONTENT_BASE_URL = "https://thegreatbase.online/wp-json";
+export const PREDICTIONS_URL = `${REQUEST_URL}/api/Predict`
+export const CONTENT_API = 'https://api.salary2.me'
 
 export const ACCEPTED_FILE_TYPES = '.rtf, .png, .jpg, .jpeg, .pdf, .doc, .docx';
 

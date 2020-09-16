@@ -3,7 +3,7 @@ import {
     ADD_MAIN_CONTENT,
     ADD_PRIVACY_POLICY_CONTENT,
     ADD_TERMS_CONTENT
-} from "../actions/types";
+} from "../actions/actionTypes";
 
 const CONTENT_STATE = {
     pages: {
