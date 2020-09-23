@@ -68,21 +68,21 @@ const Modals: React.FC<ModalsProps> = (props) => {
     return (
         <>
             <>
-                <LoginModal
+                {isLoginModalOpen && <LoginModal
                     isModalShown={isLoginModalOpen}
                     closeModal={closeModal}
-                />
-                <OnlyLoggedModal
+                />}
+                {isOnlyLoggedModal && <OnlyLoggedModal
                     isModalShown={isOnlyLoggedModal}
                     closeModal={closeModal}
                     showLoginModal={showLoginModal}
-                />
-                <ParsingModal
+                />}
+                {isParsingModalOpen && <ParsingModal
                     isModalShown={isParsingModalOpen}
                     closeModal={tryMore}
                     isParsingError={isParsingError}
                     tryMore={tryMore}
-                />
+                />}
                 <CookiesConsent
                     isVisible={!isCookiesConsented}
                     handleCookies={handleCookies}

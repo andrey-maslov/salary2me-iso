@@ -2,12 +2,12 @@ import {useEffect, useState} from 'react';
 import {useMediaPredicate} from "react-media-hook";
 import Bar from "./bar/Bar";
 import {getCurrencySymbol, Helper} from "../../../helper/helper";
-import style from './results-item.module.scss';
+import style from './est-item.module.scss';
 import {SVGFlag} from "../../../components/common/media/svgflag/SVGFlag";
 import {ILocation} from "../../../typings/types";
 import {ApplicationModeType} from "../../../reducers/applicationMode";
 
-interface IResultsItemProps {
+interface IEstItemProps {
     location: ILocation
     maxVal: string
     avgVal: string
@@ -15,7 +15,7 @@ interface IResultsItemProps {
     applicationMode: ApplicationModeType
 }
 
-const ResultsItem: React.FC<IResultsItemProps> = ({location, maxVal, avgVal, limits, applicationMode}) => {
+const EstItem: React.FC<IEstItemProps> = ({location, maxVal, avgVal, limits, applicationMode}) => {
 
     const biggerThan992 = useMediaPredicate("(min-width: 992px)");
     let livingIndexCity = location.city;
@@ -91,4 +91,4 @@ const ResultsItem: React.FC<IResultsItemProps> = ({location, maxVal, avgVal, lim
     )
 };
 
-export default ResultsItem;
+export default EstItem;

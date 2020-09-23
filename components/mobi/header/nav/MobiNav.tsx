@@ -14,7 +14,7 @@ const MobiNav = ({isLoggedIn, close, isOpened}: MobiNavigation) => {
 
     const navLinks = [
         {title: 'Main', path: '/', access: 'all', icon: <FiHome/>},
-        {title: 'Results', path: '/results', access: 'authorized', icon: <FiDollarSign/>},
+        {title: 'Results', path: '/estimation', access: 'authorized', icon: <FiDollarSign/>},
     ];
 
     return (

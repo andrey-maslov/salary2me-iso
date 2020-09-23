@@ -1,8 +1,9 @@
 import {ProfileLayout} from '../page-layouts'
+import {withTranslation} from "@i18n";
 
-export default function Profile(userAgent) {
+function Profile(userAgent) {
 
-    console.log(userAgent)
+    // console.log(userAgent)
     return (
         <ProfileLayout />
     )
@@ -10,5 +11,7 @@ export default function Profile(userAgent) {
 
 Profile.getInitialProps = async ({ req }) => {
     const userAgent = req ? req.headers['user-agent'] : navigator.userAgent
-    return { userAgent }
+    return { userAgent, namespacesRequired: ['profile', 'common'] }
 }
+
+export default Profile

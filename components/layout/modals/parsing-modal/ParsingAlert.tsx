@@ -1,21 +1,29 @@
-import React, {useState, useEffect} from 'react';
-import {PARSING_STAGES, parsingDuration} from '../../../../constants/constants';
+import React, {useState, useEffect} from 'react'
+import {PARSING_STAGES, parsingDuration} from '../../../../constants/constants'
 
 
 const ParsingAlertBottom: React.FC = () => {
 
-    const interval = (parsingDuration - 1000) / PARSING_STAGES.length;
+    const interval = (parsingDuration - 1000) / PARSING_STAGES.length
 
-    const [phrase, setPhrase] = useState(PARSING_STAGES[0]);
-    let i = 1;
+    const [phrase, setPhrase] = useState(PARSING_STAGES[0])
+    let i = 1
+
+
+
     useEffect(() => {
 
-        setInterval(() => {
+        const iterate = setInterval(() => {
+            console.log('fxgfdgd')
             if (i < (PARSING_STAGES.length - 1)) {
                 i++;
-                setPhrase(PARSING_STAGES[i]);
+                setPhrase(PARSING_STAGES[i])
             }
         }, interval)
+
+        return function cleanup() {
+            clearInterval(iterate)
+        }
     }, [i]);
 
 
@@ -27,4 +35,4 @@ const ParsingAlertBottom: React.FC = () => {
 
 };
 
-export default ParsingAlertBottom;
+export default ParsingAlertBottom

@@ -6,26 +6,26 @@ import {useMediaPredicate} from "react-media-hook"
 import SocialSharing from "../../../components/common/buttons/social-sharing/SocialSharing"
 import Subscription from "../../../components/common/subscription/Subscription"
 import {Link, Router} from "@i18n"
-import style from './user-results.module.scss'
-import ResultsItem from "../result-item/ResultItem"
+import style from './cv-estimation.module.scss'
+import EstItem from "../est-item/EstItem"
 import {locations} from "../../../constants/constants"
 import {ApplicationModeType} from "../../../reducers/applicationMode"
 import {UserDataType} from "../../../reducers/userData"
-import ResultsSidebar from "../results-sidebar/ResultsSIdebar"
+import EstSidebar from "../est-sidebar/EstSidebar"
 import HelpUs from "../help-us/HelpUs"
 import {Media} from "../../../media"
 
-interface IUserResultsProps {
-    results: []
+interface ICVEstimatinProps {
+    predictions: []
     position: string
     isLoggedIn: boolean
     applicationMode: ApplicationModeType
     isUserInBase: boolean
 }
 
-const Results: React.FC<IUserResultsProps> = (props) => {
+const CVEstimation: React.FC<ICVEstimatinProps> = (props) => {
 
-    const {results, position, isLoggedIn, applicationMode, isUserInBase} = props
+    const {predictions, position, isLoggedIn, applicationMode, isUserInBase} = props
 
     const biggerThan992 = useMediaPredicate("(min-width: 992px)")
 
@@ -40,7 +40,7 @@ const Results: React.FC<IUserResultsProps> = (props) => {
     }, [isLoggedIn])
 
     const {displayedResults} = applicationMode
-    const sortedSalaries = getSortedSalaries(results)
+    const sortedSalaries = getSortedSalaries(predictions)
     const resultsToDisplay = getSorting()
     const salaryLimits = getSalariesLimits(resultsToDisplay)
 
@@ -75,7 +75,7 @@ const Results: React.FC<IUserResultsProps> = (props) => {
 
     return (
         <>
-            <div className={`${style.results} container`}>
+            <div className={`${style.predictions} container`}>
                 <div className="row center-xs">
                     <div className="col-xl-10">
                         <div className={style.title}>
@@ -88,7 +88,7 @@ const Results: React.FC<IUserResultsProps> = (props) => {
                             <MobileOptions/>
                         </Media>
                         <div className={`${style.sidebar} ${!biggerThan992 ? mobiOptionsClass : ''}`}>
-                            <ResultsSidebar/>
+                            <EstSidebar/>
                             <div className={style.sharing}>
                                 <SocialSharing url={'https://salary2.me'}/>
                             </div>
@@ -99,7 +99,7 @@ const Results: React.FC<IUserResultsProps> = (props) => {
                             {resultsToDisplay.map(({city, avg, max}) => {
                                 const location = getLocation(city, locations)
                                 return (
-                                    <ResultsItem
+                                    <EstItem
                                         location={location}
                                         maxVal={max}
                                         avgVal={avg}
@@ -122,19 +122,19 @@ const Results: React.FC<IUserResultsProps> = (props) => {
     function getSorting() {
         switch (displayedResults) {
             case 'brutto-normal':
-                return [...sortedSalaries.bruttoNormal]
+                return sortedSalaries.bruttoNormal
             case 'brutto-min-first':
-                return [...sortedSalaries.bruttoMinFirst]
+                return sortedSalaries.bruttoMinFirst
             case 'brutto-max-first':
-                return [...sortedSalaries.bruttoMaxFirst]
+                return sortedSalaries.bruttoMaxFirst
             case 'netto-normal':
-                return [...sortedSalaries.nettoNormal]
+                return sortedSalaries.nettoNormal
             case 'netto-min-first':
-                return [...sortedSalaries.nettoMinFirst]
+                return sortedSalaries.nettoMinFirst
             case 'netto-max-first':
-                return [...sortedSalaries.nettoMaxFirst]
+                return sortedSalaries.nettoMaxFirst
             default:
-                return [...results]
+                return predictions
         }
     }
 
@@ -173,9 +173,9 @@ type StateType = {
 }
 
 export default connect((state: StateType) => ({
-    results: state.userData.predictions,
+    predictions: state.userData.predictions,
     position: state.userData.position,
     isLoggedIn: state.userData.auth.isLoggedIn,
     isUserInBase: state.userData.auth.isUserInBase,
     applicationMode: state.applicationMode,
-}))(Results)
+}))(CVEstimation)

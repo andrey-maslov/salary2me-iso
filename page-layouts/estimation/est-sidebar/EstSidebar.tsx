@@ -1,5 +1,5 @@
 import React from 'react';
-import style from './results-sidebar.module.scss';
+import style from './est-sidebar.module.scss';
 import {connect} from "react-redux";
 import {setCurrency, setDisplayedResults, setPayPeriod, setPayTax, setSorting} from "../../../actions/actionCreator";
 import {currencies} from "../../../constants/constants";
@@ -7,7 +7,7 @@ import Select from "../../../components/common/inputs/select/Select";
 import Tabs from "../../../components/common/tabs/Tabs";
 import {ApplicationModeType} from "../../../reducers/applicationMode";
 
-type ResultsSidebarType = {
+type EstSidebarType = {
     applicationMode: ApplicationModeType
     setSorting: (p: string) => {}
     setDisplayedResults: (p: string) => {}
@@ -16,7 +16,7 @@ type ResultsSidebarType = {
     setCurrency: (p: string) => {}
 }
 
-const ResultsSidebar: React.FC<ResultsSidebarType> = ({applicationMode, ...props}) => {
+const EstSidebar: React.FC<EstSidebarType> = ({applicationMode, ...props}) => {
 
     const {selectedCurrency, payPeriod, payTax, sorting} = applicationMode;
     const {setSorting, setDisplayedResults, setPayTax, setPayPeriod, setCurrency} = props
@@ -90,4 +90,4 @@ type StateType = {
 
 export default connect((state: StateType) => ({
     applicationMode: state.applicationMode,
-}), {setPayTax, setPayPeriod, setCurrency, setSorting, setDisplayedResults})(ResultsSidebar);
+}), {setPayTax, setPayPeriod, setCurrency, setSorting, setDisplayedResults})(EstSidebar);

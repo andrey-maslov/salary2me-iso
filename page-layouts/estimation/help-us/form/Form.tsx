@@ -2,7 +2,7 @@ import {FaArrowRight} from "react-icons/fa";
 import style from "./form.module.scss";
 import Button from "../../../../components/common/buttons/button/Button";
 
-export default (props) => {
+export default function Form(props) {
     return (
         <div className={style.form}>
             <input
@@ -21,4 +21,4 @@ export default (props) => {
             />
         </div>
     )
-};
+}

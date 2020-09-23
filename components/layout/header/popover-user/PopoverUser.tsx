@@ -1,9 +1,9 @@
-import {useState} from 'react';
-import {FiUser, FiUserCheck, FiLogOut, FiChevronDown, FiDollarSign} from "react-icons/fi";
-import {Popover} from "../../../common/popovers/Popover";
-import OutsideClickHandler from 'react-outside-click-handler';
-import {Link} from '@i18n';
-import style from "./popover-user.module.scss";
+import {useState} from 'react'
+import {FiUser, FiUserCheck, FiLogOut, FiChevronDown, FiDollarSign} from "react-icons/fi"
+import {Popover} from "../../../common/popovers/Popover"
+import OutsideClickHandler from 'react-outside-click-handler'
+import {Link} from '@i18n'
+import style from "./popover-user.module.scss"
 
 interface PopoverUserProps {
     userEmail: string
@@ -12,7 +12,7 @@ interface PopoverUserProps {
 
 const PopoverUser: React.FC<PopoverUserProps> = ({userEmail, logoutHandle}) => {
 
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false)
 
     const outsideClickHandler = () => {
         if (isOpen) {
@@ -47,7 +47,7 @@ const PopoverUser: React.FC<PopoverUserProps> = ({userEmail, logoutHandle}) => {
 
                     <ul className={style.links}>
                         <li>
-                            <Link href={'/results'}>
+                            <Link href={'/estimation'}>
                                 <a className={style.item}>
                                     <FiDollarSign/>
                                     <span>My salaries</span>
@@ -70,4 +70,4 @@ const PopoverUser: React.FC<PopoverUserProps> = ({userEmail, logoutHandle}) => {
     );
 }
 
-export default PopoverUser;
+export default PopoverUser

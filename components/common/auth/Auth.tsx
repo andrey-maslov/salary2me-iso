@@ -57,4 +57,4 @@ const Auth: React.FC<AuthType> = ({handleLogin, t}) => {
     );
 }
 
-export default withTranslation('login')(Auth)
+export default withTranslation('auth')(Auth)

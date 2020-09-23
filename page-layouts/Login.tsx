@@ -25,4 +25,4 @@ const Login: React.FC<LoginType> = ({t, ...props}) => {
     )
 }
 
-export default withTranslation('login')(Login);
+export default withTranslation('auth')(Login);

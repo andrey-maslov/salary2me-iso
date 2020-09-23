@@ -1,5 +1,4 @@
-import {LoginLayout} from '../page-layouts';
-import {withTranslation} from '@i18n';
+import {LoginLayout} from '../page-layouts'
 
 function Login({...props}) {
 
@@ -10,4 +9,8 @@ function Login({...props}) {
     )
 }
 
-export default withTranslation('login')(Login)
+Login.getInitialProps = async () => ({
+    namespacesRequired: ['auth', 'common'],
+})
+
+export default Login

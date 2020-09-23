@@ -11,14 +11,12 @@ import {
     COOKIES_CONSENT,
     CV_SENT,
     PARSING_CV_RESULTS,
-    SET_REDIRECT_URL,
     PREDICTIONS_REQUEST_ERRORED,
     PREDICTIONS_REQUEST_LOADING,
     UPDATE_REQUEST_ERRORED,
     UPDATE_REQUEST_LOADING,
     CLEAR_USER_DATA,
     PARSING_MODAL,
-    PARSING_TEXT,
     SET_CURRENCY,
     GET_CURRENCY_RATES,
     SET_PAY_PERIOD,
@@ -32,7 +30,7 @@ import {
 export const addUserRealSalary = (userRealSalary) => ({
     type: ADD_USER_SALARY,
     userRealSalary,
-});
+})
 
 export const addAuthData = (name, email, bool, provider) => ({
     type: ADD_AUTH_DATA,
@@ -40,120 +38,105 @@ export const addAuthData = (name, email, bool, provider) => ({
     email,
     isLoggedIn: bool,
     provider,
-});
+})
 
 export const setLoginModal = (bool) => ({
     type: OPEN_LOGIN_MODAL,
     isLoginModalOpen: bool,
-});
+})
 
 export const setOnlyLoggedModal = (bool) => ({
     type: ONLY_LOGGED_MODAL,
     isOnlyLoggedModal: bool,
-});
+})
 
 export const setParsingModal = (bool) => ({
     type: PARSING_MODAL,
     isParsingModal: bool,
-});
+})
 
 export const subscription = (bool) => ({
     type: SUBSCRIPTION,
     isSubscribed: bool,
-});
+})
 
 export const setCookiesConsent = (bool) => ({
     type: COOKIES_CONSENT,
     isCookiesConsented: bool,
-});
+})
 
 export const setCvSent = (bool) => ({
     type: CV_SENT,
     isCvSent: bool,
     isUserInBase: true,
-});
+})
 
 export const parsingCvResults = (predictions, position) => ({
     type: PARSING_CV_RESULTS,
     predictions,
     position,
-});
+})
 
 export const predictionsRequestError = (bool) => ({
     type: PREDICTIONS_REQUEST_ERRORED,
     hasErrored: bool,
-});
+})
 
 export const predictionsRequestLoading = (bool) => ({
     type: PREDICTIONS_REQUEST_LOADING,
     isLoading: bool,
-});
+})
 
 export const updateRequestError = (bool) => ({
     type: UPDATE_REQUEST_ERRORED,
     hasErrored: bool,
-});
+})
 
 export const updateRequestLoading = (bool) => ({
     type: UPDATE_REQUEST_LOADING,
     isLoading: bool,
-});
+})
 
 export const clearUserData = (bool = true) => {
     return {
         type: CLEAR_USER_DATA
     }
-};
-
-export const setParsingTextState = (bool) => {
-    return {
-        type: PARSING_TEXT,
-        isParsingTextShowed: bool
-    }
-};
+}
 
 export const setSorting = (payload) => {
     return {
         type: SET_SORTING,
         sorting: payload
     }
-};
+}
 
 export const setDisplayedResults = (payload) => {
     return {
         type: SET_DISPLAYED_RESULTS,
         displayedResults: payload
     }
-};
+}
 
 export const setCurrency = (selectedCurrency) => {
     return {
         type: SET_CURRENCY,
         selectedCurrency,
     }
-};
+}
 
 export const setPayPeriod = (payPeriod) => {
     return {
         type: SET_PAY_PERIOD,
         payPeriod,
     }
-};
+}
 
 export const setPayTax = (payTax) => {
     return {
         type: SET_PAY_TAX,
         payTax,
     }
-};
-
-export const setRedirectUrl = (url) => {
-    return {
-        type: SET_REDIRECT_URL,
-        redirectUrl: url,
-    }
-};
-
+}
 
 export const sendCvForResults = (formData) => {
 

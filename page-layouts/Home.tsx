@@ -8,20 +8,20 @@ type HomeType = {
     t: any
 }
 
-const Home: React.FC<HomeType> = ({t, ...props}) => {
+const Home = ({t}: HomeType) => {
     return (
         <>
             <Head>
-                <meta name="description" content={t('meta.description')} />
-                <title>{t('meta.title')}</title>
+                <meta name="description" content={t('main:meta.description')} />
+                <title>{t('main:meta.title')}</title>
             </Head>
             <div className='home page'>
                 <Layout>
                     <main className="section">
-                        <Hero content={t('title')}/>
+                        <Hero content={t('main:title')}/>
                     </main>
                     <div className={`section`}>
-                        <Content content={t('content')}/>
+                        <Content content={t('main:content')}/>
                     </div>
                 </Layout>
             </div>

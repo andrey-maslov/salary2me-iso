@@ -69,8 +69,8 @@ const Profile = (props) => {
                         </li>
                         <li className={style.item} key='link'>
                             <span className={style.itemTitle}>Salary est.</span>
-                            <Link href={'/results'}>
-                                <a className={`${style.resultsLink} ${style.itemVal}`}>show me!</a>
+                            <Link href={'/estimation'}>
+                                <a className={`${style.link} ${style.itemVal}`}>show me!</a>
                             </Link>
                         </li>
                     </ul>
