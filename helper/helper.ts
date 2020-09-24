@@ -56,7 +56,9 @@ export const getSalariesLimits = (resultsArr) => {
 
     return [minVal, maxVal]
 
-};
+}
+
+export const isBrowser: boolean = typeof window !== 'undefined'
 
 
 export const parseQueryString = ( queryString ) => {

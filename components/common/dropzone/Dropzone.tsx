@@ -5,21 +5,16 @@ import {ACCEPTED_FILE_TYPES, parsingDuration} from '../../../constants/constants
 import Button from "../buttons/button/Button"
 import {FaArrowRight, FaCloudUploadAlt, FaFileAlt, FaFilePdf, FaFileWord, FaFileImage} from "react-icons/fa"
 import DeleteBtn from "../buttons/delete-btn/DeleteBtn"
-import {
-    setOnlyLoggedModal,
-    setParsingModal,
-    setCvSent,
-    sendCvForResults
-} from "../../../actions/actionCreator"
+import {setParsingModal, setCvSent, sendCvForResults} from "../../../actions/actionCreator"
 import {Helper} from '../../../helper/helper'
 import BorderedBox from "../bordered-box/BorderedBox"
 import {useMediaPredicate} from "react-media-hook"
 import {Tooltip} from "../tooltip/Tooltip"
 import {Router} from '@i18n'
-
 import style from './dropzone.module.scss'
-import {useDeviceDetect} from "../../../helper/useDeviceDetect";
-import {PARSING_TEXT} from "../../../actions/actionTypes";
+import {useDeviceDetect} from "../../../helper/useDeviceDetect"
+import {PARSING_TEXT} from "../../../actions/actionTypes"
+import {globalStoreType} from "../../../typings/types";
 
 const Dropzone: React.FC = () => {
 
@@ -30,8 +25,9 @@ const Dropzone: React.FC = () => {
     const {isMobile} = useDeviceDetect();
     const acceptedTypes = isMobile ? '' : ACCEPTED_FILE_TYPES
 
-    const {userEmail, userName, auth, isCvSent} = useSelector(state => state.userData)
-    const {isParsingTextShowed, isParsingModal} = useSelector(state => state.appReducer)
+    const {email: userEmail, name: userName, isLoggedIn} = useSelector((state: globalStoreType) => state.user)
+    const {isCvSent} = useSelector((state: globalStoreType) => state.cv)
+    const {isParsingTextShowed, isParsingModal} = useSelector((state: globalStoreType) => state.modals)
     const isParsingError = useSelector(state => state.predictionsRequestHasErrored)
 
     const dispatch = useDispatch()
@@ -55,7 +51,7 @@ const Dropzone: React.FC = () => {
 
     const handlePushBtn = () => {
 
-        if (auth.isLoggedIn) {
+        if (isLoggedIn) {
 
             openParsingModal()
             pushFile(acceptedFiles)
@@ -65,7 +61,7 @@ const Dropzone: React.FC = () => {
                 dispatch({type: PARSING_TEXT, isParsingTextShowed: true})
             }, parsingDuration);
         } else {
-            dispatch(setOnlyLoggedModal(true))
+            alert('need to be logged in')
         }
     };
 

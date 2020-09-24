@@ -1,17 +1,16 @@
 import {combineReducers} from 'redux'
-import {userData} from './userData'
-import {appReducer} from './appReducer'
-import {applicationMode} from './applicationMode'
-import {predictionsRequestHasErrored, predictionsRequestLoading, updateRequestHasErrored, updateRequestLoading} from "./requestStatus"
+import {user} from './user'
+import {modals} from './modals'
+import {app} from './app'
+import {test} from './test'
+import {cv} from './cv'
 
 const rootReducer = combineReducers({
-    userData,
-    appReducer,
-    applicationMode,
-    predictionsRequestHasErrored,
-    predictionsRequestLoading,
-    updateRequestHasErrored,
-    updateRequestLoading,
+    user,
+    modals,
+    app,
+    test,
+    cv
 });
 
 export default rootReducer;

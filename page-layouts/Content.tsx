@@ -9,9 +9,13 @@ const ContentLayout: React.FC<{ content: any }> = ({content}) => {
                 <meta name="description" content={''}/>
                 <title>{'some title'}</title>
             </Head>
-            <Layout>
-                <div dangerouslySetInnerHTML={{__html: content}}/>
-            </Layout>
+            <div className="page-content">
+                <Layout>
+                    <div className="container">
+                        <div className="section" dangerouslySetInnerHTML={{__html: content}}/>
+                    </div>
+                </Layout>
+            </div>
         </>
     )
 }

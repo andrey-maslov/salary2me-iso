@@ -1,9 +1,7 @@
 import {ProfileLayout} from '../page-layouts'
-import {withTranslation} from "@i18n";
 
-function Profile(userAgent) {
+function Profile() {
 
-    // console.log(userAgent)
     return (
         <ProfileLayout />
     )

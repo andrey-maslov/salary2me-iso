@@ -9,8 +9,6 @@ import {Link, Router} from "@i18n"
 import style from './cv-estimation.module.scss'
 import EstItem from "../est-item/EstItem"
 import {locations} from "../../../constants/constants"
-import {ApplicationModeType} from "../../../reducers/applicationMode"
-import {UserDataType} from "../../../reducers/userData"
 import EstSidebar from "../est-sidebar/EstSidebar"
 import HelpUs from "../help-us/HelpUs"
 import {Media} from "../../../media"
@@ -19,7 +17,7 @@ interface ICVEstimatinProps {
     predictions: []
     position: string
     isLoggedIn: boolean
-    applicationMode: ApplicationModeType
+    applicationMode: any
     isUserInBase: boolean
 }
 
@@ -165,14 +163,10 @@ const CVEstimation: React.FC<ICVEstimatinProps> = (props) => {
         return location
     }
 
-};
-
-type StateType = {
-    userData: UserDataType
-    applicationMode: ApplicationModeType
 }
 
-export default connect((state: StateType) => ({
+
+export default connect((state) => ({
     predictions: state.userData.predictions,
     position: state.userData.position,
     isLoggedIn: state.userData.auth.isLoggedIn,

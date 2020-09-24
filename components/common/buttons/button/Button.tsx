@@ -1,4 +1,4 @@
-import style from './button.module.scss';
+import style from './button.module.scss'
 
 export type ButtonType = {
     title: string
@@ -11,7 +11,7 @@ export type ButtonType = {
 
 const Button = ({title, btnClass, startIcon = null, endIcon = null, handle, isEnabled = true}: ButtonType) => {
 
-    const ariaLabel: string = !title ? 'button' : '';
+    const ariaLabel: string = !title ? 'button' : ''
 
     return (
         <button className={`${style.btn} ${btnClass} ${!isEnabled && style.disabled}`} onClick={handle} aria-label={ariaLabel}>
@@ -20,6 +20,6 @@ const Button = ({title, btnClass, startIcon = null, endIcon = null, handle, isEn
             {endIcon && <span className={style.end}>{endIcon}</span>}
         </button>
     )
-};
+}
 
-export default Button;
+export default Button

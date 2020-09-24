@@ -1,4 +1,5 @@
 @import './vars.scss';
+@import './animations.scss';
 
 body {
   font-family: $font;
@@ -8,14 +9,98 @@ body {
 
   * {
     //border: 1px solid red;
-    outline: none;
-  }
+    //outline: none;
 
-  &.menu-opened,
-  &.ReactModal__Body--open {
-    //overflow: hidden;
+    &:focus {
+      outline: solid 3px rgba($accent, .5);
+      outline-offset: -1px;
+      border-radius: $border-radius-sm;
+    }
   }
 }
+
+//focus visible polyfill
+.js-focus-visible :focus:not(.focus-visible) {
+  outline: none;
+}
+
+/*===== COMMON LAYOUT =====*/
+
+.app-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  .main {
+    position: relative;
+    flex: 1 0 auto;
+    min-height: auto;
+    width: 100%;
+  }
+}
+
+.flex-centered {
+  height: 100%;
+  min-height: 100%;
+  display: flex;
+  flex: 1 0 auto;
+  justify-content: center;
+  align-items: center;
+}
+
+.img-fluid {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.section {
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  &-estimation {
+    main {
+      padding: 60px 0;
+    }
+  }
+
+  main {
+    flex: 1 0 auto;
+    min-height: auto;
+  }
+}
+
+.content {
+  max-width: 900px;
+  margin: 0 auto;
+
+  &-page {
+    padding: 60px 0;
+    min-height: calc(100vh - 354px);
+  }
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.fade-in {
+  animation: fadeIn ease .5s;
+}
+
+.divider {
+  border-top: 1px solid $grey-bg;
+}
+
+
+/*===== COLORS =====*/
 
 .color {
 
@@ -75,55 +160,17 @@ body {
   }
 }
 
-.img-fluid {
-  display: block;
-  max-width: 100%;
-  height: auto;
+
+/*===== HEADER =====*/
+
+.user-popover,
+.lang-popover {
+  right: 0;
+  //top: 10px;
 }
 
-.section {
-  padding-top: 100px;
-  padding-bottom: 100px;
-}
 
-.page {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-
-  &-estimation {
-    main {
-      padding: 60px 0;
-    }
-  }
-
-  main {
-    flex: 1 0 auto;
-    min-height: auto;
-  }
-}
-
-.content {
-  max-width: 900px;
-  margin: 0 auto;
-
-  &-page {
-    padding: 60px 0;
-    min-height: calc(100vh - 354px);
-  }
-}
-
-.table-wrapper {
-  overflow-x: auto;
-}
-
-.fade-in {
-  animation: fadeIn ease .5s;
-}
-
-.divider {
-  border-top: 1px solid $grey-bg;
-}
+/*===== Modals =====*/
 
 .login {
 
@@ -137,15 +184,6 @@ body {
         cursor: not-allowed;
       }
     }
-  }
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
   }
 }
 
@@ -173,12 +211,6 @@ body {
   }
 }
 
-/*===== HEADER =====*/
-.user-popover,
-.lang-popover {
-  right: 0;
-  //top: 10px;
-}
 
 /*===== FORMS =====*/
 input.input:focus, input.input.active, select:focus, select.active, textarea:focus, textarea.active {
@@ -186,64 +218,10 @@ input.input:focus, input.input.active, select:focus, select.active, textarea:foc
   border-color: $accent;
 }
 
-/*===== Modals =====*/
-
-//.ReactModal__Overlay {
-//  opacity: 0;
-//  transition: opacity .2s ease-in-out;
-//}
-//
-//.ReactModal__Overlay--after-open {
-//  opacity: 1;
-//}
-
-//.ReactModal__Overlay--before-close{
-//  opacity: 0;
-//}
-//
-//.modal {
-//  position: absolute;
-//  top: 50%;
-//  left: 50%;
-//  transform: translateX(-50%) translateY(-50%);
-//  background-color: #fff;
-//  z-index: 999;
-//  min-width: 300px;
-//  min-height: 200px;
-//  border-radius: 5px;
-//  box-shadow: 0 6px 40px rgba(0, 0, 0, .3);
-//  padding: 30px;
-//  outline: none;
-//
-//  &:active {
-//    outline: none;
-//  }
-//}
-//
-//.overlay {
-//  position: fixed;
-//  top: 0;
-//  left: 0;
-//  right: 0;
-//  bottom: 0;
-//  background-color: rgba(#000, .4);
-//  z-index: 999;
-//}
-//
-//.modal-title {
-//  margin-bottom: 20px;
-//  font-weight: 700;
-//}
-//
-//.share-wrapper {
-//  display: flex;
-//  align-items: center;
-//  justify-content: space-between;
-//
-//}
 
 
 /*===== Cities images =====*/
+
 .city {
   background: url('./../img/cities/cities-sprite.jpg') no-repeat top left;
   width: 120px;
@@ -333,48 +311,4 @@ input.input:focus, input.input.active, select:focus, select.active, textarea:foc
   height: 200px;
   background-color: #fff;
   z-index: 14;
-}
-
-
-@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
-only screen and (min--moz-device-pixel-ratio: 1.5),
-only screen and (min-device-pixel-ratio: 1.5),
-only screen and (min-resolution: 1.5dppx),
-only screen and (min-resolution: 192dpi) {
-  .city {
-    background: url('./../img/cities/cities-sprite@2x.jpg') no-repeat top left;
-    background-size: 120px 2904px;
-  }
-}
-
-
-//Media
-@media (max-width: 992px) {
-
-  .page {
-    &-results {
-      main {
-        padding: 20px 0;
-      }
-    }
-
-    main {
-      flex: 1 0 auto;
-      min-height: auto;
-    }
-  }
-
-  .section {
-    padding-top: 30px;
-    padding-bottom: 30px;
-  }
-
-  .content-page {
-    padding: 20px 0;
-
-    h1 {
-      margin-bottom: 20px;
-    }
-  }
-
 }

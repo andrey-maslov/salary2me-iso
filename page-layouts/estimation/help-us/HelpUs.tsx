@@ -171,7 +171,7 @@ function HelpUs({userRealSalary, sendRealSalary, addUserRealSalary, userEmail, i
 
 
 export default connect((state) => ({
-    userRealSalary: state.userData.userRealSalary,
+    realSalary: state.userData.userRealSalary,
     userEmail: state.userData.info.email,
     isLoading: state.updateRequestLoading,
     hasErrored: state.updateRequestHasErrored,

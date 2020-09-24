@@ -1,4 +1,4 @@
-import style from './bordered-box.module.scss';
+import style from './bordered-box.module.scss'
 
 type BorderedBoxType = {
     borderColor: string
@@ -18,4 +18,4 @@ const BorderedBox: React.FC<BorderedBoxType> = ({ borderColor, children }) => {
     )
 };
 
-export default BorderedBox;
+export default BorderedBox

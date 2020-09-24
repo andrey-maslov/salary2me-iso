@@ -13,10 +13,6 @@ interface IParsingModalProps extends IModalProps {
 
 const ParsingModal: React.FC<IParsingModalProps> = ({isModalShown, closeModal, isParsingError, tryMore}) => {
 
-    // useState(() => {
-    //
-    // }, [isParsingError])
-
     const renderErrorMode = () => (
         <>
             <div className={style.error}>

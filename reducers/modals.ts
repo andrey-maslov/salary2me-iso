@@ -1,18 +1,16 @@
-import {OPEN_LOGIN_MODAL, ONLY_LOGGED_MODAL, PARSING_MODAL, PARSING_TEXT} from "../actions/actionTypes";
+import {OPEN_LOGIN_MODAL, PARSING_MODAL, PARSING_TEXT} from "../actions/actionTypes"
 
-const APP_STATE = {
-    isLoginModalOpen: false,
-    isOnlyLoggedModal: false,
+const STATE = {
+    isLoginModal: false,
     isParsingModal: false,
     isParsingTextShowed: false,
-};
+}
 
-export type AppReducerType = typeof APP_STATE;
+export type modalsStoreType = typeof STATE
 
-export const appReducer = (state = APP_STATE, {
+export const modals = (state = STATE, {
     type,
     isLoginModalOpen,
-    isOnlyLoggedModal,
     isParsingModal,
     isParsingTextShowed,
 }) => {
@@ -21,11 +19,6 @@ export const appReducer = (state = APP_STATE, {
             return {
                 ...state,
                 isLoginModalOpen,
-            };
-        case ONLY_LOGGED_MODAL :
-            return {
-                ...state,
-                isOnlyLoggedModal,
             };
         case PARSING_MODAL :
             return {
@@ -38,6 +31,6 @@ export const appReducer = (state = APP_STATE, {
                 isParsingTextShowed,
             };
         default:
-            return state;
+            return state
     }
-};
+}

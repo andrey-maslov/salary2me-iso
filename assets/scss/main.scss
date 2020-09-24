@@ -1,12 +1,7 @@
 //variables
 @import './vars';
 
-//modules
 @import './fonts';
-@import './typography';
-@import './buttons';
-@import './common';
-@import './animations';
 
 //utilities
 @import './flexgridcustom';
@@ -14,6 +9,10 @@
 
 // Libraries
 @import '~rodal/lib/rodal.css';
-//@import '~bootstrap/scss/bootstrap-grid.scss';
-//@import '~bootstrap/scss/bootstrap-reboot.scss';
-//@import '~bootstrap/scss/utilities/_sizing.scss';
+
+//modules
+@import './typography';
+@import './buttons';
+@import './common';
+@import './animations';
+@import './media';

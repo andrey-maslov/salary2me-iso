@@ -1,5 +1,5 @@
-import {FiChevronDown} from "react-icons/fi";
-import style from './button-more.module.scss';
+import {FiChevronDown} from "react-icons/fi"
+import style from './button-more.module.scss'
 
 interface ButtonMoreProps {
     isOpened: boolean
@@ -15,4 +15,4 @@ const ButtonMore: React.FC<ButtonMoreProps> = ({isOpened, handler}) => {
     );
 }
 
-export default ButtonMore;
+export default ButtonMore

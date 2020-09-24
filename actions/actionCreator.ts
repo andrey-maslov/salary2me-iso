@@ -6,63 +6,46 @@ import {
     ADD_USER_SALARY,
     ADD_AUTH_DATA,
     OPEN_LOGIN_MODAL,
-    ONLY_LOGGED_MODAL,
-    SUBSCRIPTION,
-    COOKIES_CONSENT,
     CV_SENT,
-    PARSING_CV_RESULTS,
-    PREDICTIONS_REQUEST_ERRORED,
-    PREDICTIONS_REQUEST_LOADING,
-    UPDATE_REQUEST_ERRORED,
-    UPDATE_REQUEST_LOADING,
+    ESTIMATION,
     CLEAR_USER_DATA,
     PARSING_MODAL,
     SET_CURRENCY,
     GET_CURRENCY_RATES,
     SET_PAY_PERIOD,
     SET_PAY_TAX,
-    USER_IN_BASE,
     SET_SORTING,
     SET_DISPLAYED_RESULTS,
     SET_ERROR, PROCESS_FAILED, LOADING,
 } from './actionTypes';
 
-export const addUserRealSalary = (userRealSalary) => ({
-    type: ADD_USER_SALARY,
-    userRealSalary,
-})
 
-export const addAuthData = (name, email, bool, provider) => ({
+/*===== AUTH =====*/
+
+export const addAuthData = (name, email, provider) => ({
     type: ADD_AUTH_DATA,
     name,
     email,
-    isLoggedIn: bool,
     provider,
 })
+
+export const clearUserData = (bool = true) => {
+    return {
+        type: CLEAR_USER_DATA
+    }
+}
 
 export const setLoginModal = (bool) => ({
     type: OPEN_LOGIN_MODAL,
     isLoginModalOpen: bool,
 })
 
-export const setOnlyLoggedModal = (bool) => ({
-    type: ONLY_LOGGED_MODAL,
-    isOnlyLoggedModal: bool,
-})
+
+/*===== SALARY ESTIMATION =====*/
 
 export const setParsingModal = (bool) => ({
     type: PARSING_MODAL,
     isParsingModal: bool,
-})
-
-export const subscription = (bool) => ({
-    type: SUBSCRIPTION,
-    isSubscribed: bool,
-})
-
-export const setCookiesConsent = (bool) => ({
-    type: COOKIES_CONSENT,
-    isCookiesConsented: bool,
 })
 
 export const setCvSent = (bool) => ({
@@ -72,36 +55,15 @@ export const setCvSent = (bool) => ({
 })
 
 export const parsingCvResults = (predictions, position) => ({
-    type: PARSING_CV_RESULTS,
+    type: ESTIMATION,
     predictions,
     position,
 })
 
-export const predictionsRequestError = (bool) => ({
-    type: PREDICTIONS_REQUEST_ERRORED,
-    hasErrored: bool,
+export const addUserRealSalary = (realSalary) => ({
+    type: ADD_USER_SALARY,
+    realSalary,
 })
-
-export const predictionsRequestLoading = (bool) => ({
-    type: PREDICTIONS_REQUEST_LOADING,
-    isLoading: bool,
-})
-
-export const updateRequestError = (bool) => ({
-    type: UPDATE_REQUEST_ERRORED,
-    hasErrored: bool,
-})
-
-export const updateRequestLoading = (bool) => ({
-    type: UPDATE_REQUEST_LOADING,
-    isLoading: bool,
-})
-
-export const clearUserData = (bool = true) => {
-    return {
-        type: CLEAR_USER_DATA
-    }
-}
 
 export const setSorting = (payload) => {
     return {
@@ -151,7 +113,7 @@ export const sendCvForResults = (formData) => {
         axios.get('https://run.mocky.io/v3/62678e58-c4c0-4dfb-89ac-0cbb9b1ff44a', {})
             .then(response => {
                 dispatch(setCvSent(true));
-                dispatch(predictionsRequestLoading(false))
+
                 return response.data;
             })
             .then(data => {
@@ -159,57 +121,29 @@ export const sendCvForResults = (formData) => {
                 // console.log(data);
             })
             .catch(() => {
-                dispatch(predictionsRequestError(true))
-                dispatch(predictionsRequestLoading(false))
-            });
 
-    }
-};
-
-//Send subscription option to base
-export const fetchSubscription = (formData) => {
-
-    const isSubscribed = stringToBoolean(formData.get('subscription'));
-
-    return (dispatch) => {
-
-        dispatch(updateRequestLoading(true));
-        //TODO change to PUT query, right url and put formData for use on production
-        axios.get('https://run.mocky.io/v3/62678e58-c4c0-4dfb-89ac-0cbb9b1ff44a', {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        })
-            .then(response => {
-                dispatch(subscription(isSubscribed));
-                dispatch(updateRequestLoading(false));
             })
-            .catch(() => {
-                dispatch(updateRequestError(true));
-                dispatch(updateRequestLoading(false))
-            });
+
     }
-};
+}
 
 //Send real user salary to base
 export const sendRealSalary = (formData) => {
 
     return (dispatch) => {
 
-        dispatch(updateRequestLoading(true));
         //TODO change to PUT query, right url and put formData for use on production
         axios.get('https://run.mocky.io/v3/62678e58-c4c0-4dfb-89ac-0cbb9b1ff44a', {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
         })
-            .then(response => {
+            .then(res => {
                 dispatch(addUserRealSalary(formData.get('salary')));
-                dispatch(updateRequestLoading(false));
+
             })
             .catch(() => {
-                dispatch(updateRequestError(true));
-                dispatch(updateRequestLoading(false))
+
             });
     }
 };
@@ -264,6 +198,7 @@ export const fetchUserData = (token) => {
     }
 }
 
+//TODO think about 'is user in base?'
 export const isUserInBase = (email) => {
     return (dispatch) => {
         axios(`${PREDICTIONS_URL}?email=${email}`)
@@ -271,11 +206,11 @@ export const isUserInBase = (email) => {
                 return response.data;
             })
             .then(data => {
-                dispatch(subscription(data.isSubscribed));
-                dispatch({
-                    type: USER_IN_BASE,
-                    isUserInBase: true
-                });
+
+                // dispatch({
+                //     type: USER_IN_BASE,
+                //     isUserInBase: true
+                // });
                 //console.log(data)
             })
             .catch(error => {
@@ -299,7 +234,7 @@ export const signInGoogle = () => {
             .then((profile) => {
                 const name = profile.getName(),
                     email = profile.getEmail();
-                dispatch(addAuthData(name, email, true, 'google'));
+                dispatch(addAuthData(name, email,'google'));
                 dispatch(isUserInBase(email));
             })
     }
@@ -338,12 +273,10 @@ export const getCurrencyRates = () => {
     }
 }
 
-/*===== Fetch content =====*/
-
 
 /*===== APPLICATION MODE (app reducer) =====*/
 
-export function setLoading(isLoading: boolean): { type: string, isLoading: boolean } {
+export function setLoading(isLoading: boolean) {
     return {
         type: LOADING,
         isLoading

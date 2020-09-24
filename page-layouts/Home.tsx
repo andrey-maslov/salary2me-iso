@@ -17,9 +17,9 @@ const Home = ({t}: HomeType) => {
             </Head>
             <div className='home page'>
                 <Layout>
-                    <main className="section">
+                    <section className="section">
                         <Hero content={t('main:title')}/>
-                    </main>
+                    </section>
                     <div className={`section`}>
                         <Content content={t('main:content')}/>
                     </div>

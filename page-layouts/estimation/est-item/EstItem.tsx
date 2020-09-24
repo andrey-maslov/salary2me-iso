@@ -5,7 +5,7 @@ import {getCurrencySymbol, Helper} from "../../../helper/helper";
 import style from './est-item.module.scss';
 import {SVGFlag} from "../../../components/common/media/svgflag/SVGFlag";
 import {ILocation} from "../../../typings/types";
-import {ApplicationModeType} from "../../../reducers/applicationMode";
+import {ApplicationModeType} from "../../../reducers/app";
 
 interface IEstItemProps {
     location: ILocation

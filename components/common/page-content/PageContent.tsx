@@ -1,21 +1,21 @@
-import {ContentLayout} from '../../page-layouts'
+import {ContentLayout} from '../../../page-layouts'
 import {useEffect, useState} from "react"
-import Loader from "../../components/common/loaders/loader/Loader"
+import Loader from "../../../components/common/loaders/loader/Loader"
 import axios from 'axios'
-import {CONTENT_API} from "../../constants/constants"
-import {useRouter} from "next/router";
+import {CONTENT_API} from "../../../constants/constants"
+import {useRouter} from "next/router"
 
-const Policy: React.FC  = () => {
+const PageContent: React.FC  = () => {
 
     const router = useRouter()
-    const { slug } = router.query
+    const page = router.pathname.split('/').slice(-1).join()
 
     const [content, setContent] = useState('')
     const [isLoading, setLoading] = useState(false)
 
     useEffect(() => {
-        fetchPageContent(slug)
-    }, [slug])
+        fetchPageContent(page)
+    }, [page])
 
 
     if (isLoading) {
@@ -24,10 +24,10 @@ const Policy: React.FC  = () => {
 
     return <ContentLayout content={content}/>
 
-    function fetchPageContent(page: string | string[]) {
+    function fetchPageContent(page: string) {
 
-        if (Array.isArray(page)) {
-            console.log('EEERRRORORO')
+        if (!page) {
+            console.error('page is not defined')
             return false
         }
 
@@ -51,4 +51,4 @@ const Policy: React.FC  = () => {
     }
 }
 
-export default Policy
+export default PageContent

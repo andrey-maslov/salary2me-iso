@@ -1,5 +1,5 @@
-import {FaTimes} from "react-icons/fa";
-import style from './delete-btn.module.scss';
+import {FaTimes} from "react-icons/fa"
+import style from './delete-btn.module.scss'
 
 type DeleteBtnType = {
     handle: () => void

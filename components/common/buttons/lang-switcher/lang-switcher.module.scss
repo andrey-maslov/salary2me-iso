@@ -62,11 +62,14 @@
   margin: 0;
 
   .switcher {
+    border: 0;
+    background-color: transparent;
     display: inline-block;
     height: 3rem;
     user-select: none;
     padding: .8rem 1.25rem;
     width: 100%;
+    cursor: pointer;
   }
 
   &:hover {

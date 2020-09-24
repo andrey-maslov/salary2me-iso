@@ -1,9 +1,9 @@
-import {connect} from 'react-redux';
-import {FaBell} from "react-icons/fa";
-import {fetchSubscription} from "../../../actions/actionCreator";
-import {accentColor} from "../../../constants/constants";
-import Checkbox from "../inputs/checkbox/Checkbox";
-import style from './subscription.module.scss';
+import {connect} from 'react-redux'
+import {FaBell} from "react-icons/fa"
+// import {fetchSubscription} from "../../../actions/actionCreator"
+import {accentColor} from "../../../constants/constants"
+import Checkbox from "../inputs/checkbox/Checkbox"
+import style from './subscription.module.scss'
 
 
 const Subscription = (props) => {
@@ -15,7 +15,7 @@ const Subscription = (props) => {
         let formData = new FormData();
         formData.append('email', userEmail);
         formData.append('subscription', userSubscription.toString());
-        fetchSubscription(formData);
+        // fetchSubscription(formData);
     };
 
     return (
@@ -36,4 +36,4 @@ const Subscription = (props) => {
 export default connect(state => ({
     isSubscribed: state.userData.isSubscribed,
     userEmail: state.userData.info.email,
-}), {fetchSubscription})(Subscription);
+}), {})(Subscription);

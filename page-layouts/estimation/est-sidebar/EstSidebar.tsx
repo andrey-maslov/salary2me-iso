@@ -5,7 +5,7 @@ import {setCurrency, setDisplayedResults, setPayPeriod, setPayTax, setSorting} f
 import {currencies} from "../../../constants/constants";
 import Select from "../../../components/common/inputs/select/Select";
 import Tabs from "../../../components/common/tabs/Tabs";
-import {ApplicationModeType} from "../../../reducers/applicationMode";
+import {ApplicationModeType} from "../../../reducers/app";
 
 type EstSidebarType = {
     applicationMode: ApplicationModeType

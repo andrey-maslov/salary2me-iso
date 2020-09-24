@@ -1,15 +1,14 @@
-import {FiMail, FiMapPin} from 'react-icons/fi';
-// @ts-ignore
-import {SITE_TITLE} from '@constants/constants';
-import {Link, withTranslation} from "@i18n";
-import SocialSharing from "../../common/buttons/social-sharing/SocialSharing";
-import style from './footer.module.scss';
+import {FiMail, FiMapPin} from 'react-icons/fi'
+import {SITE_TITLE} from '../../../constants/constants'
+import {Link, withTranslation} from "@i18n"
+import SocialSharing from "../../common/buttons/social-sharing/SocialSharing"
+import style from './footer.module.scss'
 
 const Footer: React.FC<{ t: any }> = ({t}) => {
 
     const links = [
         {
-            link: '/privacy-policy',
+            link: '/policies/privacy-policy',
             title: t('footer.links.privacy_policy'),
         },
         {
@@ -17,7 +16,7 @@ const Footer: React.FC<{ t: any }> = ({t}) => {
             title: t('footer.links.terms'),
         },
         {
-            link: '/cookie-policy',
+            link: '/policies/cookie-policy',
             title: t('footer.links.cookie'),
         },
     ];
@@ -77,4 +76,4 @@ const Footer: React.FC<{ t: any }> = ({t}) => {
     )
 };
 
-export default withTranslation('common')(Footer);
+export default withTranslation('common')(Footer)

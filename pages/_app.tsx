@@ -4,7 +4,7 @@ import App from 'next/app'
 import '../assets/scss/index.scss'
 import {appWithTranslation} from '../i18n'
 import {SVGSource} from "../components/common/media/svgflag/SVGFlag"
-
+import 'focus-visible/dist/focus-visible.js'
 
 import {MediaContextProvider} from "../media"
 import Head from "next/head";

@@ -5,12 +5,14 @@ import Modals from "./modals/Modals";
 
 export default function Layout({children}) {
     return (
-        <>
+        <div className="app-wrapper">
             <Meta/>
             <Header/>
-            <main>{children}</main>
+            <main className="main">
+                {children}
+            </main>
             <Footer/>
             <Modals/>
-        </>
+        </div>
     )
 }

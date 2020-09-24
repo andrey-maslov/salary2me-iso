@@ -22,11 +22,7 @@ function initStore (preloadedState ) {
             preloadedState,
             composeEnhancers(
                 applyMiddleware(
-                    thunk,
-                    save({
-                        states: ['userData'],
-                        namespace: 'data'
-                    })
+                    thunk
                 )
             ),
         )
@@ -65,7 +61,10 @@ export const initializeStore = (preloadedState) => {
 const myStore = initializeStore();
 
 myStore.subscribe(() => {
-    saveState('applicationMode', myStore.getState().applicationMode)
+    saveState('app', myStore.getState().app)
+    saveState('test', myStore.getState().test)
+    saveState('user', myStore.getState().user)
+    saveState('cv', myStore.getState().cv)
 });
 
 export function useStore(initialState) {

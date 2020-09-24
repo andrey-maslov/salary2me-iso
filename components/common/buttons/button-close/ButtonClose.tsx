@@ -1,4 +1,4 @@
-import style from './button-close.module.scss';
+import style from './button-close.module.scss'
 
 type ButtonCloseType = {
     handle: ()=>void
@@ -11,4 +11,4 @@ const ButtonClose: React.FC<ButtonCloseType> = ({ handle}) => {
     )
 };
 
-export default ButtonClose;
+export default ButtonClose
