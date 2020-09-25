@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react'
-import {connect} from "react-redux"
+import {useSelector} from "react-redux"
 import {FaFilter, FaChevronDown} from "react-icons/fa"
 import {getSalariesLimits} from "../../../helper/helper"
 import {useMediaPredicate} from "react-media-hook"
@@ -12,18 +12,13 @@ import {locations} from "../../../constants/constants"
 import EstSidebar from "../est-sidebar/EstSidebar"
 import HelpUs from "../help-us/HelpUs"
 import {Media} from "../../../media"
+import {globalStoreType} from "../../../typings/types"
 
-interface ICVEstimatinProps {
-    predictions: []
-    position: string
-    isLoggedIn: boolean
-    applicationMode: any
-    isUserInBase: boolean
-}
+const CVEstimation: React.FC = () => {
 
-const CVEstimation: React.FC<ICVEstimatinProps> = (props) => {
-
-    const {predictions, position, isLoggedIn, applicationMode, isUserInBase} = props
+    const {isLoggedIn} = useSelector((store: globalStoreType) => store.user)
+    const {predictions, position} = useSelector((store: globalStoreType) => store.cv)
+    const {displayedResults, selectedCurrency, payPeriod, currencyRates} = useSelector((store: globalStoreType) => store.app)
 
     const biggerThan992 = useMediaPredicate("(min-width: 992px)")
 
@@ -37,7 +32,6 @@ const CVEstimation: React.FC<ICVEstimatinProps> = (props) => {
         }
     }, [isLoggedIn])
 
-    const {displayedResults} = applicationMode
     const sortedSalaries = getSortedSalaries(predictions)
     const resultsToDisplay = getSorting()
     const salaryLimits = getSalariesLimits(resultsToDisplay)
@@ -102,7 +96,9 @@ const CVEstimation: React.FC<ICVEstimatinProps> = (props) => {
                                         maxVal={max}
                                         avgVal={avg}
                                         limits={salaryLimits}
-                                        applicationMode={applicationMode}
+                                        currencyRates={currencyRates}
+                                        payPeriod={payPeriod}
+                                        selectedCurrency={selectedCurrency}
                                         key={city}
                                     />
                                 )
@@ -141,10 +137,10 @@ const CVEstimation: React.FC<ICVEstimatinProps> = (props) => {
 
         bruttoNormal = predictionsArr.map(({city, salaryWithTaxes, salaryWithTaxesMax}) => (
             {city, avg: salaryWithTaxes, max: salaryWithTaxesMax}
-        ));
+        ))
         nettoNormal = predictionsArr.map(({city, salaryWithoutTaxes, salaryWithoutTaxesMax}) => (
             {city, avg: salaryWithoutTaxes, max: salaryWithoutTaxesMax}
-        ));
+        ))
 
         bruttoMinFirst = [...bruttoNormal].sort((a, b) => (a.avg - b.avg))
         bruttoMaxFirst = [...bruttoNormal].sort((a, b) => (b.avg - a.avg))
@@ -152,24 +148,17 @@ const CVEstimation: React.FC<ICVEstimatinProps> = (props) => {
         nettoMinFirst = [...nettoNormal].sort((a, b) => (a.avg - b.avg))
         nettoMaxFirst = [...nettoNormal].sort((a, b) => (b.avg - a.avg))
 
-
         return {bruttoNormal, nettoNormal, bruttoMinFirst, bruttoMaxFirst, nettoMinFirst, nettoMaxFirst}
     }
 
     function getLocation(city, locationsArr) {
         let location = locationsArr.find((item) => {
             return item.city.toLowerCase() === city.toLowerCase()
-        });
+        })
         return location
     }
 
 }
 
 
-export default connect((state) => ({
-    predictions: state.userData.predictions,
-    position: state.userData.position,
-    isLoggedIn: state.userData.auth.isLoggedIn,
-    isUserInBase: state.userData.auth.isUserInBase,
-    applicationMode: state.applicationMode,
-}))(CVEstimation)
+export default CVEstimation

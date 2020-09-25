@@ -1,19 +1,21 @@
-import React, {useState, useEffect, useRef} from 'react';
-import {connect} from 'react-redux';
-import {FaRegSmile} from 'react-icons/fa';
-import {sendRealSalary, addUserRealSalary} from "../../../actions/actionCreator";
-import Rodal from 'rodal';
+import React, {useState, useEffect, useRef} from 'react'
+import {useSelector, useDispatch} from 'react-redux'
+import {FaRegSmile} from 'react-icons/fa'
+import {sendRealSalary} from "../../../actions/actionCreator"
+import Rodal from 'rodal'
 import Form from "./form/Form";
-import {useMediaPredicate} from "react-media-hook";
-import Loader from "../../../components/common/loaders/loader/Loader";
-import ButtonClose from "../../../components/common/buttons/button-close/ButtonClose";
+import {useMediaPredicate} from "react-media-hook"
+import Loader from "../../../components/common/loaders/loader/Loader"
+import ButtonClose from "../../../components/common/buttons/button-close/ButtonClose"
+import {globalStoreType} from "../../../typings/types"
+import style from './help-us.module.scss'
 
-import style from './help-us.module.scss';
-
-function HelpUs({userRealSalary, sendRealSalary, addUserRealSalary, userEmail, isLoading, hasErrored}) {
-
-    const containerRef = useRef(null);
-    const [fixedClass, setFixedClass] = useState('');
+function HelpUs() {
+    const {realSalary} = useSelector((state: globalStoreType) => state.cv)
+    const {email} = useSelector((state: globalStoreType) => state.user)
+    const containerRef = useRef(null)
+    const dispatch = useDispatch()
+    const [fixedClass, setFixedClass] = useState('')
     const [canBeFixed, setCanBeFixed] = useState(true)
 
     const onScroll = (e) => {
@@ -27,83 +29,81 @@ function HelpUs({userRealSalary, sendRealSalary, addUserRealSalary, userEmail, i
     }
 
     useEffect(() => {
-        if (window && !userRealSalary && canBeFixed) {
-            console.log('scroll')
-            window.addEventListener('scroll', onScroll, true);
+        if (window && !realSalary && canBeFixed) {
+            window.addEventListener('scroll', onScroll, true)
         }
         return () => {
-            window.removeEventListener('scroll', onScroll);
+            window.removeEventListener('scroll', onScroll)
         }
     }, []);
 
     const closeFixedBlock = () => {
-        window.removeEventListener('scroll', onScroll);
-        setFixedClass('');
-        setCanBeFixed(false);
+        window.removeEventListener('scroll', onScroll)
+        setFixedClass('')
+        setCanBeFixed(false)
     }
 
-    const biggerThan992 = useMediaPredicate("(min-width: 992px)");
+    const biggerThan992 = useMediaPredicate("(min-width: 992px)")
 
-    const [isModalShown, setModalShown] = useState(false);
-    const [value, setValue] = useState('');
-    const [isConsentEstimation, setConsentEstimation] = useState(false);
+    const [isModalShown, setModalShown] = useState(false)
+    const [value, setValue] = useState('')
+    const [isConsentEstimation, setConsentEstimation] = useState(false)
 
     const sendSalary = () => {
 
-        const formData = new FormData();
-        formData.append('email', userEmail);
-        formData.append('salary', value);
-        formData.append('estimate', isConsentEstimation.toString());
+        const formData = new FormData()
+        formData.append('email', email)
+        formData.append('salary', value)
+        formData.append('estimate', isConsentEstimation.toString())
 
-        sendRealSalary(formData);
-        setModalShown(true);
-
-    };
+        dispatch(sendRealSalary(formData))
+        setModalShown(true)
+    }
 
     //send
     const handleSendBtn = () => {
         if (value.length >= 3) {
-            sendSalary();
+            sendSalary()
         } else {
             //console.log('is it correct value?')
         }
-    };
+    }
 
     //send
     const handlePressEnter = ({key}) => {
         if (key === 'Enter' && value.length >= 3) {
-            sendSalary();
+            sendSalary()
         }
-    };
+    }
 
 
     //set to redux
     const handleInput = ({target: {value}}) => {
-        const pattern = /([^0-9])/;
+        const pattern = /([^0-9])/
 
         if (!pattern.exec(value)) {
-            // addUserRealSalary(value);
-            setValue(value);
+            setValue(value)
         }
-    };
+    }
 
     useEffect(() => {
 
         if (isModalShown) {
             setTimeout(() => {
-                setModalShown(false);
-                if (!hasErrored) {
-                    setValue('')
-                }
-            }, 5000);
+                setModalShown(false)
+                // if (!hasErrored) {
+                //     setValue('')
+                // }
+            }, 5000)
         }
-    }, [isModalShown]);
+    }, [isModalShown])
 
     const ThanxModal = () => {
 
         function renderModalContent() {
-            if (isLoading) return <Loader/>;
-            if (hasErrored) return (
+            // if (isLoading) return <Loader/>
+            //TODO change to 'if error'
+            if (false) return (
                 <div className={style.modalContent}>
                     <h5 className="text-center modal-title">Something wen wrong</h5>
                     <p>Try to enter your salary<br/> in number format, like 1300</p>
@@ -128,11 +128,11 @@ function HelpUs({userRealSalary, sendRealSalary, addUserRealSalary, userEmail, i
                 {renderModalContent()}
             </Rodal>
         )
-    };
+    }
 
     return (
         <div ref={containerRef}>
-            <div className={`${(biggerThan992 && fixedClass && userRealSalary === '' && canBeFixed) && style[fixedClass]}`}>
+            <div className={`${(biggerThan992 && fixedClass && realSalary === '' && canBeFixed) && style[fixedClass]}`}>
                 <ButtonClose handle={closeFixedBlock}/>
                 <div className={`container`}>
                     <div className="row justify-content-center">
@@ -166,13 +166,7 @@ function HelpUs({userRealSalary, sendRealSalary, addUserRealSalary, userEmail, i
                 </div>
             </div>
         </div>
-    );
+    )
 }
 
-
-export default connect((state) => ({
-    realSalary: state.userData.userRealSalary,
-    userEmail: state.userData.info.email,
-    isLoading: state.updateRequestLoading,
-    hasErrored: state.updateRequestHasErrored,
-}), {sendRealSalary, addUserRealSalary})(HelpUs);
+export default HelpUs

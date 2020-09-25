@@ -1,22 +1,14 @@
-import {connect} from 'react-redux'
 import {FaBell} from "react-icons/fa"
-// import {fetchSubscription} from "../../../actions/actionCreator"
 import {accentColor} from "../../../constants/constants"
 import Checkbox from "../inputs/checkbox/Checkbox"
 import style from './subscription.module.scss'
 
 
-const Subscription = (props) => {
-
-    const {isSubscribed, userEmail, fetchSubscription} = props;
+const Subscription = () => {
 
     const handleSubscription = () => {
-        let userSubscription = !isSubscribed;
-        let formData = new FormData();
-        formData.append('email', userEmail);
-        formData.append('subscription', userSubscription.toString());
-        // fetchSubscription(formData);
-    };
+        alert('tss')
+    }
 
     return (
         <div className={style.wrapper}>
@@ -25,7 +17,7 @@ const Subscription = (props) => {
                 <FaBell color={accentColor}/>
             </div>
             <Checkbox
-                isActive={isSubscribed}
+                isActive={false}
                 handle={handleSubscription}
                 text={'I want to receive notifications about new vacancies'}
             />
@@ -33,7 +25,4 @@ const Subscription = (props) => {
     );
 };
 
-export default connect(state => ({
-    isSubscribed: state.userData.isSubscribed,
-    userEmail: state.userData.info.email,
-}), {})(Subscription);
+export default Subscription

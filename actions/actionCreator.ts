@@ -107,21 +107,20 @@ export const sendCvForResults = (formData) => {
         // @ts-ignore
         // dispatch(parsingCvResults(predictions.predictions, predictions.position));
 
-        dispatch(predictionsRequestLoading(true))
-
-        //TODO change to PUT query, right url and put formData for use on production
-        axios.get('https://run.mocky.io/v3/62678e58-c4c0-4dfb-89ac-0cbb9b1ff44a', {})
-            .then(response => {
-                dispatch(setCvSent(true));
-
-                return response.data;
+        //TODO change to right query, right url and put formData for use on production
+        axios.post('http://localhost:8080/api/predictions', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+            .then(res => {
+                dispatch(setCvSent(true))
+                dispatch(parsingCvResults(res.data.predictions, res.data.position))
+                console.log(res.data)
             })
-            .then(data => {
-                dispatch(parsingCvResults(data.predictions, data.position))
-                // console.log(data);
-            })
-            .catch(() => {
-
+            .catch((error) => {
+                console.error('FUKKK!!')
+                apiErrorHandling(error, dispatch)
             })
 
     }
