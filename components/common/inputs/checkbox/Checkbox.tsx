@@ -1,28 +1,56 @@
-import style from './checkbox.module.scss';
-import { FaCheck } from "react-icons/fa";
+import React from 'react'
+import style from './checkbox.module.scss'
+//source : https://codepen.io/myleneb/pen/WMpyxG
 
-type CheckboxType = {
-    text: string
-    isActive: boolean
-    handle: () => void
+type CheckBoxProps = {
+    indeterminate?: any
+    label?: string
+    type?: string
+    hasError?: boolean
+    handle: any
+    isChecked: boolean
 }
 
-const Checkbox: React.FC<CheckboxType> = ({ text, isActive, handle }) => {
+class Checkbox extends React.Component<CheckBoxProps> {
 
-    const checkboxClass = isActive ? `${style.active} ${style.box}` : style.box;
+    private selector: any
 
-    return (
-        <div className={style.container}>
-            <span className={checkboxClass} onClick={handle}>
-                {isActive &&
-                <FaCheck className={`${style.icon} color-accent`} />}
-            </span>
-            <span
-                className={`${style.text} color-grey`}
-                dangerouslySetInnerHTML={{__html: text}}
-            />
-        </div>
-    )
-};
+    componentDidMount() {
+        // Apply the indeterminate attribute of the checkbox input
+        this.selector.indeterminate = this.props.indeterminate
+    }
 
-export default Checkbox;
+    // @ts-ignore
+    componentDidUpdate(prevProps: { indeterminate: any; }): void {
+        if (prevProps.indeterminate !== this.props.indeterminate) {
+            this.selector.indeterminate = this.props.indeterminate
+        }
+    }
+
+    render() {
+        const {label, type, indeterminate, hasError, handle, isChecked, ...inputProps} = this.props
+        const checkboxClassname = `${style.checkbox} ${type === 'switch' ? style.switch : ''} ${hasError ? style.hasError : ''}`
+        const inputClassname = `${style.input} ${type === 'switch' ? style.switchInput : ''} ${hasError ? style.hasErrorInput : ''}`
+        const labelClassname = `${style.label} ${type === 'switch' ? style.switchLabel : ''}`
+
+        return (
+            <div className={checkboxClassname}>
+
+                <label className={labelClassname}>
+                    <input
+                        tabIndex={0}
+                        type="checkbox"
+                        className={inputClassname}
+                        ref={el => (this.selector = el)}
+                        onChange={handle}
+                        defaultChecked={isChecked}
+                        {...inputProps}
+                    />
+                    {label && <span className={style.text}>{label}</span>}
+                </label>
+            </div>
+        );
+    }
+}
+
+export default Checkbox

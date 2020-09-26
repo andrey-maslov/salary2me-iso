@@ -1,11 +1,11 @@
-import React from "react";
-import style from './content.module.scss';
+import React from "react"
+import style from './content.module.scss'
 
 type ContentType = {
     content: string
 }
 
-const Content: React.FC<ContentType> = ({content}) => {
+const HomeContent: React.FC<ContentType> = ({content}) => {
 
     return (
         <div className={style.content}>
@@ -24,9 +24,8 @@ const Content: React.FC<ContentType> = ({content}) => {
             </div>
         </div>
     )
+}
 
-};
-
-export default Content;
+export default HomeContent
 
 

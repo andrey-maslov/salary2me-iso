@@ -46,7 +46,7 @@ const Auth: React.FC<AuthType> = ({handleLogin, t}) => {
                     {renderSocialLoginBtns()}
                 </Tooltip>}
             <div className={style.consent}>
-                <Checkbox text="" handle={handleConsent} isActive={isConsented}/>
+                <Checkbox handle={handleConsent} isChecked={isConsented}/>
                 <div
                     className={`text-center ${style.terms}`}
                     dangerouslySetInnerHTML={{__html: t('check_terms_text')}}

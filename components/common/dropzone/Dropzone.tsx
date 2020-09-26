@@ -5,7 +5,7 @@ import {ACCEPTED_FILE_TYPES, parsingDuration} from '../../../constants/constants
 import Button from "../buttons/button/Button"
 import {FaArrowRight, FaCloudUploadAlt, FaFileAlt, FaFilePdf, FaFileWord, FaFileImage} from "react-icons/fa"
 import DeleteBtn from "../buttons/delete-btn/DeleteBtn"
-import {setParsingModal, setCvSent, sendCvForResults} from "../../../actions/actionCreator"
+import {sendCvForResults, setCvSent} from "../../../actions/actionCreator"
 import {Helper} from '../../../helper/helper'
 import BorderedBox from "../bordered-box/BorderedBox"
 import {useMediaPredicate} from "react-media-hook"
@@ -13,7 +13,7 @@ import {Tooltip} from "../tooltip/Tooltip"
 import {Router} from '@i18n'
 import style from './dropzone.module.scss'
 import {useDeviceDetect} from "../../../helper/useDeviceDetect"
-import {PARSING_TEXT} from "../../../actions/actionTypes"
+import {PARSING_MODAL, PARSING_TEXT} from "../../../actions/actionTypes"
 import {globalStoreType} from "../../../typings/types";
 
 const Dropzone: React.FC = () => {
@@ -22,51 +22,47 @@ const Dropzone: React.FC = () => {
     const linkedinTip = 'Profile - More - Save to PDF'
     const [myFiles, setMyFiles] = useState([])
     const lessThan400 = useMediaPredicate("(max-width: 400px)")
-    const {isMobile} = useDeviceDetect();
+    const {isMobile} = useDeviceDetect()
     const acceptedTypes = isMobile ? '' : ACCEPTED_FILE_TYPES
 
     const {email: userEmail, name: userName, isLoggedIn} = useSelector((state: globalStoreType) => state.user)
-    const {isCvSent} = useSelector((state: globalStoreType) => state.cv)
     const {isParsingTextShowed, isParsingModal} = useSelector((state: globalStoreType) => state.modals)
-    const isParsingError = useSelector(state => state.predictionsRequestHasErrored)
-
+    const {processFailed, loading} = useSelector((state: globalStoreType) => state.app)
+    const {isCvSent} = useSelector((state: globalStoreType) => state.cv)
     const dispatch = useDispatch()
 
-    const onDrop = useCallback(acceptedFiles => {
-        setMyFiles([...acceptedFiles])
-    }, []);
+    useEffect(() => {
+        if (!processFailed && !isParsingTextShowed && isCvSent) {
+            dispatch(dispatch({type: PARSING_MODAL, isParsingModal: false}))
+            dispatch(setCvSent(false))
+            Router.push('/estimation')
+        }
+    }, [processFailed, isParsingTextShowed, isCvSent])
 
-    const {getRootProps, getInputProps, open, acceptedFiles, fileRejections} = useDropzone({
-        // Disable click and keydown behavior
-        // noClick: true,
-        // noKeyboard: true,
-        // disabled: !isUserLogged,
+    const onDrop = useCallback(acceptedFiles => {
+        setMyFiles(acceptedFiles)
+    }, [])
+
+    const {getRootProps, getInputProps, acceptedFiles, fileRejections} = useDropzone({
         onDrop,
         accept: acceptedTypes
     })
-
-    const removeAll = () => {
-        setMyFiles([])
-    }
 
     const handlePushBtn = () => {
 
         if (isLoggedIn) {
 
-            openParsingModal()
             pushFile(acceptedFiles)
+
+            dispatch({type: PARSING_MODAL, isParsingModal: true})
             dispatch({type: PARSING_TEXT, isParsingTextShowed: true})
 
             setTimeout(() => {
-                dispatch({type: PARSING_TEXT, isParsingTextShowed: true})
-            }, parsingDuration);
+                dispatch({type: PARSING_TEXT, isParsingTextShowed: false})
+            }, parsingDuration)
         } else {
             alert('need to be logged in')
         }
-    };
-
-    const openParsingModal = () => {
-        dispatch(setParsingModal(true))
     }
 
     const pushFile = (files, email = userEmail, name = userName) => {
@@ -81,16 +77,7 @@ const Dropzone: React.FC = () => {
 
             dispatch(sendCvForResults(formData))
         }
-    };
-
-    useEffect(() => {
-        if (!isParsingError && !isParsingTextShowed && isCvSent) {
-
-            dispatch(setParsingModal(false))
-            dispatch(setCvSent(false))
-            Router.push('/estimation')
-        }
-    }, [isParsingError, isParsingTextShowed, isCvSent])
+    }
 
     //can be list, but now it is ONE file
     const files = myFiles.map(file => {
@@ -104,7 +91,7 @@ const Dropzone: React.FC = () => {
                     {icon}
                     <span className={style.fileName}>{file.path}</span>
                 </div>
-                {!isParsingModal && <DeleteBtn text={'delete file'} handle={removeAll}/>}
+                {!isParsingModal && <DeleteBtn text={'delete file'} handle={() => setMyFiles([])}/>}
             </div>
         )
     })
@@ -134,7 +121,6 @@ const Dropzone: React.FC = () => {
         </div>
     )
 
-    //TODO move text to translations
     function renderRejectedBlock() {
         return (
             <BorderedBox borderColor={'#d73a49'}>

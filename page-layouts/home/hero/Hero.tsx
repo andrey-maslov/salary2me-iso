@@ -1,7 +1,7 @@
-import RobotWide from "../media/robots/robot-wide/RobotWide";
-import RobotTall from "../media/robots/robot-tall/RobotTall";
-import Version from "./version/Version";
-import Dropzone from "../dropzone/Dropzone";
+import RobotWide from "../../../components/common/media/robots/robot-wide/RobotWide"
+import RobotTall from "../../../components/common/media/robots/robot-tall/RobotTall"
+import Version from "./version/Version"
+import Dropzone from "../../../components/common/dropzone/Dropzone"
 
 import style from './hero.module.scss'
 
@@ -35,7 +35,7 @@ const Hero: React.FC<HeroType> = ({content}) => {
                 </div>
             </div>
         </div>
-    );
+    )
 }
 
-export default Hero;
+export default Hero

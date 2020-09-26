@@ -5,7 +5,9 @@ import {
     SET_PAY_TAX,
     SET_SORTING,
     SET_DISPLAYED_RESULTS,
-    API_ERROR
+    LOADING,
+    API_ERROR,
+    PROCESS_FAILED
 } from "../actions/actionTypes"
 import {currencies} from '../constants/constants'
 import {loadState} from '../store/sessionStorage'
@@ -24,7 +26,9 @@ export type appStoreType = {
     currencyRates: {EUR: number, USD: number, GBP: number},
     payPeriod: string,
     payTax: string,
-    apiError: boolean
+    loading: boolean,
+    apiErrorMsg: string | null,
+    processFailed: boolean
 }
 
 if (!STATE ) {
@@ -35,7 +39,9 @@ if (!STATE ) {
         currencyRates: {EUR: 0.92, USD: 1, GBP: 0.81},
         payPeriod: 'monthly',
         payTax: 'netto',
-        apiError: false
+        loading: false,
+        apiErrorMsg: null,
+        processFailed: false
     }
 }
 
@@ -47,7 +53,9 @@ export const app = (state = STATE, {
     currencyRates,
     payPeriod,
     payTax,
-    apiError
+    loading,
+    apiErrorMsg,
+    processFailed
 }) => {
     switch (type) {
         case  SET_CURRENCY:
@@ -80,10 +88,20 @@ export const app = (state = STATE, {
                 ...state,
                 payTax,
             }
+        case LOADING:
+            return {
+                ...state,
+                loading,
+            }
         case API_ERROR:
             return {
                 ...state,
-                apiError,
+                apiErrorMsg,
+            }
+        case PROCESS_FAILED:
+            return {
+                ...state,
+                processFailed,
             }
 
         default:

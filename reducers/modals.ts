@@ -19,17 +19,17 @@ export const modals = (state = STATE, {
             return {
                 ...state,
                 isLoginModalOpen,
-            };
+            }
         case PARSING_MODAL :
             return {
                 ...state,
                 isParsingModal,
-            };
+            }
         case PARSING_TEXT :
             return {
                 ...state,
                 isParsingTextShowed,
-            };
+            }
         default:
             return state
     }

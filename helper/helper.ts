@@ -1,4 +1,5 @@
-import {currencies, locations} from '../constants/constants';
+import {CONTENT_API, currencies, locations} from '../constants/constants';
+import axios from "axios";
 
 // export const getLocation = (city = '', locationsArr = locations) => {
 //
@@ -79,6 +80,29 @@ export const parseQueryString = ( queryString ) => {
 
     return params;
 };
+
+
+export async function fetchPageContent(page: string) {
+
+    if (!page) {
+        console.error('page is not defined')
+        return false
+    }
+
+    const pages = {
+        'terms': 4,
+        'cookie-policy': 2,
+        'privacy-policy': 3
+    }
+
+    return axios(`${CONTENT_API}/content-blocks/${pages[page]}`)
+        .then(res => {
+            return res.data.content_en
+        })
+        .catch(err => {
+            console.error(err)
+        })
+}
 
 
 

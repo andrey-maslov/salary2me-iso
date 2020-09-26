@@ -1,6 +1,6 @@
-import Hero from '../components/common/hero/Hero'
-import Layout from "../components/layout/Layout"
-import Content from "../components/common/content-blocks/content/Content"
+import Hero from './hero/Hero'
+import Layout from "../../components/layout/Layout"
+import HomeContent from "./home-content/HomeContent"
 import {withTranslation} from '@i18n'
 import Head from "next/head"
 
@@ -21,7 +21,7 @@ const Home = ({t}: HomeType) => {
                         <Hero content={t('main:title')}/>
                     </section>
                     <div className={`section`}>
-                        <Content content={t('main:content')}/>
+                        <HomeContent content={t('main:content')}/>
                     </div>
                 </Layout>
             </div>

@@ -1,11 +1,17 @@
 import React from 'react'
 import style from './est-sidebar.module.scss'
 import {useSelector, useDispatch} from "react-redux"
-import {setCurrency, setDisplayedResults, setPayPeriod, setPayTax, setSorting} from "../../../actions/actionCreator"
 import {currencies} from "../../../constants/constants"
 import Select from "../../../components/common/inputs/select/Select"
 import Tabs from "../../../components/common/tabs/Tabs"
 import {globalStoreType} from "../../../typings/types"
+import {
+    SET_CURRENCY,
+    SET_DISPLAYED_RESULTS,
+    SET_PAY_PERIOD,
+    SET_PAY_TAX,
+    SET_SORTING
+} from "../../../actions/actionTypes"
 
 const EstSidebar: React.FC = () => {
 
@@ -15,26 +21,26 @@ const EstSidebar: React.FC = () => {
         {value: `normal`, title: 'Choose sorting'},
         {value: `min-first`, title: 'Minimal first'},
         {value: `max-first`, title: 'Maximum first'},
-    ];
+    ]
 
     const sortHandler = (e) => {
         const sortingType = `${payTax}-${e.target.value}`
-        dispatch(setSorting(e.target.value))
-        dispatch(setDisplayedResults(sortingType))
-    };
+        dispatch({type: SET_SORTING, sorting: e.target.value})
+        dispatch({type: SET_DISPLAYED_RESULTS, displayedResults: sortingType})
+    }
 
     const selectPayTax = (value) => {
         const sortingType = `${value}-${sorting}`
-        dispatch(setPayTax(value))
-        dispatch(setDisplayedResults(sortingType))
+        dispatch({type: SET_PAY_TAX, payTax: value})
+        dispatch({type: SET_DISPLAYED_RESULTS, displayedResults: sortingType})
     }
 
     const selectPayPeriod = (value) => {
-        dispatch(setPayPeriod(value))
+        dispatch({type: SET_PAY_PERIOD, payPeriod: value})
     }
 
     const selectCurrency = (value) => {
-        dispatch(setCurrency(value))
+        dispatch({type: SET_CURRENCY, selectedCurrency: value})
     }
 
     return (
@@ -73,6 +79,5 @@ const EstSidebar: React.FC = () => {
         </div>
     )
 }
-
 
 export default EstSidebar

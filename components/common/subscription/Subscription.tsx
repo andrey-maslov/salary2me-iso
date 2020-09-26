@@ -17,9 +17,9 @@ const Subscription = () => {
                 <FaBell color={accentColor}/>
             </div>
             <Checkbox
-                isActive={false}
+                isChecked={false}
                 handle={handleSubscription}
-                text={'I want to receive notifications about new vacancies'}
+                label={'I want to receive notifications about new vacancies'}
             />
         </div>
     );

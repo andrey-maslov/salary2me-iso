@@ -43,70 +43,16 @@ export const setLoginModal = (bool) => ({
 
 /*===== SALARY ESTIMATION =====*/
 
-export const setParsingModal = (bool) => ({
-    type: PARSING_MODAL,
-    isParsingModal: bool,
-})
-
 export const setCvSent = (bool) => ({
     type: CV_SENT,
     isCvSent: bool,
-    isUserInBase: true,
 })
-
-export const parsingCvResults = (predictions, position) => ({
-    type: ESTIMATION,
-    predictions,
-    position,
-})
-
-export const addUserRealSalary = (realSalary) => ({
-    type: ADD_USER_SALARY,
-    realSalary,
-})
-
-export const setSorting = (payload) => {
-    return {
-        type: SET_SORTING,
-        sorting: payload
-    }
-}
-
-export const setDisplayedResults = (payload) => {
-    return {
-        type: SET_DISPLAYED_RESULTS,
-        displayedResults: payload
-    }
-}
-
-export const setCurrency = (selectedCurrency) => {
-    return {
-        type: SET_CURRENCY,
-        selectedCurrency,
-    }
-}
-
-export const setPayPeriod = (payPeriod) => {
-    return {
-        type: SET_PAY_PERIOD,
-        payPeriod,
-    }
-}
-
-export const setPayTax = (payTax) => {
-    return {
-        type: SET_PAY_TAX,
-        payTax,
-    }
-}
 
 export const sendCvForResults = (formData) => {
 
     return (dispatch) => {
 
-        // @ts-ignore
-        // dispatch(parsingCvResults(predictions.predictions, predictions.position));
-
+        dispatch({type: LOADING, loading: true})
         //TODO change to right query, right url and put formData for use on production
         axios.post('http://localhost:8080/api/predictions', formData, {
             headers: {
@@ -114,14 +60,15 @@ export const sendCvForResults = (formData) => {
             }
         })
             .then(res => {
+                dispatch({type: ESTIMATION, predictions: res.data.predictions, position: res.data.position})
                 dispatch(setCvSent(true))
-                dispatch(parsingCvResults(res.data.predictions, res.data.position))
                 console.log(res.data)
             })
             .catch((error) => {
                 console.error('FUKKK!!')
                 apiErrorHandling(error, dispatch)
             })
+            .finally(() => dispatch({type: LOADING, loading: false}))
 
     }
 }
@@ -130,22 +77,22 @@ export const sendCvForResults = (formData) => {
 export const sendRealSalary = (formData) => {
 
     return (dispatch) => {
-
+        dispatch({type: LOADING, loading: true})
         //TODO change to PUT query, right url and put formData for use on production
         axios.get('https://run.mocky.io/v3/62678e58-c4c0-4dfb-89ac-0cbb9b1ff44a', {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
         })
-            .then(res => {
-                dispatch(addUserRealSalary(formData.get('salary')));
-
+            .then(() => {
+                dispatch({type: ADD_USER_SALARY, realSalary: formData.get('salary')})
             })
-            .catch(() => {
-
-            });
+            .catch(err => {
+                apiErrorHandling(err, dispatch)
+            })
+            .finally(() => dispatch({type: LOADING, loading: true}))
     }
-};
+}
 
 export const signIn = (data) => {
     return (dispatch) => {
@@ -286,7 +233,7 @@ export function setLoading(isLoading: boolean) {
 
 export function clearErrors() {
     return (dispatch: any) => {
-        dispatch({type: SET_ERROR, errorApiMessage: ''})
+        dispatch({type: SET_ERROR, apiErrorMsg: null})
         dispatch({type: PROCESS_FAILED, processFailed: false})
     }
 }
@@ -296,20 +243,22 @@ function apiErrorHandling(error: any, dispatch: any) {
     if (error.response) {
         let msg: string
         try {
-            msg = Array.isArray(error.response.data.message) ? error.response.data.message[0].messages[0].message : 'Something wrong'
+            msg = Array.isArray(error.response.data.message) ?
+                error.response.data.message[0].messages[0].message :
+                'Something wrong'
         } catch {
-            msg = 'Something wrong'
+            msg = 'Something wrong with resources'
         }
         console.log(msg)
         dispatch({
             type: SET_ERROR,
-            errorApiMessage: msg
+            apiErrorMsg: msg
         })
     } else if (error.request) {
         // The request was made but no response was received
         // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
         // http.ClientRequest in node.js
-        console.error(error.request)
+        console.error('Some troubles with network', error.request)
     } else {
         // Something happened in setting up the request that triggered an Error
         console.error('ERROR', error.message)

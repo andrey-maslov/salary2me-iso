@@ -33,7 +33,6 @@ export const user = (state = STATE, {
     type,
     name,
     email,
-    isLoggedIn,
     provider,
     isPublic,
     isLookingForJob

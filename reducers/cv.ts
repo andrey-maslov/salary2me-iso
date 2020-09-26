@@ -7,12 +7,7 @@ import {
 import {loadState} from '../store/sessionStorage'
 import {isBrowser} from "../helper/helper";
 
-let STATE
-
-//TODO some problem with storage and SSR maybe
-if (isBrowser) {
-    STATE = loadState('cv');
-}
+let STATE = isBrowser ? loadState('cv') : null
 
 export type cvStoreType = {
     predictions: [],

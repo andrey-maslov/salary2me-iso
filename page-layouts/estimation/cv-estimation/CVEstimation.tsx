@@ -32,11 +32,21 @@ const CVEstimation: React.FC = () => {
         }
     }, [isLoggedIn])
 
+    console.log()
+
+    if (!isLoggedIn) {
+        return null
+    }
+
+    if (isLoggedIn && predictions.length === 0) {
+        return <NoResults/>
+    }
+
     const sortedSalaries = getSortedSalaries(predictions)
     const resultsToDisplay = getSorting()
     const salaryLimits = getSalariesLimits(resultsToDisplay)
 
-    const NoResults = () => {
+    function NoResults () {
         return (
             <div className={`container text-center ${style.noCv}`}>
                 <strong>Please, <Link href={'/'}><a>upload</a></Link> your CV</strong>
@@ -57,13 +67,6 @@ const CVEstimation: React.FC = () => {
         )
     }
 
-    if (!isLoggedIn) {
-        return null
-    }
-
-    if (isLoggedIn && resultsToDisplay.length === 0) {
-        return <NoResults/>
-    }
 
     return (
         <>

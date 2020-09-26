@@ -1,28 +1,22 @@
-import {useState} from 'react'
-import {setLoginModal, setParsingModal} from '../../../actions/actionCreator'
+import {useEffect} from 'react'
+import {clearErrors, setLoginModal} from '../../../actions/actionCreator'
 import {useSelector, useDispatch} from 'react-redux'
 import ParsingModal from "./parsing-modal/ParsingModal"
 import LoginModal from "./login-modal/LoginModal"
 import CookieConsent from "./cookie-consent/CookieConsent"
-import {globalStoreType} from "../../../typings/types";
+import {globalStoreType} from "../../../typings/types"
+import {PARSING_MODAL} from "../../../actions/actionTypes"
 
-interface ModalsProps {
-    isLoginModalOpen: boolean
-    isParsingModalOpen: boolean
-    isParsingError: boolean
-    setLoginModal: (bool: boolean) => {}
-    setParsingModal: (bool: boolean) => {}
-}
 
-const Modals: React.FC<ModalsProps> = (props) => {
-
-    const {
-        isParsingError,
-        setLoginModal,
-        setParsingModal,
-    } = props
+const Modals: React.FC = () => {
 
     const {isLoginModal, isParsingModal} = useSelector((state: globalStoreType) => state.modals)
+    const {processFailed} = useSelector((state: globalStoreType) => state.app)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+
+    }, [])
 
     const closeModal = () => {
         setLoginModal(false)
@@ -33,11 +27,12 @@ const Modals: React.FC<ModalsProps> = (props) => {
     }
 
     const closeParsingModal = () => {
-        setParsingModal(false)
+        dispatch({type: PARSING_MODAL, isParsingModal: false})
     }
 
     const tryMore = () => {
-        setParsingModal(false)
+        dispatch({type: PARSING_MODAL, isParsingModal: false})
+        dispatch(clearErrors())
     }
 
 
@@ -50,7 +45,7 @@ const Modals: React.FC<ModalsProps> = (props) => {
             {isParsingModal && <ParsingModal
                 isModalShown={isParsingModal}
                 closeModal={tryMore}
-                isParsingError={isParsingError}
+                isParsingError={processFailed}
                 tryMore={tryMore}
             />}
 
