@@ -1,7 +1,5 @@
-import React from 'react';
-
-import style from './features.module.scss';
-import FeaturesItem from "./FeaturesItem/FeaturesItem";
+import style from './features.module.scss'
+import FeaturesItem from "./FeaturesItem/FeaturesItem"
 
 const features = [
     {
@@ -24,7 +22,7 @@ const features = [
         description: 'We have full Base of IT specialists CVs. Belarus, Ukraine and Russias developers are in our base',
         icon: 'https://image.flaticon.com/icons/svg/1083/1083168.svg',
     },
-];
+]
 
 const Features = () => {
 
@@ -44,7 +42,6 @@ const Features = () => {
             </div>
         </div>
     )
+}
 
-};
-
-export default Features;
+export default Features

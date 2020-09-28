@@ -1,17 +1,13 @@
-import React, {useState} from 'react';
-import {FacebookLoginBtn} from "./facebook-login/FacebookLoginBtn";
-import {GoogleLogin} from "./google-login/GoogleLogin";
-import {LinkedinLogin} from "./linkedin-login/LinkedinLogin";
-import {withTranslation, Link} from '@i18n';
-import {Tooltip} from "../tooltip/Tooltip";
-import Checkbox from "../inputs/checkbox/Checkbox";
+import React, {useState} from 'react'
+import {FacebookLoginBtn} from "./facebook-login/FacebookLoginBtn"
+import {GoogleLogin} from "./google-login/GoogleLogin"
+import {LinkedinLogin} from "./linkedin-login/LinkedinLogin"
+import {withTranslation, Link} from '@i18n'
+import {Tooltip} from "../tooltip/Tooltip"
+import Checkbox from "../inputs/checkbox/Checkbox"
 
-import style from './auth.module.scss';
-import SignInForm from "./sign-in-form/SignInForm";
+import style from './auth.module.scss'
 
-// const links = {
-//     terms
-// }
 
 type AuthType = {
     handleLogin: (name: string, email: string) => void
@@ -36,7 +32,6 @@ const Auth: React.FC<AuthType> = ({handleLogin, t}) => {
         )
     }
 
-
     return (
         <div className={style.content}>
             <div className={style.title}>{t('create')}</div>
@@ -52,9 +47,8 @@ const Auth: React.FC<AuthType> = ({handleLogin, t}) => {
                     dangerouslySetInnerHTML={{__html: t('check_terms_text')}}
                 />
             </div>
-            <SignInForm/>
         </div>
-    );
+    )
 }
 
 export default withTranslation('auth')(Auth)

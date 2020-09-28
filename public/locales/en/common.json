@@ -1,35 +1,62 @@
 {
-  "footer": {
-    "copy": "LLC Center for Technological Investments",
-    "author_text": "Developed by:  ",
-    "sharing_text": "Help our project by sharing",
-    "blocks": {
-      "salary2me": "salary2me",
-      "info": "information",
-      "contacts": "contacts"
-    },
-    "links": {
-      "privacy_policy": "privacy policy",
-      "terms": "terms of use",
-      "cookie": "cookie policy"
-    },
-    "address": "Belarus, Minsk, Czechava str. 3"
-  },
   "buttons": {
-    "login": "login",
-    "logOut": "logOut",
-    "send_cv": "send_cv",
-    "to_main": "to main"
+    "add": "Add",
+    "agree": "Agree",
+    "next": "Next",
+    "registration": "Registration",
+    "return": "Return",
+    "save": "Save",
+    "search": "Search",
+    "send": "Send",
+    "signin": "Login",
+    "signout": "Logout",
+    "signup": "Registration",
+    "start_test": "Start test",
+    "to_main": "To main"
+  },
+  "cookie_consent": {
+    "text": "We care about you, so you have to agree to our cookie policy",
+    "title": "Cookie policy"
+  },
+  "errorPage": {
+    "description": "<p> You have come to a page that does not exist. </p> <p> This may be due to a typo. </p>",
+    "not_found": "Page not found",
+    "oops": "Ooooops...",
+    "title": "Error 404",
+    "meta": {
+      "description": "Error page description",
+      "title": "Page not found"
+    }
   },
   "errors": {
-    "take_the_test": "take the test",
-    "test_failed": "test failed"
-  },
-  "meta": {
-    "title": "Know your market rate",
-    "description": "Free service of CV instant AI analytics with results for multiple cities. Also service helps you to find a job. Know your resume rate!"
+    "invalid": "Invalid value",
+    "invalid_email": "invalid email",
+    "need_to_authorize": "Sign in, please",
+    "required": "This field is required"
   },
   "misc": {
-    "subscribe_msg": "I want to receive notifications about new vacancies"
+    "subscribe_msg": "I would like to receive newsletters of new vacancies"
+  },
+  "meta": {
+    "description": "Free instant AI CV analytics service with results for multiple cities. The service will also help you find a job. Know your resume score!",
+    "title": "Know your salary"
+  },
+  "nav": {
+    "cookie": "Cookie policy",
+    "cv": "My CV",
+    "estimation": "CV estimation",
+    "office": "Office",
+    "privacy_policy": "Privacy policy",
+    "terms": "Terms and conditions",
+    "test": "Test",
+    "home": "Home"
+  },
+  "footer": {
+    "sharing_text": "Help project by sharing",
+    "info": "Information",
+    "contacts": "Contacts",
+    "author_text": "Developed by:",
+    "address": "Belarus, Minsk",
+    "copy": "LLC Center of Technology Investments"
   }
 }

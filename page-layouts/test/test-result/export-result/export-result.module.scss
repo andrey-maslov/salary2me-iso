@@ -1,0 +1,60 @@
+@import '../../../../assets/scss/vars';
+
+.title {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.result {
+  margin-bottom: 1.5rem;
+}
+
+.bottom {
+  display: flex;
+  margin-left: -1rem;
+  margin-right: -1rem;
+  border-top: 1px solid darken($grey-bg, 5%);
+}
+
+.link {
+  background-color: rgba($grey-bg, .5);
+  padding: 1rem;
+  width: 50%;
+  font-weight: 700;
+  border: 0;
+  color: $text;
+  transition: .2s ease-in-out;
+  text-align: center;
+
+  &:first-child {
+    border-radius: 0 0 0 $border-radius-sm;
+    border-right: 1px solid darken($grey-bg, 5%);
+  }
+
+  &:last-child {
+    border-radius: 0 $border-radius-sm 0 0 ;
+  }
+
+  svg {
+    position: relative;
+    bottom: -2px;
+    margin-right: 5px;
+  }
+
+  &:hover {
+    background-color: $accent;
+    color: #fff;
+    cursor: pointer;
+  }
+}
+
+@media(max-width: 600px) {
+
+  .link {
+    background-color: rgba($grey-bg, .5);
+    padding: .5rem;
+
+    font-weight: normal
+  }
+
+}

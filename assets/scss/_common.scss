@@ -24,6 +24,15 @@ body {
   outline: none;
 }
 
+.visible {
+  display: block;
+}
+
+.hidden {
+  visibility: hidden;
+  display: none;
+}
+
 /*===== COMMON LAYOUT =====*/
 
 .app-wrapper {

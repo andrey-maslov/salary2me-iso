@@ -14,7 +14,7 @@ import {Router} from '@i18n'
 import style from './dropzone.module.scss'
 import {useDeviceDetect} from "../../../helper/useDeviceDetect"
 import {PARSING_MODAL, PARSING_TEXT} from "../../../actions/actionTypes"
-import {globalStoreType} from "../../../typings/types";
+import {globalStoreType} from "../../../typings/types"
 
 const Dropzone: React.FC = () => {
 

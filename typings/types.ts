@@ -1,8 +1,8 @@
-import {userStoreType} from "../reducers/user";
-import {cvStoreType} from "../reducers/cv";
-import {testStoreType} from "../reducers/test";
-import {modalsStoreType} from "../reducers/modals";
-import {appStoreType} from "../reducers/app";
+import {userStoreType} from "../reducers/user"
+import {cvStoreType} from "../reducers/cv"
+import {testStoreType} from "../reducers/test"
+import {modalsStoreType} from "../reducers/modals"
+import {appStoreType} from "../reducers/app"
 
 export interface IModalProps {
     isModalShown: boolean
@@ -21,4 +21,18 @@ export type globalStoreType = {
     test: testStoreType,
     app: appStoreType
     modals: modalsStoreType
+}
+
+export type AnswerType = {
+    id: string
+    value: string | number
+}
+
+export interface QuestionsProps {
+    saveAnswers: (data: number[] | number[][]) => void
+    questions: any
+    isVisible: boolean
+    changeBlock: (blockToShow: string, currentBlock?: string) => void
+    content?: string
+    t?: any
 }

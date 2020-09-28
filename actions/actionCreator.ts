@@ -1,98 +1,11 @@
-import axios from "axios";
-import {stringToBoolean} from '../helper/helper';
-import {PREDICTIONS_URL} from "../constants/constants";
-
+import axios from "axios"
 import {
-    ADD_USER_SALARY,
-    ADD_AUTH_DATA,
-    OPEN_LOGIN_MODAL,
-    CV_SENT,
-    ESTIMATION,
-    CLEAR_USER_DATA,
-    PARSING_MODAL,
-    SET_CURRENCY,
-    GET_CURRENCY_RATES,
-    SET_PAY_PERIOD,
-    SET_PAY_TAX,
-    SET_SORTING,
-    SET_DISPLAYED_RESULTS,
-    SET_ERROR, PROCESS_FAILED, LOADING,
-} from './actionTypes';
+    ADD_USER_SALARY, ADD_AUTH_DATA, OPEN_LOGIN_MODAL, CV_SENT, ESTIMATION, CLEAR_USER_DATA, GET_CURRENCY_RATES,
+    SET_ERROR, PROCESS_FAILED, LOADING, SAVE_TEST_DATA, FETCH_TEST_DESC, FETCH_TERMS, SAVE_PERSONAL_INFO,
+} from './actionTypes'
 
 
 /*===== AUTH =====*/
-
-export const addAuthData = (name, email, provider) => ({
-    type: ADD_AUTH_DATA,
-    name,
-    email,
-    provider,
-})
-
-export const clearUserData = (bool = true) => {
-    return {
-        type: CLEAR_USER_DATA
-    }
-}
-
-export const setLoginModal = (bool) => ({
-    type: OPEN_LOGIN_MODAL,
-    isLoginModalOpen: bool,
-})
-
-
-/*===== SALARY ESTIMATION =====*/
-
-export const setCvSent = (bool) => ({
-    type: CV_SENT,
-    isCvSent: bool,
-})
-
-export const sendCvForResults = (formData) => {
-
-    return (dispatch) => {
-
-        dispatch({type: LOADING, loading: true})
-        //TODO change to right query, right url and put formData for use on production
-        axios.post('http://localhost:8080/api/predictions', formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        })
-            .then(res => {
-                dispatch({type: ESTIMATION, predictions: res.data.predictions, position: res.data.position})
-                dispatch(setCvSent(true))
-                console.log(res.data)
-            })
-            .catch((error) => {
-                console.error('FUKKK!!')
-                apiErrorHandling(error, dispatch)
-            })
-            .finally(() => dispatch({type: LOADING, loading: false}))
-
-    }
-}
-
-//Send real user salary to base
-export const sendRealSalary = (formData) => {
-
-    return (dispatch) => {
-        dispatch({type: LOADING, loading: true})
-        //TODO change to PUT query, right url and put formData for use on production
-        axios.get('https://run.mocky.io/v3/62678e58-c4c0-4dfb-89ac-0cbb9b1ff44a', {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        })
-            .then(() => {
-                dispatch({type: ADD_USER_SALARY, realSalary: formData.get('salary')})
-            })
-            .catch(err => {
-                apiErrorHandling(err, dispatch)
-            })
-            .finally(() => dispatch({type: LOADING, loading: true}))
-    }
-}
 
 export const signIn = (data) => {
     return (dispatch) => {
@@ -147,7 +60,7 @@ export const fetchUserData = (token) => {
 //TODO think about 'is user in base?'
 export const isUserInBase = (email) => {
     return (dispatch) => {
-        axios(`${PREDICTIONS_URL}?email=${email}`)
+        axios(`${process.env.BASE_URL}/api/Predict?email=${email}`)
             .then(response => {
                 return response.data;
             })
@@ -163,7 +76,7 @@ export const isUserInBase = (email) => {
                 //console.log('user is not in base')
             })
     }
-};
+}
 
 //TODO change
 export const signInGoogle = () => {
@@ -180,11 +93,11 @@ export const signInGoogle = () => {
             .then((profile) => {
                 const name = profile.getName(),
                     email = profile.getEmail();
-                dispatch(addAuthData(name, email,'google'));
+                dispatch(addAuthData(name, email, 'google'));
                 dispatch(isUserInBase(email));
             })
     }
-};
+}
 
 //TODO change
 export const signOutGoogle = () => {
@@ -193,8 +106,130 @@ export const signOutGoogle = () => {
     auth2.signOut().then(function () {
         console.log('User signed out.')
     })
-};
+}
 
+export const addAuthData = (name, email, provider) => ({
+    type: ADD_AUTH_DATA,
+    name,
+    email,
+    provider,
+})
+
+export const clearUserData = (bool = true) => {
+    return {
+        type: CLEAR_USER_DATA
+    }
+}
+
+export const setLoginModal = (bool) => ({
+    type: OPEN_LOGIN_MODAL,
+    isLoginModalOpen: bool,
+})
+
+
+/*===== SALARY ESTIMATION =====*/
+
+export const setCvSent = (bool) => ({
+    type: CV_SENT,
+    isCvSent: bool,
+})
+
+export const sendCvForResults = (formData) => {
+
+    return (dispatch) => {
+
+        dispatch({type: LOADING, loading: true})
+
+        axios.post(`${process.env.BASE_API}/api/Predict`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+            .then(res => {
+                dispatch({type: ESTIMATION, predictions: res.data.predictions, position: res.data.position})
+                dispatch(setCvSent(true))
+                console.log(res.data)
+            })
+            .catch((error) => {
+                console.error('FUKKK!!')
+                apiErrorHandling(error, dispatch)
+            })
+            .finally(() => dispatch({type: LOADING, loading: false}))
+
+    }
+}
+
+//Send real user salary to base
+export const sendRealSalary = (formData) => {
+
+    return (dispatch) => {
+        dispatch({type: LOADING, loading: true})
+        axios.put(`${process.env.BASE_API}/api/Predict`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+            .then(() => {
+                dispatch({type: ADD_USER_SALARY, realSalary: formData.get('salary')})
+            })
+            .catch(err => {
+                apiErrorHandling(err, dispatch)
+            })
+            .finally(() => dispatch({type: LOADING, loading: true}))
+    }
+}
+
+
+/*===== TEST =====*/
+
+export const savePersonalInfo = (personalInfo: number[]) => {
+    return {
+        type: SAVE_PERSONAL_INFO,
+        personalInfo,
+    }
+}
+
+export const saveTestData = (testData: number[][]) => {
+    return {
+        type: SAVE_TEST_DATA,
+        testData,
+    }
+}
+
+export const fetchTerms = (lang: string) => {
+
+    const url = `${process.env.CONTENT_API}/psychologies/1`;
+
+    return (dispatch: any) => {
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                // console.log(data)
+                dispatch({
+                    type: FETCH_TERMS,
+                    terms: data[`content_${lang}`]
+                })
+            })
+    }
+}
+
+export const fetchContent = (lang: string) => {
+
+    const url = `${process.env.CONTENT_API}/psychologies/2`
+
+    return (dispatch: any) => {
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                dispatch({
+                    type: FETCH_TEST_DESC,
+                    descriptions: data[`content_${lang}`]
+                })
+            })
+    }
+}
+
+/*===== APIs =====*/
 
 export const getCurrencyRates = () => {
 

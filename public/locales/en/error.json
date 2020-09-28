@@ -1,9 +1,0 @@
-{
-  "title": "Error 404",
-  "not_found": "Page not found",
-  "description": "<p>You came to a page that doesn’t exist. </p> <p> This was probably due to a typo or incorrect keyboard layout.</p>",
-  "meta": {
-    "title": "Page not found",
-    "description": "description for error page"
-  }
-}

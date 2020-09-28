@@ -1,10 +1,32 @@
 @import '../../../../assets/scss/_vars.scss';
 
-.nav {
+.wrapper {
   display: flex;
   align-items: center;
 
   button {
     margin-bottom: 0;
+  }
+}
+
+.nav {
+  margin-right: 2rem;
+
+  ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    height: auto;
+  }
+
+  li {
+    text-align: center;
+    width: 130px;
+    position: relative;
+    border-bottom: 1px solid transparent;
+
+    &.active {
+      border-color: $accent
+    }
   }
 }

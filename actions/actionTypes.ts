@@ -2,7 +2,7 @@
 export const ADD_USER_SALARY = 'ADD_USER_SALARY'
 export const PARSING_MODAL  = 'PARSING_MODAL'
 export const PARSING_TEXT = 'PARSING_TEXT'
-export const CV_SENT = 'CV_SENT';
+export const CV_SENT = 'CV_SENT'
 export const ESTIMATION = 'ESTIMATION'
 
 /*===== AUTH =====*/
@@ -18,7 +18,7 @@ export const API_ERROR = 'API_ERROR'
 export const SAVE_TEST_DATA = 'SAVE_TEST_DATA'
 export const SAVE_PERSONAL_INFO = 'SAVE_PERSONAL_INFO'
 export const FETCH_TERMS = 'FETCH_TERMS'
-export const FETCH_DESCRIPTIONS = 'FETCH_DESCRIPTIONS'
+export const FETCH_TEST_DESC = 'FETCH_TEST_DESC'
 
 /*===== UTILS =====*/
 export const SET_SORTING = 'SET_SORTING'

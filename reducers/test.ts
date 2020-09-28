@@ -1,6 +1,6 @@
 import {
     SAVE_TEST_DATA,
-    SAVE_PERSONAL_INFO, FETCH_TERMS, FETCH_DESCRIPTIONS,
+    SAVE_PERSONAL_INFO, FETCH_TERMS, FETCH_TEST_DESC,
 } from '../actions/actionTypes'
 import { loadState } from '../store/sessionStorage'
 import {isBrowser} from "../helper/helper"
@@ -47,7 +47,7 @@ export const test = (state = STATE, {
                 test,
                 terms,
             }
-        case FETCH_DESCRIPTIONS :
+        case FETCH_TEST_DESC :
             return {
                 ...state,
                 descriptions

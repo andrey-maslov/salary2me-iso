@@ -1,9 +1,8 @@
 import { useMemo } from 'react'
-import { createStore, compose, applyMiddleware, Middleware } from 'redux';
-import thunk from 'redux-thunk';
-import rootReducer from '../reducers';
-import { save } from 'redux-localstorage-simple';
-import {loadState, saveState} from './sessionStorage';
+import { createStore, compose, applyMiddleware, Middleware } from 'redux'
+import thunk from 'redux-thunk'
+import rootReducer from '../reducers'
+import {loadState, saveState} from './sessionStorage'
 
 let store;
 
@@ -12,7 +11,7 @@ const composeEnhancers =
     process.env.NODE_ENV !== 'production' &&
     typeof window === 'object' &&
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
-        window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({}) : compose;
+        window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({}) : compose
 /* eslint-enable */
 
 function initStore (preloadedState ) {
@@ -28,13 +27,6 @@ function initStore (preloadedState ) {
         )
     )
 }
-
-
-// let store = initStore({});
-
-// console.log('store')
-//
-
 
 export const initializeStore = (preloadedState) => {
     let _store = store ?? initStore(preloadedState)
@@ -58,14 +50,14 @@ export const initializeStore = (preloadedState) => {
     return _store
 }
 
-const myStore = initializeStore();
+const myStore = initializeStore()
 
 myStore.subscribe(() => {
     saveState('app', myStore.getState().app)
     saveState('test', myStore.getState().test)
     saveState('user', myStore.getState().user)
     saveState('cv', myStore.getState().cv)
-});
+})
 
 export function useStore(initialState) {
     const store = useMemo(() => initializeStore(initialState), [initialState])

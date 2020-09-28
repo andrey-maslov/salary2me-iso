@@ -1,10 +1,9 @@
-import React from 'react';
-import style from './test.module.scss';
-import burnoutImg from '../../../../assets/img/burnout.png';
-import {useMediaPredicate} from "react-media-hook";
-import {useHistory} from 'react-router-dom';
+import React from 'react'
+import style from './test.module.scss'
+import burnoutImg from '../../../../assets/img/burnout.png'
+import {useMediaPredicate} from "react-media-hook"
 
-import {BURNOUT_TEST_LINK} from "../../../../constants";
+import {BURNOUT_TEST_LINK} from "../../../../constants"
 
 const Test = () => {
 
@@ -28,4 +27,4 @@ const Test = () => {
     )
 };
 
-export default Test;
+export default Test

@@ -1,5 +1,6 @@
-import {CONTENT_API, currencies, locations} from '../constants/constants';
-import axios from "axios";
+import {currencies, locations} from '../constants/constants'
+import axios from "axios"
+import {AnswerType} from "../typings/types"
 
 // export const getLocation = (city = '', locationsArr = locations) => {
 //
@@ -95,13 +96,28 @@ export async function fetchPageContent(page: string) {
         'privacy-policy': 3
     }
 
-    return axios(`${CONTENT_API}/content-blocks/${pages[page]}`)
+    return axios(`${process.env.CONTENT_API}/content-blocks/${pages[page]}`)
         .then(res => {
             return res.data.content_en
         })
         .catch(err => {
             console.error(err)
         })
+}
+
+export const checkAnswers = (answers: AnswerType[]) => {
+    for (let i = 0; i < answers.length; i++) {
+        if (!answers[i].value) {
+            return i
+        }
+    }
+    return -1
+}
+
+export function getRandomIntInclusive(min: number, max: number) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min; //Max and Min includes
 }
 
 

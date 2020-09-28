@@ -1,0 +1,37 @@
+.buttons {
+  position: relative;
+
+  button {
+    &:first-child {
+      margin-right: .7rem;
+    }
+  }
+}
+
+.addButtons {
+  button {
+    &:first-child {
+      margin-right: .7rem;
+    }
+  }
+}
+
+.more {
+  width: 2rem ;
+  cursor: pointer;
+  border: 0;
+  border-radius: 3px;
+  transition: .2s;
+  margin-left: 2rem;
+  //margin-right: 0;
+  background-color: rgba(grey, .2);
+
+  &:hover {
+    background-color: rgba(grey, .5);
+  }
+
+  svg {
+    position: relative;
+    bottom: -2px;
+  }
+}

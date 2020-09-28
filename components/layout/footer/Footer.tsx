@@ -9,15 +9,15 @@ const Footer: React.FC<{ t: any }> = ({t}) => {
     const links = [
         {
             link: '/policies/privacy-policy',
-            title: t('footer.links.privacy_policy'),
+            title: t('common:nav.privacy_policy'),
         },
         {
             link: '/terms',
-            title: t('footer.links.terms'),
+            title: t('common:nav.terms'),
         },
         {
             link: '/policies/cookie-policy',
-            title: t('footer.links.cookie'),
+            title: t('common:nav.cookie'),
         },
     ];
 

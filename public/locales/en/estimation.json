@@ -7,15 +7,13 @@
   "currency": "Preferred currency",
   "pay_period": "Pay period",
   "tax": "Approximate taxation?",
+  "monthly": "Monthly",
+  "annually": "Annually",
+  "netto": "Netto",
+  "brutto": "Brutto",
   "help_block": {
     "title": "We are wrong?</br> Sorry, we are only beta",
     "desc": "You can support our project by sharing your actual or latest salary (monthly, brutto)"
-  },
-  "buttons": {
-    "monthly": "Monthly",
-    "annually": "Annually",
-    "netto": "Netto",
-    "brutto": "Brutto"
   },
   "meta": {
     "title": "title for result page",

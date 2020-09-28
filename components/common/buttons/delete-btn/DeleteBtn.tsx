@@ -13,6 +13,6 @@ const DeleteBtn: React.FC<DeleteBtnType> = ({handle, text}) => {
             <FaTimes/>
         </button>
     )
-};
+}
 
 export default DeleteBtn

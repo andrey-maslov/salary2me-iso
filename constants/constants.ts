@@ -1,28 +1,33 @@
-export const REQUEST_URL = 'https://base.teamconstructor.com';
-// export const REQUEST_URL = 'https://base.pashtaljon.by';
+export const SITE_TITLE = 'salary2me'
+export const IS_BETA = true
 
-export const SITE_TITLE = 'salary2me';
-export const IS_BETA = true;
+export const LANG_DEFAULT = 'en'
+// export const LANGS = ['ru', 'en', 'pl', 'es', 'de', 'fr', 'it', 'tk']
+export const LANGS = ['ru', 'en']
 
-export const LANG_DEFAULT = 'en';
-// export const LANGS = ['ru', 'en', 'pl', 'es', 'de', 'fr', 'it', 'tk'];
-export const LANGS = ['ru', 'en', 'pl'];
+export const accentColor = '#36A9E0'
+export const parsingDuration = 6000
 
-export const accentColor = '#36A9E0';
-export const parsingDuration = 6000;
+export const COLORS = {
+    // accent: '#556587',
+    accent: '#36a9e0',
+    yellow: '#FFC734',
+    orange: '#FF5E34',
+    text: '#203152',
+    accent2: '#36A9E0',
+    grey: '#7D7D7D',
+    greyBg: '#EFF1F4',
+};
 
-export const PREDICTIONS_URL = `${REQUEST_URL}/api/Predict`
-export const CONTENT_API = 'https://api.salary2.me'
+export const LINKEDIN_REDIRECT_URI = `${process.env.BASE_URL}/callbacklinkedin`
 
-export const ACCEPTED_FILE_TYPES = '.rtf, .png, .jpg, .jpeg, .pdf, .doc, .docx';
+export const ACCEPTED_FILE_TYPES = '.rtf, .png, .jpg, .jpeg, .pdf, .doc, .docx'
 
 export const PARSING_STAGES = ["Resume parser started.", "Parsing section bio", "Parsing section contacts", "Parsing section education",
     "Parsing section projects", "Parsing section", "Parsing section history",
     "Parsing section experience", "Parsing section languages", "Parsing section skills",
     "Parsing section certifications", "Parsing section specializations", "Parsing section interests",
-    "Resume parsed."];
-
-export const LINKEDIN_REDIRECT_URI = `${REQUEST_URL}/callbacklinkedin`;
+    "Resume parsed."]
 
 export const locations = [
     {countryISO: 'by', city: 'Minsk', costLivingIndex: '32'},
@@ -51,7 +56,7 @@ export const locations = [
     {countryISO: 'se', city: 'Stockholm', costLivingIndex: '69'},
     {countryISO: 'sg', city: 'Singapore', costLivingIndex: '75'},
     {countryISO: 'ua', city: 'Kyiv', costLivingIndex: '30'},
-];
+]
 
 export const currencies = {
     usd: {
@@ -62,4 +67,4 @@ export const currencies = {
         symbol: '€',
         nameISO: 'eur'
     }
-};
+}

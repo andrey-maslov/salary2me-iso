@@ -1,12 +1,11 @@
-import React from 'react';
-import {FaFacebookF, FaLinkedinIn, FaVk, FaTelegramPlane, FaTwitter} from "react-icons/fa";
+import {FaFacebookF, FaLinkedinIn, FaVk, FaTelegramPlane, FaTwitter} from "react-icons/fa"
 import {
     FacebookShareButton,
     LinkedinShareButton,
     TelegramShareButton,
     TwitterShareButton,
     VKShareButton,
-} from "react-share";
+} from "react-share"
 
 const SocialSharing: React.FC<{url: string}> = ({url}) => {
 
@@ -39,6 +38,6 @@ const SocialSharing: React.FC<{url: string}> = ({url}) => {
             </div>
         </div>
     )
-};
+}
 
-export default SocialSharing;
+export default SocialSharing
