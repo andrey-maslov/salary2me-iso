@@ -1,0 +1,41 @@
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+only screen and (min--moz-device-pixel-ratio: 1.5),
+only screen and (min-device-pixel-ratio: 1.5),
+only screen and (min-resolution: 1.5dppx),
+only screen and (min-resolution: 192dpi) {
+  .city {
+    background: url('../img/cities/cities-sprite@2x.jpg') no-repeat top left;
+    background-size: 120px 2904px;
+  }
+}
+
+
+@media (max-width: 992px) {
+
+  .page {
+    &-results {
+      main {
+        padding: 20px 0;
+      }
+    }
+
+    main {
+      flex: 1 0 auto;
+      min-height: auto;
+    }
+  }
+
+  .section {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+
+  .content-page {
+    padding: 20px 0;
+
+    h1 {
+      margin-bottom: 20px;
+    }
+  }
+
+}

@@ -1,0 +1,48 @@
+@import '../../../assets/scss/vars';
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-sizing: border-box;
+  margin-left: -5px;
+  margin-right: -5px;
+}
+
+.tab {
+  font-size: 18px;
+  user-select: none;
+  width: 100%;
+  min-width: 85px;
+  text-align: center;
+  color: $text;
+  border: 1px solid rgba($text, .2);
+  padding: 8px 0;
+  min-height: 34px;
+  line-height: 1;
+  cursor: pointer;
+  transition: 0.2s cubic-bezier(0.16, 0.16, 0.16, 1.6);
+  border-radius: 3px;
+  background-color: rgba($grey-bg, .5);
+  margin: 0 5px;
+
+  //&:first-of-type {
+  //  border-radius: 5px 0px 0px 5px;
+  //}
+  //&:last-of-type {
+  //  border-radius: 0px 5px 5px 0px;
+  //}
+
+  &.active  {
+    border-color: $accent;
+    background-color: rgba($accent, 1);
+    color: #fff;
+    box-shadow: 0 1px 3px rgba(#000, .2);
+    width: 130%;
+  }
+
+  &.passive {
+    color: currentColor;
+  }
+}

@@ -1,0 +1,133 @@
+@import '../../../assets/scss/vars';
+
+.section {
+  background-color: #fff;
+  position: relative;
+}
+
+.wrapper {
+  padding: 100px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.desc {
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+
+.form {
+  margin-bottom: 20px;
+}
+
+.content {
+  max-width: 500px;
+}
+
+.img {
+  max-width: 500px;
+}
+
+.icon {
+  display: block;
+  width: 80px;
+  height: auto;
+  margin: 20px auto 30px;
+  color: $accent;
+}
+
+.close {
+  display: none;
+}
+
+.fixed {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100px;
+  background-color: #fff;
+  z-index: 14;
+  box-shadow: 0 -2px 6px rgba(#000, .1);
+
+  .close {
+    display: block;
+  }
+
+  .wrapper {
+    padding: 20px;
+  }
+
+  .content {
+    max-width: unset;
+    display: flex;
+  }
+  .desc {
+    font-size: 18px;
+    margin-right: 20px;
+    max-width: 40%;
+    margin-bottom: 0;
+  }
+  .title {
+    font-family: $font;
+    font-size: 18px;
+    margin-right: 40px;
+    margin-bottom: 0;
+    line-height: 1.5;
+  }
+}
+
+.stat {
+  position: static;
+}
+
+@media (max-width: 1360px) {
+  .img {
+    max-width: 370px;
+  }
+}
+
+@media (max-width: 992px) {
+
+  .wrapper {
+    text-align: left;
+    padding: 30px 0
+  }
+
+  .desc {
+    font-size: 20px;
+  }
+
+  .img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 15px;
+  }
+
+  .content {
+    padding: 0;
+  }
+
+  .wrapper {
+
+    .form {
+
+      input {
+        width: auto;
+        max-width: 70%;
+      }
+
+      button {
+        width: 30%;
+        max-width: 50%;
+        min-width: unset;
+      }
+    }
+  }
+}

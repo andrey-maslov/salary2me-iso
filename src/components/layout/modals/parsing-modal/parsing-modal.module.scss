@@ -1,0 +1,48 @@
+@import '../../../../assets/scss/vars';
+
+.content {
+  padding-top: 30px;
+  height: 100%;
+  width: 100%;
+}
+
+button.tryMore {
+  border-color: $red;
+  border-width: 2px;
+  color: $red;
+
+  &:hover {
+    background-color: $red;
+    color: #fff;
+  }
+}
+.title {
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 24px;
+}
+
+.error {
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  //animation: 1s fadeIn;
+
+  .title {
+    color: $red;
+  }
+}
+
+
+
+@media(max-width: 600px) {
+  .parsingModal {
+    min-width: 300px;
+    width: 80%;
+    height: auto;
+  }
+}

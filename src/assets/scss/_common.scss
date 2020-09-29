@@ -1,0 +1,323 @@
+@import 'vars';
+@import 'animations';
+
+body {
+  font-family: $font;
+  font-size: 18px;
+  overflow-x: hidden;
+  //background-color: $grey-bg;
+
+  * {
+    //border: 1px solid red;
+    //outline: none;
+
+    &:focus {
+      outline: solid 3px rgba($accent, .5);
+      outline-offset: -1px;
+      border-radius: $border-radius-sm;
+    }
+  }
+}
+
+//focus visible polyfill
+.js-focus-visible :focus:not(.focus-visible) {
+  outline: none;
+}
+
+.visible {
+  display: block;
+}
+
+.hidden {
+  visibility: hidden;
+  display: none;
+}
+
+/*===== COMMON LAYOUT =====*/
+
+.app-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  .main {
+    position: relative;
+    flex: 1 0 auto;
+    min-height: auto;
+    width: 100%;
+  }
+}
+
+.flex-centered {
+  height: 100%;
+  min-height: 100%;
+  display: flex;
+  flex: 1 0 auto;
+  justify-content: center;
+  align-items: center;
+}
+
+.img-fluid {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.section {
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  &-estimation {
+    .section {
+      padding-bottom: 0;
+    }
+  }
+
+  main {
+    flex: 1 0 auto;
+    min-height: auto;
+  }
+}
+
+.content {
+  max-width: 900px;
+  margin: 0 auto;
+
+  &-page {
+    padding: 60px 0;
+    min-height: calc(100vh - 354px);
+  }
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.fade-in {
+  animation: fadeIn ease .5s;
+}
+
+.divider {
+  border-top: 1px solid $grey-bg;
+}
+
+
+/*===== COLORS =====*/
+
+.color {
+
+  &-accent {
+    color: $accent;
+  }
+
+  &-grey {
+    color: $grey;
+  }
+
+  &-red {
+    color: $red;
+  }
+}
+
+.bg {
+
+  &-accent {
+    background-color: $accent;
+  }
+
+  &-grey {
+    background-color: $grey-bg;
+  }
+
+  &-accent-gradient {
+    background: linear-gradient(90deg, $accent-hover, $accent);
+  }
+}
+
+//brands backgrounds
+.bg {
+
+  &-google {
+    background-color: $google;
+  }
+
+  &-facebook {
+    background-color: $facebook;
+  }
+
+  &-linkedin {
+    background-color: $linkedin;
+  }
+
+  &-telegram {
+    background-color: $telegram;
+  }
+
+  &-twitter {
+    background-color: $twitter;
+  }
+
+  &-vk {
+    background-color: $vk;
+  }
+}
+
+
+/*===== HEADER =====*/
+
+.user-popover,
+.lang-popover {
+  right: 0;
+  //top: 10px;
+}
+
+
+/*===== Modals =====*/
+
+.login {
+
+  &-modal {
+
+    &-content {
+
+      .tooltip {
+        display: block;
+        line-height: inherit;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+.app-wrapper .mobile-auth {
+  background-color: transparent;
+  height: 30px;
+  border: 0;
+  padding: 0;
+  font-size: 22px;
+  line-height: 19px;
+  text-align: right;
+  width: 80px;
+
+  & > span {
+    margin: 0;
+  }
+
+  &:hover, &:active, &:focus {
+    box-shadow: none;
+    outline: none;
+  }
+
+  svg {
+    margin-bottom: 0;
+  }
+}
+
+
+/*===== FORMS =====*/
+input.input:focus, input.input.active, select:focus, select.active, textarea:focus, textarea.active {
+  outline: none;
+  border-color: $accent;
+}
+
+
+
+/*===== Cities images =====*/
+
+.city {
+  background: url('../img/cities/cities-sprite.jpg') no-repeat top left;
+  width: 120px;
+  height: 120px;
+  border-radius: 3px;
+
+  &.brussels {
+    background-position: 0 0;
+  }
+  &.lisbon {
+    background-position: 0 -121px;
+  }
+  &.warsaw {
+    background-position: 0 -242px;
+  }
+  &.copenhagen {
+    background-position: 0 -363px;
+  }
+  &.barcelona {
+    background-position: 0 -484px;
+  }
+  &.dublin {
+    background-position: 0 -605px;
+  }
+  &.stockholm {
+    background-position: 0 -726px;
+  }
+  &.krakow {
+    background-position: 0 -847px;
+  }
+  &.prague {
+    background-position: 0 -968px;
+  }
+  &.wroclaw {
+    background-position: 0 -1089px;
+  }
+  &.paris {
+    background-position: 0 -1210px;
+  }
+  &.zurich {
+    background-position: 0 -1331px;
+  }
+  &.gdansk {
+    background-position: 0 -1452px;
+  }
+  &.london {
+    background-position: 0 -1573px;
+  }
+  &.munich {
+    background-position: 0 -1694px;
+  }
+  &.berlin {
+    background-position: 0 -1815px;
+  }
+  &.sofia {
+    background-position: 0 -1936px;
+  }
+  &.helsinki {
+    background-position: 0 -2057px;
+  }
+  &.moscow {
+    background-position: 0 -2178px;
+  }
+  &.madrid {
+    background-position: 0 -2299px;
+  }
+  &.amsterdam {
+    background-position: 0 -2420px;
+  }
+  &.kyiv {
+    background-position: 0 -2541px;
+  }
+  &.minsk {
+    background-position: 0 -2662px;
+  }
+  &.oslo {
+    background-position: 0 -2783px;
+  }
+}
+
+
+.fixed {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 200px;
+  background-color: #fff;
+  z-index: 14;
+}

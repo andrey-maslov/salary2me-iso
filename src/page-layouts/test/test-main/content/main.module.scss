@@ -1,0 +1,61 @@
+@import '../../../../assets/scss/vars';
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  padding: 100px 0;
+  height: 100%;
+  width: 100%;
+}
+
+.mainImg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.content {
+  margin-bottom: 60px;
+
+  h1 {
+    text-transform: uppercase;
+    color: $accent;
+  }
+
+  p {
+
+    &:first-child {
+      font-size: 30px;
+    }
+    &:nth-child(2) {
+      font-size: 20px;
+    }
+    &:nth-child(3) {
+      font-size: 20px;
+    }
+  }
+}
+
+.start {
+  border: 2px solid $accent;
+  color: $accent;
+  font-weight: 700;
+
+  &:hover {
+    background-color: $accent;
+    color: #fff
+  }
+}
+
+
+@media(max-width: 992px) {
+
+  .wrapper {
+    padding: 0 0 20px;
+  }
+
+  .content {
+    margin-bottom: 20px;
+  }
+
+}

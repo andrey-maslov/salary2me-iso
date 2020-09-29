@@ -10,7 +10,7 @@
           "@assets": "./assets",
           "@common": "./components/common",
           "@constants": "./constants",
-          "@helper": "./helper",
+          "@helper": "./helper/helper",
           "@layout": "./components/layout",
           "@mobi": "./components/mobi",
           "@web": "./components/web",
