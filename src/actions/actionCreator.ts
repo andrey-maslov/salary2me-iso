@@ -1,82 +1,119 @@
 import axios from "axios"
 import {
     ADD_USER_SALARY, ADD_AUTH_DATA, OPEN_LOGIN_MODAL, CV_SENT, ESTIMATION, CLEAR_USER_DATA, GET_CURRENCY_RATES,
-    SET_ERROR, PROCESS_FAILED, LOADING, SAVE_TEST_DATA, FETCH_TEST_DESC, FETCH_TERMS, SAVE_PERSONAL_INFO,
+    SET_ERROR, PROCESS_FAILED, LOADING, SAVE_TEST_DATA, FETCH_TEST_DESC, FETCH_TERMS, SAVE_PERSONAL_INFO, CHANGE_PWD,
 } from './actionTypes'
+import Cookie from "js-cookie"
+import {ISignInData, ISignUpData} from "../typings/types"
+import {authModes} from "../constants/constants"
 
 
 /*===== AUTH =====*/
 
-export const signIn = (data) => {
-    return (dispatch) => {
-        axios.post('https://apibase.pashtaljon.by/api/v1/token/authenticate', data, {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-            .then((res) => {
-                console.log(res)
-                return res.data
+export function addAuthData(name: string, email: string, provider = 'local') {
+    return {
+        type: ADD_AUTH_DATA,
+        name,
+        email,
+        provider
+    }
+}
+
+export function checkAuth() {
+    const url = `${process.env.BASE_API}/api/v${process.env.API_VER}/Account`
+    const token = Cookie.get('token')
+
+    return (dispatch: any) => {
+        if (token) {
+            dispatch(setLoading(true))
+            axios(url, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                },
             })
-            .then(data => {
-                console.log('GET next')
-                // fetchUserData(data.jwtToken)
-                axios('https://apibase.pashtaljon.by/api/v1/user/me', {
-                    headers: {
-                        'Authorization': `Bearer ${data.jwtToken}`
-                    }
+                .then(res => res.data)
+                .then(data => {
+                    dispatch(addAuthData(`${data.firstName} ${data.lastName}`, data.email))
                 })
-                    .then(res => {
-                        console.log('GET')
-                        console.log(res)
-                    })
-                    .catch(err => {
-                        console.error(err)
-                    })
-            })
-            .catch(err => {
-                console.log(err)
-            })
+                .catch(error => apiErrorHandling(error, dispatch))
+                .finally(() => dispatch(setLoading(false)))
+        }
     }
 }
 
-export const fetchUserData = (token) => {
-    return (dispatch) => {
-        axios('https://apibase.pashtaljon.by/api/v1/user/me', {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
+export const authUser = (userData: ISignUpData | ISignInData, authType: keyof typeof authModes) => {
+
+    const url = `${process.env.BASE_API}/api/v${process.env.API_VER}/Account/${authType === authModes[1] ? 'register' : 'authenticate'}`
+
+    return (dispatch: any) => {
+        dispatch(setLoading(true))
+        axios.post(url, {
+            data: userData,
         })
-            .then(res => {
-                console.log('GET')
-                console.log(res)
-            })
-            .catch(err => {
-                console.error(err)
-            })
-    }
-}
-
-//TODO think about 'is user in base?'
-export const isUserInBase = (email) => {
-    return (dispatch) => {
-        axios(`${process.env.BASE_URL}/api/Predict?email=${email}`)
-            .then(response => {
-                return response.data;
-            })
+            .then(res => res.data)
             .then(data => {
-
-                // dispatch({
-                //     type: USER_IN_BASE,
-                //     isUserInBase: true
-                // });
-                //console.log(data)
+                dispatch(addAuthData(`${data.firstName} ${data.lastName}`, data.email))
+                Cookie.set("token", data.jwtToken)
+                dispatch(clearErrors())
             })
             .catch(error => {
-                //console.log('user is not in base')
+                apiErrorHandling(error, dispatch)
+                dispatch(setLoading(false))
             })
     }
 }
+
+export const sendForgotEmail = (email: string) => {
+
+    const url = `${process.env.BASE_API}/api/v${process.env.API_VER}/Account/reset-password`
+
+    return (dispatch: any) => {
+        dispatch(setLoading(true))
+        axios.post(url, {
+            data: {email},
+        })
+            .then(res => res.data)
+            .then(data => {
+                console.log('OK')
+                // dispatch(clearErrors())
+                // dispatch({type: SEND_EMAIL, emailSent: true})
+            })
+            .catch(error => {
+                console.log('ERROR email')
+                apiErrorHandling(error, dispatch)
+            })
+            .finally(() => dispatch(setLoading(false)))
+    }
+}
+
+export const sendNewPassword = (data: { code: string, newPassword: string, email: string }) => {
+
+    const url = `${process.env.BASE_API}/api/v${process.env.API_VER}/Account/confirm-reset-password`
+
+    return (dispatch: any) => {
+        dispatch(setLoading(true))
+        axios.post(url, {
+            data: data,
+        })
+            .then(res => res.data)
+            .then(data => {
+                dispatch(clearErrors())
+                dispatch({type: CHANGE_PWD, isPwdChanged: true})
+            })
+            .catch(error => {
+                apiErrorHandling(error, dispatch)
+            })
+            .finally(() => dispatch(setLoading(false)))
+    }
+}
+
+export function logOut(): { type: string } {
+    Cookie.remove('token')
+    return {
+        type: CLEAR_USER_DATA,
+    }
+}
+
 
 //TODO change
 export const signInGoogle = () => {
@@ -94,11 +131,10 @@ export const signInGoogle = () => {
                 const name = profile.getName(),
                     email = profile.getEmail();
                 dispatch(addAuthData(name, email, 'google'));
-                dispatch(isUserInBase(email));
+                // dispatch(isUserInBase(email));
             })
     }
 }
-
 //TODO change
 export const signOutGoogle = () => {
     // @ts-ignore
@@ -107,20 +143,7 @@ export const signOutGoogle = () => {
         console.log('User signed out.')
     })
 }
-
-export const addAuthData = (name, email, provider) => ({
-    type: ADD_AUTH_DATA,
-    name,
-    email,
-    provider,
-})
-
-export const clearUserData = (bool = true) => {
-    return {
-        type: CLEAR_USER_DATA
-    }
-}
-
+//TODO change, maybe we don't need it
 export const setLoginModal = (bool) => ({
     type: OPEN_LOGIN_MODAL,
     isLoginModalOpen: bool,

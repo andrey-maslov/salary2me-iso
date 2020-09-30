@@ -1,10 +1,10 @@
 import React, {useRef, useEffect, useState} from 'react'
 import {Link, withTranslation} from '@i18n'
 import {useRouter} from 'next/router'
-import Login, {ILoginForm} from "./Login"
+import Signin, {ISigninForm} from "./Signin"
 import Registration, {ISignUpForm} from "./Registration"
 import {useDispatch, useSelector} from "react-redux"
-// import {authUser, sendForgotEmail, sendNewPassword} from "../../../actions/actionCreator"
+import {authUser, sendForgotEmail, sendNewPassword} from "../../../actions/actionCreator"
 import {SET_ERROR} from "../../../actions/actionTypes"
 import Forgot, {IForgotForm} from "./Forgot"
 import Reset, {IResetForm} from "./Reset"
@@ -27,13 +27,9 @@ const Auth: React.FC<AuthProps> = ({t}) => {
     const {isLoggedIn} = useSelector((state: globalStoreType) => state.user)
     const {loading, apiErrorMsg} = useSelector((state: globalStoreType) => state.app)
 
-    const page = router.pathname.replace('/', '') ?? ''
+    const page = getAuthPage(router.pathname)
 
     useEffect(() => {
-
-        if (isLoggedIn) {
-            router.push('/team')
-        }
 
         let termsLink: Element | null
         let privacyLink: Element | null
@@ -59,21 +55,21 @@ const Auth: React.FC<AuthProps> = ({t}) => {
         }
     }, [agreement, isLoggedIn])
 
-    console.log(router)
+    console.log(page)
 
     const Form = () => {
         switch (page) {
             case authModes[0] :
                 return (
                     <>
-                        <Login
+                        <Signin
                             isLoading={loading}
                             errorApiMessage={apiErrorMsg}
-                            submitHandle={logIn}
+                            submitHandle={SignIn}
                             clearApiError={clearApiError}
                         />
-                        <Link href="/login/forgot-password">
-                            <a>{t('login:forgot_pwd_question')}</a>
+                        <Link href="/signin/forgot-password">
+                            <a>{t('signin:forgot_pwd_question')}</a>
                         </Link>
                     </>
                 )
@@ -95,8 +91,8 @@ const Auth: React.FC<AuthProps> = ({t}) => {
                             submitHandle={forgotHandle}
                             clearApiError={clearApiError}
                         />
-                        <Link href="/login">
-                            <a>{t('login:ready_to_login')}</a>
+                        <Link href="/signin">
+                            <a>{t('signin:ready_to_signin')}</a>
                         </Link>
                     </>
                 )
@@ -109,17 +105,17 @@ const Auth: React.FC<AuthProps> = ({t}) => {
                             submitHandle={resetHandle}
                             clearApiError={clearApiError}
                         />
-                        <Link href="/login">
-                            <a>{t('login:ready_to_login')}</a>
+                        <Link href="/signin">
+                            <a>{t('signin:ready_to_signin')}</a>
                         </Link>
                     </>
                 )
             case authModes[4] :
                 return (
                     <>
-                        <ForgotSuccess />
-                        <Link href="/login">
-                            <a>{t('login:ready_to_login')}</a>
+                        <ForgotSuccess msg={t('signin:forgot_success')} />
+                        <Link href="/signin">
+                            <a>{t('signin:ready_to_signin')}</a>
                         </Link>
                     </>
                 )
@@ -131,25 +127,31 @@ const Auth: React.FC<AuthProps> = ({t}) => {
     return (
         <div>
             <div className={style.wrapper}>
-                {/*<h1 className={style.title}>{t(`login:${page}`)}</h1>*/}
-                <h1 className={style.title}>{page}</h1>
+                <h1 className={style.title}>{t(`signin:${page}`)}</h1>
                 <Form/>
             </div>
             <div
                 ref={agreement}
                 className={style.agreement}
-                dangerouslySetInnerHTML={{__html: t('login:agreement', {button: t('login.signup')})}}
+                dangerouslySetInnerHTML={{__html: t('signin:agreement', {button: `"${t('signin:sign_up')}"`})}}
             />
         </div>
     )
 
-    function logIn(data: ILoginForm): void {
-        // dispatch(authUser(data, 'login'))
+    function getAuthPage(pathname: string): string {
+        if (!pathname) {
+            return ''
+        }
+        return pathname.split('/').slice(-1)[0]
+    }
+
+    function SignIn(data: ISigninForm): void {
+        dispatch(authUser(data, 'signin'))
         console.log('auth user')
     }
 
     function forgotHandle(data: IForgotForm): void {
-        // dispatch(sendForgotEmail(data.email))
+        dispatch(sendForgotEmail(data.email))
         console.log('forgot email')
     }
 
@@ -158,20 +160,25 @@ const Auth: React.FC<AuthProps> = ({t}) => {
         const code = getQueryFromURL(location.search, 'code')
         const newData = {
             code,
-            password: data.password,
-            passwordConfirmation: data.passwordConfirm,
+            newPassword: data.password,
+            email: data.email,
         }
-        // dispatch(sendNewPassword(newData))
+        dispatch(sendNewPassword(newData))
         console.log('send new password')
     }
 
     function signUp(data: ISignUpForm): void {
         const userData = {
-            username: data.name,
             email: data.email,
             password: data.password,
+            firstName: 'First',
+            lastName: 'Last',
+            city: {
+                id: 0,
+                name: 'city'
+            }
         }
-        // dispatch(authUser(userData, 'signup'))
+        dispatch(authUser(userData, 'registration'))
         console.log('register')
     }
 
@@ -184,4 +191,4 @@ const Auth: React.FC<AuthProps> = ({t}) => {
 
 }
 
-export default withTranslation(['common', 'login'])(Auth)
+export default withTranslation(['common', 'signin'])(Auth)

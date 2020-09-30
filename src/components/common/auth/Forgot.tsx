@@ -6,25 +6,25 @@ import Button from "../buttons/button/Button"
 import {useForm} from 'react-hook-form'
 import {AiOutlineLoading} from 'react-icons/ai'
 import {withTranslation} from "@i18n"
-import {ILogin} from "./Login"
+import {ISignin} from "./Signin"
 
 export interface IForgotForm {
     email: string
 }
 
-const Forgot: React.FC<ILogin<IForgotForm>> = ({isLoading, errorApiMessage, submitHandle, clearApiError, t}) => {
+const Forgot: React.FC<ISignin<IForgotForm>> = ({isLoading, errorApiMessage, submitHandle, clearApiError, t}) => {
 
     const router = useRouter()
-    const isEmailSent = useSelector((state: any) => state.appReducer.emailSent)
+    const {isEmailSent} = useSelector((state: any) => state.user)
     const {register, handleSubmit, reset, errors} = useForm<IForgotForm>()
 
     useEffect(() => {
-        isEmailSent && router.push('/login/forgot-password-success')
+        isEmailSent && router.push('/signin/forgot-password-success')
     },[isEmailSent])
 
     return (
         <>
-            <p>{t('common:auth.forgot_explanation')}</p>
+            <p>{t('signin:forgot_explanation')}</p>
             <form onSubmit={handleSubmit(submitHandle)}>
                 <div className={`form-group ${errors.email ? 'has-error' : ''}`}>
                     <label>
@@ -51,7 +51,7 @@ const Forgot: React.FC<ILogin<IForgotForm>> = ({isLoading, errorApiMessage, subm
                         title={t('common:buttons.send')}
                         startIcon={isLoading && <AiOutlineLoading/>}
                         handle={() => void (0)}
-                        btnClass={'btn-outlined btn-loader'}
+                        btnClass={'btn-accent btn-loader'}
                     />
                     {errorApiMessage && <div className={`item-explain`}>{errorApiMessage}</div>}
                 </div>
@@ -60,4 +60,4 @@ const Forgot: React.FC<ILogin<IForgotForm>> = ({isLoading, errorApiMessage, subm
     )
 }
 
-export default withTranslation(['common', 'login'])(Forgot)
+export default withTranslation(['common', 'signin'])(Forgot)

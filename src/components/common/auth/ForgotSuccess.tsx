@@ -1,13 +1,13 @@
 import {FiCheckSquare} from "react-icons/fi"
 
-const ForgotSuccess: React.FC = () => {
+const ForgotSuccess: React.FC<{msg: string}> = ({msg}) => {
 
     return (
         <div>
             <div className="auth-icon-success">
                 <FiCheckSquare/>
             </div>
-            <p>common:auth.forgot_success</p>
+            <p>{msg}</p>
         </div>
     )
 }

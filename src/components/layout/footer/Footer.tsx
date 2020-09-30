@@ -36,7 +36,7 @@ const Footer: React.FC<{ t: any }> = ({t}) => {
                     </div>
                     <div className="col-xl-4 offset-xl-1">
                         <div className={style.widget}>
-                            <h5 className={style.title}>info</h5>
+                            <h5 className={style.title}>{t('common:footer.info')}</h5>
                             <ul className={style.list}>
                                 {links.map(({link, title}) => (
                                     <li className={style.item} key={title}>
@@ -50,7 +50,7 @@ const Footer: React.FC<{ t: any }> = ({t}) => {
                     </div>
                     <div className="col-xl-3">
                         <div className={`${style.widget} ${style.contacts}`}>
-                            <h5 className={style.title}>Contacts</h5>
+                            <h5 className={style.title}>{t('common:footer.contacts')}</h5>
                             <ul className={style.list}>
                                 <li className={style.item}>
                                     <a href={`mailto:contact@salary2.me`} className={style.email}>

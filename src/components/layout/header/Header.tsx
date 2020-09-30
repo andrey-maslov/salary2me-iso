@@ -1,5 +1,5 @@
 import {useSelector, useDispatch} from 'react-redux'
-import {clearUserData} from '../../../actions/actionCreator'
+import {logOut} from '../../../actions/actionCreator'
 import MobiHeader from '../../mobi/header/MobiHeader'
 import WebHeader from '../../web/header/WebHeader'
 import {Media} from "../../../../media"
@@ -12,7 +12,7 @@ const Header: React.FC = () => {
 
     const handleLoginBtn = () => {
         if (isLoggedIn) {
-            dispatch(clearUserData())
+            dispatch(logOut())
         } else {
             console.log('xc')
         }

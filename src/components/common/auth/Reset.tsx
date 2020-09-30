@@ -5,14 +5,15 @@ import {AiOutlineLoading} from 'react-icons/ai'
 import {withTranslation} from "@i18n"
 import {useSelector} from "react-redux"
 import ResetSuccess from "./ResetSuccess"
-import {ILogin} from "./Login"
+import {ISignin} from "./Signin"
 
 export interface IResetForm {
     password: string
     passwordConfirm: string
+    email: string
 }
 
-const Reset: React.FC<ILogin<IResetForm>> = ({isLoading, errorApiMessage, submitHandle, clearApiError, t}) => {
+const Reset: React.FC<ISignin<IResetForm>> = ({isLoading, errorApiMessage, submitHandle, clearApiError, t}) => {
 
     const {register, handleSubmit, reset, getValues, errors} = useForm<IResetForm>()
     const {isPwdChanged} = useSelector((state: any) => state.appReducer)
@@ -64,6 +65,26 @@ const Reset: React.FC<ILogin<IResetForm>> = ({isLoading, errorApiMessage, submit
                 {errors.passwordConfirm && <div className={`item-explain`}>{errors.passwordConfirm.message}</div>}
             </div>
 
+
+            <div className={`form-group ${errors.email ? 'has-error' : ''}`}>
+                <label>
+                    <span>Email</span>
+                    <input
+                        className={style.input}
+                        name="email"
+                        onFocus={clearApiError}
+                        ref={register({
+                            required: `${t('common:errors.required')}`,
+                            pattern: {
+                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                message: `${t('common:errors.invalid_email')}`
+                            }
+                        })}
+                    />
+                </label>
+                {errors.email && <div className={`item-explain`}>{errors.email.message}</div>}
+            </div>
+
             <div className={`form-group ${errorApiMessage ? 'has-error' : ''}`}>
                 <Button
                     title={t('common:buttons.reset_pwd')}
@@ -77,4 +98,4 @@ const Reset: React.FC<ILogin<IResetForm>> = ({isLoading, errorApiMessage, submit
     )
 }
 
-export default withTranslation(['common', 'login'])(Reset)
+export default withTranslation(['common', 'signin'])(Reset)

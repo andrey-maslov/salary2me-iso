@@ -7,14 +7,14 @@ type LoginType = {
     t: any
 }
 
-const LoginLayout: React.FC<LoginType> = ({t, ...props}) => {
+const SigninLayout: React.FC<LoginType> = ({t}) => {
     return (
         <>
             <Head>
                 <meta name="description" content={t('meta.description')} />
                 <title>{t('meta.title')}</title>
             </Head>
-            <div className='login-page page'>
+            <div className='signin-page page'>
                 <Layout>
                     <section className="section main flex-centered">
                         <Auth/>
@@ -25,4 +25,4 @@ const LoginLayout: React.FC<LoginType> = ({t, ...props}) => {
     )
 }
 
-export default withTranslation('login')(LoginLayout)
+export default withTranslation('signin')(SigninLayout)

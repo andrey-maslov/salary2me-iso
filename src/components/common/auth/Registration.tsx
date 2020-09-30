@@ -3,39 +3,24 @@ import Button from "../buttons/button/Button"
 import {useForm} from 'react-hook-form'
 import {AiOutlineLoading} from 'react-icons/ai'
 import {withTranslation} from "@i18n"
-import {ILogin} from "./Login"
+import {ISignin} from "./Signin"
 
 export interface ISignUpForm {
-    name: string
+    firstName: string,
+    lastName: string,
     email: string
     password: string
     passwordConfirm: string
     errors: any
 }
 
-const Registration: React.FC<ILogin<ISignUpForm>> = ({isLoading, errorApiMessage, submitHandle, clearApiError, t}) => {
+const Registration: React.FC<ISignin<ISignUpForm>> = ({isLoading, errorApiMessage, submitHandle, clearApiError, t}) => {
 
     const {register, handleSubmit, reset, getValues, errors} = useForm<ISignUpForm>()
 
     return (
         <form onSubmit={handleSubmit(submitHandle)}>
-
-            <div className={`form-group ${errors.name ? 'has-error' : ''}`}>
-                <label>
-                    <span>{t('common:auth.name')}</span>
-                    <input
-                        className={style.input}
-                        type="text"
-                        name="name"
-                        onFocus={clearApiError}
-                        ref={register({
-                            required: `${t('common:errors.required')}`
-                        })}
-                    />
-                </label>
-                {errors.name && <div className={`item-explain`}>{errors.name.message}</div>}
-            </div>
-
+            
             <div className={`form-group ${errors.email ? 'has-error' : ''}`}>
                 <label>
                     <span>Email</span>
@@ -57,7 +42,7 @@ const Registration: React.FC<ILogin<ISignUpForm>> = ({isLoading, errorApiMessage
 
             <div className={`form-group ${errors.password ? 'has-error' : ''}`}>
                 <label>
-                    <span>{t('common:auth.pwd')}</span>
+                    <span>{t('signin:pwd')}</span>
                     <input
                         className={style.input}
                         type="password"
@@ -65,7 +50,7 @@ const Registration: React.FC<ILogin<ISignUpForm>> = ({isLoading, errorApiMessage
                         onFocus={clearApiError}
                         ref={register({
                             required: `${t('common:errors.required')}`,
-                            minLength: {value: 3, message: `${t('common:errors.short_pwd')}`}
+                            minLength: {value: 3, message: `${t('signin:short_pwd')}`}
                         })}
                     />
                 </label>
@@ -74,18 +59,18 @@ const Registration: React.FC<ILogin<ISignUpForm>> = ({isLoading, errorApiMessage
 
             <div className={`form-group ${errors.passwordConfirm ? 'has-error' : ''}`}>
                 <label>
-                    <span>{t('common:auth.confirm_pwd')}</span>
+                    <span>{t('signin:confirm_pwd')}</span>
                     <input
                         className={style.input}
                         type="password"
                         name="passwordConfirm"
                         onFocus={clearApiError}
                         ref={register({
-                            required: `${t('common:errors.confirm_pwd')}`,
+                            required: `${t('signin:confirm_pwd')}`,
                             validate: {
                                 matchesPreviousPassword: value => {
                                     const {password} = getValues();
-                                    return password === value || `${t('common:errors.pwd_mismatch')}`;
+                                    return password === value || `${t('signin:pwd_mismatch')}`;
                                 }
                             }
                         })}
@@ -96,10 +81,10 @@ const Registration: React.FC<ILogin<ISignUpForm>> = ({isLoading, errorApiMessage
 
             <div className={`form-group ${errorApiMessage ? 'has-error' : ''}`}>
                 <Button
-                    title={t('common:buttons.signup')}
+                    title={t('signin:sign_up')}
                     startIcon={isLoading && <AiOutlineLoading/>}
                     handle={() => void (0)}
-                    btnClass={'btn-outlined btn-loader'}
+                    btnClass={'btn-accent btn-loader'}
                 />
                 {errorApiMessage && <div className={`item-explain`}>{errorApiMessage}</div>}
             </div>
@@ -107,4 +92,4 @@ const Registration: React.FC<ILogin<ISignUpForm>> = ({isLoading, errorApiMessage
     )
 }
 
-export default withTranslation(['common', 'login'])(Registration)
+export default withTranslation(['common', 'signin'])(Registration)

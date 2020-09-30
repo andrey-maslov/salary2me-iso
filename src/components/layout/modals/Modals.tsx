@@ -2,7 +2,7 @@ import {useEffect} from 'react'
 import {clearErrors, setLoginModal} from '../../../actions/actionCreator'
 import {useSelector, useDispatch} from 'react-redux'
 import ParsingModal from "./parsing-modal/ParsingModal"
-import LoginModal from "./login-modal/LoginModal"
+import AuthModal from "./auth-modal/AuthModal"
 import CookieConsent from "./cookie-consent/CookieConsent"
 import {globalStoreType} from "../../../typings/types"
 import {PARSING_MODAL} from "../../../actions/actionTypes"
@@ -38,7 +38,7 @@ const Modals: React.FC = () => {
 
     return (
         <>
-            {isLoginModal && <LoginModal
+            {isLoginModal && <AuthModal
                 isModalShown={isLoginModal}
                 closeModal={closeModal}
             />}

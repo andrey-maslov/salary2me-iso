@@ -181,7 +181,7 @@ body {
 
 /*===== Modals =====*/
 
-.login {
+.auth {
 
   &-modal {
 
@@ -222,9 +222,80 @@ body {
 
 
 /*===== FORMS =====*/
-input.input:focus, input.input.active, select:focus, select.active, textarea:focus, textarea.active {
-  outline: none;
-  border-color: $accent;
+
+
+/*===== FORMS =====*/
+
+input, textarea {
+  display: block;
+  width: 100%;
+  padding: .5rem .8rem;
+  background-color: $grey-bg;
+  //caret-color: $text-light;
+  //color: $text-light;
+  font-family: $title-font;
+  border: 1px solid rgba($grey, .3);
+  border-radius: $border-radius-sm;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+
+  label {
+
+    span {
+      display: inline-block;
+      margin-bottom: .2rem;
+    }
+  }
+
+  textarea {
+    resize: none;
+    margin: 0;
+    height: 100px;
+  }
+
+  .item-explain {
+    font-size: .8rem;
+    min-height: 1.5rem;
+    padding-top: 0;
+    line-height: 1.4;
+    transition: color .3s cubic-bezier(.215, .61, .355, 1);
+  }
+
+  &.has-error {
+    margin-bottom: 0;
+
+    .item-explain {
+      color: $danger;
+
+      &.floating {
+        position: absolute;
+        padding: .8rem;
+        right: 0;
+        bottom: -120%;
+        background-color: #fff;
+        border-radius: $border-radius-sm;
+        box-shadow: $box-shadow-lg;
+        width: 100%;
+        z-index: 99;
+      }
+    }
+
+    input,
+    textarea {
+
+      &:focus {
+        border-radius: 3px;
+        outline-color: rgba($danger, .5);
+      }
+    }
+  }
+}
+
+.auth-icon-success {
+  color: $success;
+  font-size: 3rem;
 }
 
 

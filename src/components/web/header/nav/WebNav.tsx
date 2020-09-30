@@ -52,7 +52,7 @@ const WebNav = ({handleLoginBtn, isLoggedIn, userEmail, t}: Navigation) => {
                 /> :
                 <ul className={`${style.list} ${style.auth}`}>
                     <li>
-                        <Link href="/login">
+                        <Link href="/signin">
                             <a className={style.link}>{t('common:buttons.signin')}</a>
                         </Link>
                     </li>

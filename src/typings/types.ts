@@ -36,3 +36,18 @@ export interface QuestionsProps {
     content?: string
     t?: any
 }
+
+export interface ISignUpData {
+    email: string,
+    password: string,
+    firstName: string,
+    lastName: string,
+    city: {
+        id: number,
+        name: string
+    }
+}
+export interface ISignInData {
+    username: string
+    password: string
+}

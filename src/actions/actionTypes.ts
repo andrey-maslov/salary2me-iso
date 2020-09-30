@@ -9,6 +9,8 @@ export const ESTIMATION = 'ESTIMATION'
 export const CLEAR_USER_DATA = 'CLEAR_USER_DATA'
 export const ADD_AUTH_DATA = 'ADD_AUTH_DATA'
 export const OPEN_LOGIN_MODAL  = 'OPEN_LOGIN_MODAL'
+export const SEND_EMAIL  = 'SEND_EMAIL'
+export const CHANGE_PWD  = 'CHANGE_PWD'
 
 /*===== REQUEST STATUS =====*/
 export const LOADING = 'LOADING'

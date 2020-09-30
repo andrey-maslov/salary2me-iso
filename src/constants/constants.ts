@@ -70,7 +70,7 @@ export const currencies = {
 }
 
 export enum authModes {
-    'login',
+    'signin',
     'registration',
     'forgot-password',
     'reset-password',

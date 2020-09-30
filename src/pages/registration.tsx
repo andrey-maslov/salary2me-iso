@@ -1,12 +1,12 @@
-import {LoginLayout} from '../page-layouts'
+import {SigninLayout} from '../page-layouts'
 
 function Registration() {
 
-    return <LoginLayout />
+    return <SigninLayout />
 }
 
 Registration.getInitialProps = async ({ req }) => {
-    return { namespacesRequired: ['login', 'common'] }
+    return { namespacesRequired: ['signin', 'common'] }
 }
 
 export default Registration

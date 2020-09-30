@@ -49,7 +49,7 @@ class Checkbox extends React.Component<CheckBoxProps> {
                     {label && <span className={style.text}>{label}</span>}
                 </label>
             </div>
-        );
+        )
     }
 }
 

@@ -1,15 +1,15 @@
 import React, {useState} from "react";
 import Rodal from 'rodal';
 import {accentColor} from '../../../../constants/constants';
-import style from "./login-modal.module.scss";
+import style from "./auth-modal.module.scss";
 import {IModalProps} from "../../../../typings/types";
 import Auth from "../../../common/auth/Auth";
 
-const LoginModal: React.FC<IModalProps> = ({isModalShown, closeModal}) => {
+const AuthModal: React.FC<IModalProps> = ({isModalShown, closeModal}) => {
 
     return (
         <Rodal
-            className={`modal ${style.loginModal}`}
+            className={`modal ${style.authModal}`}
             visible={isModalShown}
             onClose={closeModal}
             closeMaskOnCLick={true}
@@ -33,4 +33,4 @@ const LoginModal: React.FC<IModalProps> = ({isModalShown, closeModal}) => {
     )
 };
 
-export default LoginModal;
+export default AuthModal;

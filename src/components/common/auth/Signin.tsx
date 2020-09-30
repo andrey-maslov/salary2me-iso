@@ -4,12 +4,12 @@ import {useForm} from 'react-hook-form'
 import {AiOutlineLoading} from 'react-icons/ai'
 import {withTranslation} from "@i18n"
 
-export interface ILoginForm {
-    identifier: string
+export interface ISigninForm {
+    username: string
     password: string
 }
 
-export interface ILogin<T> {
+export interface ISignin<T> {
     isLoading: boolean
     errorApiMessage: string
     submitHandle: (data: T) => void
@@ -17,31 +17,31 @@ export interface ILogin<T> {
     t?: any
 }
 
-const Login: React.FC<ILogin<ILoginForm>> = ({isLoading, errorApiMessage, submitHandle, clearApiError, t}) => {
+const Signin: React.FC<ISignin<ISigninForm>> = ({isLoading, errorApiMessage, submitHandle, clearApiError, t}) => {
 
-    const {register, handleSubmit, reset, errors} = useForm<ILoginForm>()
+    const {register, handleSubmit, reset, errors} = useForm<ISigninForm>()
 
     return (
         <form onSubmit={handleSubmit(submitHandle)}>
 
-            <div className={`form-group ${errors.identifier ? 'has-error' : ''}`}>
+            <div className={`form-group ${errors.username ? 'has-error' : ''}`}>
                 <label>
-                    <span>{t('login:identifier')}</span>
+                    <span>{t('signin:identifier')}</span>
                     <input
                         className={style.input}
                         type="text"
-                        name="identifier"
+                        name="username"
                         onFocus={clearApiError}
                         ref={register({
                             required: `${t('common:errors.required')}`
                         })}
                     />
                 </label>
-                {errors.identifier && <div className={`item-explain`}>{errors.identifier.message}</div>}
+                {errors.username && <div className={`item-explain`}>{errors.username.message}</div>}
             </div>
             <div className={`form-group ${errors.password ? 'has-error' : ''}`}>
                 <label>
-                    <span>{t('login:pwd')}</span>
+                    <span>{t('signin:pwd')}</span>
                     <input
                         className={style.input}
                         type="password"
@@ -57,10 +57,10 @@ const Login: React.FC<ILogin<ILoginForm>> = ({isLoading, errorApiMessage, submit
 
             <div className={`form-group ${errorApiMessage ? 'has-error' : ''}`}>
                 <Button
-                    title={t('login:sign_in')}
+                    title={t('signin:sign_in')}
                     startIcon={isLoading && <AiOutlineLoading/>}
                     handle={() => void (0)}
-                    btnClass={'btn-outlined btn-loader'}
+                    btnClass={'btn-accent btn-loader'}
                 />
                 {errorApiMessage && <div className={`item-explain`}>{errorApiMessage}</div>}
             </div>
@@ -68,4 +68,4 @@ const Login: React.FC<ILogin<ILoginForm>> = ({isLoading, errorApiMessage, submit
     )
 }
 
-export default withTranslation(['common', 'login'])(Login)
+export default withTranslation(['common', 'signin'])(Signin)
