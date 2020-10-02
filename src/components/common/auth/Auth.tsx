@@ -4,7 +4,7 @@ import {useRouter} from 'next/router'
 import Signin, {ISigninForm} from "./Signin"
 import Registration, {ISignUpForm} from "./Registration"
 import {useDispatch, useSelector} from "react-redux"
-import {authUser, sendForgotEmail, sendNewPassword} from "../../../actions/actionCreator"
+import {authUser, sendForgotEmail, sendNewPassword, updateUserData} from "../../../actions/actionCreator"
 import {SET_ERROR} from "../../../actions/actionTypes"
 import Forgot, {IForgotForm} from "./Forgot"
 import Reset, {IResetForm} from "./Reset"
@@ -13,6 +13,7 @@ import style from './auth.module.scss'
 import ForgotSuccess from "./ForgotSuccess"
 import {getQueryFromURL} from "../../../helper/helper"
 import {globalStoreType} from "../../../typings/types"
+import ExtraUserInfo, {IInfoForm} from "./ExtraUserInfo";
 
 
 type AuthProps = {
@@ -24,7 +25,7 @@ const Auth: React.FC<AuthProps> = ({t}) => {
     const router = useRouter()
     const dispatch = useDispatch()
     const agreement = useRef<HTMLDivElement>(null)
-    const {isLoggedIn} = useSelector((state: globalStoreType) => state.user)
+    const {isLoggedIn, name} = useSelector((state: globalStoreType) => state.user)
     const {loading, apiErrorMsg} = useSelector((state: globalStoreType) => state.app)
 
     const page = getAuthPage(router.pathname)
@@ -55,8 +56,6 @@ const Auth: React.FC<AuthProps> = ({t}) => {
         }
     }, [agreement, isLoggedIn])
 
-    console.log(page)
-
     const Form = () => {
         switch (page) {
             case authModes[0] :
@@ -78,7 +77,7 @@ const Auth: React.FC<AuthProps> = ({t}) => {
                     <Registration
                         isLoading={loading}
                         errorApiMessage={apiErrorMsg}
-                        submitHandle={signUp}
+                        submitHandle={addExtraInfo}
                         clearApiError={clearApiError}
                     />
                 )
@@ -113,11 +112,20 @@ const Auth: React.FC<AuthProps> = ({t}) => {
             case authModes[4] :
                 return (
                     <>
-                        <ForgotSuccess msg={t('signin:forgot_success')} />
+                        <ForgotSuccess msg={t('signin:forgot_success')}/>
                         <Link href="/signin">
                             <a>{t('signin:ready_to_signin')}</a>
                         </Link>
                     </>
+                )
+            case authModes[5] :
+                return (
+                    <ExtraUserInfo
+                        isLoading={loading}
+                        errorApiMessage={apiErrorMsg}
+                        submitHandle={addExtraInfo}
+                        clearApiError={clearApiError}
+                    />
                 )
             default :
                 return null
@@ -182,6 +190,15 @@ const Auth: React.FC<AuthProps> = ({t}) => {
         console.log('register')
     }
 
+    function addExtraInfo(data: IInfoForm) {
+        const userData = {
+            firstName: data.firstName,
+            lastName: data.lastName,
+            position: data.position,
+        }
+        dispatch(updateUserData(userData))
+        console.log('extra info', data)
+    }
 
 
     function clearApiError() {

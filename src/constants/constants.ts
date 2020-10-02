@@ -74,5 +74,6 @@ export enum authModes {
     'registration',
     'forgot-password',
     'reset-password',
-    'forgot-password-success'
+    'forgot-password-success',
+    'onboarding'
 }

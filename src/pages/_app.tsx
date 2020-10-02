@@ -8,6 +8,7 @@ import 'focus-visible/dist/focus-visible.js'
 
 import {MediaContextProvider} from "../../media"
 import Head from "next/head";
+import ScrollToTop from "../components/common/ScrollToTop";
 
 function MyApp({Component, pageProps}) {
     const store = useStore(pageProps.initialReduxState)
@@ -15,6 +16,7 @@ function MyApp({Component, pageProps}) {
     return (
         <MediaContextProvider>
             <Provider store={store}>
+                <ScrollToTop/>
                 <Component {...pageProps} />
                 <SVGSource/>
             </Provider>

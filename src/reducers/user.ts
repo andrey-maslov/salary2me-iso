@@ -8,8 +8,11 @@ import {isBrowser} from "../helper/helper"
 let STATE = isBrowser ? loadState('user') : null
 
 export type userStoreType = {
+    firstName: string,
+    LastName: string,
     name: string,
     email: string,
+    position,
     isLoggedIn: boolean,
     provider: string,
     isEmailSent: boolean,
@@ -21,8 +24,11 @@ export type userStoreType = {
 
 if (!STATE) {
     STATE = {
+        firstName: '',
+        lastName: '',
         name: '',
         email: '@mail',
+        position: '',
         isLoggedIn: true,
         isEmailSent: false,
         isPwdChanged: false,
@@ -35,8 +41,10 @@ if (!STATE) {
 
 export const user = (state = STATE, {
     type,
-    name,
+    firstName,
+    lastName,
     email,
+    position,
     isEmailSent,
     isPwdChanged,
     provider,
@@ -48,8 +56,11 @@ export const user = (state = STATE, {
         case ADD_AUTH_DATA :
             return {
                 ...state,
-                name,
+                firstName,
+                lastName,
+                name: (firstName && lastName) ? `${firstName} ${lastName}` : '',
                 email,
+                position,
                 isLoggedIn: true,
                 provider,
                 isPublic,
@@ -68,7 +79,8 @@ export const user = (state = STATE, {
         case CLEAR_USER_DATA :
             return {
                 ...state,
-                name: '',
+                firstName: '',
+                LastName: '',
                 email: '',
                 isLoggedIn: false,
                 provider: '',

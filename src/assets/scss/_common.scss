@@ -84,6 +84,12 @@ body {
     flex: 1 0 auto;
     min-height: auto;
   }
+
+  &-test-main,
+  &-test-questions,
+  &-test-result {
+    background-color: rgba($accent, .1);
+  }
 }
 
 .content {
@@ -106,6 +112,12 @@ body {
 
 .divider {
   border-top: 1px solid $grey-bg;
+}
+
+table {
+  th, td {
+    border: 1px solid hsla(0,0%,49%,.3);
+  }
 }
 
 
@@ -291,13 +303,17 @@ input, textarea {
       }
     }
   }
+
+  button {
+    margin-bottom: 0;
+    padding: .5rem .8rem;
+  }
 }
 
 .auth-icon-success {
   color: $success;
   font-size: 3rem;
 }
-
 
 
 /*===== Cities images =====*/
@@ -311,72 +327,95 @@ input, textarea {
   &.brussels {
     background-position: 0 0;
   }
+
   &.lisbon {
     background-position: 0 -121px;
   }
+
   &.warsaw {
     background-position: 0 -242px;
   }
+
   &.copenhagen {
     background-position: 0 -363px;
   }
+
   &.barcelona {
     background-position: 0 -484px;
   }
+
   &.dublin {
     background-position: 0 -605px;
   }
+
   &.stockholm {
     background-position: 0 -726px;
   }
+
   &.krakow {
     background-position: 0 -847px;
   }
+
   &.prague {
     background-position: 0 -968px;
   }
+
   &.wroclaw {
     background-position: 0 -1089px;
   }
+
   &.paris {
     background-position: 0 -1210px;
   }
+
   &.zurich {
     background-position: 0 -1331px;
   }
+
   &.gdansk {
     background-position: 0 -1452px;
   }
+
   &.london {
     background-position: 0 -1573px;
   }
+
   &.munich {
     background-position: 0 -1694px;
   }
+
   &.berlin {
     background-position: 0 -1815px;
   }
+
   &.sofia {
     background-position: 0 -1936px;
   }
+
   &.helsinki {
     background-position: 0 -2057px;
   }
+
   &.moscow {
     background-position: 0 -2178px;
   }
+
   &.madrid {
     background-position: 0 -2299px;
   }
+
   &.amsterdam {
     background-position: 0 -2420px;
   }
+
   &.kyiv {
     background-position: 0 -2541px;
   }
+
   &.minsk {
     background-position: 0 -2662px;
   }
+
   &.oslo {
     background-position: 0 -2783px;
   }

@@ -10,12 +10,22 @@ import {authModes} from "../constants/constants"
 
 /*===== AUTH =====*/
 
-export function addAuthData(name: string, email: string, provider = 'local') {
+interface IUserData {
+    firstName?: string,
+    lastName?: string,
+    email?: string,
+    position?: string,
+    provider?: string
+}
+
+export function addAuthData(userData: IUserData) {
     return {
         type: ADD_AUTH_DATA,
-        name,
-        email,
-        provider
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        email: userData.email,
+        position: userData.position,
+        provider: userData.provider
     }
 }
 
@@ -33,7 +43,7 @@ export function checkAuth() {
             })
                 .then(res => res.data)
                 .then(data => {
-                    dispatch(addAuthData(`${data.firstName} ${data.lastName}`, data.email))
+                    dispatch(addAuthData({firstName: data.firstName, lastName: data.lastName, email: data.email,}))
                 })
                 .catch(error => apiErrorHandling(error, dispatch))
                 .finally(() => dispatch(setLoading(false)))
@@ -52,8 +62,29 @@ export const authUser = (userData: ISignUpData | ISignInData, authType: keyof ty
         })
             .then(res => res.data)
             .then(data => {
-                dispatch(addAuthData(`${data.firstName} ${data.lastName}`, data.email))
+                dispatch(addAuthData({firstName: data.firstName, lastName: data.lastName, email: data.email,}))
                 Cookie.set("token", data.jwtToken)
+                dispatch(clearErrors())
+            })
+            .catch(error => {
+                apiErrorHandling(error, dispatch)
+                dispatch(setLoading(false))
+            })
+    }
+}
+
+export const updateUserData = (userData: any) => {
+
+    const url = `${process.env.BASE_API}/api/v${process.env.API_VER}/Account/update`
+
+    return (dispatch: any) => {
+        dispatch(setLoading(true))
+        axios.put(url, {
+            data: userData,
+        })
+            .then(res => res.data)
+            .then(data => {
+                dispatch(addAuthData({firstName: data.firstName, lastName: data.lastName, position: data.position}))
                 dispatch(clearErrors())
             })
             .catch(error => {
@@ -130,7 +161,7 @@ export const signInGoogle = () => {
             .then((profile) => {
                 const name = profile.getName(),
                     email = profile.getEmail();
-                dispatch(addAuthData(name, email, 'google'));
+                // dispatch(addAuthData(name, email, 'google'));
                 // dispatch(isUserInBase(email));
             })
     }

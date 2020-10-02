@@ -1,4 +1,4 @@
-import {SigninLayout} from '../page-layouts'
+import {SigninLayout} from '../../page-layouts'
 
 function Registration() {
 

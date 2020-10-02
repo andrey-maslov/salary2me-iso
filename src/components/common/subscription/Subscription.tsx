@@ -16,11 +16,12 @@ const Subscription = () => {
                 <span className={style.lighthouse}/>
                 <FaBell color={accentColor}/>
             </div>
-            <Checkbox
-                isChecked={false}
-                handle={handleSubscription}
-                label={'I want to receive notifications about new vacancies'}
-            />
+            {/*<Checkbox*/}
+            {/*    isChecked={false}*/}
+            {/*    innerRef={{}}*/}
+            {/*    handle={handleSubscription}*/}
+            {/*    label={'I want to receive notifications about new vacancies'}*/}
+            {/*/>*/}
         </div>
     );
 };

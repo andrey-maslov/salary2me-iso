@@ -1,13 +1,13 @@
-import Layout from "../../components/layout/Layout";
-import Head from "next/head";
-import {withTranslation} from '@i18n';
-import UserProfile from "./user-profile/UserProfile";
+import Layout from "../../components/layout/Layout"
+import Head from "next/head"
+import {withTranslation} from '@i18n'
+import UserProfile from "./user-profile/UserProfile"
 
 type ProfileType = {
     t: any
 }
 
-const Profile: React.FC<ProfileType> = ({t}) => {
+const Profile = ({t}: ProfileType) => {
     return (
         <>
             <Head>
@@ -29,4 +29,4 @@ const Profile: React.FC<ProfileType> = ({t}) => {
     )
 }
 
-export default withTranslation('profile')(Profile);
+export default withTranslation('profile')(Profile)

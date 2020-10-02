@@ -1,6 +1,7 @@
 import Layout from "../../../components/layout/Layout"
 import Head from "next/head"
 import Result from "./Result"
+import ScrollToTop from "../../../components/common/ScrollToTop";
 
 
 const TestResultLayout: React.FC = () => {
@@ -10,7 +11,7 @@ const TestResultLayout: React.FC = () => {
                 <meta name="description" content={''}/>
                 <title>{'some title'}</title>
             </Head>
-            <div className="page-test-result bg-grey">
+            <div className="page-test-result">
                 <Layout>
                     <section className="section">
                         <div className="container">

@@ -1,20 +1,19 @@
-import React, { useState } from 'react'
-import { useRouter } from 'next/router'
-import { useSelector, useDispatch } from 'react-redux'
+import React, {useState} from 'react'
+import {useRouter} from 'next/router'
+import {useSelector, useDispatch} from 'react-redux'
 import Button from '../../../../components/common/buttons/button/Button'
-import { FiArrowRight, FiArrowLeft, FiMoreVertical } from 'react-icons/fi'
+import {FiArrowRight, FiArrowLeft, FiMoreVertical} from 'react-icons/fi'
 import fakeData from './fakeData.json'
-import { checkAnswers, getRandomIntInclusive, isBrowser } from '../../../../helper/helper'
+import {checkAnswers, getRandomIntInclusive, isBrowser} from '../../../../helper/helper'
 import {AnswerType, globalStoreType, QuestionsProps} from '../../../../typings/types'
 import RadioGroupItem from "../radio-group-item/RadioGroupItem"
 import style from './questions.module.scss'
 import {withTranslation} from "@i18n"
 
-const Questions = ({saveAnswers, questions, isVisible, changeBlock, t}: QuestionsProps) => {
+const Questions = ({saveAnswers, questions, changeBlock, t}: QuestionsProps) => {
 
     const router = useRouter()
     const dispatch = useDispatch()
-    const visibleClass: string = isVisible ? 'visible' : 'hidden'
     const {isLoggedIn} = useSelector((state: globalStoreType) => state.user)
 
     let initAnswers: Array<AnswerType> = [...questions].map((item: any) => ({id: item.title, value: ''}))
@@ -51,10 +50,7 @@ const Questions = ({saveAnswers, questions, isVisible, changeBlock, t}: Question
     }
 
     return (
-        <div className={`${visibleClass} fade-in`}>
-            <div
-                dangerouslySetInnerHTML={{__html: t('test:page.test_block_desc')}}
-            />
+        <>
             {renderQuestionsList()}
             <div className={style.buttons}>
                 <Button
@@ -86,7 +82,7 @@ const Questions = ({saveAnswers, questions, isVisible, changeBlock, t}: Question
                     title={'send generated data'}
                 />
             </div>}
-        </div>
+        </>
     )
 
     function calculateResults(answersArr: Array<AnswerType>) {

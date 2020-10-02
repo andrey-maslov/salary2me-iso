@@ -31,7 +31,7 @@ export type AnswerType = {
 export interface QuestionsProps {
     saveAnswers: (data: number[] | number[][]) => void
     questions: any
-    isVisible: boolean
+    isVisible?: boolean
     changeBlock: (blockToShow: string, currentBlock?: string) => void
     content?: string
     t?: any

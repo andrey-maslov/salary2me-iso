@@ -4,6 +4,7 @@ import {useForm} from 'react-hook-form'
 import {AiOutlineLoading} from 'react-icons/ai'
 import {withTranslation} from "@i18n"
 import {ISignin} from "./Signin"
+import Password from "../inputs/password/Password"
 
 export interface ISignUpForm {
     firstName: string,
@@ -20,7 +21,7 @@ const Registration: React.FC<ISignin<ISignUpForm>> = ({isLoading, errorApiMessag
 
     return (
         <form onSubmit={handleSubmit(submitHandle)}>
-            
+
             <div className={`form-group ${errors.email ? 'has-error' : ''}`}>
                 <label>
                     <span>Email</span>
@@ -41,41 +42,31 @@ const Registration: React.FC<ISignin<ISignUpForm>> = ({isLoading, errorApiMessag
             </div>
 
             <div className={`form-group ${errors.password ? 'has-error' : ''}`}>
-                <label>
-                    <span>{t('signin:pwd')}</span>
-                    <input
-                        className={style.input}
-                        type="password"
-                        name="password"
-                        onFocus={clearApiError}
-                        ref={register({
-                            required: `${t('common:errors.required')}`,
-                            minLength: {value: 3, message: `${t('signin:short_pwd')}`}
-                        })}
-                    />
-                </label>
+                <Password
+                    label={t('signin:pwd')}
+                    innerRef={register({
+                        required: `${t('common:errors.required')}`,
+                        minLength: {value: 3, message: `${t('signin:short_pwd')}`}
+                    })}
+                    clearApiError={clearApiError}
+                    name={"password"}
+                />
                 {errors.password && <div className={`item-explain`}>{errors.password.message}</div>}
             </div>
 
             <div className={`form-group ${errors.passwordConfirm ? 'has-error' : ''}`}>
-                <label>
-                    <span>{t('signin:confirm_pwd')}</span>
-                    <input
-                        className={style.input}
-                        type="password"
-                        name="passwordConfirm"
-                        onFocus={clearApiError}
-                        ref={register({
-                            required: `${t('signin:confirm_pwd')}`,
-                            validate: {
-                                matchesPreviousPassword: value => {
-                                    const {password} = getValues();
-                                    return password === value || `${t('signin:pwd_mismatch')}`;
-                                }
-                            }
-                        })}
-                    />
-                </label>
+                <Password
+                    label={t('signin:pwd')}
+                    innerRef={register({
+                        required: `${t('signin:confirm_pwd')}`,
+                        validate: {
+                            matchesPreviousPassword: value => {
+                                const {password} = getValues()
+                                return password === value || `${t('signin:pwd_mismatch')}`
+                            }}})}
+                    clearApiError={clearApiError}
+                    name={"passwordConfirm"}
+                />
                 {errors.passwordConfirm && <div className={`item-explain`}>{errors.passwordConfirm.message}</div>}
             </div>
 
@@ -90,6 +81,10 @@ const Registration: React.FC<ISignin<ISignUpForm>> = ({isLoading, errorApiMessag
             </div>
         </form>
     )
+
+    function showPwd() {
+        console.log('show!')
+    }
 }
 
 export default withTranslation(['common', 'signin'])(Registration)

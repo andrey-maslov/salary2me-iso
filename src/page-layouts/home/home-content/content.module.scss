@@ -1,9 +1,16 @@
+@import '../../../assets/scss/vars';
+
 .content {
   position: relative;
 
   &:before {
     position: absolute;
-    content: url('../../../assets/img/long-dots-min.png');
+    content: '';
+    display: block;
+    width: 500px;
+    height: 234px;
+    background-image: radial-gradient(rgba($grey, .2) 5px, transparent 2px);
+    background-size: calc(10 * 2px) calc(10 * 2px);
     bottom: 100px;
     left: 0;
     z-index: -1;

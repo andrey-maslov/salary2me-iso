@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, {useState} from 'react'
 import {useDispatch} from 'react-redux'
-import { FiArrowRight } from 'react-icons/fi'
+import {FiArrowRight} from 'react-icons/fi'
 import {withTranslation} from "@i18n"
 import Button from '../../../../components/common/buttons/button/Button'
-import { AnswerType, QuestionsProps } from '../../../../typings/types'
-import { checkAnswers, isBrowser } from '../../../../helper/helper'
+import {AnswerType, QuestionsProps} from '../../../../typings/types'
+import {checkAnswers, isBrowser} from '../../../../helper/helper'
 import RadioGroupItem from '../radio-group-item/RadioGroupItem'
 // import Toast from 'light-toast'
 
@@ -13,9 +13,9 @@ const PersonalInfo = ({questions, saveAnswers, isVisible, changeBlock, t}: Quest
     let initAnswers: Array<AnswerType> = [...questions].map((item: any) => ({id: item.title, value: ''}))
     const dispatch = useDispatch()
     const [state, setState] = useState({
-                                           answers: initAnswers,
-                                           isBtnEnabled: true
-                                       })
+        answers: initAnswers,
+        isBtnEnabled: true
+    })
 
     const testHandler = (questionNumber: number, value: string) => {
         initAnswers = state.answers
@@ -40,8 +40,6 @@ const PersonalInfo = ({questions, saveAnswers, isVisible, changeBlock, t}: Quest
         }
     }
 
-    const visibleClass: string = isVisible ? 'visible' : 'hidden'
-
     const renderQuestionsList = (): React.ReactNode[] => {
 
         const personalInfoScheme = [
@@ -64,11 +62,8 @@ const PersonalInfo = ({questions, saveAnswers, isVisible, changeBlock, t}: Quest
     }
 
     return (
-        <div className={`${visibleClass} fade-in`}>
-            <p>{t('test:page.info_block_desc')}</p>
-
+        <>
             {renderQuestionsList()}
-
             <Button
                 handle={nextBtnHandler}
                 btnClass='btn-accent'
@@ -76,7 +71,7 @@ const PersonalInfo = ({questions, saveAnswers, isVisible, changeBlock, t}: Quest
                 endIcon={<FiArrowRight/>}
                 isEnabled={state.isBtnEnabled}
             />
-        </div>
+        </>
     )
 }
 

@@ -10,7 +10,7 @@ const TestQuestionsLayout: React.FC = () => {
                 <meta name="description" content={''}/>
                 <title>{'some title'}</title>
             </Head>
-            <div className="page-questions">
+            <div className="page-test-questions">
                 <Layout>
                     <section className="section">
                         <div className="container">

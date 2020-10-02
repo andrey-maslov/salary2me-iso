@@ -6,6 +6,7 @@
   "sign_out": "Sign out",
   "signout": "Signout",
   "registration": "Registration",
+  "onboarding": "Добро пожаловать в Salary2me",
   "identifier": "Name or email",
   "pwd": "Password",
   "confirm_pwd": "Repeat password",
@@ -20,6 +21,16 @@
   "forgot_success": "Check your inbox for the link to reset your password",
   "new_pwd": "New password",
   "reset_success": "Password changed. You can now log in using the new password through the standard form",
+  "repeat_pwd": "Repeat password",
   "pwd_mismatch": "Passwords do not match!",
-  "short_pwd": "Too short password"
+  "short_pwd": "Too short password",
+  "extra": {
+    "title": "Additional information",
+    "desc": "Additional information that will help us to better represent you",
+    "first_name": "First name",
+    "last_name": "Last name",
+    "want_to_open": "I want to open my profile data for searching within the service",
+    "looking_for_job": "I am open to job offers",
+    "position": "Position"
+  }
 }

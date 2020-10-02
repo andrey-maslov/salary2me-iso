@@ -1,0 +1,31 @@
+@import '../../../assets/scss/vars';
+
+.info {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+
+  svg {
+    min-width: 4rem;
+    padding-top: .7rem;
+    line-height: 1;
+    margin: 0 2rem;
+    height: auto;
+    font-size: 8rem;
+
+    path {
+      stroke: $accent;
+    }
+  }
+
+  div {
+    border-left: 1px solid $accent;
+    padding-left: 1rem;
+
+    p {
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
