@@ -7,7 +7,7 @@ type CheckBoxProps = {
     hasError?: boolean
     handle: any
     isChecked: boolean
-    innerRef: any
+    innerRef?: any
     inputProps?: any
 }
 

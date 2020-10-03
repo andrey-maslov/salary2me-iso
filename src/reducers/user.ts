@@ -9,8 +9,7 @@ let STATE = isBrowser ? loadState('user') : null
 
 export type userStoreType = {
     firstName: string,
-    LastName: string,
-    name: string,
+    lastName: string,
     email: string,
     position,
     isLoggedIn: boolean,
@@ -26,7 +25,6 @@ if (!STATE) {
     STATE = {
         firstName: '',
         lastName: '',
-        name: '',
         email: '@mail',
         position: '',
         isLoggedIn: true,
@@ -35,36 +33,22 @@ if (!STATE) {
         provider: '',
         isSubscribed: false,
         isPublic: false,
-        isLookingForJob: false
+        isLookingForJob: false,
     }
 }
 
 export const user = (state = STATE, {
     type,
-    firstName,
-    lastName,
-    email,
-    position,
+    userData,
     isEmailSent,
     isPwdChanged,
-    provider,
-    isPublic,
-    isLookingForJob
 }) => {
     switch (type) {
-
         case ADD_AUTH_DATA :
             return {
                 ...state,
-                firstName,
-                lastName,
-                name: (firstName && lastName) ? `${firstName} ${lastName}` : '',
-                email,
-                position,
+                ...userData,
                 isLoggedIn: true,
-                provider,
-                isPublic,
-                isLookingForJob
             }
         case SEND_EMAIL :
             return {

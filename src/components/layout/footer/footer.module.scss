@@ -52,6 +52,7 @@ $text-color: #d1d1d1;
 
   a {
     color: $text-color;
+    text-decoration: none;
 
     &:hover {
       color: #fff;

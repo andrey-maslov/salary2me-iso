@@ -1,13 +1,13 @@
 /*-----TYPOGRAPHY-----*/
 
 a {
-  text-decoration: none;
-  color: $text;
+  //text-decoration: none;
+  color: $accent;
   transition: all .2s ease-in-out;
 
   &:hover {
-    text-decoration: none;
-    color: $accent;
+    //text-decoration: none;
+    color: $accent-hover;
   }
 }
 
@@ -34,6 +34,10 @@ p {
   //font-family: $default-font;
   line-height: 1.5;
   margin-bottom: 20px;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
 }
 
 // Header Styles

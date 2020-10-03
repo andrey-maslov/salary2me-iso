@@ -51,3 +51,7 @@ export interface ISignInData {
     username: string
     password: string
 }
+
+export interface IOneFieldForm<T> {
+    [key: string]: T
+}

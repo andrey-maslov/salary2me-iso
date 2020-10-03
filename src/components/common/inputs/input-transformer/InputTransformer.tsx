@@ -3,46 +3,43 @@ import {useDispatch} from 'react-redux'
 import {useForm} from 'react-hook-form'
 import style from './input-t.module.scss'
 import OutsideClickHandler from 'react-outside-click-handler'
-
-interface IForm {
-    value: string
-}
+import {IOneFieldForm} from "../../../../typings/types";
 
 interface IInputTransformer {
     initValue: string
     rules: object
-    handler: (value: string) => void
+    objectKey: string
+    handler: (value: IOneFieldForm<string>) => void
 }
 
-const InputTransformer: React.FC<IInputTransformer> = ({initValue, rules, handler, ...props}) => {
+const InputTransformer: React.FC<IInputTransformer> = ({initValue, rules, objectKey, handler, ...props}) => {
 
     const [isEdit, setEdit] = useState(false)
     // const dispatch = useDispatch()
-    const {register, handleSubmit, errors, reset} = useForm<IForm>({
-        defaultValues: {
-            value: initValue
-        }
-    })
+    console.log(initValue)
+    const {register, handleSubmit, errors, reset} = useForm<IOneFieldForm<string>>()
 
     return (
         <div className={style.wrapper}>
             {isEdit ?
                 <OutsideClickHandler
-                    onOutsideClick={() => setEdit(!isEdit)}
+                    onOutsideClick={() => {
+                        setEdit(!isEdit)
+
+                    }}
                 >
                     <form onSubmit={handleSubmit(submit)}>
-                        <div className={`form-group ${errors.value ? 'has-error' : ''} ${style.group}`}>
+                        <div className={`form-group ${errors.objectKey ? 'has-error' : ''} ${style.group}`}>
                             <input
-                                name="value"
+                                defaultValue={initValue}
+                                name={objectKey}
                                 className={style.input}
-                                // onFocus={(e: any) => e.target.select()}
+                                onFocus={(e: any) => e.target.select()}
+                                autoFocus={true}
                                 ref={register(rules)}
                                 {...props}
-                                // autoFocus={true}
                             />
-                            {errors.value && errors.value.type === 'duplicatevalue' && (
-                                <div className={`item-explain floating`}>error</div>
-                            )}
+                            {errors.objectKey && <div className={`item-explain`}>{errors.objectKey.message}</div>}
                         </div>
                     </form>
                 </OutsideClickHandler>
@@ -56,15 +53,11 @@ const InputTransformer: React.FC<IInputTransformer> = ({initValue, rules, handle
         </div>
     )
 
-    function submit(formData: IForm): void {
-
-        // dispatch()
-        handler(formData.value)
+    function submit(formData: IOneFieldForm<string>): void {
+        handler(formData)
         setEdit(!isEdit)
-
         reset()
     }
-
 }
 
 export default InputTransformer

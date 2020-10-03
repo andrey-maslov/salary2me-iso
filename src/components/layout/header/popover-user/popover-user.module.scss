@@ -33,6 +33,11 @@
   margin: 0;
   border-bottom: 1px solid $grey-bg;
 
+  a {
+    color: $text;
+    text-decoration: none;
+  }
+
   &:last-of-type {
     margin-bottom: 0;
     border-bottom: 0;

@@ -10,22 +10,28 @@ import {authModes} from "../constants/constants"
 
 /*===== AUTH =====*/
 
-interface IUserData {
+export interface IUserData {
     firstName?: string,
     lastName?: string,
     email?: string,
     position?: string,
     provider?: string
+    isPublic?: boolean,
+    isLookingForJob?: boolean
 }
 
-export function addAuthData(userData: IUserData) {
+export function addAuthData(data: IUserData): {type: string, userData: IUserData} {
     return {
         type: ADD_AUTH_DATA,
-        firstName: userData.firstName,
-        lastName: userData.lastName,
-        email: userData.email,
-        position: userData.position,
-        provider: userData.provider
+        userData: {
+            ...(data.firstName && {firstName: data.firstName}),
+            ...(data.lastName && {lastName: data.lastName}),
+            ...(data.email && {email: data.email}),
+            ...(data.position && {position: data.position}),
+            ...(data.provider && {provider: data.provider}),
+            ...(data.isPublic && {isPublic: data.isPublic}),
+            ...(data.isLookingForJob && {isLookingForJob: data.isLookingForJob}),
+        }
     }
 }
 
@@ -84,13 +90,13 @@ export const updateUserData = (userData: any) => {
         })
             .then(res => res.data)
             .then(data => {
-                dispatch(addAuthData({firstName: data.firstName, lastName: data.lastName, position: data.position}))
+                dispatch(addAuthData(userData))
                 dispatch(clearErrors())
             })
             .catch(error => {
                 apiErrorHandling(error, dispatch)
-                dispatch(setLoading(false))
             })
+            .finally(() => dispatch(setLoading(false)))
     }
 }
 

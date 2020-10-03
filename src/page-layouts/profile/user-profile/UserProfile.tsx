@@ -1,106 +1,181 @@
-import {useState, useEffect} from 'react'
-import {Link} from '@i18n'
+import React, {useState, useEffect} from 'react'
+import {Link, withTranslation} from '@i18n'
 import {useSelector, useDispatch} from "react-redux"
 import style from './profile.module.scss'
 import BorderedBox from "../../../components/common/bordered-box/BorderedBox"
-import Subscription from "../../../components/common/subscription/Subscription"
-import {globalStoreType} from "../../../typings/types"
-import InputTransformer from "../../../components/common/inputs/input-transformer/InputTransformer";
-import {addAuthData} from "../../../actions/actionCreator";
+import {globalStoreType, IOneFieldForm} from "../../../typings/types"
+import InputTransformer from "../../../components/common/inputs/input-transformer/InputTransformer"
+import {addAuthData, IUserData, updateUserData} from "../../../actions/actionCreator"
+import Loader from "../../../components/common/loaders/loader/Loader"
+import {withToastManager} from 'react-toast-notifications'
+import Checkbox from "../../../components/common/inputs/checkbox/Checkbox"
+import {MdAttachMoney} from 'react-icons/md'
 
-const Profile = () => {
+const Profile = ({t}: { t: any }) => {
 
-    const {firstName, lastName, name, email, position} = useSelector((state: globalStoreType) => state.user)
+    const {firstName, lastName, email, position, provider, isPublic, isLookingForJob} = useSelector((state: globalStoreType) => state.user)
     // const {position} = useSelector((state: globalStoreType) => state.cv)
-
-    const [user, setUser] = useState({
-        firstName: '',
-        lastName: '',
-        name: '',
-        email: '',
-        position: ''
-    })
-
-    useEffect(() => {
-        setUser({...user, firstName, lastName, name, email, position})
-    }, [position, email])
-
+    const [isReady, setReady] = useState(false)
     const dispatch = useDispatch()
 
-    //TODO only for demo links length
-    const [state, setState] = useState({
-        length: 'long',
-        ellipsis: ''
+    useEffect(() => {
+        if (email && email.length > 0) {
+            setReady(true)
+        }
+
+        setLocalUser({
+            firstName,
+            lastName,
+            email,
+            position,
+            provider,
+            isPublic,
+            isLookingForJob,
+        })
+
+    }, [firstName, lastName, email, position, provider, isPublic, isLookingForJob])
+
+    const [localUser, setLocalUser] = useState<IUserData>({
+        firstName,
+        lastName,
+        email,
+        position,
+        provider,
+        isPublic,
+        isLookingForJob,
     })
 
-    function changeLinkLength(e) {
-        setState({
-            ...state,
-            length: e.target.textContent
-        })
-    }
-
-    function setEllipsis(e) {
-        setState({
-            ...state,
-            ellipsis: e.target.textContent
-        })
+    if (!isReady) {
+        return <Loader/>
     }
 
 
     return (
         <div className={style.profile}>
-            <div className={style.topline}>
-                {/*<div*/}
-                {/*    className={style.title}*/}
-                {/*    dangerouslySetInnerHTML={{__html: `Hello, <strong>${name}</strong>. This is your profile`}}*/}
-                {/*/>*/}
+            <div className={style.header}>
+                <h2 className={style.title}>Private office</h2>
+                <p>Here you can change your personal data and privacy settings.</p>
+                <p>
+                    <Link href="/terms"><a>More about the terms of use</a></Link>
+                    {` or `}
+                    <Link href="/privacy-policy"><a>read our privacy policy</a></Link>
+                </p>
             </div>
             <div className={style.content}>
+
+                <h4>Private date</h4>
                 <ul className={style.list}>
-                    <li className={style.item} key={name}>
-                        <span className={style.itemTitle}>Name:</span>
-                        {/*<span className={style.itemVal}>{name}</span>*/}
-                    </li>
-                    <li className={style.item} key={'position'}>
-                        <span className={style.itemTitle}>Position:</span>
+                    <li className={style.item} key='firstName'>
+                        <span className={style.itemTitle}>First Name:</span>
                         <InputTransformer
-                            initValue={user.position}
-                            rules={{}}
-                            handler={updateUserData}
+                            initValue={localUser.firstName}
+                            rules={{
+                                required: `${t('common:errors.required')}`
+                            }}
+                            objectKey={Object.keys({firstName})[0]}
+                            handler={updateProfile}
                             {...{
                                 type: "text",
-                                autoFocus: true,
                                 autoComplete: "off",
-                                tabindex: 0
                             }}
                         />
                     </li>
+                    <li className={style.item} key='lastName'>
+                        <span className={style.itemTitle}>Last Name:</span>
+                        <InputTransformer
+                            initValue={localUser.lastName}
+                            rules={{
+                                required: `${t('common:errors.required')}`
+                            }}
+                            objectKey={Object.keys({lastName})[0]}
+                            handler={updateProfile}
+                            {...{
+                                type: "text",
+                                autoComplete: "off",
+                            }}
+                        />
+                    </li>
+                    <li className={style.item} key='position'>
+                        <span className={style.itemTitle}>Position:</span>
+                        <InputTransformer
+                            initValue={localUser.position}
+                            rules={{
+                                required: `${t('common:errors.required')}`
+                            }}
+                            objectKey={Object.keys({position})[0]}
+                            handler={updateProfile}
+                            {...{
+                                type: "text",
+                                autoComplete: "off",
+                            }}
+                        />
+                    </li>
+
                     <li className={style.item} key={email}>
                         <span className={style.itemTitle}>Email:</span>
-                        <span className={style.itemVal}>{user.email}</span>
-                    </li>
-                    <li className={style.item} key='link'>
-                        <span className={style.itemTitle}>Salary est.</span>
-                        <Link href={'/estimation'}>
-                            <a className={`${style.link} ${style.itemVal}`}>show me!</a>
-                        </Link>
+                        <span className={style.itemVal}>{email}</span>
                     </li>
                 </ul>
 
-                {/*TODO Fix it */}
-                {'isUserInBase' &&
-                <BorderedBox borderColor="#d1d1d1">
-                    <Subscription/>
-                </BorderedBox>}
+                <h4>Security data</h4>
+                <ul className={style.list}>
+                    <li className={style.item} key='isPublic'>
+                        <span className={style.itemTitle}>isPublic:</span>
+                        <Checkbox
+                            label='isPublic'
+                            handle={() => {}}
+                            isChecked={isPublic}
+                            // innerRef={register()}
+                        />
+                    </li>
+                    <li className={style.item} key='isLookingForJob'>
+                        <span className={style.itemTitle}>isLookingForJob:</span>
+                        <Checkbox
+                            label='isLookingForJob'
+                            handle={() => {}}
+                            isChecked={isLookingForJob}
+                            // innerRef={register()}
+                        />
+                    </li>
+                </ul>
+
+                <h4>Your services</h4>
+
+                <div className={style.service}>
+                    <h5 className={style.title}>Salary2.me</h5>
+                    <ul className={style.list}>
+                        <li className={style.item}>
+                            <MdAttachMoney/>
+                            <Link href="/estimation"><a>You CV estimation</a></Link>
+                        </li>
+                        <li className={style.item}>
+                            <MdAttachMoney/>
+                            <Link href="/cv"><a>You CV generator</a></Link>
+                        </li>
+                    </ul>
+                </div>
+
+                <div className={style.service}>
+                    <h5 className={style.title}>Teamconstructor</h5>
+                    <ul className={style.list}>
+                        <li className={style.item}>
+                            <MdAttachMoney/>
+                            <Link href="/estimation"><a>Pair comparison</a></Link>
+                        </li>
+                        <li className={style.item}>
+                            <MdAttachMoney/>
+                            <Link href="/cv"><a>Team generator</a></Link>
+                        </li>
+                    </ul>
+                </div>
 
             </div>
         </div>
     )
 
-    function updateUserData(value) {
-        dispatch(addAuthData({firstName: 'chort', position: value}))
+    function updateProfile(formData: IOneFieldForm<(string | boolean)>) {
+        dispatch(updateUserData(formData))
     }
 }
 
-export default Profile
+export default withTranslation(['profile', 'common'])(Profile)

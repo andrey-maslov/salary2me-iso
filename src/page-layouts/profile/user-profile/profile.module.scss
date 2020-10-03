@@ -9,13 +9,14 @@
   border-radius: 5px;
 }
 
-.topline {
+.header {
   position: relative;
-  display: flex;
-  justify-content: space-between;
   padding: 25px 40px 20px;
   border-bottom: 1px solid rgba($grey, .2);
-  font-size: 20px;
+
+  p {
+    margin-bottom: .5rem;
+  }
 
   svg {
     position: relative;
@@ -26,17 +27,24 @@
 
 .content {
   padding: 25px 40px 35px;
+
+  .list {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+    margin-bottom: 20px;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
 }
 
-.list {
-  list-style: none;
-  margin-left: 0;
-  padding-left: 0;
-  margin-bottom: 20px;
-}
+
 
 .item {
   display: flex;
+  align-items: center;
   padding: 12px 0;
   border-bottom: 1px solid rgba($grey, .2);
 
@@ -99,6 +107,21 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+  }
+}
+
+.service {
+  padding: 1rem;
+  border: 1px solid $grey-bg;
+  border-radius: $border-radius-sm;
+  margin-bottom: 1rem;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .title {
+    margin: 0 0 .5rem;
   }
 }
 
