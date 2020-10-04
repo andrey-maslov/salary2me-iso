@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next",
+    "dev": "next -p 4000",
     "build": "next build",
-    "start": "NODE_ENV=production next",
+    "start": "NODE_ENV=production next -p 4000",
     "mocks": "dyson api/",
     "watch": "nodemon --watch api --exec dyson api",
     "serve": "concurrently \"npm run dev\" \"npm run watch\"",
