@@ -18,81 +18,59 @@ const ExtraUserInfo: React.FC<ISignin<IInfoForm>> = ({isLoading, errorApiMessage
 
     const {register, handleSubmit, reset, getValues, errors} = useForm<IInfoForm>()
 
+    const textFields = [
+        {label: t('signin:extra.first_name'), key: 'firstName', value: ''},
+        {label: t('signin:extra.last_name'), key: 'lastName', value: ''},
+        {label: t('signin:extra.position'), key: 'position', value: ''},
+    ]
+    const checkBoxes = [
+        {label: t('signin:extra.want_to_open'), key: 'isPublic', value: ''},
+        {label: t('signin:extra.looking_for_job'), key: 'isLookingForJob', value: ''},
+    ]
+
     return (
         <>
             <p>{t('signin:extra.desc')}</p>
             <form onSubmit={handleSubmit(submitHandle)}>
-                <div className={`form-group ${errors.firstName ? 'has-error' : ''}`}>
-                    <label>
-                        <span>{t('signin:extra.first_name')}</span>
-                        <input
-                            className={style.input}
-                            type="text"
-                            name="firstName"
-                            onFocus={clearApiError}
-                            ref={register()}
-                        />
-                    </label>
-                    {errors.firstName && <div className={`item-explain`}>{errors.firstName.message}</div>}
-                </div>
 
-                <div className={`form-group ${errors.lastName ? 'has-error' : ''}`}>
-                    <label>
-                        <span>{t('signin:extra.last_name')}</span>
-                        <input
-                            className={style.input}
-                            type="text"
-                            name="lastName"
-                            onFocus={clearApiError}
-                            ref={register()}
-                        />
-                    </label>
-                    {errors.lastName && <div className={`item-explain`}>{errors.lastName.message}</div>}
-                </div>
-
-                <div className={`form-group ${errors.position ? 'has-error' : ''}`}>
-                    <label>
-                        <span>{t('signin:extra.position')}</span>
-                        <input
-                            className={style.input}
-                            type="text"
-                            name="position"
-                            onFocus={clearApiError}
-                            ref={register()}
-                        />
-                    </label>
-                    {errors.position && <div className={`item-explain`}>{errors.position.message}</div>}
-                </div>
-
-                <div className={`form-group ${errors.isPublic ? 'has-error' : ''}`}>
-                    <div>
-                        <Checkbox
-                            isChecked={false}
-                            handle={() => {}}
-                            label={t('signin:extra.want_to_open')}
-                            innerRef={register()}
-                            {...{
-                                name: "isPublic",
-                            }}
-                        />
+                {textFields.map(item => (
+                    <div className={`form-group ${errors[item.key] ? 'has-error' : ''}`} key={item.key}>
+                        <label>
+                            <span>{item.label}</span>
+                            <input
+                                className={style.input}
+                                type="text"
+                                name={item.key}
+                                onFocus={clearApiError}
+                                autoComplete={'off'}
+                                ref={register({
+                                    pattern: {
+                                        value: /^[a-zA-Z0-9 ]*$/i,
+                                        message: `${t('common:errors.invalid')}`
+                                    }
+                                })}
+                            />
+                        </label>
+                        {errors[item.key] && <div className={`item-explain`}>{errors[item.key].message}</div>}
                     </div>
-                    {errors.isPublic && <div className={`item-explain`}>{errors.isPublic.message}</div>}
-                </div>
+                ))}
 
-                <div className={`form-group ${errors.isPublic ? 'has-error' : ''}`}>
-                    <div>
-                        <Checkbox
-                            isChecked={false}
-                            handle={() => {}}
-                            label={t('signin:extra.looking_for_job')}
-                            innerRef={register()}
-                            {...{
-                                name: "isLooking",
-                            }}
-                        />
+                {checkBoxes.map(item => (
+                    <div className={`form-group ${errors[item.key] ? 'has-error' : ''}`} key={item.key}>
+                        <div>
+                            <Checkbox
+                                isChecked={false}
+                                handle={() => {}}
+                                label={item.label}
+                                innerRef={register()}
+                                {...{
+                                    name: item.key,
+                                }}
+                            />
+                        </div>
+                        {errors[item.key] && <div className={`item-explain`}>{errors[item.key].message}</div>}
                     </div>
-                    {errors.isPublic && <div className={`item-explain`}>{errors.isPublic.message}</div>}
-                </div>
+                ))}
 
                 <div className={`form-group ${errorApiMessage ? 'has-error' : ''}`}>
                     <Button

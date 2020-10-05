@@ -14,6 +14,8 @@ declare module '@i18n' {
   };
 }
 
+// declare module '@helper'
+
 declare module '@react-media-hook' {
   export const useMediaPredicate: any;
 }

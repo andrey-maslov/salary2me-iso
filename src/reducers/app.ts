@@ -7,7 +7,8 @@ import {
     SET_DISPLAYED_RESULTS,
     LOADING,
     API_ERROR,
-    PROCESS_FAILED
+    PROCESS_FAILED,
+    RES_STATUS, SET_TOAST
 } from "../actions/actionTypes"
 import {currencies} from '../constants/constants'
 import {loadState} from '../store/sessionStorage'
@@ -28,7 +29,8 @@ export type appStoreType = {
     payTax: string,
     loading: boolean,
     apiErrorMsg: string | null,
-    processFailed: boolean
+    processFailed: boolean,
+    setToast: number
 }
 
 if (!STATE ) {
@@ -41,9 +43,26 @@ if (!STATE ) {
         payTax: 'netto',
         loading: false,
         apiErrorMsg: null,
-        processFailed: false
+        processFailed: false,
+        setToast: 0
     }
 }
+
+/**
+ *
+ * @param state
+ * @param type
+ * @param sorting
+ * @param displayedResults
+ * @param selectedCurrency
+ * @param currencyRates
+ * @param payPeriod
+ * @param payTax
+ * @param loading
+ * @param apiErrorMsg
+ * @param processFailed
+ * @param setToast {0 - default, 1 - success, 2 - fail}
+ */
 
 export const app = (state = STATE, {
     type,
@@ -55,7 +74,8 @@ export const app = (state = STATE, {
     payTax,
     loading,
     apiErrorMsg,
-    processFailed
+    processFailed,
+    setToast
 }) => {
     switch (type) {
         case  SET_CURRENCY:
@@ -102,6 +122,11 @@ export const app = (state = STATE, {
             return {
                 ...state,
                 processFailed,
+            }
+        case SET_TOAST:
+            return {
+                ...state,
+                setToast,
             }
 
         default:

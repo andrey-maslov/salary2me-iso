@@ -1,10 +1,11 @@
 import {Provider} from 'react-redux'
-import {useStore} from '../store/index'
+import {useStore} from '../store'
 import App from 'next/app'
 import '../assets/scss/index.scss'
 import {appWithTranslation} from '@i18n'
 import {SVGSource} from "../components/common/media/svgflag/SVGFlag"
 import 'focus-visible/dist/focus-visible.js'
+import {ToastProvider} from 'react-toast-notifications'
 
 import {MediaContextProvider} from "../../media"
 import Head from "next/head";
@@ -16,13 +17,20 @@ function MyApp({Component, pageProps}) {
     return (
         <MediaContextProvider>
             <Provider store={store}>
-                <ScrollToTop/>
-                <Component {...pageProps} />
-                <SVGSource/>
+                <ToastProvider
+                    autoDismiss
+                    autoDismissTimeout={5000}
+                    placement="bottom-left"
+                >
+                    <ScrollToTop/>
+                    <Component {...pageProps} />
+                    <SVGSource/>
+                </ToastProvider>
             </Provider>
         </MediaContextProvider>
     )
 }
-MyApp.getInitialProps = async (appContext) => ({ ...await App.getInitialProps(appContext) })
+
+MyApp.getInitialProps = async (appContext) => ({...await App.getInitialProps(appContext)})
 
 export default appWithTranslation(MyApp)

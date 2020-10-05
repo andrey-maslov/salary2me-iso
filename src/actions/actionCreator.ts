@@ -1,11 +1,26 @@
 import axios from "axios"
 import {
-    ADD_USER_SALARY, ADD_AUTH_DATA, OPEN_LOGIN_MODAL, CV_SENT, ESTIMATION, CLEAR_USER_DATA, GET_CURRENCY_RATES,
-    SET_ERROR, PROCESS_FAILED, LOADING, SAVE_TEST_DATA, FETCH_TEST_DESC, FETCH_TERMS, SAVE_PERSONAL_INFO, CHANGE_PWD,
+    ADD_USER_SALARY,
+    ADD_AUTH_DATA,
+    OPEN_LOGIN_MODAL,
+    CV_SENT,
+    ESTIMATION,
+    CLEAR_USER_DATA,
+    GET_CURRENCY_RATES,
+    SET_ERROR,
+    PROCESS_FAILED,
+    LOADING,
+    SAVE_TEST_DATA,
+    FETCH_TEST_DESC,
+    FETCH_TERMS,
+    SAVE_PERSONAL_INFO,
+    CHANGE_PWD,
+    SET_TOAST,
 } from './actionTypes'
 import Cookie from "js-cookie"
 import {ISignInData, ISignUpData} from "../typings/types"
 import {authModes} from "../constants/constants"
+import {sanitize} from "../helper/helper";
 
 
 /*===== AUTH =====*/
@@ -20,7 +35,7 @@ export interface IUserData {
     isLookingForJob?: boolean
 }
 
-export function addAuthData(data: IUserData): {type: string, userData: IUserData} {
+export function addAuthData(data: IUserData): { type: string, userData: IUserData } {
     return {
         type: ADD_AUTH_DATA,
         userData: {
@@ -81,20 +96,29 @@ export const authUser = (userData: ISignUpData | ISignInData, authType: keyof ty
 
 export const updateUserData = (userData: any) => {
 
+    for (let prop in userData) {
+        if (typeof prop === 'string') {
+            userData[prop] = sanitize(userData[prop].trim())
+        }
+    }
+
     const url = `${process.env.BASE_API}/api/v${process.env.API_VER}/Account/update`
 
     return (dispatch: any) => {
+
         dispatch(setLoading(true))
+        dispatch(clearErrors())
+
         axios.put(url, {
             data: userData,
         })
-            .then(res => res.data)
-            .then(data => {
+            .then(res => {
                 dispatch(addAuthData(userData))
-                dispatch(clearErrors())
+                dispatch({type: SET_TOAST, setToast: 1})
             })
             .catch(error => {
                 apiErrorHandling(error, dispatch)
+                dispatch({type: SET_TOAST, setToast: 2})
             })
             .finally(() => dispatch(setLoading(false)))
     }

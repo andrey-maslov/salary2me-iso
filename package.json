@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next -p 4000",
     "build": "next build",
-    "start": "NODE_ENV=production next -p 4000",
+    "start": "next start -p 4000",
     "mocks": "dyson api/",
     "watch": "nodemon --watch api --exec dyson api",
     "serve": "concurrently \"npm run dev\" \"npm run watch\"",

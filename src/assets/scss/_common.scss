@@ -191,6 +191,38 @@ table {
 }
 
 
+/*===== TOASTS =====*/
+
+.react-toast-notifications__container {
+
+  .react-toast-notifications {
+
+    &__toast {
+      background-color: #fff;
+      color: $text;
+
+      &--error {
+
+        .react-toast-notifications__toast__icon-wrapper {
+          background-color: $danger
+        }
+      }
+      &--success {
+
+        .react-toast-notifications__toast__icon-wrapper {
+          background-color: $success
+        }
+      }
+    }
+
+    &__content {
+      font-size: 1rem;
+    }
+  }
+}
+
+
+
 /*===== Modals =====*/
 
 .auth {

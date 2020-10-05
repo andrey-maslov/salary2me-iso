@@ -15,6 +15,8 @@ export const CHANGE_PWD  = 'CHANGE_PWD'
 /*===== REQUEST STATUS =====*/
 export const LOADING = 'LOADING'
 export const API_ERROR = 'API_ERROR'
+export const SET_TOAST = 'SET_TOAST'
+export const RES_STATUS = 'RESPONSE_STATUS'
 
 /*===== TEST =====*/
 export const SAVE_TEST_DATA = 'SAVE_TEST_DATA'

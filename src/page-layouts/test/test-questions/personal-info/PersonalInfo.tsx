@@ -6,12 +6,14 @@ import Button from '../../../../components/common/buttons/button/Button'
 import {AnswerType, QuestionsProps} from '../../../../typings/types'
 import {checkAnswers, isBrowser} from '../../../../helper/helper'
 import RadioGroupItem from '../radio-group-item/RadioGroupItem'
-// import Toast from 'light-toast'
+import { useToasts } from 'react-toast-notifications'
 
 const PersonalInfo = ({questions, saveAnswers, isVisible, changeBlock, t}: QuestionsProps) => {
 
     let initAnswers: Array<AnswerType> = [...questions].map((item: any) => ({id: item.title, value: ''}))
+
     const dispatch = useDispatch()
+    const { addToast } = useToasts()
     const [state, setState] = useState({
         answers: initAnswers,
         isBtnEnabled: true
@@ -32,7 +34,9 @@ const PersonalInfo = ({questions, saveAnswers, isVisible, changeBlock, t}: Quest
             window.scrollTo(0, 0)
         } else {
             if (isBrowser) {
-                // Toast.fail('Необходимо ответить на все вопросы', 3000, )
+                addToast('Необходимо ответить на все вопросы', {
+                    appearance: 'error',
+                })
                 //scroll to first not answered question
                 let targetElem: any = document.querySelector(`.visible [data-item-index="${num + 1}"]`)
                 targetElem.scrollIntoView({block: 'center', behavior: 'smooth'})
@@ -75,4 +79,4 @@ const PersonalInfo = ({questions, saveAnswers, isVisible, changeBlock, t}: Quest
     )
 }
 
-export default withTranslation(['test', 'questions'])(PersonalInfo)
+export default withTranslation(['test', 'common', 'questions'])(PersonalInfo)

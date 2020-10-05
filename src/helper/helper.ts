@@ -144,6 +144,20 @@ export function getQueryFromURL(searchStr: string, key: string):string {
     return needList.replace(`${key}=`, '')
 }
 
+export function sanitize(str: string): string {
+    const map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#x27;',
+        "/": '&#x2F;',
+    }
+    const reg = /[&<>"'/]/ig
+    const sanitized = str.replace(reg, (match)=>(map[match]))
+    return sanitized.replace(/( {2,})/i, ' ')
+}
+
 
 
 export class Helper {

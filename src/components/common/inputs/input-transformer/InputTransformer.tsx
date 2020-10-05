@@ -16,9 +16,8 @@ const InputTransformer: React.FC<IInputTransformer> = ({initValue, rules, object
 
     const [isEdit, setEdit] = useState(false)
     // const dispatch = useDispatch()
-    console.log(initValue)
+    // console.log(initValue)
     const {register, handleSubmit, errors, reset} = useForm<IOneFieldForm<string>>()
-
     return (
         <div className={style.wrapper}>
             {isEdit ?
@@ -29,7 +28,7 @@ const InputTransformer: React.FC<IInputTransformer> = ({initValue, rules, object
                     }}
                 >
                     <form onSubmit={handleSubmit(submit)}>
-                        <div className={`form-group ${errors.objectKey ? 'has-error' : ''} ${style.group}`}>
+                        <div className={`form-group ${errors[objectKey] ? 'has-error' : ''} ${style.group}`}>
                             <input
                                 defaultValue={initValue}
                                 name={objectKey}
@@ -39,7 +38,7 @@ const InputTransformer: React.FC<IInputTransformer> = ({initValue, rules, object
                                 ref={register(rules)}
                                 {...props}
                             />
-                            {errors.objectKey && <div className={`item-explain`}>{errors.objectKey.message}</div>}
+                            {errors[objectKey] && <div className={`item-explain floating`}>{errors[objectKey].message}</div>}
                         </div>
                     </form>
                 </OutsideClickHandler>

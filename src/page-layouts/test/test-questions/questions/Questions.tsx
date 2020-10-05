@@ -9,11 +9,13 @@ import {AnswerType, globalStoreType, QuestionsProps} from '../../../../typings/t
 import RadioGroupItem from "../radio-group-item/RadioGroupItem"
 import style from './questions.module.scss'
 import {withTranslation} from "@i18n"
+import {useToasts} from "react-toast-notifications"
 
 const Questions = ({saveAnswers, questions, changeBlock, t}: QuestionsProps) => {
 
     const router = useRouter()
     const dispatch = useDispatch()
+    const { addToast } = useToasts()
     const {isLoggedIn} = useSelector((state: globalStoreType) => state.user)
 
     let initAnswers: Array<AnswerType> = [...questions].map((item: any) => ({id: item.title, value: ''}))
@@ -108,7 +110,9 @@ const Questions = ({saveAnswers, questions, changeBlock, t}: QuestionsProps) => 
             sendAnswers(calculateResults(answers))
         } else {
             if (isBrowser) {
-                // Toast.fail('Необходимо ответить на все вопросы', 3000,)
+                addToast('Необходимо ответить на все вопросы', {
+                    appearance: 'error',
+                })
                 //scroll to first not answered question
                 let targetElem: any = document.querySelector(`.visible [data-item-index="${num + 1}"]`)
                 targetElem.scrollIntoView({block: 'center', behavior: 'smooth'})
