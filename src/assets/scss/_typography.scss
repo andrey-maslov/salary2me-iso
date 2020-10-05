@@ -21,7 +21,7 @@ body {
   line-height: 1.5;
   letter-spacing: 0;
   color: $text;
-  font-size: 17px;
+  font-size: 15px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -33,7 +33,7 @@ h1, h2, h3, h4, h5, h6 {
 p {
   //font-family: $default-font;
   line-height: 1.5;
-  margin-bottom: 20px;
+  margin-bottom: 1rem;
 
   &:last-of-type {
     margin-bottom: 0;
@@ -48,26 +48,26 @@ h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
 h1 {
   font-size: $h1-fontsize;
   line-height: 1.2;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
   font-weight: 700;
 }
 
 h2 {
   font-size: $h2-fontsize;
   line-height: 1.2;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 }
 
 h3 {
   font-size: $h3-fontsize;
   line-height: 1.2;
-  margin-bottom: 16px;
+  margin-bottom: 1rem;
 }
 
 h4 {
   font-size: $h4-fontsize;
   line-height: 1.2;
-  margin-bottom: 16px;
+  margin-bottom: 1rem;
 }
 
 h5 {
@@ -84,32 +84,32 @@ h6 {
 
 //Experimental margins
 h1 + h3 {
-  margin-top: 10px;
+  margin-top: .8rem;
 }
 
 h2 + h3 {
-  margin-top: 10px;
+  margin-top: .8rem;
 }
 
 p + h2 {
-  margin-top: 25px;
+  margin-top: 1.75rem;
 }
 p + h3 {
-  margin-top: 18px;
+  margin-top: 1.25rem;
 }
 
 p + ul {
-  margin-top: 14px;
+  margin-top: 1rem;
 }
 
 p + ol {
-  margin-top: 14px;
+  margin-top: 1rem;
 }
 
 h2 + ul,
 h3 + ul,
 h4 + ul {
-  margin-top: 14px;
+  margin-top: 1rem;
 }
 
 small {

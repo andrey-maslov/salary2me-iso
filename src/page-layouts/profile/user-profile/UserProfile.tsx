@@ -7,7 +7,7 @@ import {globalStoreType, IOneFieldForm} from "../../../typings/types"
 import InputTransformer from "../../../components/common/inputs/input-transformer/InputTransformer"
 import {IUserData, updateUserData} from "../../../actions/actionCreator"
 import Loader from "../../../components/common/loaders/loader/Loader"
-import { useToasts } from 'react-toast-notifications'
+import {useToasts} from 'react-toast-notifications'
 import Checkbox from "../../../components/common/inputs/checkbox/Checkbox"
 import {MdAttachMoney} from 'react-icons/md'
 import {SET_TOAST} from "../../../actions/actionTypes";
@@ -18,7 +18,7 @@ const Profile = ({t}: { t: any }) => {
     const {setToast} = useSelector((state: globalStoreType) => state.app)
     // const {position} = useSelector((state: globalStoreType) => state.cv)
     const [isReady, setReady] = useState(false)
-    const { addToast } = useToasts()
+    const {addToast} = useToasts()
     const dispatch = useDispatch()
 
     const [localUser, setLocalUser] = useState<IUserData>({
@@ -66,9 +66,10 @@ const Profile = ({t}: { t: any }) => {
 
 
     return (
-        <div className={style.profile}>
+        <div className={style.wrapper}>
+
             <div className={style.header}>
-                <h2 className={style.title}>Private office</h2>
+                <h2 className={style.title}>Account Settings</h2>
                 <p>Here you can change your personal data and privacy settings.</p>
                 <p>
                     <Link href="/terms"><a>More about the terms of use</a></Link>
@@ -76,82 +77,87 @@ const Profile = ({t}: { t: any }) => {
                     <Link href="/privacy-policy"><a>read our privacy policy</a></Link>
                 </p>
             </div>
-            <div className={style.content}>
 
-                <h4>Private date</h4>
-                <ul className={style.list}>
-
-                    {textFields.map(item => (
-                        <li className={style.item} key={item.key}>
-                            <span className={style.itemTitle}>{item.label}</span>
-                            <InputTransformer
-                                initValue={item.value}
-                                rules={{
-                                    pattern: {
-                                        value: /^[a-zA-Z0-9 ]*$/i,
-                                        message: `${t('common:errors.invalid')}`
-                                    }
-                                }}
-                                objectKey={item.key}
-                                handler={updateProfile}
-                                {...{ type: "text", autoComplete: "off" }}
-                            />
-                        </li>
-                    ))}
-
-                    <li className={style.item} key={email}>
-                        <span className={style.itemTitle}>Email:</span>
-                        <span className={style.itemVal}>{email}</span>
-                    </li>
-                </ul>
-
-                <h4>Security data</h4>
-                <ul className={style.list}>
-                    {checkBoxes.map(item => (
-                        <li className={style.item} key={item.key}>
-                            <span className={style.itemTitle}>{item.key}</span>
-                            <Checkbox
-                                label={item.label}
-                                handle={() => {
-                                }}
-                                isChecked={item.value}
-                                // innerRef={register()}
-                            />
-                        </li>
-                    ))}
-                </ul>
-
-                <h4>Your services</h4>
-
-                <div className={style.service}>
-                    <h5 className={style.title}>Salary2.me</h5>
-                    <ul className={style.list}>
-                        <li className={style.item}>
-                            <MdAttachMoney/>
-                            <Link href="/estimation"><a>You CV estimation</a></Link>
-                        </li>
-                        <li className={style.item}>
-                            <MdAttachMoney/>
-                            <Link href="/cv"><a>You CV generator</a></Link>
-                        </li>
-                    </ul>
+            <div className="row">
+                <div className="col-md-6">
+                    <div className={`${style.box} ${style.account}`}>
+                        <h5 className={style.box_title}>Account</h5>
+                        <div className={`${style.box_content}`}>
+                            <div className={`${style.list} flex`}>
+                                {textFields.map(item => (
+                                    <div className={style.item} key={item.key}>
+                                        <span className={style.label}>{item.label}</span>
+                                        <InputTransformer
+                                            initValue={item.value}
+                                            rules={{
+                                                pattern: {
+                                                    value: /^[a-zA-Z0-9 ]*$/i,
+                                                    message: `${t('common:errors.invalid')}`
+                                                }
+                                            }}
+                                            objectKey={item.key}
+                                            handler={updateProfile}
+                                            {...{type: "text", autoComplete: "off"}}
+                                        />
+                                    </div>
+                                ))}
+                                <div className={style.item} key='email'>
+                                    <span className={style.label}>Email:</span>
+                                    <div className={style.field}>{email}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={`${style.box} ${style.privacy}`}>
+                        <h5 className={style.box_title}>Privacy</h5>
+                        <div className={`${style.box_content}`}>
+                            <div className={style.list}>
+                                {checkBoxes.map(item => (
+                                    <div className={style.item} key={item.key}>
+                                        <Checkbox
+                                            label={item.label}
+                                            handle={() => {
+                                            }}
+                                            isChecked={item.value}
+                                            // innerRef={register()}
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-                <div className={style.service}>
-                    <h5 className={style.title}>Teamconstructor</h5>
-                    <ul className={style.list}>
-                        <li className={style.item}>
-                            <MdAttachMoney/>
-                            <Link href="/estimation"><a>Pair comparison</a></Link>
-                        </li>
-                        <li className={style.item}>
-                            <MdAttachMoney/>
-                            <Link href="/cv"><a>Team generator</a></Link>
-                        </li>
-                    </ul>
+                <div className="col-md-6">
+                    <div className={`${style.box} ${style.services}`}>
+                        <h5 className={style.box_title}>Services</h5>
+                        <div className={`${style.box_content} ${style.salary}`}>
+                            <div className={style.top}>
+                                <div className={style.title}>Salary2me</div>
+                                <div className={`${style.rate} ${style.on}`}>
+                                    premium
+                                </div>
+                            </div>
+                        </div>
+                        <div className={`${style.box_content} ${style.teamconstructor}`}>
+                            <div className={style.top}>
+                                <div className={style.title}>Teamconstructor</div>
+                                <div className={`${style.rate} ${style.on}`}>
+                                    premium
+                                </div>
+                            </div>
+                        </div>
+                        <div className={`${style.box_content} ${style.thegreatbase}`}>
+                            <div className={style.top}>
+                                <div className={style.title}>Thegreatbase</div>
+                                <div className={`${style.rate} ${style.on}`}>
+                                    premium
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
             </div>
+
         </div>
     )
 
@@ -174,4 +180,4 @@ const Profile = ({t}: { t: any }) => {
     }
 }
 
-export default withTranslation(['profile', 'common'])(Profile)
+export default withTranslation(['profile', 'common', 'signin'])(Profile)

@@ -17,11 +17,7 @@ const Profile = ({t}: ProfileType) => {
             <div className='page-profile page bg-grey'>
                 <Layout>
                     <div className="container section">
-                        <div className="row center-xs">
-                            <div className="col-xl-8">
-                                <UserProfile/>
-                            </div>
-                        </div>
+                        <UserProfile/>
                     </div>
                 </Layout>
             </div>

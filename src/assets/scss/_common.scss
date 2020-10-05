@@ -58,6 +58,11 @@ body {
   align-items: center;
 }
 
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .img-fluid {
   display: block;
   max-width: 100%;

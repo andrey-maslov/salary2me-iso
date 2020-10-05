@@ -1,149 +1,101 @@
 @import '../../../assets/scss/vars';
 
 .wrapper {
-  min-height: calc(100vh - 354px);
-}
 
-.profile {
-  background-color: #fff;
-  border-radius: 5px;
 }
 
 .header {
   position: relative;
-  padding: 25px 40px 20px;
-  border-bottom: 1px solid rgba($grey, .2);
-
-  p {
-    margin-bottom: .5rem;
-  }
-
-  svg {
-    position: relative;
-    top: 5px;
-    font-size: 25px;
-  }
-}
-
-.content {
-  padding: 25px 40px 35px;
-
-  .list {
-    list-style: none;
-    margin-left: 0;
-    padding-left: 0;
-    margin-bottom: 20px;
-
-    &:last-of-type {
-      margin-bottom: 0;
-    }
-  }
-}
-
-
-
-.item {
-  display: flex;
-  align-items: center;
-  padding: 12px 0;
-  border-bottom: 1px solid rgba($grey, .2);
-
-  span, a {
-    font-size: 20px;
-  }
-
-  &:last-of-type {
-    border-bottom: 0
-  }
-}
-
-.position {
-
-  &:first-letter {
-    text-transform: uppercase;
-  }
-}
-
-.link {
-  //color: $grey;
-  text-decoration: underline;
-  //padding-top: 20px;
-
-  svg {
-    margin-right: 10px;
-  }
-}
-
-.itemTitle {
-  width: 20%;
-  //min-width: 90px;
-  min-width: 150px;
-  color: $grey
-}
-
-.itemVal {
-  //font-weight: 700;
-}
-
-.btnWrap {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-
-.testLinks {
-
-  a {
-    display: block;
-    margin-bottom: 10px;
-    font-size: 14px;
-  }
-
-  &.ellipsis {
-    overflow-x: hidden;
-    a {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-  }
-}
-
-.service {
-  padding: 1rem;
-  border: 1px solid $grey-bg;
-  border-radius: $border-radius-sm;
-  margin-bottom: 1rem;
-
-  &:last-of-type {
-    margin-bottom: 0;
-  }
+  margin-bottom: 2rem;
 
   .title {
+    margin-bottom: .8rem;
+  }
+
+  p {
+    margin-bottom: .3rem;
+  }
+}
+
+.box {
+  margin-bottom: 2rem;
+
+  &_title {
+    color: $grey;
+    text-transform: uppercase;
     margin: 0 0 .5rem;
   }
+
+  &_content {
+    background-color: #fff;
+    border-radius: $border-radius-sm;
+    box-shadow: $box-shadow-sm;
+    padding: 2rem 2rem 1rem;
+
+    &.salary {
+      background-color: $accent;
+    }
+    &.teamconstructor {
+      background-color: #33363F;
+    }
+    &.thegreatbase {
+      background-color: #F96332;
+    }
+  }
+
+  .item {
+    margin-bottom: 1rem;
+  }
+
+  &.account {
+
+    .item {
+      width: 50%;
+    }
+
+    .label {
+      color: rgba($grey, .6);
+      padding-left: .5rem;
+    }
+
+    .field {
+      font-family: $title-font;
+      height: 2.25rem;
+      line-height: 2rem;
+      padding: 0 .5rem;
+
+    }
+  }
+
+  &.services {
+
+    .box_content {
+      padding-top: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .title {
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: #fff;
+    }
+  }
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.rate {
+  color: #fff;
+}
+
+.list {
+
 }
 
 
 @media (max-width: 768px) {
-  .topline {
-    padding: 20px 15px 20px;
-    font-size: 17px;
 
-    svg {
-      display: none;
-    }
-  }
-
-  .content {
-    padding: 10px 15px 15px;
-  }
-
-  .item {
-
-    span, a {
-      font-size: 16px;
-    }
-  }
 }
