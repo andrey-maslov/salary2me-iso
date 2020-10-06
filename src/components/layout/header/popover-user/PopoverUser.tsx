@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import {FiUser, FiUserCheck, FiLogOut, FiChevronDown, FiDollarSign} from "react-icons/fi"
+import {FiUser, FiUserCheck, FiLogOut, FiChevronDown, FiSettings} from "react-icons/fi"
 import {Popover} from "../../../common/popovers/Popover"
 import OutsideClickHandler from 'react-outside-click-handler'
 import {Link} from '@i18n'
@@ -34,29 +34,21 @@ const PopoverUser: React.FC<PopoverUserProps> = ({userEmail, logoutHandle}) => {
                 </button>
 
                 <Popover isVisible={isOpen} className='user-popover'>
+
+                    <div className={`${style.top} ${style.item}`}>
+                        <FiUserCheck/>
+                        <span>{userEmail}</span>
+                    </div>
+
                     <ul className={style.links}>
                         <li>
                             <Link href={'/profile'}>
                                 <a className={`${style.item} ${style.creds}`}>
-                                    <FiUserCheck/>
-                                    <span>{userEmail}</span>
+                                    <FiSettings/>
+                                    <span>Account settings</span>
                                 </a>
                             </Link>
                         </li>
-                    </ul>
-
-                    <ul className={style.links}>
-                        <li>
-                            <Link href={'/estimation'}>
-                                <a className={style.item}>
-                                    <FiDollarSign/>
-                                    <span>My salaries</span>
-                                </a>
-                            </Link>
-                        </li>
-                    </ul>
-
-                    <ul className={style.links}>
                         <li>
                             <div className={style.item} onClick={logoutHandle}>
                                 <FiLogOut/>

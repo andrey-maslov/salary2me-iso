@@ -36,6 +36,11 @@ const WebNav = ({handleLoginBtn, isLoggedIn, userEmail, t}: Navigation) => {
                             <a>{t('common:nav.test')}</a>
                         </Link>
                     </li>
+                    <li className={router.pathname == "/resume" ? style.active : ""}>
+                        <Link href="/resume">
+                            <a>Резюме</a>
+                        </Link>
+                    </li>
                 </ul>
             </nav>
         )

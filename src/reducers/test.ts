@@ -9,16 +9,16 @@ let STATE = isBrowser ? loadState('test') : null
 
 if (!STATE) {
     STATE = {
-        personalInfo: [],
-        testData: [],
+        personalInfo: null,
+        testData: null,
         terms: null,
         descriptions: null
     }
 }
 
 export type testStoreType = {
-    personalInfo: [],
-    testData: [],
+    personalInfo: [] | null,
+    testData: [] | null,
     terms: {} | null,
     descriptions: [] | null
 }

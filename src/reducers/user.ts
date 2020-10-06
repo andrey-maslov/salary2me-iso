@@ -25,7 +25,7 @@ if (!STATE) {
     STATE = {
         firstName: '',
         lastName: '',
-        email: '@mail',
+        email: 'some_mail@gmail.com',
         position: '',
         isLoggedIn: true,
         isEmailSent: false,

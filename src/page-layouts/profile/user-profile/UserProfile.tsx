@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react'
 import {Link, withTranslation} from '@i18n'
 import {useSelector, useDispatch} from "react-redux"
 import style from './profile.module.scss'
-import BorderedBox from "../../../components/common/bordered-box/BorderedBox"
 import {globalStoreType, IOneFieldForm} from "../../../typings/types"
 import InputTransformer from "../../../components/common/inputs/input-transformer/InputTransformer"
 import {IUserData, updateUserData} from "../../../actions/actionCreator"
@@ -10,11 +9,15 @@ import Loader from "../../../components/common/loaders/loader/Loader"
 import {useToasts} from 'react-toast-notifications'
 import Checkbox from "../../../components/common/inputs/checkbox/Checkbox"
 import {MdAttachMoney} from 'react-icons/md'
-import {SET_TOAST} from "../../../actions/actionTypes";
+import {FaFilePdf} from 'react-icons/fa'
+import {SET_TOAST} from "../../../actions/actionTypes"
+import CodeBox from "../../../components/common/code-box/CodeBox"
+import Service from "./service/Service"
 
 const Profile = ({t}: { t: any }) => {
 
     const {firstName, lastName, email, position, provider, isPublic, isLookingForJob} = useSelector((state: globalStoreType) => state.user)
+    const {personalInfo, testData} = useSelector((state: globalStoreType) => state.test)
     const {setToast} = useSelector((state: globalStoreType) => state.app)
     // const {position} = useSelector((state: globalStoreType) => state.cv)
     const [isReady, setReady] = useState(false)
@@ -55,15 +58,33 @@ const Profile = ({t}: { t: any }) => {
     }
 
     const textFields = [
-        {label: 'First Name', key: 'firstName', value: localUser.firstName},
-        {label: 'Last Name', key: 'lastName', value: localUser.lastName},
-        {label: 'Position', key: 'position', value: localUser.position},
+        {
+            label: t('signin:extra.first_name'),
+            key: 'firstName',
+            value: localUser.firstName,
+            defaultValue: t('signin:extra.first_name')
+        },
+        {
+            label: t('signin:extra.last_name'),
+            key: 'lastName',
+            value: localUser.lastName,
+            defaultValue: t('signin:extra.last_name')
+        },
+        {
+            label: t('signin:extra.position'),
+            key: 'position',
+            value: localUser.position,
+            defaultValue: t('signin:extra.position')
+        },
     ]
     const checkBoxes = [
         {label: t('signin:extra.want_to_open'), key: 'isPublic', value: localUser.isPublic},
         {label: t('signin:extra.looking_for_job'), key: 'isLookingForJob', value: localUser.isLookingForJob},
     ]
 
+    const pairLink = `https://teamconstructor.com${testData ? `?encdata=${btoa(JSON.stringify([personalInfo, testData]))}` : ''}`
+    const teamLink = `https://teamconstructor.com`
+    const grBaseLink = `https://thegreatbase.online`
 
     return (
         <div className={style.wrapper}>
@@ -85,10 +106,10 @@ const Profile = ({t}: { t: any }) => {
                         <div className={`${style.box_content}`}>
                             <div className={`${style.list} flex`}>
                                 {textFields.map(item => (
-                                    <div className={style.item} key={item.key}>
+                                    <div className={`${style.item} ${!item.value ? style.default : ''}`} key={item.key}>
                                         <span className={style.label}>{item.label}</span>
                                         <InputTransformer
-                                            initValue={item.value}
+                                            initValue={item.value || item.defaultValue}
                                             rules={{
                                                 pattern: {
                                                     value: /^[a-zA-Z0-9 ]*$/i,
@@ -116,8 +137,7 @@ const Profile = ({t}: { t: any }) => {
                                     <div className={style.item} key={item.key}>
                                         <Checkbox
                                             label={item.label}
-                                            handle={() => {
-                                            }}
+                                            handle={toast}
                                             isChecked={item.value}
                                             // innerRef={register()}
                                         />
@@ -126,34 +146,81 @@ const Profile = ({t}: { t: any }) => {
                             </div>
                         </div>
                     </div>
+                    <div className={`${style.box} ${style.danger}`}>
+                        <h5 className={style.box_title}>Danger zone</h5>
+                        <div className={`${style.box_content}`}>
+                            <div className={`${style.item} ${style.delete}`}>
+                                <div>Once you delete your account, it cannot be undone. This is permanent.</div>
+                                <button
+                                    className="btn"
+                                    onClick={() => {
+                                        if (confirm('Вы действительно хотиете удалить аккаунт????')) {
+                                            alert('Згря!')
+                                        }
+                                    }}
+                                >
+                                    Delete account
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
                 <div className="col-md-6">
                     <div className={`${style.box} ${style.services}`}>
                         <h5 className={style.box_title}>Services</h5>
-                        <div className={`${style.box_content} ${style.salary}`}>
-                            <div className={style.top}>
-                                <div className={style.title}>Salary2me</div>
-                                <div className={`${style.rate} ${style.on}`}>
-                                    premium
-                                </div>
+
+                        <Service
+                            service='salary2me'
+                        >
+                            <div className={`${style.item} flex between-xs`}>
+                                <Link href="/resume">
+                                    <a>Ваше резюме</a>
+                                </Link>
+                                <FaFilePdf/>
                             </div>
-                        </div>
-                        <div className={`${style.box_content} ${style.teamconstructor}`}>
-                            <div className={style.top}>
-                                <div className={style.title}>Teamconstructor</div>
-                                <div className={`${style.rate} ${style.on}`}>
-                                    premium
-                                </div>
+                            <div className={`${style.item} flex between-xs`}>
+                                <Link href="/estimation">
+                                    <a>Оценка резюме по городам</a>
+                                </Link>
                             </div>
-                        </div>
-                        <div className={`${style.box_content} ${style.thegreatbase}`}>
-                            <div className={style.top}>
-                                <div className={style.title}>Thegreatbase</div>
-                                <div className={`${style.rate} ${style.on}`}>
-                                    premium
-                                </div>
+                            <div className={`${style.item} flex between-xs`}>
+                                {testData
+                                    ? <CodeBox content={btoa(JSON.stringify([personalInfo, testData]))}/>
+                                    : <Link href="/test"><a>Пройдите тест</a></Link>
+                                }
                             </div>
-                        </div>
+
+                            <div className={`${style.item} flex between-xs`}>
+                                {testData
+                                    ? <Link href="/test/result"><a>Перейти к психологическому профилю</a></Link>
+                                    : <Link href="/test"><a>Пройдите тест</a></Link>
+                                }
+
+                            </div>
+                        </Service>
+
+                        <Service
+                            service='teamconstructor'
+                        >
+                            <div className={`${style.item} flex between-xs`}>
+                                <a href={pairLink} target="_blank">Перейти к анализу совместимости</a>
+                                <MdAttachMoney/>
+                            </div>
+                            <div className={`${style.item} flex between-xs`}>
+                                <a href={teamLink} target="_blank">Перейти к формированию команды</a>
+                            </div>
+                        </Service>
+
+                        <Service
+                            service='thegreatbase'
+                        >
+                            <div className={`${style.item} flex between-xs`}>
+                                <a href={grBaseLink} target="_blank">Рабочий кабинет</a>
+                                <MdAttachMoney/>
+                            </div>
+                        </Service>
+
                     </div>
                 </div>
             </div>
@@ -177,6 +244,13 @@ const Profile = ({t}: { t: any }) => {
         })
 
         dispatch({type: SET_TOAST, setToast: 0})
+    }
+
+    function toast(is) {
+
+        addToast('Изменения приняты', {
+            appearance: 'success',
+        })
     }
 }
 

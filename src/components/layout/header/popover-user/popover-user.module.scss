@@ -26,6 +26,19 @@
   }
 }
 
+.top {
+  background-color: $accent;
+  color: #fff;
+  padding: 1rem 20px;
+  border-radius: $border-radius-sm $border-radius-sm 0 0;
+
+  svg {
+    position: relative;
+    bottom: -3px;
+    margin-right: 20px;
+  }
+}
+
 .links {
   min-width: 300px;
   list-style: none;
@@ -49,24 +62,17 @@
     height: 100%;
     padding: 10px 20px;
     transition: background-color .2s ease-in-out;
+    border-bottom: 1px solid $grey-bg;
 
     &:hover {
       cursor: pointer;
       background-color: $grey-bg;
     }
 
-    //&.creds {
-    //
-    //  &:hover {
-    //    background-color: #fff;
-    //    cursor: auto;
-    //  }
-    //}
-  }
-
     svg {
       position: relative;
       bottom: -3px;
       margin-right: 20px;
     }
+  }
 }

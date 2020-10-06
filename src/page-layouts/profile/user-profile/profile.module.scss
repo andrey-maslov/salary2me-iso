@@ -17,6 +17,7 @@
   }
 }
 
+
 .box {
   margin-bottom: 2rem;
 
@@ -31,20 +32,17 @@
     border-radius: $border-radius-sm;
     box-shadow: $box-shadow-sm;
     padding: 2rem 2rem 1rem;
-
-    &.salary {
-      background-color: $accent;
-    }
-    &.teamconstructor {
-      background-color: #33363F;
-    }
-    &.thegreatbase {
-      background-color: #F96332;
-    }
   }
 
   .item {
     margin-bottom: 1rem;
+
+    &.default {
+
+      button {
+        color: rgba($grey, .8)
+      }
+    }
   }
 
   &.account {
@@ -66,34 +64,27 @@
 
     }
   }
+}
 
-  &.services {
+.delete {
+  display: flex;
+  justify-content: space-between;
 
-    .box_content {
-      padding-top: 1rem;
-      margin-bottom: 1rem;
-    }
-
-    .title {
-      font-weight: 700;
-      font-size: 1.25rem;
-      color: #fff;
-    }
+  button {
+    background-color: transparent;
+    margin-left: 1rem;
+    border: 2px solid $danger;
+    color: $danger;
+    min-width: 180px;
   }
 }
 
-.top {
-  display: flex;
-  justify-content: space-between;
-}
+/*===== Service box =====*/
 
-.rate {
-  color: #fff;
-}
 
-.list {
 
-}
+
+/*===== END Service box =====*/
 
 
 @media (max-width: 768px) {

@@ -1,0 +1,91 @@
+@import '../../../../assets/scss/vars';
+
+.service {
+  background-color: #fff;
+  border-radius: $border-radius-sm;
+  border: 1px solid;
+  box-shadow: $box-shadow-sm;
+  margin-bottom: 1rem;
+
+  &.salary2me {
+    border-color: $accent;
+
+    .top {
+      background-color: $accent;
+    }
+  }
+  &.teamconstructor {
+    border-color: #33363F;
+    .top {
+      background-color: #33363F;
+    }
+  }
+  &.thegreatbase {
+    border-color: #F96332;
+    .top {
+      background-color: #F96332;
+    }
+  }
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 2rem 1rem;
+  margin-bottom: .5rem;
+  border-bottom: 1px solid rgba(#fff, .2);
+  border-radius: $border-radius-sm $border-radius-sm 0 0;
+}
+
+.title {
+  width: 100%;
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-transform: capitalize;
+
+  a {
+    text-decoration: none;
+    font-weight: inherit;
+    font-size: inherit;
+    color: inherit;
+
+    &:hover {
+      text-decoration: underline;
+      color: rgba(#fff, .8)
+    }
+  }
+}
+
+.rate {
+  display: inline-flex;
+  position: relative;
+  align-items: center;
+  color: #fff;
+
+  button {
+    color: #fff;
+    margin-left: 1rem;
+    margin-right: -.8rem;
+  }
+}
+
+.content {
+  padding: 1rem 2rem 1rem;
+  //color: #fff;
+  margin-bottom: 1rem;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  svg {
+    position: relative;
+    bottom: -2px;
+    font-size: 1.5rem;
+  }
+}
