@@ -5,16 +5,15 @@ $text-color: #d1d1d1;
 .footer {
   background-color: #4F5962;
   color: #fff;
-  padding-top: 70px;
 }
 
 .widget {
-  margin-bottom: 30px;
+  margin-bottom: 2rem;
 }
 
 .title {
   text-transform: uppercase;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 }
 
 .content {
@@ -30,11 +29,11 @@ $text-color: #d1d1d1;
 }
 
 .sharing {
-  padding: 20px;
+  padding: 1.25rem;
   background-color: rgba(#fff, .1);
-  border-radius: 3px;
-  max-width: 300px;
-  margin-top: 5px;
+  border-radius: $border-radius-sm;
+  max-width: 19rem;
+  margin-top: .3rem;
 }
 
 .address {
@@ -48,7 +47,7 @@ $text-color: #d1d1d1;
 }
 
 .item {
-  margin-bottom: 10px;
+  margin-bottom: .8rem;
 
   a {
     color: $text-color;
@@ -63,22 +62,20 @@ $text-color: #d1d1d1;
 .contacts {
   svg {
     position: relative;
-    margin-right: 10px;
+    margin-right: .8rem;
     bottom: -3px;
   }
 }
 
 .copy {
   text-align: center;
-  padding: 10px;
+  padding: .8rem;
   border-top: 1px solid rgba(#fff, .1);
-  font-size: 14px;
+  font-size: 1rem;
   color: #999;
 }
 
 
 @media(max-width: 992px) {
-  .footer {
-    padding-top: 30px;
-  }
+
 }

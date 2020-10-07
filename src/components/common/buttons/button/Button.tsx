@@ -14,7 +14,7 @@ const Button = ({title, btnClass, startIcon = null, endIcon = null, handle, isEn
     const ariaLabel: string = !title ? 'button' : ''
 
     return (
-        <button className={`${style.btn} ${btnClass} ${!isEnabled && style.disabled}`} onClick={handle} aria-label={ariaLabel}>
+        <button className={`${style.btn} ${btnClass} ${!isEnabled ? style.disabled : ''}`} onClick={handle} aria-label={ariaLabel}>
             {startIcon && <span className={style.start}>{startIcon}</span>}
             {title}
             {endIcon && <span className={style.end}>{endIcon}</span>}

@@ -1,7 +1,7 @@
-import React from 'react';
-import TopLogo from '../../layout/header/top-logo/TopLogo';
-import WebNav from './nav/WebNav';
-import style from './web-header.module.scss';
+import React from 'react'
+import WebNav from './nav/WebNav'
+import style from './web-header.module.scss'
+import TopLogo from "../../layout/header/top-logo/TopLogo"
 
 export type Header = {
     isLoggedIn: boolean
@@ -22,7 +22,7 @@ const WebHeader = ({isLoggedIn, handleLoginBtn, userEmail}: Header) => {
                 />
             </nav>
         </header>
-    );
-};
+    )
+}
 
-export default WebHeader;
+export default WebHeader

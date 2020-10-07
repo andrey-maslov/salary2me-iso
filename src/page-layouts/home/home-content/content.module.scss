@@ -1,6 +1,6 @@
 @import '../../../assets/scss/vars';
 
-.content {
+.wrapper {
   position: relative;
 
   &:before {
@@ -24,6 +24,12 @@
 }
 
 @media (max-width: 1200px) {
+
+  .wrapper {
+    &:before {
+      display: none;
+    }
+  }
 
   .image {
     margin-left: 0;

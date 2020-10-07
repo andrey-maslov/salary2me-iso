@@ -10,7 +10,6 @@ $border-radius-md: .4 * $em;
 
 .robot {
   position: relative;
-  margin-bottom: 100px;
   width: 20 * $em;
   display: flex;
 
@@ -230,6 +229,10 @@ $border-radius-md: .4 * $em;
   position: relative;
   margin-top: 8.5 * $em;
   width: 2.5 * $em;
+
+  &.leftArm {
+    color: currentColor;
+  }
 
   .shoulder {
     position: absolute;

@@ -1,9 +1,13 @@
 @import 'vars';
 @import 'animations';
 
+html {
+  font-size: 15px;
+}
+
 body {
   font-family: $font;
-  font-size: 18px;
+  font-size: 1rem;
   overflow-x: hidden;
   //background-color: $grey-bg;
 
@@ -34,6 +38,29 @@ body {
 }
 
 /*===== COMMON LAYOUT =====*/
+
+.pt {
+  &-sm {
+    padding-top: 2rem;
+  }
+  &-md {
+    padding-top: 4rem;
+  }
+  &-lg {
+    padding-top: 6rem;
+  }
+}
+.pb {
+  &-sm {
+    padding-bottom: 2rem;
+  }
+  &-md {
+    padding-bottom: 4rem;
+  }
+  &-lg {
+    padding-bottom: 6rem;
+  }
+}
 
 .app-wrapper {
   position: relative;

@@ -5,9 +5,9 @@ import RobotQuestion from "../../../../components/common/media/robots/robot-ques
 const TestMainContent: React.FC<{ t }> = ({t}) => {
 
     return (
-        <div className={style.wrapper}>
+        <div className={`${style.wrapper} pt-lg pb-lg`}>
             <div className="container">
-                <div className="row">
+                <div className="row middle-xs">
                     <div className="col-lg-5">
                         <div className="robot">
                             <RobotQuestion/>
@@ -17,9 +17,7 @@ const TestMainContent: React.FC<{ t }> = ({t}) => {
                         <div className={style.content}>
                             <p className={style.pretitle}>{t('test:page.pretitle')}</p>
                             <h1>{t('test:page.title')}</h1>
-                            <div
-                                dangerouslySetInnerHTML={{__html: t('test:page.content',  { returnObjects: true})}}
-                            />
+                            <div dangerouslySetInnerHTML={{__html: t('test:page.content',  { returnObjects: true})}}/>
                         </div>
                         <Link href='/test/questions'>
                             <a className={`btn btn-accent`}>{t('common:buttons.start_test')}</a>

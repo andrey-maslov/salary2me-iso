@@ -3,21 +3,21 @@
 .wrapper {
   display: inline-block;
   position: relative;
+  font-size: 1.25rem;
 }
-
 
 .btn {
   display: inline-flex;
   justify-content: space-between;
-  padding: 11px 10px;
+  padding: .7rem;
   background-color: transparent;
   border: 1px solid rgba($accent, .2);
   line-height: 37px;
-  width: 70px;
-  border-radius: 3px;
+  width: 4.5rem;
+  border-radius: $border-radius-sm;
   align-self: stretch;
   color: $accent;
-  font-size: 16px;
+  font-size: 1.25rem;
   transition: all .2s ease-in-out;
 
   &:hover {
@@ -29,18 +29,18 @@
 .top {
   background-color: $accent;
   color: #fff;
-  padding: 1rem 20px;
+  padding: 1rem 1.25rem;
   border-radius: $border-radius-sm $border-radius-sm 0 0;
 
   svg {
     position: relative;
     bottom: -3px;
-    margin-right: 20px;
+    margin-right: 1.25rem;
   }
 }
 
 .links {
-  min-width: 300px;
+  min-width: 20rem;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -60,7 +60,7 @@
     display: inline-block;
     width: 100%;
     height: 100%;
-    padding: 10px 20px;
+    padding: .8rem 1.25rem;
     transition: background-color .2s ease-in-out;
     border-bottom: 1px solid $grey-bg;
 
@@ -72,7 +72,7 @@
     svg {
       position: relative;
       bottom: -3px;
-      margin-right: 20px;
+      margin-right: 1.25rem;
     }
   }
 }

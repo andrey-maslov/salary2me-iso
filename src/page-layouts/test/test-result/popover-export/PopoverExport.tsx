@@ -15,40 +15,22 @@ const PopoverExport: React.FC<PopoverExportProps> = ({t}) => {
 
     const {personalInfo, testData} = useSelector((state: globalStoreType) => state.test)
     const fullResult = [personalInfo, testData]
-    const [state, setState] = useState({isOpen: false})
-
-    const closeMore = () => {
-        setState({...state, isOpen: false})
-    }
-
-    const btnMoreHandler = () => {
-        if (state.isOpen) {
-            closeMore()
-        } else {
-            setState({...state, isOpen: true})
-        }
-    }
-
-    const outsideMoreHandler = () => {
-        if (state.isOpen) {
-            closeMore()
-        }
-    }
+    const [isOpen, setOpen] = useState(false)
 
     return (
-        <OutsideClickHandler onOutsideClick={outsideMoreHandler}>
+        <OutsideClickHandler onOutsideClick={() => setOpen(false)}>
             <div className={style.moreBtn}>
                 <ButtonMore
-                    handler={btnMoreHandler}
-                    isOpened={state.isOpen}
+                    handler={() => setOpen(!isOpen)}
+                    isOpened={isOpen}
                     title={t('test:result_page.export')}
                 />
             </div>
-            <div className={`${style.body} ${state.isOpen ? style.opened : ''}`}>
+            {isOpen && <div className={style.body}>
                 <ExportResult
                     data={btoa(JSON.stringify(fullResult))}
                 />
-            </div>
+            </div>}
         </OutsideClickHandler>
     )
 }

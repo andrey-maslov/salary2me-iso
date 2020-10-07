@@ -113,7 +113,7 @@ const Dropzone: React.FC = () => {
             <Button
                 startIcon={null}
                 endIcon={<FaArrowRight/>}
-                btnClass={`btn btn-accent btn-lg ${style.pushBtn}`}
+                btnClass={`btn btn-accent btn-lg`}
                 title="send CV"
                 handle={handlePushBtn}
             />}

@@ -12,7 +12,7 @@ type HeroType = {
 const Hero: React.FC<HeroType> = ({content}) => {
 
     return (
-        <div className={style.hero}>
+        <div className={`${style.wrapper} pt-lg pb-lg`}>
             <div className="container">
                 <div className="row between-xs bottom-xs">
                     <div className="col-lg-6">
@@ -20,7 +20,6 @@ const Hero: React.FC<HeroType> = ({content}) => {
                             className={style.title}
                             dangerouslySetInnerHTML={{__html: content}}
                         />
-                        <Version/>
                         <div className={style.dropzone}>
                             <Dropzone
                             />

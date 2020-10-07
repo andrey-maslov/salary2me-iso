@@ -22,7 +22,7 @@ const Footer: React.FC<{ t: any }> = ({t}) => {
     ];
 
     return (
-        <footer className={style.footer}>
+        <footer className={`${style.footer} pt-md`}>
             <div className="container">
                 <div className="row justify-content-between">
                     <div className="col-xl-4">

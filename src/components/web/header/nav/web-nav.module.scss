@@ -21,7 +21,7 @@
 
   li {
     text-align: center;
-    width: 130px;
+    width: 7rem;
     position: relative;
     border-bottom: 1px solid transparent;
     color: $text;
@@ -54,6 +54,16 @@
   }
 }
 
+.nav {
+
+  li {
+
+    a {
+      font-size: 1.25rem;
+    }
+  }
+}
+
 ul.auth {
   border-left: 1px solid rgba($grey-bg, .5);
   padding-left: 2rem;
@@ -67,14 +77,4 @@ ul.auth {
   border: 1px solid transparent;
   border-radius: $border-radius;
   text-decoration: none;
-
-  //&:hover {
-  //  background-color: $overlay-light;
-  //  color: $text-light;
-  //}
-  //
-  //&.current {
-  //  border: 1px solid $overlay-light;
-  //  color: $accent;
-  //}
 }

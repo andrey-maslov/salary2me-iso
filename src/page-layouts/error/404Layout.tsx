@@ -16,14 +16,12 @@ function NotFoundLayout({t}) {
 
     return (
         <Layout>
-            <div className="container">
-                <div className={`${style.wrapper} text-center`}>
-                    <p className={style.title}>{t('common:errorPage.oops')}</p>
-                    <ClientError/>
-                    <Link href="/">
-                        <a className="btn btn-accent">{t('common:buttons.to_main')}</a>
-                    </Link>
-                </div>
+            <div className={`${style.wrapper} pt-lg pb-lg`}>
+                <p className={style.title}>{t('common:errorPage.oops')}</p>
+                <ClientError/>
+                <Link href="/">
+                    <a className="btn btn-accent">{t('common:buttons.to_main')}</a>
+                </Link>
             </div>
         </Layout>
     )

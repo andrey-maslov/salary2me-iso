@@ -70,7 +70,7 @@ const PersonalInfo = ({questions, saveAnswers, isVisible, changeBlock, t}: Quest
             {renderQuestionsList()}
             <Button
                 handle={nextBtnHandler}
-                btnClass='btn-accent'
+                btnClass='btn btn-accent'
                 title={t('common:buttons.next')}
                 endIcon={<FiArrowRight/>}
                 isEnabled={state.isBtnEnabled}

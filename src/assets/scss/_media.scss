@@ -12,6 +12,29 @@ only screen and (min-resolution: 192dpi) {
 
 @media (max-width: 992px) {
 
+  .pt {
+    &-sm {
+      padding-top: 1rem;
+    }
+    &-md {
+      padding-top: 1.5rem;
+    }
+    &-lg {
+      padding-top: 2rem;
+    }
+  }
+  .pb {
+    &-sm {
+      padding-bottom: 1rem;
+    }
+    &-md {
+      padding-bottom: 1.5rem;
+    }
+    &-lg {
+      padding-bottom: 2rem;
+    }
+  }
+
   .page {
     &-results {
       main {

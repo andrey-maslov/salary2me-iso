@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import TopLogo from '../../layout/header/top-logo/TopLogo';
-import MobiNav from './nav/MobiNav';
-import MobileNavToggle from './nav-toggle/NavToggle';
-import { Header } from '../../web/header/WebHeader';
-import style from './mobi-header.module.scss';
-import LangSwitcher from '../../common/buttons/lang-switcher/LangSwitcher';
+import React, { useState } from 'react'
+import MobiNav from './nav/MobiNav'
+import MobileNavToggle from './nav-toggle/NavToggle'
+import { Header } from '../../web/header/WebHeader'
+import style from './mobi-header.module.scss'
+import LangSwitcher from '../../common/buttons/lang-switcher/LangSwitcher'
+import TopLogo from "../../layout/header/top-logo/TopLogo"
 
 const MobiHeader = ({isLoggedIn, handleLoginBtn, userEmail}: Header) => {
 
-    const [isMobiNavOpened, setMobiNav] = useState(false);
+    const [isMobiNavOpened, setMobiNav] = useState(false)
 
     const mobileNavOpen = (): any => {
-        setMobiNav(true);
-        document.body.classList.toggle('menu-opened');
-    };
+        setMobiNav(true)
+        document.body.classList.toggle('menu-opened')
+    }
 
     const mobileNavClose = (): void => {
         setMobiNav(false);
@@ -21,7 +21,7 @@ const MobiHeader = ({isLoggedIn, handleLoginBtn, userEmail}: Header) => {
         //     setMobiNav(false);
         //     document.body.classList.toggle('menu-opened');
         // }
-    };
+    }
 
     return (
         <header className={style.header}>
@@ -38,8 +38,7 @@ const MobiHeader = ({isLoggedIn, handleLoginBtn, userEmail}: Header) => {
                 isOpened={isMobiNavOpened}
             />
         </header>
-    );
+    )
+}
 
-};
-
-export default MobiHeader;
+export default MobiHeader

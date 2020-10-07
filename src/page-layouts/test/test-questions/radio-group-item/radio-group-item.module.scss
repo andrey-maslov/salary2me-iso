@@ -5,22 +5,22 @@ $baseWidth: 46px;
 
 .item {
   position: relative;
-  margin-bottom: 10px;
+  margin-bottom: .8rem;
   box-shadow: $box-shadow-sm;
 
   &:first-child {
 
     .content {
-      border-top-left-radius: 5px;
-      border-top-right-radius: 5px;
+      border-top-left-radius: $border-radius-md;
+      border-top-right-radius: $border-radius-md;
     }
   }
 
   &:last-child {
 
     .content {
-      border-bottom-left-radius: 5px;
-      border-bottom-right-radius: 5px;
+      border-bottom-left-radius: $border-radius-md;
+      border-bottom-right-radius: $border-radius-md;
     }
   }
 
@@ -34,7 +34,7 @@ $baseWidth: 46px;
 
       div {
         line-height: 1;
-        font-size: 22px;
+        font-size: 1.3rem;
       }
     }
   }
@@ -72,7 +72,7 @@ $baseWidth: 46px;
   left: calc((#{$baseWidth} + 20px) * -1);
   top: 50%;
   transform: translateY(-50%);
-  font-size: 20px;
+  font-size: 1.25rem;
   text-align: center;
   width: $baseWidth;
   height: $baseWidth;
@@ -86,7 +86,7 @@ $baseWidth: 46px;
 .content {
   display: flex;
   align-items: center;
-  padding: 30px;
+  padding: 2rem;
   background-color: #fff;
 
   &.horizontal {
@@ -103,7 +103,7 @@ $baseWidth: 46px;
 
 .caption {
   min-width: $labelColumnWidth;
-  font-size: 16px;
+  font-size: 18px;
   transition: opacity .3s;
 
   p {
@@ -115,7 +115,7 @@ $baseWidth: 46px;
   min-width: calc(100% - #{$labelColumnWidth} * 2);
   flex-shrink: 0;
   flex-grow: 1;
-  padding: 0 20px;
+  padding: 0 1.25rem;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -127,22 +127,22 @@ $baseWidth: 46px;
 
   .content {
     flex-wrap: wrap;
-    padding: 20px 15px 20px $baseWidth;
+    padding: 1.25rem 1rem 1.25rem $baseWidth;
 
     .options {
-      margin-top: 15px;
-      margin-bottom: 15px;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
       width: 100%;
     }
 
     .caption {
-      font-size: 16px;
+      font-size: 1rem;
     }
   }
 
   .item {
-    margin-left: -15px;
-    margin-right: -15px;
+    margin-left: -1rem;
+    margin-right: -1rem;
 
     &.answered {
 
@@ -159,13 +159,13 @@ $baseWidth: 46px;
   .index {
     left: 0;
     top: 50%;
-    padding-top: 8px;
+    padding-top: .5rem;
     width: $baseWidth * .7;
     box-shadow: none;
     border-right: 1px solid $grey-bg;
     border-radius: 0;
     height: 100%;
-    font-size: 18px;
+    font-size: 1.2rem;
     font-weight: 700;
   }
 

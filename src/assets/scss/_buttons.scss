@@ -1,45 +1,41 @@
+@import './vars';
+
 // shadanger styles
 input[type=submit],
 .btn {
   position: relative;
-  font-family: $default-font;
-  font-size: 18px;
-  border-radius: $border-radius;
+  font-size: 1.2rem;
   display: inline-block;
+  border-radius: 3px;
   text-transform: uppercase;
-  //max-width: 350px;
-  min-width: 160px;
-  padding: 0 10px;
+  min-width: 11rem;
+  padding: .3rem 1.25rem;
   vertical-align: middle;
   text-decoration: none;
   text-align: center;
   transition: all .2s ease-out;
   cursor: pointer;
-
-  &:focus {
-    outline: none;
-  }
+  height: 3rem;
+  font-weight: normal;
 }
 
 a.btn {
-  height: 40px;
-  line-height: 40px;
+  height: 3rem;
+  line-height: calc(3rem - 7px);
 
   &:hover {
     text-decoration: none;
   }
 }
 
-.btn-link {
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 1.3;
-  height: unset;
-  //color: $link;
-  outline: none;
+button.btn-link {
+  background-color: transparent;
+  border: 0;
+  height: auto;
+  min-width: unset;
 
   &:hover {
-    //color: $link-hover;
+    box-shadow: none;
   }
 }
 
@@ -53,34 +49,15 @@ a.btn {
   }
 }
 
-header {
-
-  .btn-outlined {
-    padding: 6px;
-    width: 40px;
-    height: 40px;
-    border-color: rgb(209, 209, 209);
-    color: rgba(#000, .8);
-
-    & > span {
-      margin: 0;
-      font-size: 24px;
-      line-height: 1;
-    }
-  }
-}
-
-// Small button
-.btn-small {
-  height: 55px !important;
-  line-height: 55px;
-}
-
-// Long button
+/*===== SIZES =====*/
 .btn {
+
+  &.btn-small {
+    height: 2.5rem;
+  }
+
   &.btn-lg {
-    height: 60px;
-    //line-height: 47px;
+    height: 3.5rem;
     min-width: 200px;
     max-width: unset;
   }

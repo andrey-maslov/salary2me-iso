@@ -3,7 +3,6 @@
 .wrapper {
   display: flex;
   align-items: center;
-  padding: 100px 0;
   height: 100%;
   width: 100%;
 }
@@ -15,7 +14,8 @@
 }
 
 .content {
-  margin-bottom: 60px;
+  margin-bottom: 4rem;
+  font-size: 1.25rem;
 
   h1 {
     text-transform: uppercase;
@@ -23,7 +23,8 @@
   }
 
   .pretitle {
-    font-size: 30px;
+    font-size: 2rem;
+    margin-bottom: .8rem;
   }
 
 }
@@ -43,11 +44,10 @@
 @media(max-width: 992px) {
 
   .wrapper {
-    padding: 0 0 20px;
+    padding: 0 0 1.25rem;
   }
 
   .content {
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
   }
-
 }

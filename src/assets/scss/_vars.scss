@@ -35,6 +35,7 @@ $success: #26AF7E;
 
 //Decoration
 $border-radius-sm: 3px;
+$border-radius-md: 5px;
 $border-radius-lg: 6px;
 $border-radius: $border-radius-sm;
 $box-shadow-sm: 0 1px 1px 0 rgba(10,22,70,.1), 0 0 1px 0 rgba(10,22,70,.06);
@@ -42,15 +43,15 @@ $box-shadow-md: 0 2px 3px 0 rgba(10,22,70,.1), 0 1px 3px 0 rgba(10,22,70,.08);
 $box-shadow-lg: 0px 40px 42px rgba(0, 0, 0, 0.12); /// ?
 
 ///Typography
-$h1-fontsize: 36px;
-$h2-fontsize: 30px;
-$h3-fontsize: 26px;
-$h4-fontsize: 22px;
-$h5-fontsize: 18px;
-$h6-fontsize: 16px;
+$h1-fontsize: 2.25rem;
+$h2-fontsize: 2rem;
+$h3-fontsize: 1.75rem;
+$h4-fontsize: 1.5rem;
+$h5-fontsize: 1.25rem;
+$h6-fontsize: 1rem;
 
 /// Customization Bootstrap vars from "app/libs/bootstrap/scss/_variables.scss"
-$grid-gutter-width: 30px;
+$grid-gutter-width: 2rem;
 $grid-columns: 12;
 $grid-breakpoints: (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1360px);
 $container-max-widths: (sm: 540px, md: 720px, lg: 980px, xl: 1290px) !default;

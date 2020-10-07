@@ -57,13 +57,13 @@ const Questions = ({saveAnswers, questions, changeBlock, t}: QuestionsProps) => 
             <div className={style.buttons}>
                 <Button
                     handle={returnBtnHandler}
-                    btnClass='btn-accent'
+                    btnClass='btn btn-accent'
                     title={t('common:buttons.return')}
                     startIcon={<FiArrowLeft/>}
                 />
                 <Button
                     handle={sendBtnHandler}
-                    btnClass='btn-accent'
+                    btnClass='btn btn-accent'
                     title={t('common:buttons.send')}
                     endIcon={<FiArrowRight/>}
                     // isEnabled={false}
@@ -75,12 +75,12 @@ const Questions = ({saveAnswers, questions, changeBlock, t}: QuestionsProps) => 
             {isAddButtons && <div className={style.addButtons}>
                 <Button
                     handle={sendFakeData}
-                    btnClass='btn-accent'
+                    btnClass='btn btn-accent'
                     title={'send example data'}
                 />
                 <Button
                     handle={sendRandomFakeData}
-                    btnClass='btn-accent'
+                    btnClass='btn btn-accent'
                     title={'send generated data'}
                 />
             </div>}

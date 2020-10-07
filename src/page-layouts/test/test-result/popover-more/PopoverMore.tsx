@@ -77,14 +77,14 @@ const PopoverMore: React.FC<PopoverMoreProps> = ({userResult, details, t}) => {
 
     return (
         <OutsideClickHandler onOutsideClick={outsideMoreHandler}>
-            <div className={style.moreBtn}>
+            <div className={style.btn}>
                 <ButtonMore
                     handler={btnMoreHandler}
                     isOpened={state.isOpen}
                     title={t('test:result_page.details')}
                 />
             </div>
-            <div className={`${style.more} ${state.isOpen ? style.opened : ''}`}>
+            {state.isOpen && <div className={`${style.body}`}>
                 <div className={style.bar}>
                     <div onClick={iconHandler}>
                         {state.isTable ? <FiMoreHorizontal/> : <FiArrowLeft/>}
@@ -96,7 +96,7 @@ const PopoverMore: React.FC<PopoverMoreProps> = ({userResult, details, t}) => {
                         addClasses={['small', 'striped']}
                     />
                     : renderDesc(details)}
-            </div>
+            </div>}
         </OutsideClickHandler>
     )
 }

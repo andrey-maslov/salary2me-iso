@@ -2,12 +2,13 @@
 
 .info {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   margin-bottom: 2rem;
 
   svg {
     min-width: 4rem;
-    padding-top: .7rem;
+    width: 4rem;
+    padding: 0;
     line-height: 1;
     margin: 0 2rem;
     height: auto;
@@ -20,7 +21,7 @@
 
   div {
     border-left: 1px solid $accent;
-    padding-left: 1rem;
+    padding-left: 1.5rem;
 
     p {
       &:last-child {

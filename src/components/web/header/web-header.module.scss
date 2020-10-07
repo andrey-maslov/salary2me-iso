@@ -13,11 +13,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: .8rem;
+  padding-bottom: .8rem;
   height: 60px;
 }
 
 @media(max-width: 992px) {
-  padding: 0 15px;
+  padding: 0 1rem;
 }
