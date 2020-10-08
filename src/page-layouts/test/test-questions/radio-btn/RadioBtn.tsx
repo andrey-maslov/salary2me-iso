@@ -31,7 +31,7 @@ const RadioBtn = ({value, isSelected, handler, label}: RadioType) => {
             <div className={`${style.btn}`} data-value={value} id={value}>
                 {isSelected && <FiCheck/>}
             </div>
-            {label && <span>{label}</span>}
+            {label}
         </label>
     );
 };

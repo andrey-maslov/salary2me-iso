@@ -19,7 +19,7 @@ function NotFoundLayout({t}) {
             <div className={`${style.wrapper} pt-lg pb-lg`}>
                 <p className={style.title}>{t('common:errorPage.oops')}</p>
                 <ClientError/>
-                <Link href="/">
+                <Link href="/">po
                     <a className="btn btn-accent">{t('common:buttons.to_main')}</a>
                 </Link>
             </div>

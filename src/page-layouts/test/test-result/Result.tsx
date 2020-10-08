@@ -1,25 +1,28 @@
-import React, { useEffect, useState } from 'react'
-import { FiExternalLink } from 'react-icons/fi'
-import { useSelector, useDispatch } from 'react-redux'
-import { Link, withTranslation } from '@i18n'
+import React, {useEffect, useState} from 'react'
+import {FiExternalLink} from 'react-icons/fi'
+import {useSelector, useDispatch} from 'react-redux'
+import {Link, withTranslation} from '@i18n'
 import ChartRadar from './radar-chart/ChartRadar'
 import {
-    getDescByRange, getFamous,
+    getDescByRange,
+    getFamous,
     getIndexByRange,
     UserResult,
     getAndDecodeData,
 } from 'psychology'
-import { IUserResult, IDescWithRange, IDescWithStatus, IOctant } from 'psychology/build/main/types/types'
+import {IUserResult, IDescWithRange, IDescWithStatus, IOctant} from 'psychology/build/main/types/types'
 import CodeBox from '../../../components/common/code-box/CodeBox'
-import { TablesWithBars } from './TablesWithBars'
+import {TablesWithBars} from './TablesWithBars'
 import TopBar from './top-bar/TopBar'
 import Table from '../../../components/common/tables/table/Table'
 import Box from '../../../components/common/box/Box'
-import { useMediaPredicate } from 'react-media-hook'
-import { useTranslation } from 'react-i18next'
+import {useMediaPredicate} from 'react-media-hook'
+import {useTranslation} from 'react-i18next'
 import Loader from '../../../components/common/loaders/loader/Loader'
-import { savePersonalInfo, saveTestData } from '../../../actions/actionCreator'
+import {savePersonalInfo, saveTestData} from '../../../actions/actionCreator'
 import {globalStoreType} from "../../../typings/types"
+import Famous from "./famous/Famous"
+import {HOST} from "../../../constants/constants";
 
 type AnyFullResultType = any
 type ResultProps = {
@@ -36,7 +39,7 @@ const Result: React.FC<ResultProps> = ({t}) => {
 
     const {name} = useSelector((state: globalStoreType) => state.user)
     const {personalInfo, testData} = dataFromUrl
-        ? {personalInfo: dataFromUrl[0], testData : dataFromUrl[1]}
+        ? {personalInfo: dataFromUrl[0], testData: dataFromUrl[1]}
         : useSelector((state: globalStoreType) => state.test)
     const {terms: scheme, descriptions} = useSelector((state: globalStoreType) => state.test)
 
@@ -76,6 +79,12 @@ const Result: React.FC<ResultProps> = ({t}) => {
         )
     }
 
+    //TODO fix case with 3rd sex
+    const famousPerson = getFamous(mainOctant, famousList, personalInfo[2] === 2 ? 1 : personalInfo[2])
+
+    const encData = btoa(JSON.stringify([personalInfo, testData]))
+    const sharingUrl = `${HOST}/test/result?encdata=${encData}`
+
     //fill full profile table title by translations
     let fpTableTile = [t('test:result_page.main_features'), t('test:result_page.revealed')]
 
@@ -88,40 +97,37 @@ const Result: React.FC<ResultProps> = ({t}) => {
                     userResult={profile.map((item, i) => [scheme.tendencies[i], item.value])}
                     details={tendencies}
                 />
-                <ChartRadar
-                    profile={fullProfile.profile}
-                    chartLabels={scheme.tendencies}
-                    description={getPsychoTypeDesc(sortedOctants, psychoTypeList) || ''}
-                    description2={getFamous(mainOctant, famousList, personalInfo[2])}
-                />
+                <div className="row middle-xs">
+                    <div className="col-lg-7">
+                        <ChartRadar
+                            profile={fullProfile.profile}
+                            chartLabels={scheme.tendencies}
+                        />
+                    </div>
+                    <div className="col-lg-5">
+                        <Famous
+                            person={famousPerson}
+                            desc={getPsychoTypeDesc(sortedOctants, psychoTypeList) || ''}
+                        />
+                    </div>
+                </div>
             </Box>
 
             <Box>
                 <h4>{t('test:result_page.export_result_title')}</h4>
-                <p>
+                <div>
                     {t('test:result_page.export_result_desc')}
                     <a
                         style={{textDecoration: 'underline'}}
-                        href={`${process.env.COOP_URL}?encdata=${btoa(JSON.stringify([personalInfo, testData]))}`}
+                        href={`${process.env.COOP_URL}?encdata=${encData}`}
                         target="_blank"
                         rel="noopener norefferer"
                     >
-                        teamconstructor.com
-                    </a></p>
+                        {` Teamconstructor`}
+                    </a>
+                </div>
                 <CodeBox content={btoa(JSON.stringify([personalInfo, testData]))}/>
             </Box>
-
-
-            {/*<h3>{t('common:result_page.key_features')}</h3>*/}
-            {/*{tables.tablesWithBars && tables.tablesWithBars.map((item, i) => {*/}
-            {/*    return <Box key={i}>*/}
-            {/*        <ResultBlock*/}
-            {/*            title={item.title}*/}
-            {/*            description={item.desc}*/}
-            {/*            tableData={item.data}*/}
-            {/*        />*/}
-            {/*    </Box>;*/}
-            {/*})}*/}
 
             <Box className='result-box full-profile'>
                 <h4>{t('test:result_page.full_profile_title')}</h4>

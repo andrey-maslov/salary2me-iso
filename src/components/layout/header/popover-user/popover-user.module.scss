@@ -9,7 +9,8 @@
 .btn {
   display: inline-flex;
   justify-content: space-between;
-  padding: .7rem;
+  padding: .5rem .7rem;
+  min-height: 37.5px;
   background-color: transparent;
   border: 1px solid rgba($accent, .2);
   line-height: 37px;

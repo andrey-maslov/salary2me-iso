@@ -1,19 +1,17 @@
 import React from 'react'
-import { Radar } from 'react-chartjs-2'
+import {Radar} from 'react-chartjs-2'
 import {ITendency} from 'psychology/build/main/types/types'
-import { COLORS } from '../../../../constants/constants'
+import {COLORS} from '../../../../constants/constants'
 import hexToRgba from '../../../../helper/hexToRgba'
-import { useMediaPredicate } from 'react-media-hook'
+import {useMediaPredicate} from 'react-media-hook'
 import style from './radar-chart.module.scss'
 
 type ChartsPropsType = {
     profile: readonly ITendency[]
     chartLabels: string[]
-    description: string
-    description2?: string | null
 }
 
-const ChartRadar: React.FC<ChartsPropsType> = ({profile, chartLabels, description, description2}) => {
+const ChartRadar: React.FC<ChartsPropsType> = ({profile, chartLabels}) => {
 
     const chartRadarOptions: any = {
         desktop: {
@@ -70,7 +68,7 @@ const ChartRadar: React.FC<ChartsPropsType> = ({profile, chartLabels, descriptio
         tooltips: {
             // enabled: false,
             callbacks: {
-                title: function(tooltipItem: any) {
+                title: function (tooltipItem: any) {
                     const i = tooltipItem[0].index
                     return chartLabels[i]
                 },
@@ -79,23 +77,13 @@ const ChartRadar: React.FC<ChartsPropsType> = ({profile, chartLabels, descriptio
     }
 
     return (
-        <div className={`${style.wrapper} radar-chart block-wrapper`}>
-            <div className={style.radar}>
-                <Radar
-                    data={data}
-                    options={options}
-                    width={currentOptions.width}
-                    height={currentOptions.height}
-                />
-            </div>
-            <div>
-                <div className={style.desc}>
-                    {description}
-                </div>
-                {description2 && <div className={style.desc}>
-                    {description2}
-                </div>}
-            </div>
+        <div className={style.wrapper}>
+            <Radar
+                data={data}
+                options={options}
+                width={currentOptions.width}
+                height={currentOptions.height}
+            />
         </div>
     )
 }

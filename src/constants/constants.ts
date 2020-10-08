@@ -1,4 +1,5 @@
 export const SITE_TITLE = 'salary2me'
+export const HOST = 'https://salary.nobugs.today'
 export const IS_BETA = true
 
 export const LANG_DEFAULT = 'en'
