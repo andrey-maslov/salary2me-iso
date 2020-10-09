@@ -4,7 +4,7 @@ import {useRouter} from 'next/router'
 import Signin, {ISigninForm} from "./Signin"
 import Registration, {ISignUpForm} from "./Registration"
 import {useDispatch, useSelector} from "react-redux"
-import {authUser, sendForgotEmail, sendNewPassword, updateUserData} from "../../../actions/actionCreator"
+import {addAuthData, authUser, sendForgotEmail, sendNewPassword, updateUserData} from "../../../actions/actionCreator"
 import Forgot, {IForgotForm} from "./Forgot"
 import Reset, {IResetForm} from "./Reset"
 import {authModes} from "../../../constants/constants"
@@ -153,8 +153,16 @@ const Auth: React.FC<AuthProps> = ({t}) => {
     }
 
     function SignIn(data: ISigninForm): void {
-        dispatch(authUser(data, 'signin'))
-        console.log('auth user')
+        // dispatch(authUser(data, 'signin'))
+        dispatch(addAuthData({
+            firstName: 'John',
+            lastName: 'Doe',
+            email: 'john@mail.com',
+            position: 'freelancer',
+            isPublic: true
+        }))
+        router.push('/profile')
+
     }
 
     function forgotHandle(data: IForgotForm): void {
@@ -185,7 +193,16 @@ const Auth: React.FC<AuthProps> = ({t}) => {
                 name: 'city'
             }
         }
-        dispatch(authUser(userData, 'registration'))
+        // dispatch(authUser(userData, 'registration'))
+        dispatch(addAuthData({
+            firstName: 'John',
+            lastName: 'Doe',
+            email: 'john@mail.com',
+            position: 'freelancer',
+            isPublic: true
+        }))
+        router.push('/profile')
+
         console.log('register')
     }
 

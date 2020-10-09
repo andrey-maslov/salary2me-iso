@@ -49,10 +49,12 @@ const WebNav = ({handleLoginBtn, isLoggedIn, userEmail, t}: Navigation) => {
         <div className={style.wrapper}>
             <MainNav/>
             {logged ?
-                <PopoverUser
-                    userEmail={userEmail}
-                    logoutHandle={handleLoginBtn}
-                /> :
+                <div className={style.user}>
+                    <PopoverUser
+                        userEmail={userEmail}
+                        logoutHandle={handleLoginBtn}
+                    />
+                </div> :
                 <ul className={`${style.list} ${style.auth}`}>
                     <li>
                         <Link href={"/signin"}>
