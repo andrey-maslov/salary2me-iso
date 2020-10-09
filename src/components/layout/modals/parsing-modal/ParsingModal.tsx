@@ -1,10 +1,10 @@
-import React, {useState} from "react"
 import Rodal from "rodal"
 import style from "./parsing-modal.module.scss"
 import ParsingLoader from "../../../common/loaders/parsing-loader/ParsingLoader"
 import ParsingStage from "./ParsingStage"
 import Button from "../../../common/buttons/button/Button"
 import {IModalProps} from "../../../../typings/types"
+import {useMediaPredicate} from "react-media-hook"
 
 interface IParsingModalProps extends IModalProps {
     isParsingError: boolean
@@ -12,6 +12,8 @@ interface IParsingModalProps extends IModalProps {
 }
 
 const ParsingModal: React.FC<IParsingModalProps> = ({isModalShown, closeModal, isParsingError, tryMore}) => {
+
+    const smallDevice = useMediaPredicate("(max-width: 500px)")
 
     const renderErrorMode = () => (
         <div className={style.error}>
@@ -46,6 +48,7 @@ const ParsingModal: React.FC<IParsingModalProps> = ({isModalShown, closeModal, i
             onClose={closeModal}
             closeMaskOnClick={false}
             className={`modal ${style.parsingModal}`}
+            width={smallDevice ? 300 : 400}
             height={350}
             showCloseButton={false}
         >
@@ -56,6 +59,6 @@ const ParsingModal: React.FC<IParsingModalProps> = ({isModalShown, closeModal, i
             </div>
         </Rodal>
     )
-};
+}
 
 export default ParsingModal

@@ -74,12 +74,23 @@ export function checkAuth() {
 
 export const authUser = (userData: ISignUpData | ISignInData, authType: keyof typeof authModes) => {
 
+    const d = {
+        "email": "pansheitan@yandex.ru",
+        "password": "Test_2233",
+        "firstName": "Andrey",
+        "lastName": "Maslov",
+        "city": {
+            "id": 0,
+            "name": "string"
+        }
+    }
+
     const url = `${process.env.BASE_API}/api/v${process.env.API_VER}/Account/${authType === authModes[1] ? 'register' : 'authenticate'}`
 
     return (dispatch: any) => {
         dispatch(setLoading(true))
         axios.post(url, {
-            data: userData,
+            data: d,
         })
             .then(res => res.data)
             .then(data => {
@@ -95,6 +106,8 @@ export const authUser = (userData: ISignUpData | ISignInData, authType: keyof ty
 }
 
 export const updateUserData = (userData: any) => {
+
+    console.log(userData)
 
     for (let prop in userData) {
         if (typeof prop === 'string') {

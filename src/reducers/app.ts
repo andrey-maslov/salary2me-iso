@@ -31,6 +31,7 @@ export type appStoreType = {
     apiErrorMsg: string | null,
     processFailed: boolean,
     setToast: number
+    isPwdChanged: false
 }
 
 if (!STATE ) {

@@ -4,14 +4,12 @@ import {FaFilter, FaChevronDown} from "react-icons/fa"
 import {getSalariesLimits} from "../../../helper/helper"
 import {useMediaPredicate} from "react-media-hook"
 import SocialSharing from "../../../components/common/buttons/social-sharing/SocialSharing"
-import Subscription from "../../../components/common/subscription/Subscription"
 import {Link, Router} from "@i18n"
 import style from './cv-estimation.module.scss'
 import EstItem from "../est-item/EstItem"
 import {locations} from "../../../constants/constants"
 import EstSidebar from "../est-sidebar/EstSidebar"
 import HelpUs from "../help-us/HelpUs"
-import {Media} from "../../../../media"
 import {globalStoreType} from "../../../typings/types"
 
 const CVEstimation: React.FC = () => {
@@ -73,9 +71,7 @@ const CVEstimation: React.FC = () => {
                         </div>
                     </div>
                     <div className="col-xl-3 col-lg-4 last-lg">
-                        <Media at="xs">
-                            <MobileOptions/>
-                        </Media>
+                        {!biggerThan992 && <MobileOptions/>}
                         <div className={`${style.sidebar} ${!biggerThan992 ? mobiOptionsClass : ''}`}>
                             <EstSidebar/>
                             <div className={style.sharing}>

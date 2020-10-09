@@ -1,5 +1,4 @@
 import {useState, useEffect} from 'react'
-import {FiLogIn} from 'react-icons/fi'
 import {Link, withTranslation} from "@i18n"
 import {useRouter} from "next/router"
 import style from './web-nav.module.scss'
@@ -24,21 +23,21 @@ const WebNav = ({handleLoginBtn, isLoggedIn, userEmail, t}: Navigation) => {
 
     const MainNav = () => {
         return (
-            <nav className={style.nav}>
-                <ul>
+            <nav>
+                <ul className={`${style.list} ${style.nav}`}>
                     <li className={router.pathname == "/" ? style.active : ""}>
                         <Link href="/">
-                            <a>{t('common:nav.home')}</a>
+                            <a className={style.link}>{t('common:nav.home')}</a>
                         </Link>
                     </li>
                     <li className={router.pathname == "/test" ? style.active : ""}>
                         <Link href="/test">
-                            <a>{t('common:nav.test')}</a>
+                            <a className={style.link}>{t('common:nav.test')}</a>
                         </Link>
                     </li>
                     <li className={router.pathname == "/resume" ? style.active : ""}>
                         <Link href="/resume">
-                            <a>Резюме</a>
+                            <a className={style.link}>Резюме</a>
                         </Link>
                     </li>
                 </ul>
@@ -49,7 +48,6 @@ const WebNav = ({handleLoginBtn, isLoggedIn, userEmail, t}: Navigation) => {
     return (
         <div className={style.wrapper}>
             <MainNav/>
-            <LangSwitcher/>
             {logged ?
                 <PopoverUser
                     userEmail={userEmail}
@@ -57,17 +55,18 @@ const WebNav = ({handleLoginBtn, isLoggedIn, userEmail, t}: Navigation) => {
                 /> :
                 <ul className={`${style.list} ${style.auth}`}>
                     <li>
-                        <Link href="/signin">
+                        <Link href={"/signin"}>
                             <a className={style.link}>{t('common:buttons.signin')}</a>
                         </Link>
                     </li>
                     <li>
-                        <Link href="/registration">
+                        <Link href={"/registration"}>
                             <a className={style.link}>{t('common:buttons.signup')}</a>
                         </Link>
                     </li>
                 </ul>
             }
+            <LangSwitcher/>
         </div>
     )
 }

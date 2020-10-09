@@ -76,7 +76,7 @@ const Auth: React.FC<AuthProps> = ({t}) => {
                     <Registration
                         isLoading={loading}
                         errorApiMessage={apiErrorMsg}
-                        submitHandle={addExtraInfo}
+                        submitHandle={signUp}
                         clearApiError={clearApiError}
                     />
                 )
@@ -171,7 +171,7 @@ const Auth: React.FC<AuthProps> = ({t}) => {
             email: data.email,
         }
         dispatch(sendNewPassword(newData))
-        console.log('send new password')
+        console.log(newData)
     }
 
     function signUp(data: ISignUpForm): void {

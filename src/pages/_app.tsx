@@ -6,8 +6,6 @@ import {appWithTranslation} from '@i18n'
 import {SVGSource} from "../components/common/media/svgflag/SVGFlag"
 import 'focus-visible/dist/focus-visible.js'
 import {ToastProvider} from 'react-toast-notifications'
-
-import {MediaContextProvider} from "../../media"
 import Head from "next/head";
 import ScrollToTop from "../components/common/ScrollToTop"
 

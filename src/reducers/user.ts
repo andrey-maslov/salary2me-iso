@@ -8,32 +8,32 @@ import {isBrowser} from "../helper/helper"
 let STATE = isBrowser ? loadState('user') : null
 
 export type userStoreType = {
-    firstName: string,
-    lastName: string,
-    email: string,
-    position,
+    firstName: string | null,
+    lastName: string | null,
+    email: string | null,
+    position: string | null,
+    provider: string | null,
     isLoggedIn: boolean,
-    provider: string,
     isEmailSent: boolean,
     isPwdChanged: boolean,
-    isSubscribed: boolean,
-    isPublic: boolean,
-    isLookingForJob: boolean
+    isSubscribed: boolean | null,
+    isPublic: boolean | null,
+    isLookingForJob: boolean | null
 }
 
 if (!STATE) {
     STATE = {
-        firstName: '',
-        lastName: '',
-        email: 'some_mail@gmail.com',
-        position: '',
+        firstName: null,
+        lastName: null,
+        email: null,
+        position: null,
+        provider: null,
         isLoggedIn: true,
         isEmailSent: false,
         isPwdChanged: false,
-        provider: '',
-        isSubscribed: false,
-        isPublic: false,
-        isLookingForJob: false,
+        isSubscribed: null,
+        isPublic: null,
+        isLookingForJob: null,
     }
 }
 
@@ -63,13 +63,13 @@ export const user = (state = STATE, {
         case CLEAR_USER_DATA :
             return {
                 ...state,
-                firstName: '',
-                LastName: '',
-                email: '',
-                isLoggedIn: false,
-                provider: '',
-                isPublic: false,
-                isLookingForJob: false
+                firstName: null,
+                LastName: null,
+                email: null,
+                provider: null,
+                isLoggedIn: null,
+                isPublic: null,
+                isLookingForJob: null
             }
         default:
             return state

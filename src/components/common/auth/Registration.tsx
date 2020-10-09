@@ -81,10 +81,6 @@ const Registration: React.FC<ISignin<ISignUpForm>> = ({isLoading, errorApiMessag
             </div>
         </form>
     )
-
-    function showPwd() {
-        console.log('show!')
-    }
 }
 
 export default withTranslation(['common', 'signin'])(Registration)

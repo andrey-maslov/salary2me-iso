@@ -7,7 +7,6 @@ import CookieConsent from "./cookie-consent/CookieConsent"
 import {globalStoreType} from "../../../typings/types"
 import {PARSING_MODAL} from "../../../actions/actionTypes"
 
-
 const Modals: React.FC = () => {
 
     const {isLoginModal, isParsingModal} = useSelector((state: globalStoreType) => state.modals)
@@ -52,8 +51,7 @@ const Modals: React.FC = () => {
             <CookieConsent/>
 
         </>
-    );
-};
-
+    )
+}
 
 export default Modals

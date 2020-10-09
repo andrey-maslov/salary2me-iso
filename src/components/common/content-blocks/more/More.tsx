@@ -1,14 +1,11 @@
-import React from 'react';
-import hrImg from '../../../../assets/img/busy.png';
-import style from './more.module.scss';
-import Button from "../../buttons/button/Button";
-import {Media} from "../../../../../media";
+import style from './more.module.scss'
+import Button from "../../buttons/button/Button"
 
 const moreContent = {
     title: 'Are you HR?',
     description: 'If you are HR specialist in IT command, you can help us and help yourself',
     btnTitle: 'press here',
-};
+}
 
 
 const More = () => {
@@ -26,12 +23,9 @@ const More = () => {
                     title={moreContent.btnTitle}
                 />
             </div>
-            <Media greaterThanOrEqual="md">
-                <img className={`${style.img} img-fluid`} src={hrImg} alt=""/>
-            </Media>
+            <img className={`${style.img} img-fluid`} src={'/img/busy.png'} alt=""/>
         </div>
     )
+}
 
-};
-
-export default More;
+export default More

@@ -5,9 +5,7 @@ import { useMediaPredicate } from "react-media-hook"
 import {logOut} from '../../../actions/actionCreator'
 import MobiHeader from '../../mobi/header/MobiHeader'
 import WebHeader from '../../web/header/WebHeader'
-import {Media} from "../../../../media"
 import {globalStoreType} from "../../../typings/types"
-import {isBrowser} from "../../../helper/helper";
 
 const Header: React.FC = () => {
 
@@ -19,9 +17,6 @@ const Header: React.FC = () => {
     useEffect(() => {
 
     }, [isMobile, smallDevice])
-
-    console.log('isMobile', isMobile)
-    console.log('isSmall', smallDevice)
 
     const handleLoginBtn = () => {
         if (isLoggedIn) {

@@ -6,6 +6,7 @@ import {withTranslation} from "@i18n"
 import {useSelector} from "react-redux"
 import ResetSuccess from "./ResetSuccess"
 import {ISignin} from "./Signin"
+import {globalStoreType} from "../../../typings/types";
 
 export interface IResetForm {
     password: string
@@ -16,7 +17,7 @@ export interface IResetForm {
 const Reset: React.FC<ISignin<IResetForm>> = ({isLoading, errorApiMessage, submitHandle, clearApiError, t}) => {
 
     const {register, handleSubmit, reset, getValues, errors} = useForm<IResetForm>()
-    const {isPwdChanged} = useSelector((state: any) => state.appReducer)
+    const {isPwdChanged} = useSelector((state: globalStoreType) => state.app)
 
     if (isPwdChanged) {
         return (
@@ -28,7 +29,7 @@ const Reset: React.FC<ISignin<IResetForm>> = ({isLoading, errorApiMessage, submi
         <form onSubmit={handleSubmit(submitHandle)}>
             <div className={`form-group ${errors.password ? 'has-error' : ''}`}>
                 <label>
-                    <span>{t('common:auth.new_pwd')}</span>
+                    <span>{t('signin:new_pwd')}</span>
                     <input
                         className={style.input}
                         type="password"
@@ -45,7 +46,7 @@ const Reset: React.FC<ISignin<IResetForm>> = ({isLoading, errorApiMessage, submi
 
             <div className={`form-group ${errors.passwordConfirm ? 'has-error' : ''}`}>
                 <label>
-                    <span>{t('common:auth.confirm_pwd')}</span>
+                    <span>{t('signin:repeat_pwd')}</span>
                     <input
                         className={style.input}
                         type="password"
@@ -87,7 +88,7 @@ const Reset: React.FC<ISignin<IResetForm>> = ({isLoading, errorApiMessage, submi
 
             <div className={`form-group ${errorApiMessage ? 'has-error' : ''}`}>
                 <Button
-                    title={t('common:buttons.reset_pwd')}
+                    title={t('common:buttons.send')}
                     startIcon={isLoading && <AiOutlineLoading/>}
                     handle={() => void (0)}
                     btnClass={'btn btn-outlined btn-loader'}
