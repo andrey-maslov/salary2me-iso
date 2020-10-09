@@ -9,25 +9,23 @@ import {ToastProvider} from 'react-toast-notifications'
 
 import {MediaContextProvider} from "../../media"
 import Head from "next/head";
-import ScrollToTop from "../components/common/ScrollToTop";
+import ScrollToTop from "../components/common/ScrollToTop"
 
 function MyApp({Component, pageProps}) {
     const store = useStore(pageProps.initialReduxState)
 
     return (
-        <MediaContextProvider>
-            <Provider store={store}>
-                <ToastProvider
-                    autoDismiss
-                    autoDismissTimeout={5000}
-                    placement="bottom-left"
-                >
-                    <ScrollToTop/>
-                    <Component {...pageProps} />
-                    <SVGSource/>
-                </ToastProvider>
-            </Provider>
-        </MediaContextProvider>
+        <Provider store={store}>
+            <ToastProvider
+                autoDismiss
+                autoDismissTimeout={5000}
+                placement="bottom-left"
+            >
+                <ScrollToTop/>
+                <Component {...pageProps} />
+                <SVGSource/>
+            </ToastProvider>
+        </Provider>
     )
 }
 

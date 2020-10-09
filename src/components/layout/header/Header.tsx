@@ -1,6 +1,7 @@
 import {useEffect} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {useDeviceDetect} from '../../../helper/useDeviceDetect'
+import { useMediaPredicate } from "react-media-hook"
 import {logOut} from '../../../actions/actionCreator'
 import MobiHeader from '../../mobi/header/MobiHeader'
 import WebHeader from '../../web/header/WebHeader'
@@ -12,14 +13,15 @@ const Header: React.FC = () => {
 
     const {isLoggedIn, email} = useSelector((state: globalStoreType) => state.user)
     const dispatch = useDispatch()
-
+    const smallDevice = useMediaPredicate("(max-width: 992px)")
     const {isMobile} = useDeviceDetect()
 
     useEffect(() => {
 
-    }, [isMobile])
+    }, [isMobile, smallDevice])
 
-    console.log('isMobile', isMobile, 'isbrowser', isBrowser)
+    console.log('isMobile', isMobile)
+    console.log('isSmall', smallDevice)
 
     const handleLoginBtn = () => {
         if (isLoggedIn) {
