@@ -2,12 +2,12 @@
 
 .wrapper {
   box-sizing: border-box;
-  margin: 0 0 15px;
-  padding: 30px;
+  margin: 0 0 1rem;
+  padding: 2rem;
   color: currentColor;
   position: relative;
   background: #fff;
-  border-radius: 3px;
+  border-radius: $border-radius-sm;
   box-shadow: $box-shadow-sm;
   transition: all .3s;
 }
@@ -16,9 +16,9 @@
 @media(max-width: 992px) {
 
   .wrapper {
-    padding: 30px 15px;
-    margin-left: -15px;
-    margin-right: -15px;
+    padding: 2rem 1rem;
+    margin-left: -1rem;
+    margin-right: -1rem;
     border-radius: 0;
   }
 

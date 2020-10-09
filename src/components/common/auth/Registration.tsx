@@ -75,7 +75,7 @@ const Registration: React.FC<ISignin<ISignUpForm>> = ({isLoading, errorApiMessag
                     title={t('signin:sign_up')}
                     startIcon={isLoading && <AiOutlineLoading/>}
                     handle={() => void (0)}
-                    btnClass={'btn-accent btn-loader'}
+                    btnClass={'btn btn-accent btn-loader'}
                 />
                 {errorApiMessage && <div className={`item-explain`}>{errorApiMessage}</div>}
             </div>

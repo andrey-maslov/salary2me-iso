@@ -14,11 +14,11 @@ const RobotTall = () => {
             </div>
             <div className={style.center}>
                 <div className={style.top}>
-                    <div className={style.antenna}>
+                    <div className={`${style.antenna} antenna1`}>
                         <div className={style.apex}/>
                         <div className={style.vertical}/>
                     </div>
-                    <div className={style.antenna}>
+                    <div className={`${style.antenna} antenna2`}>
                         <div className={style.apex}/>
                         <div className={style.vertical}/>
                     </div>

@@ -20,20 +20,29 @@
   }
 
   li {
-    text-align: center;
-    width: 7rem;
-    position: relative;
-    border-bottom: 1px solid transparent;
-    color: $text;
 
     a {
-      color: inherit;
+      display: inline-block;
       text-decoration: none;
+      text-align: center;
+      width: 7rem;
+      position: relative;
+      border-bottom: 1px solid transparent;
+      color: $text;
+      line-height: 4rem;
+      height: 4rem;
+
+      &:hover {
+        color: $accent;
+      }
     }
 
     &.active {
-      border-color: $accent;
-      color: $accent;
+
+      a {
+        border-color: $accent;
+        color: $accent;
+      }
     }
   }
 }

@@ -2,8 +2,8 @@
 
 .header {
   position: relative;
-  box-shadow: 0 1px 4px rgba(0,21,41,.08);
-  border-bottom: 1px solid $grey-bg;
+  box-shadow: $box-shadow-md;
+  //border-bottom: 1px solid $grey-bg;
   background-color: #fff;
   z-index: 99;
   padding: 0 100px;
@@ -13,9 +13,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: .8rem;
-  padding-bottom: .8rem;
-  height: 60px;
+  //padding-top: .8rem;
+  //padding-bottom: .8rem;
+  //height: 60px;
 }
 
 @media(max-width: 992px) {

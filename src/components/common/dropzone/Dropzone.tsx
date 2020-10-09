@@ -21,6 +21,7 @@ const Dropzone: React.FC = () => {
     //TODO - move tip text to translations
     const linkedinTip = 'Profile - More - Save to PDF'
     const [myFiles, setMyFiles] = useState([])
+    const [DZClass, setDZClass] = useState('zone')
     const lessThan400 = useMediaPredicate("(max-width: 400px)")
     const {isMobile} = useDeviceDetect()
     const acceptedTypes = isMobile ? '' : ACCEPTED_FILE_TYPES
@@ -98,7 +99,12 @@ const Dropzone: React.FC = () => {
 
     return (
         <div className={`${style.wrapper}`}>
-            <div {...getRootProps()} className={`${style.dropzone}`}>
+            <div
+                {...getRootProps()}
+                className={`${style.dropzone} ${style[DZClass]}`}
+                // onDragOver={() => setDZClass('dragged')}
+                // onDragLeave={() => setDZClass('zone')}
+            >
                 <input {...getInputProps()} />
                 <div>
                     <p>Drop your CV file here</p>

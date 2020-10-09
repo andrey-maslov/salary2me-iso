@@ -90,7 +90,7 @@ const Reset: React.FC<ISignin<IResetForm>> = ({isLoading, errorApiMessage, submi
                     title={t('common:buttons.reset_pwd')}
                     startIcon={isLoading && <AiOutlineLoading/>}
                     handle={() => void (0)}
-                    btnClass={'btn-outlined btn-loader'}
+                    btnClass={'btn btn-outlined btn-loader'}
                 />
                 {errorApiMessage && <div className={`item-explain`}>{errorApiMessage}</div>}
             </div>

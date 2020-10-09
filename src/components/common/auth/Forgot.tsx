@@ -51,7 +51,7 @@ const Forgot: React.FC<ISignin<IForgotForm>> = ({isLoading, errorApiMessage, sub
                         title={t('common:buttons.send')}
                         startIcon={isLoading && <AiOutlineLoading/>}
                         handle={() => void (0)}
-                        btnClass={'btn-accent btn-loader'}
+                        btnClass={'btn btn-accent btn-loader'}
                     />
                     {errorApiMessage && <div className={`item-explain`}>{errorApiMessage}</div>}
                 </div>

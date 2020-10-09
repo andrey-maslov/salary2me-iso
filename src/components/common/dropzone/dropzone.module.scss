@@ -37,17 +37,24 @@
     color: #666;
     margin-bottom: 0;
   }
+
+  &.zone {
+    background-color: transparent;
+  }
+  &.dragged {
+    background-color: rgba($accent, .3);
+  }
 }
 
 .browse {
   display: inline-block;
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 700;
   cursor: pointer;
   border-bottom: 1px solid $accent;
   line-height: 1;
   transition: all .2s;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 
   &:hover {
     color: darken($accent, 10%)
@@ -59,7 +66,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 30px;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
 }
 
 .fileSize {

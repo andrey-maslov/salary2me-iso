@@ -14,7 +14,7 @@ const Hero: React.FC<HeroType> = ({content}) => {
     return (
         <div className={`${style.wrapper} pt-lg pb-lg`}>
             <div className="container">
-                <div className="row between-xs bottom-xs">
+                <div className="row between-xs top-xs">
                     <div className="col-lg-6">
                         <h1
                             className={style.title}

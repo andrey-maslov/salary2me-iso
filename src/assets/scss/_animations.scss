@@ -7,6 +7,20 @@ $main-robot-duration: 6s;
   animation-timing-function: linear;
 }
 
+.antenna1 {
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-name: antenna1;
+  animation-timing-function: linear;
+}
+.antenna2 {
+  animation-duration: 4s;
+  animation-delay: .5s;
+  animation-iteration-count: infinite;
+  animation-name: antenna1;
+  animation-timing-function: linear;
+}
+
 /* The antenna curls animation */
 @keyframes antenna {
   0% {
@@ -27,6 +41,19 @@ $main-robot-duration: 6s;
   }
   100% {
     transform: scaleX(1)
+  }
+}
+
+//robot-tall
+@keyframes antenna1 {
+  0% {
+    transform: translateY(8px);
+  }
+  50% {
+    transform: translateY(16px);
+  }
+  100% {
+    transform: translateY(8px);
   }
 }
 
@@ -53,7 +80,7 @@ $main-robot-duration: 6s;
 
 
 .eye-anim {
-  animation-duration: 8s;
+  animation-duration: 6s;
   animation-iteration-count: infinite;
   animation-name: eye;
   animation-timing-function: linear;

@@ -1,11 +1,10 @@
-import React, {useRef, useEffect, useState} from 'react'
+import React, {useRef, useEffect} from 'react'
 import {Link, withTranslation} from '@i18n'
 import {useRouter} from 'next/router'
 import Signin, {ISigninForm} from "./Signin"
 import Registration, {ISignUpForm} from "./Registration"
 import {useDispatch, useSelector} from "react-redux"
 import {authUser, sendForgotEmail, sendNewPassword, updateUserData} from "../../../actions/actionCreator"
-import {SET_ERROR} from "../../../actions/actionTypes"
 import Forgot, {IForgotForm} from "./Forgot"
 import Reset, {IResetForm} from "./Reset"
 import {authModes} from "../../../constants/constants"
@@ -67,7 +66,7 @@ const Auth: React.FC<AuthProps> = ({t}) => {
                             submitHandle={SignIn}
                             clearApiError={clearApiError}
                         />
-                        <Link href="/signin/forgot-password">
+                        <Link href={"/signin/forgot-password"}>
                             <a>{t('signin:forgot_pwd_question')}</a>
                         </Link>
                     </>
@@ -90,7 +89,7 @@ const Auth: React.FC<AuthProps> = ({t}) => {
                             submitHandle={forgotHandle}
                             clearApiError={clearApiError}
                         />
-                        <Link href="/signin">
+                        <Link href={"/signin"}>
                             <a>{t('signin:ready_to_signin')}</a>
                         </Link>
                     </>
@@ -104,7 +103,7 @@ const Auth: React.FC<AuthProps> = ({t}) => {
                             submitHandle={resetHandle}
                             clearApiError={clearApiError}
                         />
-                        <Link href="/signin">
+                        <Link href={"/signin"}>
                             <a>{t('signin:ready_to_signin')}</a>
                         </Link>
                     </>
@@ -113,7 +112,7 @@ const Auth: React.FC<AuthProps> = ({t}) => {
                 return (
                     <>
                         <ForgotSuccess msg={t('signin:forgot_success')}/>
-                        <Link href="/signin">
+                        <Link href={"/signin"}>
                             <a>{t('signin:ready_to_signin')}</a>
                         </Link>
                     </>
