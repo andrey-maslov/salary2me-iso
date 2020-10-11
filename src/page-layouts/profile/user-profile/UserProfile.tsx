@@ -154,8 +154,8 @@ const Profile = ({t}: { t: any }) => {
                                 <button
                                     className="btn"
                                     onClick={() => {
-                                        if (confirm('Вы действительно хотиете удалить аккаунт????')) {
-                                            alert('Згря!')
+                                        if (confirm('Вы действительно хотите удалить аккаунт????')) {
+                                            alert('Зря!')
                                         }
                                     }}
                                 >

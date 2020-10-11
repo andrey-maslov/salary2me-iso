@@ -1,7 +1,7 @@
 {
     "env": {
         "browser": true,
-        "es2020": true,
+        "es6": true,
         "node": true
     },
     "extends": [
@@ -10,7 +10,9 @@
         "plugin:react/recommended",
         "plugin:@typescript-eslint/eslint-recommended",
         "plugin:@typescript-eslint/recommended",
-        "plugin:jsx-a11y/recommended"
+        "plugin:jsx-a11y/recommended",
+        "prettier",
+        "prettier/@typescript-eslint"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -27,9 +29,14 @@
         "react-hooks"
     ],
     "rules": {
+        "react/no-danger": 0,
+        "jsx-a11y/anchor-is-valid": ["error", {"components": ["Link"], "specialLink": ["hrefLeft", "hrefRight"], "aspects": ["invalidHref", "preferButton"]}],
+        "import/no-unresolved": 0,
+        "import/extensions": 0,
+        "no-use-before-define": 0,
         "react/react-in-jsx-scope": "off",
         "semi": 0,
-//        "react/prop-types": 0,
+        "react/prop-types": 0,
         "ban-ts-comment": 0,
         "jsx-a11y/no-autofocus": 0,
         "@typescript-eslint/no-explicit-any": 1,

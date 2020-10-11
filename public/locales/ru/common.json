@@ -1,6 +1,6 @@
 {
   "buttons": {
-    "to_main": "На главную",
+    "to_main": "На лавную",
     "next": "Далее",
     "return": "Назад",
     "send": "Отправить",
@@ -33,9 +33,9 @@
     "sharing_text": "Помоги проекту шарингом "
   },
   "errors": {
-    "need_to_authorize": "Пожалуйста, авторизируйтесь",
+    "need_to_authorize": "Пожалуйста, авторизуйтесь",
     "required": "Это обязательное поле",
-    "invalid": "Значение невалидно",
+    "invalid": "Значение не валидно",
     "invalid_email": "email должен содержать @"
   },
   "cookie_consent": {

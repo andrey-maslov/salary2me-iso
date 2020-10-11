@@ -1,0 +1,28 @@
+{
+  "excludeFiles": [
+    ".git",
+    ".yaspellerrc.json",
+    "node_modules",
+    "libs",
+    ".next"
+  ],
+  "lang": "en",
+  "fileExtensions": [
+    ".md",
+    ".txt",
+    ".json",
+    ".tsx"
+  ],
+  "dictionary": [
+    "Собчик",
+    "Акофф",
+    "Шутц",
+    "Зальтмана",
+    "шаринг(ом)",
+    "куки",
+    "Уууууупс",
+    "дескрипшн",
+    "невротизм",
+    "уживаемость"
+  ]
+}

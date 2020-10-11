@@ -1,44 +1,50 @@
-import React, {useRef, useEffect} from 'react'
-import {Link, withTranslation} from '@i18n'
-import {useRouter} from 'next/router'
-import Signin, {ISigninForm} from "./Signin"
-import Registration, {ISignUpForm} from "./Registration"
-import {useDispatch, useSelector} from "react-redux"
-import {addAuthData, authUser, sendForgotEmail, sendNewPassword, updateUserData} from "../../../actions/actionCreator"
-import Forgot, {IForgotForm} from "./Forgot"
-import Reset, {IResetForm} from "./Reset"
-import {authModes} from "../../../constants/constants"
+import { useRef, useEffect } from 'react'
+import { Link, withTranslation } from '@i18n'
+import { useRouter } from 'next/router'
+import { useDispatch, useSelector } from 'react-redux'
+import Signin, { ISigninForm } from './Signin'
+import Registration, { ISignUpForm } from './Registration'
+import {
+    addAuthData,
+    sendForgotEmail,
+    sendNewPassword,
+    updateUserData
+} from '../../../actions/actionCreator'
+import Forgot, { IForgotForm } from './Forgot'
+import Reset, { IResetForm } from './Reset'
+import { authModes } from '../../../constants/constants'
 import style from './auth.module.scss'
-import ForgotSuccess from "./ForgotSuccess"
-import {getQueryFromURL} from "../../../helper/helper"
-import {globalStoreType} from "../../../typings/types"
-import ExtraUserInfo, {IInfoForm} from "./ExtraUserInfo";
-
+import ForgotSuccess from './ForgotSuccess'
+import { getQueryFromURL } from '../../../helper/helper'
+import { globalStoreType } from '../../../typings/types'
+import ExtraUserInfo, { IInfoForm } from './ExtraUserInfo'
 
 type AuthProps = {
     t: any
 }
 
-const Auth: React.FC<AuthProps> = ({t}) => {
-
+const Auth: React.FC<AuthProps> = ({ t }) => {
     const router = useRouter()
     const dispatch = useDispatch()
     const agreement = useRef<HTMLDivElement>(null)
-    const {isLoggedIn, name} = useSelector((state: globalStoreType) => state.user)
-    const {loading, apiErrorMsg} = useSelector((state: globalStoreType) => state.app)
+    const { isLoggedIn, name } = useSelector((state: globalStoreType) => state.user)
+    const { loading, apiErrorMsg } = useSelector((state: globalStoreType) => state.app)
 
     const page = getAuthPage(router.pathname)
 
     useEffect(() => {
-
         let termsLink: Element | null
         let privacyLink: Element | null
         if (agreement) {
             const el = agreement.current
             termsLink = el ? el.children[0] : null
             privacyLink = el ? el.children[1] : null
-            termsLink && termsLink.addEventListener('click', toTerms)
-            privacyLink && privacyLink.addEventListener('click', toPrivacy)
+            if (termsLink) {
+                termsLink.addEventListener('click', toTerms)
+            }
+            if (privacyLink) {
+                privacyLink.addEventListener('click', toPrivacy)
+            }
         }
 
         function toTerms() {
@@ -50,14 +56,18 @@ const Auth: React.FC<AuthProps> = ({t}) => {
         }
 
         return function cleanupListener() {
-            termsLink && termsLink.removeEventListener('click', toTerms)
-            privacyLink && privacyLink.removeEventListener('click', toPrivacy)
+            if (termsLink) {
+                termsLink.removeEventListener('click', toTerms)
+            }
+            if (privacyLink) {
+                privacyLink.removeEventListener('click', toPrivacy)
+            }
         }
-    }, [agreement, isLoggedIn])
+    }, [agreement, isLoggedIn, router])
 
     const Form = () => {
         switch (page) {
-            case authModes[0] :
+            case authModes[0]:
                 return (
                     <>
                         <Signin
@@ -66,12 +76,12 @@ const Auth: React.FC<AuthProps> = ({t}) => {
                             submitHandle={SignIn}
                             clearApiError={clearApiError}
                         />
-                        <Link href={"/signin/forgot-password"}>
+                        <Link href="/signin/forgot-password">
                             <a>{t('signin:forgot_pwd_question')}</a>
                         </Link>
                     </>
                 )
-            case authModes[1] :
+            case authModes[1]:
                 return (
                     <Registration
                         isLoading={loading}
@@ -80,7 +90,7 @@ const Auth: React.FC<AuthProps> = ({t}) => {
                         clearApiError={clearApiError}
                     />
                 )
-            case authModes[2] :
+            case authModes[2]:
                 return (
                     <>
                         <Forgot
@@ -89,12 +99,12 @@ const Auth: React.FC<AuthProps> = ({t}) => {
                             submitHandle={forgotHandle}
                             clearApiError={clearApiError}
                         />
-                        <Link href={"/signin"}>
+                        <Link href="/signin">
                             <a>{t('signin:ready_to_signin')}</a>
                         </Link>
                     </>
                 )
-            case authModes[3] :
+            case authModes[3]:
                 return (
                     <>
                         <Reset
@@ -103,21 +113,21 @@ const Auth: React.FC<AuthProps> = ({t}) => {
                             submitHandle={resetHandle}
                             clearApiError={clearApiError}
                         />
-                        <Link href={"/signin"}>
+                        <Link href="/signin">
                             <a>{t('signin:ready_to_signin')}</a>
                         </Link>
                     </>
                 )
-            case authModes[4] :
+            case authModes[4]:
                 return (
                     <>
-                        <ForgotSuccess msg={t('signin:forgot_success')}/>
-                        <Link href={"/signin"}>
+                        <ForgotSuccess msg={t('signin:forgot_success')} />
+                        <Link href="/signin">
                             <a>{t('signin:ready_to_signin')}</a>
                         </Link>
                     </>
                 )
-            case authModes[5] :
+            case authModes[5]:
                 return (
                     <ExtraUserInfo
                         isLoading={loading}
@@ -126,7 +136,7 @@ const Auth: React.FC<AuthProps> = ({t}) => {
                         clearApiError={clearApiError}
                     />
                 )
-            default :
+            default:
                 return null
         }
     }
@@ -135,12 +145,14 @@ const Auth: React.FC<AuthProps> = ({t}) => {
         <div>
             <div className={style.wrapper}>
                 <h1 className={style.title}>{t(`signin:${page}`)}</h1>
-                <Form/>
+                <Form />
             </div>
             <div
                 ref={agreement}
                 className={style.agreement}
-                dangerouslySetInnerHTML={{__html: t('signin:agreement', {button: `"${t('signin:sign_up')}"`})}}
+                dangerouslySetInnerHTML={{
+                    __html: t('signin:agreement', { button: `"${t('signin:sign_up')}"` })
+                }}
             />
         </div>
     )
@@ -154,32 +166,33 @@ const Auth: React.FC<AuthProps> = ({t}) => {
 
     function SignIn(data: ISigninForm): void {
         // dispatch(authUser(data, 'signin'))
-        dispatch(addAuthData({
-            firstName: 'John',
-            lastName: 'Doe',
-            email: 'john@mail.com',
-            position: 'freelancer',
-            isPublic: true
-        }))
+        dispatch(
+            addAuthData({
+                firstName: 'John',
+                lastName: 'Doe',
+                email: 'john@mail.com',
+                position: 'freelancer',
+                isPublic: true
+            })
+        )
         router.push('/profile')
-
     }
 
     function forgotHandle(data: IForgotForm): void {
         dispatch(sendForgotEmail(data.email))
-        console.log('forgot email')
+        // console.log('forgot email')
     }
 
     function resetHandle(data: IResetForm): void {
-        //TODO fix this
-        const code = getQueryFromURL(location.search, 'code')
+        // TODO fix this
+        const code = getQueryFromURL(window.location.search, 'code')
         const newData = {
             code,
             newPassword: data.password,
-            email: data.email,
+            email: data.email
         }
         dispatch(sendNewPassword(newData))
-        console.log(newData)
+        // console.log(newData)
     }
 
     function signUp(data: ISignUpForm): void {
@@ -194,34 +207,34 @@ const Auth: React.FC<AuthProps> = ({t}) => {
             }
         }
         // dispatch(authUser(userData, 'registration'))
-        dispatch(addAuthData({
-            firstName: 'John',
-            lastName: 'Doe',
-            email: 'john@mail.com',
-            position: 'freelancer',
-            isPublic: true
-        }))
+        dispatch(
+            addAuthData({
+                firstName: 'John',
+                lastName: 'Doe',
+                email: 'john@mail.com',
+                position: 'freelancer',
+                isPublic: true
+            })
+        )
         router.push('/profile')
 
-        console.log('register')
+        // console.log('register')
     }
 
     function addExtraInfo(data: IInfoForm) {
         const userData = {
             firstName: data.firstName,
             lastName: data.lastName,
-            position: data.position,
+            position: data.position
         }
         dispatch(updateUserData(userData))
-        console.log('extra info', data)
+        // console.log('extra info', data)
     }
-
 
     function clearApiError() {
         // console.log('asdasd')
         // dispatch({type: SET_ERROR, errorApiMessage: ''})
     }
-
 }
 
 export default withTranslation(['common', 'signin'])(Auth)

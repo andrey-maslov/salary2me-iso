@@ -213,7 +213,7 @@ const Result: React.FC<ResultProps> = ({t}) => {
     }
 
     /**
-     * Лидерксие качества
+     * Лидерские качества
      * @param data
      */
     function getLeadershipSkills(data: IDescWithRange[]): string {

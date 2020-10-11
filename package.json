@@ -11,7 +11,9 @@
     "serve": "concurrently \"npm run dev\" \"npm run watch\"",
     "analyze": "cross-env ANALYZE=true next build",
     "analyze:server": "cross-env BUNDLE_ANALYZE=server next build",
-    "analyze:browser": "cross-env BUNDLE_ANALYZE=browser next build"
+    "analyze:browser": "cross-env BUNDLE_ANALYZE=browser next build",
+    "yaspeller": "yaspeller .",
+    "lint": "eslint src --ext .ts,.tsx"
   },
   "dependencies": {
     "@artsy/fresnel": "^1.2.0",
@@ -80,6 +82,7 @@
     "eslint-plugin-react": "^7.21.2",
     "eslint-plugin-react-hooks": "^1.7.0",
     "prettier": "^1.16.4",
-    "typescript": "^3.9.7"
+    "typescript": "^3.9.7",
+    "yaspeller": "^7.0.0"
   }
 }
