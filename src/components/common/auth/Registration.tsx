@@ -15,13 +15,17 @@ export interface ISignUpForm {
     errors: any
 }
 
-const Registration: React.FC<ISignin<ISignUpForm>> = ({isLoading, errorApiMessage, submitHandle, clearApiError, t}) => {
-
-    const {register, handleSubmit, reset, getValues, errors} = useForm<ISignUpForm>()
+const Registration: React.FC<ISignin<ISignUpForm>> = ({
+    isLoading,
+    errorApiMessage,
+    submitHandle,
+    clearApiError,
+    t
+}) => {
+    const { register, handleSubmit, getValues, errors } = useForm<ISignUpForm>()
 
     return (
         <form onSubmit={handleSubmit(submitHandle)}>
-
             <div className={`form-group ${errors.email ? 'has-error' : ''}`}>
                 <label>
                     <span>Email</span>
@@ -46,10 +50,10 @@ const Registration: React.FC<ISignin<ISignUpForm>> = ({isLoading, errorApiMessag
                     label={t('signin:pwd')}
                     innerRef={register({
                         required: `${t('common:errors.required')}`,
-                        minLength: {value: 3, message: `${t('signin:short_pwd')}`}
+                        minLength: { value: 3, message: `${t('signin:short_pwd')}` }
                     })}
                     clearApiError={clearApiError}
-                    name={"password"}
+                    name={'password'}
                 />
                 {errors.password && <div className={`item-explain`}>{errors.password.message}</div>}
             </div>
@@ -61,23 +65,27 @@ const Registration: React.FC<ISignin<ISignUpForm>> = ({isLoading, errorApiMessag
                         required: `${t('signin:confirm_pwd')}`,
                         validate: {
                             matchesPreviousPassword: value => {
-                                const {password} = getValues()
+                                const { password } = getValues()
                                 return password === value || `${t('signin:pwd_mismatch')}`
-                            }}})}
+                            }
+                        }
+                    })}
                     clearApiError={clearApiError}
-                    name={"passwordConfirm"}
+                    name="passwordConfirm"
                 />
-                {errors.passwordConfirm && <div className={`item-explain`}>{errors.passwordConfirm.message}</div>}
+                {errors.passwordConfirm && (
+                    <div className="item-explain">{errors.passwordConfirm.message}</div>
+                )}
             </div>
 
             <div className={`form-group ${errorApiMessage ? 'has-error' : ''}`}>
                 <Button
                     title={t('signin:sign_up')}
-                    startIcon={isLoading && <AiOutlineLoading/>}
+                    startIcon={isLoading && <AiOutlineLoading />}
                     handle={() => void (0)}
-                    btnClass={'btn btn-accent btn-loader'}
+                    btnClass="btn btn-accent btn-loader"
                 />
-                {errorApiMessage && <div className={`item-explain`}>{errorApiMessage}</div>}
+                {errorApiMessage && <div className="item-explain">{errorApiMessage}</div>}
             </div>
         </form>
     )

@@ -1,4 +1,5 @@
-import axios from "axios"
+import axios from 'axios'
+import Cookie from 'js-cookie'
 import {
     ADD_USER_SALARY,
     ADD_AUTH_DATA,
@@ -15,37 +16,35 @@ import {
     FETCH_TERMS,
     SAVE_PERSONAL_INFO,
     CHANGE_PWD,
-    SET_TOAST,
+    SET_TOAST
 } from './actionTypes'
-import Cookie from "js-cookie"
-import {ISignInData, ISignUpData} from "../typings/types"
-import {authModes} from "../constants/constants"
-import {sanitize} from "../helper/helper";
+import {ISignInData, ISignUpData} from '../typings/types'
+import {authModes} from '../constants/constants'
+import {sanitize} from '../helper/helper'
 
-
-/*===== AUTH =====*/
+/*= ==== AUTH ===== */
 
 export interface IUserData {
-    firstName?: string,
-    lastName?: string,
-    email?: string,
-    position?: string,
+    firstName?: string
+    lastName?: string
+    email?: string
+    position?: string
     provider?: string
-    isPublic?: boolean,
+    isPublic?: boolean
     isLookingForJob?: boolean
 }
 
-export function addAuthData(data: IUserData): { type: string, userData: IUserData } {
+export function addAuthData(data: IUserData): { type: string; userData: IUserData } {
     return {
         type: ADD_AUTH_DATA,
         userData: {
-            ...(data.firstName && {firstName: data.firstName}),
-            ...(data.lastName && {lastName: data.lastName}),
-            ...(data.email && {email: data.email}),
-            ...(data.position && {position: data.position}),
-            ...(data.provider && {provider: data.provider}),
-            ...(data.isPublic && {isPublic: data.isPublic}),
-            ...(data.isLookingForJob && {isLookingForJob: data.isLookingForJob}),
+            firstName: data.firstName,
+            lastName: data.lastName,
+            email: data.email,
+            position: data.position,
+            provider: data.provider,
+            isPublic: data.isPublic,
+            isLookingForJob: data.isLookingForJob
         }
     }
 }
@@ -59,12 +58,18 @@ export function checkAuth() {
             dispatch(setLoading(true))
             axios(url, {
                 headers: {
-                    'Authorization': `Bearer ${token}`
-                },
+                    Authorization: `Bearer ${token}`
+                }
             })
                 .then(res => res.data)
                 .then(data => {
-                    dispatch(addAuthData({firstName: data.firstName, lastName: data.lastName, email: data.email,}))
+                    dispatch(
+                        addAuthData({
+                            firstName: data.firstName,
+                            lastName: data.lastName,
+                            email: data.email
+                        })
+                    )
                 })
                 .catch(error => apiErrorHandling(error, dispatch))
                 .finally(() => dispatch(setLoading(false)))
@@ -73,29 +78,37 @@ export function checkAuth() {
 }
 
 export const authUser = (userData: ISignUpData | ISignInData, authType: keyof typeof authModes) => {
-
     const d = {
-        "email": "pansheitan@yandex.ru",
-        "password": "Test_2233",
-        "firstName": "Andrey",
-        "lastName": "Maslov",
-        "city": {
-            "id": 0,
-            "name": "string"
+        email: 'pansheitan@yandex.ru',
+        password: 'Test_2233',
+        firstName: 'Andrey',
+        lastName: 'Maslov',
+        city: {
+            id: 0,
+            name: 'string'
         }
     }
 
-    const url = `${process.env.BASE_API}/api/v${process.env.API_VER}/Account/${authType === authModes[1] ? 'register' : 'authenticate'}`
+    const url = `${process.env.BASE_API}/api/v${process.env.API_VER}/Account/${
+        authType === authModes[1] ? 'register' : 'authenticate'
+    }`
 
     return (dispatch: any) => {
         dispatch(setLoading(true))
-        axios.post(url, {
-            data: d,
-        })
+        axios
+            .post(url, {
+                data: d
+            })
             .then(res => res.data)
             .then(data => {
-                dispatch(addAuthData({firstName: data.firstName, lastName: data.lastName, email: data.email,}))
-                Cookie.set("token", data.jwtToken)
+                dispatch(
+                    addAuthData({
+                        firstName: data.firstName,
+                        lastName: data.lastName,
+                        email: data.email
+                    })
+                )
+                Cookie.set('token', data.jwtToken)
                 dispatch(clearErrors())
             })
             .catch(error => {
@@ -106,46 +119,43 @@ export const authUser = (userData: ISignUpData | ISignInData, authType: keyof ty
 }
 
 export const updateUserData = (userData: any) => {
-
-    console.log(userData)
-
-    for (let prop in userData) {
-        if (typeof prop === 'string') {
-            userData[prop] = sanitize(userData[prop].trim())
-        }
-    }
+    // for (const prop in userData) {
+    //     if (typeof prop === 'string') {
+    //         userData[prop] = sanitize(userData[prop].trim())
+    //     }
+    // }
 
     const url = `${process.env.BASE_API}/api/v${process.env.API_VER}/Account/update`
 
     return (dispatch: any) => {
-
         dispatch(setLoading(true))
         dispatch(clearErrors())
 
-        axios.put(url, {
-            data: userData,
-        })
+        axios
+            .put(url, {
+                data: userData
+            })
             .then(res => {
                 dispatch(addAuthData(userData))
-                dispatch({type: SET_TOAST, setToast: 1})
+                dispatch({ type: SET_TOAST, setToast: 1 })
             })
             .catch(error => {
                 apiErrorHandling(error, dispatch)
-                dispatch({type: SET_TOAST, setToast: 2})
+                dispatch({ type: SET_TOAST, setToast: 2 })
             })
             .finally(() => dispatch(setLoading(false)))
     }
 }
 
 export const sendForgotEmail = (email: string) => {
-
     const url = `${process.env.BASE_API}/api/v${process.env.API_VER}/Account/reset-password`
 
     return (dispatch: any) => {
         dispatch(setLoading(true))
-        axios.post(url, {
-            data: {email},
-        })
+        axios
+            .post(url, {
+                data: { email }
+            })
             .then(res => res.data)
             .then(data => {
                 console.log('OK')
@@ -160,15 +170,15 @@ export const sendForgotEmail = (email: string) => {
     }
 }
 
-export const sendNewPassword = (data: { code: string, newPassword: string, email: string }) => {
-
+export const sendNewPassword = (data: { code: string; newPassword: string; email: string }) => {
     const url = `${process.env.BASE_API}/api/v${process.env.API_VER}/Account/confirm-reset-password`
 
     return (dispatch: any) => {
         dispatch(setLoading(true))
-        axios.post(url, {
-            data: data,
-        })
+        axios
+            .post(url, {
+                data
+            })
             .then(res => res.data)
             .then(data => {
                 dispatch(clearErrors())
@@ -184,32 +194,30 @@ export const sendNewPassword = (data: { code: string, newPassword: string, email
 export function logOut(): { type: string } {
     Cookie.remove('token')
     return {
-        type: CLEAR_USER_DATA,
+        type: CLEAR_USER_DATA
     }
 }
 
-
-//TODO change
+// TODO change
 export const signInGoogle = () => {
-
-    return (dispatch) => {
-
+    return dispatch => {
         // @ts-ignore
-        const auth2 = window.gapi.auth2.getAuthInstance();
-        auth2.signIn()
+        const auth2 = window.gapi.auth2.getAuthInstance()
+        auth2
+            .signIn()
             .then(googleUser => {
-                const profile = googleUser.getBasicProfile();
-                return profile;
+                const profile = googleUser.getBasicProfile()
+                return profile
             })
-            .then((profile) => {
-                const name = profile.getName(),
-                    email = profile.getEmail();
+            .then(profile => {
+                const name = profile.getName()
+                const email = profile.getEmail()
                 // dispatch(addAuthData(name, email, 'google'));
                 // dispatch(isUserInBase(email));
             })
     }
 }
-//TODO change
+// TODO change
 export const signOutGoogle = () => {
     // @ts-ignore
     const auth2 = window.gapi.auth2.getAuthInstance()
@@ -217,55 +225,56 @@ export const signOutGoogle = () => {
         console.log('User signed out.')
     })
 }
-//TODO change, maybe we don't need it
-export const setLoginModal = (bool) => ({
+// TODO change, maybe we don't need it
+export const setLoginModal = bool => ({
     type: OPEN_LOGIN_MODAL,
-    isLoginModalOpen: bool,
+    isLoginModalOpen: bool
 })
 
+/*= ==== SALARY ESTIMATION ===== */
 
-/*===== SALARY ESTIMATION =====*/
-
-export const setCvSent = (bool) => ({
+export const setCvSent = bool => ({
     type: CV_SENT,
-    isCvSent: bool,
+    isCvSent: bool
 })
 
-export const sendCvForResults = (formData) => {
-
-    return (dispatch) => {
-
+export const sendCvForResults = formData => {
+    return dispatch => {
         dispatch({type: LOADING, loading: true})
 
-        axios.post(`${process.env.BASE_API}/api/Predict`, formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        })
+        axios
+            .post(`${process.env.BASE_API}/api/Predict`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
             .then(res => {
-                dispatch({type: ESTIMATION, predictions: res.data.predictions, position: res.data.position})
+                dispatch({
+                    type: ESTIMATION,
+                    predictions: res.data.predictions,
+                    position: res.data.position
+                })
                 dispatch(setCvSent(true))
                 console.log(res.data)
             })
-            .catch((error) => {
+            .catch(error => {
                 console.error('FUKKK!!')
                 apiErrorHandling(error, dispatch)
             })
             .finally(() => dispatch({type: LOADING, loading: false}))
-
     }
 }
 
-//Send real user salary to base
-export const sendRealSalary = (formData) => {
-
-    return (dispatch) => {
+// Send real user salary to base
+export const sendRealSalary = formData => {
+    return dispatch => {
         dispatch({type: LOADING, loading: true})
-        axios.put(`${process.env.BASE_API}/api/Predict`, formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        })
+        axios
+            .put(`${process.env.BASE_API}/api/Predict`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
             .then(() => {
                 dispatch({type: ADD_USER_SALARY, realSalary: formData.get('salary')})
             })
@@ -276,26 +285,24 @@ export const sendRealSalary = (formData) => {
     }
 }
 
-
-/*===== TEST =====*/
+/*= ==== TEST ===== */
 
 export const savePersonalInfo = (personalInfo: number[]) => {
     return {
         type: SAVE_PERSONAL_INFO,
-        personalInfo,
+        personalInfo
     }
 }
 
 export const saveTestData = (testData: number[][]) => {
     return {
         type: SAVE_TEST_DATA,
-        testData,
+        testData
     }
 }
 
 export const fetchTerms = (lang: string) => {
-
-    const url = `${process.env.CONTENT_API}/psychologies/1`;
+    const url = `${process.env.CONTENT_API}/psychologies/1`
 
     return (dispatch: any) => {
         fetch(url)
@@ -311,7 +318,6 @@ export const fetchTerms = (lang: string) => {
 }
 
 export const fetchContent = (lang: string) => {
-
     const url = `${process.env.CONTENT_API}/psychologies/2`
 
     return (dispatch: any) => {
@@ -326,33 +332,31 @@ export const fetchContent = (lang: string) => {
     }
 }
 
-/*===== APIs =====*/
+/*= ==== APIs ===== */
 
 export const getCurrencyRates = () => {
-
-    return (dispatch) => {
+    return dispatch => {
         axios('https://api.exchangeratesapi.io/latest?base=USD&symbols=USD,EUR,GBP')
             .then(response => {
-                return response.data.rates;
+                return response.data.rates
             })
             .then(rates => {
                 dispatch({
                     type: GET_CURRENCY_RATES,
-                    currencyRates: rates,
+                    currencyRates: rates
                 })
             })
             .catch(error => {
-                console.error(error);
+                console.error(error)
                 dispatch({
                     type: GET_CURRENCY_RATES,
-                    currencyRates: {"EUR": 0.9},
+                    currencyRates: {EUR: 0.9}
                 })
             })
     }
 }
 
-
-/*===== APPLICATION MODE (app reducer) =====*/
+/*= ==== APPLICATION MODE (app reducer) ===== */
 
 export function setLoading(isLoading: boolean) {
     return {
@@ -361,7 +365,7 @@ export function setLoading(isLoading: boolean) {
     }
 }
 
-/*===== UTILS =====*/
+/*= ==== UTILS ===== */
 
 export function clearErrors() {
     return (dispatch: any) => {
@@ -371,13 +375,12 @@ export function clearErrors() {
 }
 
 function apiErrorHandling(error: any, dispatch: any) {
-
     if (error.response) {
         let msg: string
         try {
-            msg = Array.isArray(error.response.data.message) ?
-                error.response.data.message[0].messages[0].message :
-                'Something wrong'
+            msg = Array.isArray(error.response.data.message)
+                ? error.response.data.message[0].messages[0].message
+                : 'Something wrong'
         } catch {
             msg = 'Something wrong with resources'
         }

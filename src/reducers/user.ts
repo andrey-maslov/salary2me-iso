@@ -1,23 +1,20 @@
-import {
-    ADD_AUTH_DATA, CHANGE_PWD,
-    CLEAR_USER_DATA, SEND_EMAIL,
-} from '../actions/actionTypes'
-import {loadState} from '../store/sessionStorage'
-import {isBrowser} from "../helper/helper"
+import { ADD_AUTH_DATA, CHANGE_PWD, CLEAR_USER_DATA, SEND_EMAIL } from '../actions/actionTypes'
+import { loadState } from '../store/sessionStorage'
+import { isBrowser } from '../helper/helper'
 
 let STATE = isBrowser ? loadState('user') : null
 
 export type userStoreType = {
-    firstName: string | null,
-    lastName: string | null,
-    email: string | null,
-    position: string | null,
-    provider: string | null,
-    isLoggedIn: boolean,
-    isEmailSent: boolean,
-    isPwdChanged: boolean,
-    isSubscribed: boolean | null,
-    isPublic: boolean | null,
+    firstName: string | null
+    lastName: string | null
+    email: string | null
+    position: string | null
+    provider: string | null
+    isLoggedIn: boolean
+    isEmailSent: boolean
+    isPwdChanged: boolean
+    isSubscribed: boolean | null
+    isPublic: boolean | null
     isLookingForJob: boolean | null
 }
 
@@ -28,43 +25,38 @@ if (!STATE) {
         email: null,
         position: null,
         provider: null,
-        isLoggedIn: true,
+        isLoggedIn: false,
         isEmailSent: false,
         isPwdChanged: false,
         isSubscribed: null,
         isPublic: null,
-        isLookingForJob: null,
+        isLookingForJob: null
     }
 }
 
-export const user = (state = STATE, {
-    type,
-    userData,
-    isEmailSent,
-    isPwdChanged,
-}) => {
+export const user = (state = STATE, { type, userData, isEmailSent, isPwdChanged }) => {
     switch (type) {
-        case ADD_AUTH_DATA :
+        case ADD_AUTH_DATA:
             return {
                 ...state,
                 ...userData,
-                isLoggedIn: true,
+                isLoggedIn: true
             }
-        case SEND_EMAIL :
+        case SEND_EMAIL:
             return {
                 ...state,
                 isEmailSent
             }
-        case CHANGE_PWD :
+        case CHANGE_PWD:
             return {
                 ...state,
                 isPwdChanged
             }
-        case CLEAR_USER_DATA :
+        case CLEAR_USER_DATA:
             return {
                 ...state,
                 firstName: null,
-                LastName: null,
+                lastName: null,
                 email: null,
                 provider: null,
                 isLoggedIn: null,

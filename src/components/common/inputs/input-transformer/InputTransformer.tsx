@@ -34,11 +34,15 @@ const InputTransformer: React.FC<IInputTransformer> = ({initValue, rules, object
                                 name={objectKey}
                                 className={style.input}
                                 onFocus={(e: any) => e.target.select()}
-                                autoFocus={true}
+                                autoFocus
                                 ref={register(rules)}
                                 {...props}
                             />
-                            {errors[objectKey] && <div className={`item-explain floating`}>{errors[objectKey].message}</div>}
+                            {errors[objectKey] && (
+                                <div className="item-explain floating">
+                                    {errors[objectKey].message}
+                                </div>
+                            )}
                         </div>
                     </form>
                 </OutsideClickHandler>
