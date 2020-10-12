@@ -49,9 +49,9 @@ export function addAuthData(data: IUserData): { type: string; userData: IUserDat
     }
 }
 
-export function checkAuth(token) {
+export function checkAuth(jwt?) {
     const url = `${process.env.BASE_API}/api/v${process.env.API_VER}/Account`
-
+    const token = jwt || getCookieFromBrowser('token')
     return (dispatch: any) => {
         if (token) {
             dispatch(setLoading(true))

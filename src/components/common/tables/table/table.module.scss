@@ -75,3 +75,15 @@
     }
   }
 }
+
+.large {
+
+  tr {
+
+    td {
+      &:first-of-type {
+        min-width: 14rem;
+      }
+    }
+  }
+}

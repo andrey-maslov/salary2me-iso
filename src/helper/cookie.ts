@@ -8,31 +8,31 @@ export const setCookie = (key, value) => {
         cookie.set(key, value, {
             expires: 1,
             path: '/'
-        });
+        })
     }
-};
+}
 
 export const removeCookie = (key) => {
     if (process.browser) {
         cookie.remove(key, {
             expires: 1
-        });
+        })
     }
-};
+}
 
 export const getCookie = (key, req) => {
     return process.browser
         ? getCookieFromBrowser(key)
         : getCookieFromServer(key, req);
-};
+}
 
 export const getCookieFromBrowser = key => {
-    return cookie.get(key);
-};
+    return cookie.get(key)
+}
 
 const getCookieFromServer = (key, req) => {
     if (!req.headers.cookie) {
-        return undefined;
+        return undefined
     }
     const rawCookie = req.headers.cookie
         .split(';')
@@ -40,5 +40,5 @@ const getCookieFromServer = (key, req) => {
     if (!rawCookie) {
         return undefined;
     }
-    return rawCookie.split('=')[1];
-};
+    return rawCookie.split('=')[1]
+}

@@ -1,8 +1,6 @@
-import React, {useEffect, useState} from 'react'
-import {FiExternalLink} from 'react-icons/fi'
+import {useEffect, useState} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {Link, withTranslation} from '@i18n'
-import ChartRadar from './radar-chart/ChartRadar'
 import {
     getDescByRange,
     getFamous,
@@ -11,13 +9,13 @@ import {
     getAndDecodeData,
 } from 'psychology'
 import {IUserResult, IDescWithRange, IDescWithStatus, IOctant} from 'psychology/build/main/types/types'
+import {useMediaPredicate} from 'react-media-hook'
+import ChartRadar from './radar-chart/ChartRadar'
 import CodeBox from '../../../components/common/code-box/CodeBox'
 import {TablesWithBars} from './TablesWithBars'
 import TopBar from './top-bar/TopBar'
 import Table from '../../../components/common/tables/table/Table'
 import Box from '../../../components/common/box/Box'
-import {useMediaPredicate} from 'react-media-hook'
-import {useTranslation} from 'react-i18next'
 import Loader from '../../../components/common/loaders/loader/Loader'
 import {savePersonalInfo, saveTestData} from '../../../actions/actionCreator'
 import {globalStoreType} from "../../../typings/types"
@@ -34,13 +32,12 @@ const Result: React.FC<ResultProps> = ({t}) => {
     const dispatch = useDispatch()
     const isXL = useMediaPredicate('(min-width: 1360px)')
 
-    //parse url query params if it has encoded data
+    // parse url query params if it has encoded data
     const dataFromUrl: AnyFullResultType | null = getAndDecodeData().data
 
     const {name} = useSelector((state: globalStoreType) => state.user)
-    const {personalInfo, testData} = dataFromUrl
-        ? {personalInfo: dataFromUrl[0], testData: dataFromUrl[1]}
-        : useSelector((state: globalStoreType) => state.test)
+    const storeData = useSelector((state: globalStoreType) => state.test)
+    const {personalInfo, testData} = dataFromUrl ? {personalInfo: dataFromUrl[0], testData: dataFromUrl[1]} : storeData
     const {terms: scheme, descriptions} = useSelector((state: globalStoreType) => state.test)
 
     const [isReady, setReady] = useState(false)
@@ -53,9 +50,9 @@ const Result: React.FC<ResultProps> = ({t}) => {
         if (descriptions) {
             setReady(true)
         }
-    }, [scheme, descriptions, name])
+    }, [scheme, descriptions, name, dataFromUrl, dispatch])
 
-    //TODO check this!
+    // TODO check this!
     if (!isReady) {
         return <Loader/>
     }
@@ -67,7 +64,7 @@ const Result: React.FC<ResultProps> = ({t}) => {
     const modedSubAxes = getModifiedSubAxes(scheme.subAxes)
     const fullProfile: IUserResult = UserResult(testData)
     const {sortedOctants, mainOctant, profile, portrait} = fullProfile
-    const {fullProfileList, tablesWithBarsTitles, famousList, psychoTypeList, complexData, tendencies} = descriptions
+    const {fullProfileList, tablesWithBarsTitles, famousList, psychoTypeList, complexDataSoft, tendencies} = descriptions
     const tables = TablesWithBars(modedSubAxes, tablesWithBarsTitles, testData)
     const fullProfileData = getFullProfileData()
 
@@ -79,14 +76,14 @@ const Result: React.FC<ResultProps> = ({t}) => {
         )
     }
 
-    //TODO fix case with 3rd sex
+    // TODO fix case with 3rd sex
     const famousPerson = getFamous(mainOctant, famousList, personalInfo[2] === 2 ? 1 : personalInfo[2])
 
     const encData = btoa(JSON.stringify([personalInfo, testData]))
     const sharingUrl = `${HOST}/test/result?encdata=${encData}`
 
-    //fill full profile table title by translations
-    let fpTableTile = [t('test:result_page.main_features'), t('test:result_page.revealed')]
+    // fill full profile table title by translations
+    const fpTableTile = [t('test:result_page.main_features'), t('test:result_page.revealed')]
 
     return (
         <div id="result">
@@ -121,7 +118,7 @@ const Result: React.FC<ResultProps> = ({t}) => {
                         style={{textDecoration: 'underline'}}
                         href={`${process.env.COOP_URL}?encdata=${encData}`}
                         target="_blank"
-                        rel="noopener norefferer"
+                        rel="noopener noreferrer"
                     >
                         {` Teamconstructor`}
                     </a>
@@ -155,11 +152,11 @@ const Result: React.FC<ResultProps> = ({t}) => {
             <Box className='result-box full-profile'>
                 <h4>{t('test:result_page.full_profile_title')}</h4>
                 <Table
-                    tableData={getComplexData(mainOctant, complexData).map(item => (
-                        [item[0], <span dangerouslySetInnerHTML={{__html: item[1]}}/>]
+                    tableData={getComplexData(mainOctant, complexDataSoft).map(item => (
+                        [item[0], <span dangerouslySetInnerHTML={{__html: item[1]}} key={item[0]}/>]
                     ))}
                     tableHeader={fpTableTile}
-                    addClasses={['striped']}
+                    addClasses={['striped', 'large']}
                 />
             </Box>
 
@@ -179,7 +176,7 @@ const Result: React.FC<ResultProps> = ({t}) => {
                 title: data[0].title,
                 desc: (fullProfile.mainPsychoTypeList.map(item => scheme.psychoTypes[item])).join(', '),
                 status: 1
-            },                                                                    //профиль (сочетание профилей) - ведущий психотип
+            },                                                                    // профиль (сочетание профилей) - ведущий психотип
             _(mainOctant.value, data[1]),                                         // severity - выраженность
             _(testData[3][4], data[2]),                                         // relBuilding - склонность к установлению отношений
             _(testData[3][3], data[3]),                                         // relAccept - склонность к принятию отношений
@@ -217,10 +214,10 @@ const Result: React.FC<ResultProps> = ({t}) => {
      * @param data
      */
     function getLeadershipSkills(data: IDescWithRange[]): string {
-        const as = profile[3][1] + profile[4][1], // aggressiveness + spontaneity
-            ee = profile[1][1] + profile[2][1], // extraversion + emotiveness
-            value = as + ee,
-            probably = (profile[3][1] < 5 || profile[4][1] < 5 || profile[1][1] < 5 || profile[2][1] < 5) ? `${data[5].desc}, ` : ''
+        const as = profile[3][1] + profile[4][1]; // aggressiveness + spontaneity
+            const ee = profile[1][1] + profile[2][1]; // extraversion + emotiveness
+            const value = as + ee;
+            const probably = (profile[3][1] < 5 || profile[4][1] < 5 || profile[1][1] < 5 || profile[2][1] < 5) ? `${data[5].desc}, ` : ''
 
         if (value < 24) {
             return `${probably}${data[0].desc}`
@@ -237,14 +234,14 @@ const Result: React.FC<ResultProps> = ({t}) => {
 
     /**
      * Описание психотипа
-     * @param sortedOctants
+     * @param octants
      * @param data
      */
-    function getPsychoTypeDesc(sortedOctants: readonly IOctant[], data: readonly(readonly string[])[]): string | null {
+    function getPsychoTypeDesc(octants: readonly IOctant[], data: readonly(readonly string[])[]): string | null {
 
-        const value1 = sortedOctants[0].value
-        const value2 = sortedOctants[1].value
-        const typeInd = sortedOctants[0].index // get psycho type group index
+        const value1 = octants[0].value
+        const value2 = octants[1].value
+        const typeInd = octants[0].index // get psycho type group index
         const diff: number = value1 * 0.15 // difference between 1st and 2nd max values
         const range = [8.75, 42.35, 140, 218.57]
         let descInd: number
@@ -253,8 +250,8 @@ const Result: React.FC<ResultProps> = ({t}) => {
             return null
         }
 
-        //combined profile
-        if ((value1 - value2 < diff) && (sortedOctants[1].code === sortedOctants[0].code.toUpperCase())) {
+        // combined profile
+        if ((value1 - value2 < diff) && (octants[1].code === octants[0].code.toUpperCase())) {
             const ind = typeInd > 3 ? typeInd - 4 : typeInd
             return data[ind][3]
         }
@@ -267,7 +264,7 @@ const Result: React.FC<ResultProps> = ({t}) => {
             descInd = 2
         }
 
-        //mono profile
+        // mono profile
         return data[typeInd][descInd]
     }
 
@@ -286,11 +283,11 @@ const Result: React.FC<ResultProps> = ({t}) => {
             severityIndex = 2
         }
         // need to choose addition description by severity in fist line of the table
-        let fistItem = descByIndex[0]
-        let descBySeverity = fistItem[2][severityIndex]
+        const fistItem = descByIndex[0]
+        const descBySeverity = fistItem[2][severityIndex]
 
-        //change fist line of the table with edited description
-        let fistItemEdited = [fistItem[0], fistItem[1] + descBySeverity]
+        // change fist line of the table with edited description
+        const fistItemEdited = [fistItem[0], fistItem[1] + descBySeverity]
 
         return [fistItemEdited, ...descByIndex.slice(1)]
     }

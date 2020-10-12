@@ -1,7 +1,6 @@
-import React from 'react'
 import WebNav from './nav/WebNav'
 import style from './web-header.module.scss'
-import TopLogo from "../../layout/header/top-logo/TopLogo"
+import TopLogo from '../../layout/header/top-logo/TopLogo'
 
 export type Header = {
     isLoggedIn: boolean
@@ -9,12 +8,11 @@ export type Header = {
     userEmail: string
 }
 
-const WebHeader = ({isLoggedIn, handleLoginBtn, userEmail}: Header) => {
-
+const WebHeader = ({ isLoggedIn, handleLoginBtn, userEmail }: Header) => {
     return (
         <header className={style.header}>
             <nav className={style.bar}>
-                <TopLogo/>
+                <TopLogo />
                 <WebNav
                     isLoggedIn={isLoggedIn}
                     handleLoginBtn={handleLoginBtn}
