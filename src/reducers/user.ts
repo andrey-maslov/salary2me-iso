@@ -11,8 +11,8 @@ export type userStoreType = {
     position: string | null
     provider: string | null
     isLoggedIn: boolean
-    isEmailSent: boolean
-    isPwdChanged: boolean
+    isEmailSent: boolean | null
+    isPwdChanged: boolean | null
     isSubscribed: boolean | null
     isPublic: boolean | null
     isLookingForJob: boolean | null
@@ -26,8 +26,8 @@ if (!STATE) {
         position: null,
         provider: null,
         isLoggedIn: false,
-        isEmailSent: false,
-        isPwdChanged: false,
+        isEmailSent: null,
+        isPwdChanged: null,
         isSubscribed: null,
         isPublic: null,
         isLookingForJob: null

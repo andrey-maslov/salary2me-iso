@@ -20,7 +20,7 @@ import {
 } from './actionTypes'
 import {ISignInData, ISignUpData} from '../typings/types'
 import {authModes} from '../constants/constants'
-import {sanitize} from '../helper/helper'
+import {setCookie, removeCookie, getCookieFromBrowser} from '../helper/cookie'
 
 /*= ==== AUTH ===== */
 
@@ -49,9 +49,8 @@ export function addAuthData(data: IUserData): { type: string; userData: IUserDat
     }
 }
 
-export function checkAuth() {
+export function checkAuth(token) {
     const url = `${process.env.BASE_API}/api/v${process.env.API_VER}/Account`
-    const token = Cookie.get('token')
 
     return (dispatch: any) => {
         if (token) {
@@ -65,9 +64,8 @@ export function checkAuth() {
                 .then(data => {
                     dispatch(
                         addAuthData({
-                            firstName: data.firstName,
-                            lastName: data.lastName,
-                            email: data.email
+                            ...data,
+                            email: data.username
                         })
                     )
                 })
@@ -78,16 +76,6 @@ export function checkAuth() {
 }
 
 export const authUser = (userData: ISignUpData | ISignInData, authType: keyof typeof authModes) => {
-    const d = {
-        email: 'pansheitan@yandex.ru',
-        password: 'Test_2233',
-        firstName: 'Andrey',
-        lastName: 'Maslov',
-        city: {
-            id: 0,
-            name: 'string'
-        }
-    }
 
     const url = `${process.env.BASE_API}/api/v${process.env.API_VER}/Account/${
         authType === authModes[1] ? 'register' : 'authenticate'
@@ -97,18 +85,17 @@ export const authUser = (userData: ISignUpData | ISignInData, authType: keyof ty
         dispatch(setLoading(true))
         axios
             .post(url, {
-                data: d
+                data: userData
             })
             .then(res => res.data)
             .then(data => {
                 dispatch(
                     addAuthData({
-                        firstName: data.firstName,
-                        lastName: data.lastName,
-                        email: data.email
+                        ...data,
+                        email: data.username
                     })
                 )
-                Cookie.set('token', data.jwtToken)
+                setCookie('token', data.jwtToken)
                 dispatch(clearErrors())
             })
             .catch(error => {
@@ -126,24 +113,26 @@ export const updateUserData = (userData: any) => {
     // }
 
     const url = `${process.env.BASE_API}/api/v${process.env.API_VER}/Account/update`
-
+    const token = getCookieFromBrowser('token')
     return (dispatch: any) => {
-        dispatch(setLoading(true))
-        dispatch(clearErrors())
+        if (token) {
+            dispatch(setLoading(true))
+            dispatch(clearErrors())
 
-        axios
-            .put(url, {
-                data: userData
-            })
-            .then(res => {
-                dispatch(addAuthData(userData))
-                dispatch({ type: SET_TOAST, setToast: 1 })
-            })
-            .catch(error => {
-                apiErrorHandling(error, dispatch)
-                dispatch({ type: SET_TOAST, setToast: 2 })
-            })
-            .finally(() => dispatch(setLoading(false)))
+            axios
+                .put(url, {
+                    data: userData
+                })
+                .then(res => {
+                    dispatch(addAuthData(userData))
+                    dispatch({type: SET_TOAST, setToast: 1})
+                })
+                .catch(error => {
+                    apiErrorHandling(error, dispatch)
+                    dispatch({type: SET_TOAST, setToast: 2})
+                })
+                .finally(() => dispatch(setLoading(false)))
+        }
     }
 }
 
@@ -154,7 +143,7 @@ export const sendForgotEmail = (email: string) => {
         dispatch(setLoading(true))
         axios
             .post(url, {
-                data: { email }
+                data: {email}
             })
             .then(res => res.data)
             .then(data => {
@@ -192,7 +181,7 @@ export const sendNewPassword = (data: { code: string; newPassword: string; email
 }
 
 export function logOut(): { type: string } {
-    Cookie.remove('token')
+    removeCookie('token')
     return {
         type: CLEAR_USER_DATA
     }

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Signin, { ISigninForm } from './Signin'
 import Registration, { ISignUpForm } from './Registration'
 import {
-    addAuthData,
+    addAuthData, authUser,
     sendForgotEmail,
     sendNewPassword,
     updateUserData
@@ -165,22 +165,35 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
     }
 
     function SignIn(data: ISigninForm): void {
-        // dispatch(authUser(data, 'signin'))
-        dispatch(
-            addAuthData({
-                firstName: 'John',
-                lastName: 'Doe',
-                email: 'john@mail.com',
-                position: 'freelancer',
-                isPublic: true
-            })
-        )
+        const userData = {
+            firstName: '',
+            lastName: '',
+            city: {
+                id: 0,
+                name: 'city'
+            },
+            ...data
+        }
+        dispatch(authUser(userData, 'signin'))
+        router.push('/profile')
+    }
+
+    function signUp(data: ISignUpForm): void {
+        const userData = {
+            firstName: '',
+            lastName: '',
+            city: {
+                id: 0,
+                name: 'city'
+            },
+            ...data
+        }
+        dispatch(authUser(userData, 'registration'))
         router.push('/profile')
     }
 
     function forgotHandle(data: IForgotForm): void {
         dispatch(sendForgotEmail(data.email))
-        // console.log('forgot email')
     }
 
     function resetHandle(data: IResetForm): void {
@@ -195,32 +208,6 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
         // console.log(newData)
     }
 
-    function signUp(data: ISignUpForm): void {
-        const userData = {
-            email: data.email,
-            password: data.password,
-            firstName: 'First',
-            lastName: 'Last',
-            city: {
-                id: 0,
-                name: 'city'
-            }
-        }
-        // dispatch(authUser(userData, 'registration'))
-        dispatch(
-            addAuthData({
-                firstName: 'John',
-                lastName: 'Doe',
-                email: 'john@mail.com',
-                position: 'freelancer',
-                isPublic: true
-            })
-        )
-        router.push('/profile')
-
-        // console.log('register')
-    }
-
     function addExtraInfo(data: IInfoForm) {
         const userData = {
             firstName: data.firstName,
@@ -228,7 +215,6 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
             position: data.position
         }
         dispatch(updateUserData(userData))
-        // console.log('extra info', data)
     }
 
     function clearApiError() {

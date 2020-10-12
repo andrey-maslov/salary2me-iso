@@ -1,15 +1,15 @@
-import {ProfileLayout} from '../page-layouts'
-//import {initializeStore} from "../store";
+import { ProfileLayout } from '../page-layouts'
+import { getCookie } from '../helper/cookie'
 
 function Profile() {
-    return (
-        <ProfileLayout />
-    )
+    return <ProfileLayout />
 }
 
-Profile.getInitialProps = async (ctx) => {
-    const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent
-    return { userAgent, namespacesRequired: ['profile', 'common'] }
+Profile.getInitialProps = async ctx => {
+    const token = getCookie('token', ctx.req)
+    return {
+        namespacesRequired: ['profile', 'common']
+    }
 }
 
 export default Profile

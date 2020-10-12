@@ -1,4 +1,5 @@
 import {useEffect} from 'react'
+import { useRouter } from 'next/router'
 import {useSelector, useDispatch} from 'react-redux'
 import {useDeviceDetect} from '../../../helper/useDeviceDetect'
 import { useMediaPredicate } from "react-media-hook"
@@ -12,7 +13,8 @@ const Header: React.FC = () => {
     const {isLoggedIn, email} = useSelector((state: globalStoreType) => state.user)
     const dispatch = useDispatch()
     const smallDevice = useMediaPredicate("(max-width: 992px)")
-    const {isMobile} = useDeviceDetect()
+    const { isMobile } = useDeviceDetect()
+    const router = useRouter()
 
     useEffect(() => {
 
@@ -21,6 +23,7 @@ const Header: React.FC = () => {
     const handleLoginBtn = () => {
         if (isLoggedIn) {
             dispatch(logOut())
+            router.push('/')
         } else {
             console.log('xc')
         }
