@@ -1,21 +1,20 @@
 import axios from 'axios'
-// import { saveAs } from 'file-saver'
-import {withTranslation} from "@i18n"
-import {useSelector} from 'react-redux'
+import { saveAs } from 'file-saver'
+import { withTranslation } from '@i18n'
+import { useSelector } from 'react-redux'
 import { FiExternalLink } from 'react-icons/fi'
 import { FaFilePdf } from 'react-icons/fa'
-import CodeBox from "../../../../components/common/code-box/CodeBox"
+import CodeBox from '../../../../components/common/code-box/CodeBox'
 import style from './export-result.module.scss'
-import {globalStoreType} from "../../../../typings/types"
+import { globalStoreType } from '../../../../typings/types'
 
 interface ExportResultProps {
     data: string
     t: any
 }
 
-const ExportResult: React.FC<ExportResultProps> = ({data, t}) => {
-
-    const {name, isLoggedIn} = useSelector((state: globalStoreType) => state.user)
+const ExportResult: React.FC<ExportResultProps> = ({ data, t }) => {
+    const { isLoggedIn } = useSelector((state: globalStoreType) => state.user)
 
     return (
         <>
@@ -29,42 +28,39 @@ const ExportResult: React.FC<ExportResultProps> = ({data, t}) => {
                     href={`${process.env.COOP_URL}?encdata=${data}`}
                     className={style.link}
                     target="_blank"
-                    rel="noopener norefferer"
-                >
-                    <FiExternalLink/>
+                    rel="noopener noreferrer">
+                    <FiExternalLink />
                     {t('test:result_page.go_to_comparison')}
                 </a>
-                {/*<button className={style.link} onClick={createAndDownloadPdf}>*/}
-                {/*    <FaFilePdf/>*/}
-                {/*    {t('common:result_page.create_pdf')}*/}
-                {/*</button>*/}
+                <button className={style.link} onClick={createAndDownloadPdf}>
+                    <FaFilePdf />
+                    {t('test:result_page.create_pdf')}
+                </button>
             </div>
         </>
     )
 
     function createAndDownloadPdf() {
-
-        if (!isLoggedIn) {
-            // dispatch(setOnlyLoggedModal(true))
-            return
-        }
-
-        const canvas = document.querySelector('canvas');
+        const canvas = document.querySelector('canvas')
         let dataImg = ''
         if (canvas) {
-            console.log(canvas.toDataURL())
             dataImg = canvas.toDataURL()
         }
 
-        axios.post('/create-pdf', {radar: dataImg}, {
-            responseType: 'arraybuffer'
-        })
-            .then((res) => {
-                const fileName = name.replace(' ', '-')
-                console.log(res.data)
-                // @ts-ignore
-                const fileBlob = new Blob([res.data], {type: 'application/pdf'})
-                // saveAs(fileBlob, `${fileName}-profile.pdf`)
+        axios
+            .post(
+                '/create-pdf',
+                { radar: dataImg },
+                {
+                    responseType: 'arraybuffer'
+                }
+            )
+            .then(res => {
+                // const fileName = name.replace(' ', '-')
+                const fileName = 'test-file'
+                // console.log(res.data)
+                const fileBlob = new Blob([res.data], { type: 'application/pdf' })
+                saveAs(fileBlob, `${fileName}-profile.pdf`)
             })
     }
 }

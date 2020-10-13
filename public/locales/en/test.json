@@ -39,7 +39,8 @@
     "your_profile": "Your profile",
     "desc": "Results page description",
     "desired_result": "Desired result",
-    "export_result_desc": "Copy the received code and save it in your notepad. You can use our service to assess the interaction of partners:",
+    "export_result_desc": "Copy the received code and save it in your notepad",
+    "coop_link_desc": "You can use our service to assess the interaction of partners",
     "export_result_title": "Your encoded result for future reference",
     "full_profile_title": "Complete psychographic profile",
     "title": "We offer you the results and your competencies"

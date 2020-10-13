@@ -1,39 +1,38 @@
-import {FaFacebookF, FaLinkedinIn, FaVk, FaTelegramPlane, FaTwitter} from "react-icons/fa"
+import { FaFacebookF, FaLinkedinIn, FaVk, FaTelegramPlane, FaTwitter } from 'react-icons/fa'
 import {
     FacebookShareButton,
     LinkedinShareButton,
     TelegramShareButton,
     TwitterShareButton,
-    VKShareButton,
-} from "react-share"
+    VKShareButton
+} from 'react-share'
 
-const SocialSharing: React.FC<{url: string}> = ({url}) => {
-
+const SocialSharing: React.FC<{ url: string }> = ({ url }) => {
     return (
-        <div className={`share-wrapper`}>
-            <div className={`btn-share bg-facebook`}>
+        <div className="share-wrapper">
+            <div className="btn-share bg-facebook">
                 <FacebookShareButton url={url}>
-                    <FaFacebookF/>
+                    <FaFacebookF />
                 </FacebookShareButton>
             </div>
-            <div className={`btn-share bg-linkedin`}>
+            <div className="btn-share bg-linkedin">
                 <LinkedinShareButton url={url}>
-                    <FaLinkedinIn/>
+                    <FaLinkedinIn />
                 </LinkedinShareButton>
             </div>
-            <div className={`btn-share bg-telegram`}>
+            <div className="btn-share bg-telegram">
                 <TelegramShareButton url={url}>
-                    <FaTelegramPlane/>
+                    <FaTelegramPlane />
                 </TelegramShareButton>
             </div>
-            <div className={`btn-share bg-twitter`}>
+            <div className="btn-share bg-twitter">
                 <TwitterShareButton url={url}>
-                    <FaTwitter/>
+                    <FaTwitter />
                 </TwitterShareButton>
             </div>
-            <div className={`btn-share bg-vk`}>
+            <div className="btn-share bg-vk">
                 <VKShareButton url={url}>
-                    <FaVk/>
+                    <FaVk />
                 </VKShareButton>
             </div>
         </div>

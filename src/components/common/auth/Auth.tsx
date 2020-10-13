@@ -166,15 +166,17 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
 
     function SignIn(data: ISigninForm): void {
         const userData = {
-            firstName: '',
-            lastName: '',
+            firstName: 'John',
+            lastName: 'Doe',
             city: {
                 id: 0,
                 name: 'city'
             },
             ...data
         }
-        dispatch(authUser(userData, 'signin'))
+        // dispatch(authUser(userData, 'signin'))
+        console.log({ ...userData, email: 'test@test.com' })
+        dispatch(addAuthData({ ...userData, email: 'test@test.com' }))
         router.push('/profile')
     }
 

@@ -24,7 +24,9 @@ const Header: React.FC = () => {
     const handleLoginBtn = () => {
         if (isLoggedIn) {
             dispatch(logOut())
-            router.push('/')
+            if (router.pathname === '/profile') {
+                router.push('/')
+            }
         }
     }
 

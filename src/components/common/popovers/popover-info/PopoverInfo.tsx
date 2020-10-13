@@ -25,11 +25,11 @@ const PopoverInfo: React.FC<IPopoverInfo> = ({contentList}) => {
             <div className={`${style.container}`}>
                 <div className={style.item}>
                     <FiExternalLink/>
-                    <a href="" target="_blank" rel="noopener norefferer">{contentList[0].label}</a>
+                    <a href="" target="_blank" rel="noopener noreferrer">{contentList[0].label}</a>
                 </div>
                 <div className={style.item}>
                     <FiExternalLink/>
-                    <a href="" target="_blank" rel="noopener norefferer">{contentList[1].label}</a>
+                    <a href="" target="_blank" rel="noopener noreferrer">{contentList[1].label}</a>
                 </div>
             </div>
             }

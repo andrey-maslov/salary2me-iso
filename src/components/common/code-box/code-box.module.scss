@@ -1,17 +1,13 @@
 @import '../../../assets/scss/vars';
+@import '../../../assets/scss/mixins';
 
 .wrapper {
   display: flex;
   width: 100%;
-  //background-color: $grey-bg;
-  //font-family: $title-font;
-  //word-wrap: break-word;
-  //padding: 15px;
-  //font-size: 14px;
-  //border-radius: $border-radius-sm;
 }
 
 .enc {
+  //@include ellipsis;
   position: relative;
   display: inline-block;
   padding: .5rem 1rem;
@@ -19,25 +15,16 @@
   background-color: $grey-bg;
   font-size: 75%;
   width: 100%;
-  border: 0;
   max-width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  height: 2.3rem;
+  border: 0;
+  height: auto;
   margin-right: .5rem;
-
-  span {
-    width: 100%;
-    font-family: monospace;
-  }
+  resize: none;
 }
 
 .btn {
-  width: 2.3rem;
-  height: 2.3rem;
-  font-size: 1.5rem;
   color: $grey;
+  padding: .5rem;
   border-radius: $border-radius-lg;
   background-color: $grey-bg;
   border: 0;
@@ -45,6 +32,7 @@
   transition: .2s;
 
   svg {
+    font-size: 1.5rem;
     position: relative;
     bottom: -.25rem;
   }
@@ -56,6 +44,17 @@
   &.success {
     color: $success;
     border-color: rgba($success, .5) !important;
+  }
+}
+
+.wrapper {
+
+  &.withBtn {
+
+    .btn {
+      width: 10rem;
+      line-height: 1.2;
+    }
   }
 }
 

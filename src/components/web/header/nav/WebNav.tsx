@@ -1,6 +1,6 @@
-import {useState, useEffect} from 'react'
-import {Link, withTranslation} from "@i18n"
-import {useRouter} from "next/router"
+import { useState, useEffect } from 'react'
+import { Link, withTranslation } from '@i18n'
+import { useRouter } from 'next/router'
 import style from './web-nav.module.scss'
 import PopoverUser from '../../../layout/header/popover-user/PopoverUser'
 import LangSwitcher from '../../../common/buttons/lang-switcher/LangSwitcher'
@@ -12,8 +12,7 @@ export type Navigation = {
     t: any
 }
 
-const WebNav = ({handleLoginBtn, isLoggedIn, userEmail, t}: Navigation) => {
-
+const WebNav = ({ handleLoginBtn, isLoggedIn, userEmail, t }: Navigation) => {
     const router = useRouter()
     const [logged, setLogged] = useState(false)
 
@@ -25,19 +24,14 @@ const WebNav = ({handleLoginBtn, isLoggedIn, userEmail, t}: Navigation) => {
         return (
             <nav>
                 <ul className={`${style.list} ${style.nav}`}>
-                    <li className={router.pathname == "/" ? style.active : ""}>
+                    <li className={router.pathname === '/' ? style.active : ''}>
                         <Link href="/">
                             <a className={style.link}>{t('common:nav.home')}</a>
                         </Link>
                     </li>
-                    <li className={router.pathname == "/test" ? style.active : ""}>
+                    <li className={router.pathname === '/test' ? style.active : ''}>
                         <Link href="/test">
                             <a className={style.link}>{t('common:nav.test')}</a>
-                        </Link>
-                    </li>
-                    <li className={router.pathname == "/resume" ? style.active : ""}>
-                        <Link href="/resume">
-                            <a className={style.link}>Резюме</a>
                         </Link>
                     </li>
                 </ul>
@@ -47,28 +41,26 @@ const WebNav = ({handleLoginBtn, isLoggedIn, userEmail, t}: Navigation) => {
 
     return (
         <div className={style.wrapper}>
-            <MainNav/>
-            {logged ?
+            <MainNav />
+            {logged ? (
                 <div className={style.user}>
-                    <PopoverUser
-                        userEmail={userEmail}
-                        logoutHandle={handleLoginBtn}
-                    />
-                </div> :
+                    <PopoverUser userEmail={userEmail} logoutHandle={handleLoginBtn} />
+                </div>
+            ) : (
                 <ul className={`${style.list} ${style.auth}`}>
                     <li>
-                        <Link href={"/signin"}>
+                        <Link href="/signin">
                             <a className={style.link}>{t('common:buttons.signin')}</a>
                         </Link>
                     </li>
                     <li>
-                        <Link href={"/registration"}>
+                        <Link href="/registration">
                             <a className={style.link}>{t('common:buttons.signup')}</a>
                         </Link>
                     </li>
                 </ul>
-            }
-            <LangSwitcher/>
+            )}
+            <LangSwitcher />
         </div>
     )
 }
