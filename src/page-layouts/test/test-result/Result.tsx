@@ -16,7 +16,6 @@ import {
 } from 'psychology/build/main/types/types'
 import { useMediaPredicate } from 'react-media-hook'
 import ChartRadar from './radar-chart/ChartRadar'
-import CodeBox from '../../../components/common/code-box/CodeBox'
 import { TablesWithBars } from './TablesWithBars'
 import TopBar from './top-bar/TopBar'
 import Table from '../../../components/common/tables/table/Table'
@@ -25,8 +24,7 @@ import Loader from '../../../components/common/loaders/loader/Loader'
 import { savePersonalInfo, saveTestData } from '../../../actions/actionCreator'
 import { globalStoreType } from '../../../typings/types'
 import Famous from './famous/Famous'
-import { HOST } from '../../../constants/constants'
-import ShareResult from "./share-result/ShareResult";
+import ShareResult from './share-result/ShareResult'
 
 type AnyFullResultType = any
 type ResultProps = {
@@ -61,12 +59,12 @@ const Result: React.FC<ResultProps> = ({ t }) => {
 
     // TODO check this!
     if (!isReady) {
-        return <Loader />
+        return <Loader/>
     }
 
     if (!testData || testData.length === 0) {
         return (
-            <div>
+            <div className="flex-centered">
                 <Link href="/test">
                     <a>{t('test:errors.take_the_test')}</a>
                 </Link>
@@ -76,35 +74,29 @@ const Result: React.FC<ResultProps> = ({ t }) => {
 
     const modedSubAxes = getModifiedSubAxes(scheme.subAxes)
     const fullProfile: IUserResult = UserResult(testData)
-    const { sortedOctants, mainOctant, profile, portrait } = fullProfile
-    const {
-        fullProfileList,
-        tablesWithBarsTitles,
-        famousList,
-        psychoTypeList,
-        complexDataSoft,
-        tendencies
-    } = descriptions
+    const sex = personalInfo[2] === 2 ? 1 : personalInfo[2]
+    const { sortedOctants, mainOctant, profile, mainPsychoTypeList } = fullProfile
+    const { fullProfileList, tablesWithBarsTitles, famousList, psychoTypeList, complexDataSoft, tendencies } = descriptions
+    const famousPerson = getFamous(mainOctant, famousList, sex)
     const tables = TablesWithBars(modedSubAxes, tablesWithBarsTitles, testData)
-    const fullProfileData = getFullProfileData()
+    const fullProfileData = getProfileDesc()
+    const mainPsychoType: string = scheme.psychoTypes[mainPsychoTypeList[0]]
+    const secondaryPsychoType: string | null = mainPsychoTypeList[1] ? scheme.psychoTypes[mainPsychoTypeList[1]] : null
+    const secondaryPortraitDesc: string | null = mainPsychoTypeList[1] ? complexDataSoft[mainPsychoTypeList[1]][0][1] : null
+    const mainOctantFraction: number = getOctantFraction(mainOctant, sortedOctants)
+    const secondaryOctantFraction: number | null = secondaryPsychoType
+        ? getOctantFraction(sortedOctants[1], sortedOctants)
+        : null
 
     if (fullProfile.mainOctant.value <= 0) {
         return (
-            <div>
+            <div className="flex-centered">
                 <h2>{t('test:errors.test_failed')}</h2>
             </div>
         )
     }
 
-    // TODO fix case with 3rd sex
-    const famousPerson = getFamous(
-        mainOctant,
-        famousList,
-        personalInfo[2] === 2 ? 1 : personalInfo[2]
-    )
-
     const encData = btoa(JSON.stringify([personalInfo, testData]))
-
     const fpTableTile = [t('test:result_page.main_features'), t('test:result_page.revealed')]
 
     return (
@@ -119,7 +111,7 @@ const Result: React.FC<ResultProps> = ({ t }) => {
                 />
                 <div className="row middle-xs">
                     <div className="col-lg-7">
-                        <ChartRadar profile={fullProfile.profile} chartLabels={scheme.tendencies} />
+                        <ChartRadar profile={fullProfile.profile} chartLabels={scheme.tendencies}/>
                     </div>
                     <div className="col-lg-5">
                         <Famous
@@ -131,11 +123,28 @@ const Result: React.FC<ResultProps> = ({ t }) => {
             </Box>
 
             <Box className="result-box full-profile">
-                <h4>{t('test:result_page.full_profile_title')}</h4>
+                <h4>{t('test:result_page.psychological_portrait')}</h4>
+                {secondaryPortraitDesc
+                    ? (
+                        <div className="pb-sm">
+                            <div>Ваш основной психотип
+                                 - <strong>{mainPsychoType} ({(mainOctantFraction * 100).toFixed(1)})</strong>,
+                                 дополнительный
+                                 - <strong>{secondaryPsychoType} ({(secondaryOctantFraction * 100).toFixed(1)})</strong>
+                            </div>
+                            <div>Описание дополнительного психотипа:</div>
+                            {secondaryPortraitDesc}
+                            <div>Описание основного психотипа:</div>
+                        </div>
+                    ) : (
+                        <div>
+                            <div>Ваш психотип - {mainPsychoType}</div>
+                        </div>
+                    )}
                 <Table
-                    tableData={getComplexData(mainOctant, complexDataSoft).map(item => [
+                    tableData={getPortraitDesc(mainOctant, complexDataSoft).map(item => [
                         item[0],
-                        <span dangerouslySetInnerHTML={{ __html: item[1] }} key={item[0]} />
+                        <span dangerouslySetInnerHTML={{ __html: item[1] }} key={item[0]}/>
                     ])}
                     tableHeader={fpTableTile}
                     addClasses={['striped', 'large']}
@@ -143,7 +152,7 @@ const Result: React.FC<ResultProps> = ({ t }) => {
             </Box>
 
             <Box className="result-box full-profile">
-                <h4>{t('test:result_page.full_profile_title')}</h4>
+                <h4>{t('test:result_page.psychological_profile_desc')}</h4>
                 <div className="row justify-content-between">
                     {isXL ? (
                         [fullProfileData.slice(0, 11), fullProfileData.slice(11)].map(
@@ -181,7 +190,7 @@ const Result: React.FC<ResultProps> = ({ t }) => {
     /**
      * data for long table with full profile
      */
-    function getFullProfileData() {
+    function getProfileDesc() {
         const data = fullProfileList
         const _ = getDescByRange
 
@@ -287,11 +296,11 @@ const Result: React.FC<ResultProps> = ({ t }) => {
     }
 
     /**
-     *
+     * Описание психологического портрета
      * @param octant
      * @param data
      */
-    function getComplexData(octant: IOctant, data: string[][][]): string[][] {
+    function getPortraitDesc(octant: IOctant, data: string[][][]): string[][] {
         const descByIndex = data[octant.index]
 
         let severityIndex = getIndexByRange(octant.value, fullProfileList[1].options)
@@ -315,6 +324,11 @@ const Result: React.FC<ResultProps> = ({ t }) => {
 
     function getSum(tableData: ([string, number] | [string, number, number])[]): number {
         return tableData.map(item => item[1]).reduce((a, b) => Number(a) + Number(b))
+    }
+
+    function getOctantFraction(octant: IOctant, octantList: readonly IOctant[]): number {
+        const sum: number = octantList.map(item => item.value).reduce((a, b) => a + b)
+        return octant.value / sum
     }
 }
 

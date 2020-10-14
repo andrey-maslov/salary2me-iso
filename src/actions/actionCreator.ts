@@ -1,5 +1,4 @@
 import axios from 'axios'
-import Cookie from 'js-cookie'
 import {
     ADD_USER_SALARY,
     ADD_AUTH_DATA,
@@ -18,9 +17,9 @@ import {
     CHANGE_PWD,
     SET_TOAST
 } from './actionTypes'
-import {ISignInData, ISignUpData} from '../typings/types'
-import {authModes} from '../constants/constants'
-import {setCookie, removeCookie, getCookieFromBrowser} from '../helper/cookie'
+import { ISignInData, ISignUpData } from '../typings/types'
+import { authModes } from '../constants/constants'
+import { setCookie, removeCookie, getCookieFromBrowser } from '../helper/cookie'
 
 /*= ==== AUTH ===== */
 
@@ -76,7 +75,6 @@ export function checkAuth(jwt?) {
 }
 
 export const authUser = (userData: ISignUpData | ISignInData, authType: keyof typeof authModes) => {
-
     const url = `${process.env.BASE_API}/api/v${process.env.API_VER}/Account/${
         authType === authModes[1] ? 'register' : 'authenticate'
     }`
@@ -125,11 +123,11 @@ export const updateUserData = (userData: any) => {
                 })
                 .then(res => {
                     dispatch(addAuthData(userData))
-                    dispatch({type: SET_TOAST, setToast: 1})
+                    dispatch({ type: SET_TOAST, setToast: 1 })
                 })
                 .catch(error => {
                     apiErrorHandling(error, dispatch)
-                    dispatch({type: SET_TOAST, setToast: 2})
+                    dispatch({ type: SET_TOAST, setToast: 2 })
                 })
                 .finally(() => dispatch(setLoading(false)))
         }
@@ -143,7 +141,7 @@ export const sendForgotEmail = (email: string) => {
         dispatch(setLoading(true))
         axios
             .post(url, {
-                data: {email}
+                data: { email }
             })
             .then(res => res.data)
             .then(data => {
@@ -168,10 +166,9 @@ export const sendNewPassword = (data: { code: string; newPassword: string; email
             .post(url, {
                 data
             })
-            .then(res => res.data)
-            .then(data => {
+            .then(() => {
                 dispatch(clearErrors())
-                dispatch({type: CHANGE_PWD, isPwdChanged: true})
+                dispatch({ type: CHANGE_PWD, isPwdChanged: true })
             })
             .catch(error => {
                 apiErrorHandling(error, dispatch)
@@ -229,7 +226,7 @@ export const setCvSent = bool => ({
 
 export const sendCvForResults = formData => {
     return dispatch => {
-        dispatch({type: LOADING, loading: true})
+        dispatch({ type: LOADING, loading: true })
 
         axios
             .post(`${process.env.BASE_API}/api/Predict`, formData, {
@@ -250,14 +247,14 @@ export const sendCvForResults = formData => {
                 console.error('FUKKK!!')
                 apiErrorHandling(error, dispatch)
             })
-            .finally(() => dispatch({type: LOADING, loading: false}))
+            .finally(() => dispatch({ type: LOADING, loading: false }))
     }
 }
 
 // Send real user salary to base
 export const sendRealSalary = formData => {
     return dispatch => {
-        dispatch({type: LOADING, loading: true})
+        dispatch({ type: LOADING, loading: true })
         axios
             .put(`${process.env.BASE_API}/api/Predict`, formData, {
                 headers: {
@@ -265,12 +262,12 @@ export const sendRealSalary = formData => {
                 }
             })
             .then(() => {
-                dispatch({type: ADD_USER_SALARY, realSalary: formData.get('salary')})
+                dispatch({ type: ADD_USER_SALARY, realSalary: formData.get('salary') })
             })
             .catch(err => {
                 apiErrorHandling(err, dispatch)
             })
-            .finally(() => dispatch({type: LOADING, loading: true}))
+            .finally(() => dispatch({ type: LOADING, loading: true }))
     }
 }
 
@@ -339,7 +336,7 @@ export const getCurrencyRates = () => {
                 console.error(error)
                 dispatch({
                     type: GET_CURRENCY_RATES,
-                    currencyRates: {EUR: 0.9}
+                    currencyRates: { EUR: 0.9 }
                 })
             })
     }
@@ -358,8 +355,8 @@ export function setLoading(isLoading: boolean) {
 
 export function clearErrors() {
     return (dispatch: any) => {
-        dispatch({type: SET_ERROR, apiErrorMsg: null})
-        dispatch({type: PROCESS_FAILED, processFailed: false})
+        dispatch({ type: SET_ERROR, apiErrorMsg: null })
+        dispatch({ type: PROCESS_FAILED, processFailed: false })
     }
 }
 
@@ -387,6 +384,6 @@ function apiErrorHandling(error: any, dispatch: any) {
         // Something happened in setting up the request that triggered an Error
         console.error('ERROR', error.message)
     }
-    dispatch({type: PROCESS_FAILED, processFailed: true})
+    dispatch({ type: PROCESS_FAILED, processFailed: true })
     console.log(error)
 }

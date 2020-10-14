@@ -1,4 +1,5 @@
 import { Provider, useDispatch } from 'react-redux'
+import { useRouter } from 'next/router'
 import axios from 'axios'
 import App from 'next/app'
 import '../assets/scss/index.scss'
@@ -13,6 +14,7 @@ import { addAuthData, checkAuth } from '../actions/actionCreator'
 
 function MyApp({ Component, pageProps }) {
     const store = useStore(pageProps.initialReduxState)
+    const router = useRouter()
 
     return (
         <Provider store={store}>

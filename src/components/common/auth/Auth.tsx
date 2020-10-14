@@ -28,7 +28,7 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
     const dispatch = useDispatch()
     const agreement = useRef<HTMLDivElement>(null)
     const { isLoggedIn, name } = useSelector((state: globalStoreType) => state.user)
-    const { loading, apiErrorMsg } = useSelector((state: globalStoreType) => state.app)
+    const { loading, apiErrorMsg, redirectUrl } = useSelector((state: globalStoreType) => state.app)
 
     const page = getAuthPage(router.pathname)
 
@@ -177,7 +177,7 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
         // dispatch(authUser(userData, 'signin'))
         console.log({ ...userData, email: 'test@test.com' })
         dispatch(addAuthData({ ...userData, email: 'test@test.com' }))
-        router.push('/profile')
+        router.push(redirectUrl || '/')
     }
 
     function signUp(data: ISignUpForm): void {
@@ -191,7 +191,7 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
             ...data
         }
         dispatch(authUser(userData, 'registration'))
-        router.push('/profile')
+        router.push(redirectUrl || '/')
     }
 
     function forgotHandle(data: IForgotForm): void {

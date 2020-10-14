@@ -1,9 +1,11 @@
 import {
     SAVE_TEST_DATA,
-    SAVE_PERSONAL_INFO, FETCH_TERMS, FETCH_TEST_DESC,
+    SAVE_PERSONAL_INFO,
+    FETCH_TERMS,
+    FETCH_TEST_DESC
 } from '../actions/actionTypes'
 import { loadState } from '../store/sessionStorage'
-import {isBrowser} from "../helper/helper"
+import { isBrowser } from '../helper/helper'
 
 let STATE = isBrowser ? loadState('test') : null
 
@@ -17,37 +19,31 @@ if (!STATE) {
 }
 
 export type testStoreType = {
-    personalInfo: [] | null,
-    testData: [] | null,
-    terms: {} | null,
+    personalInfo: [] | null
+    testData: [] | null
+    terms: {} | null
     descriptions: [] | null
 }
 
-export const test = (state = STATE, {
-    type,
-    personalInfo,
-    testData,
-    terms,
-    descriptions
-}) => {
+export const test = (state = STATE, { type, personalInfo, testData, terms, descriptions }) => {
     switch (type) {
-        case SAVE_PERSONAL_INFO :
+        case SAVE_PERSONAL_INFO:
             return {
                 ...state,
                 personalInfo
             }
-        case SAVE_TEST_DATA :
+        case SAVE_TEST_DATA:
             return {
                 ...state,
                 testData
             }
-        case FETCH_TERMS :
+        case FETCH_TERMS:
             return {
                 ...state,
                 test,
-                terms,
+                terms
             }
-        case FETCH_TEST_DESC :
+        case FETCH_TEST_DESC:
             return {
                 ...state,
                 descriptions

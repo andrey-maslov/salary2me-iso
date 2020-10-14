@@ -7,6 +7,7 @@ import { logOut, checkAuth } from '../../../actions/actionCreator'
 import MobiHeader from '../../mobi/header/MobiHeader'
 import WebHeader from '../../web/header/WebHeader'
 import { globalStoreType } from '../../../typings/types'
+import { REDIRECT_URL } from '../../../actions/actionTypes'
 
 const Header: React.FC = () => {
     const { isLoggedIn, email } = useSelector((state: globalStoreType) => state.user)
@@ -14,13 +15,22 @@ const Header: React.FC = () => {
     const smallDevice = useMediaPredicate('(max-width: 992px)')
     const { isMobile } = useDeviceDetect()
     const router = useRouter()
+    const currentRoute = router.pathname
 
     useEffect(() => {
         if (!isLoggedIn) {
             dispatch(checkAuth())
         }
-    }, [isLoggedIn, isMobile, smallDevice])
+    }, [dispatch, isLoggedIn, isMobile, smallDevice])
 
+    useEffect(() => {
+        const isSigninPage = Boolean(currentRoute.match(/signin/))
+        const isSignupPage = Boolean(currentRoute.match(/registration/))
+        if (!isSigninPage && !isSignupPage) {
+            dispatch({ type: REDIRECT_URL, redirectUrl: currentRoute })
+        }
+    }, [currentRoute])
+    // const mobile = Boolean(agent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop|XiaoMi|MiuiBrowser/))
     const handleLoginBtn = () => {
         if (isLoggedIn) {
             dispatch(logOut())
@@ -43,8 +53,8 @@ const Header: React.FC = () => {
                     isLoggedIn={isLoggedIn}
                     handleLoginBtn={handleLoginBtn}
                     userEmail={email}
-                />)
-            }
+                />
+            )}
         </>
     )
 }

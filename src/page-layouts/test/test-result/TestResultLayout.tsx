@@ -24,7 +24,7 @@ const TestResultLayout: React.FC = () => {
                     content="Free service of CV instant AI analytics with results for multiple cities. Also service helps you to find a job. Know your resume rate!"
                 />
                 <meta name="twitter:site" content={HOST} />
-                <meta name="twitter:image" content="https://localhost:4000/img/social.jpg" />
+                <meta name="twitter:image" content="/img/social.jpg" />
             </Head>
             <div className="page-test-result">
                 <Layout>

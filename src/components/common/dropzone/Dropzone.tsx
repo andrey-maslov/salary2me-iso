@@ -1,73 +1,76 @@
-import React, {useState, useCallback, useEffect} from 'react'
-import {useSelector, useDispatch} from 'react-redux'
-import {useDropzone} from 'react-dropzone'
-import {ACCEPTED_FILE_TYPES, parsingDuration} from '../../../constants/constants'
-import Button from "../buttons/button/Button"
-import {FaArrowRight, FaCloudUploadAlt, FaFileAlt, FaFilePdf, FaFileWord, FaFileImage} from "react-icons/fa"
-import DeleteBtn from "../buttons/delete-btn/DeleteBtn"
-import {sendCvForResults, setCvSent} from "../../../actions/actionCreator"
-import {Helper} from '../../../helper/helper'
-import BorderedBox from "../bordered-box/BorderedBox"
-import {useMediaPredicate} from "react-media-hook"
-import {Tooltip} from "../tooltip/Tooltip"
-import {Router} from '@i18n'
+import React, { useState, useCallback, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { useDropzone } from 'react-dropzone'
+import {
+    FaArrowRight,
+    FaCloudUploadAlt,
+    FaFileAlt,
+    FaFilePdf,
+    FaFileWord,
+    FaFileImage
+} from 'react-icons/fa'
+import { useMediaPredicate } from 'react-media-hook'
+import { Router } from '@i18n'
+import { ACCEPTED_FILE_TYPES, parsingDuration } from '../../../constants/constants'
+import Button from '../buttons/button/Button'
+import DeleteBtn from '../buttons/delete-btn/DeleteBtn'
+import { sendCvForResults, setCvSent } from '../../../actions/actionCreator'
+import { Helper } from '../../../helper/helper'
+import BorderedBox from '../bordered-box/BorderedBox'
+import { Tooltip } from '../tooltip/Tooltip'
 import style from './dropzone.module.scss'
-import {useDeviceDetect} from "../../../helper/useDeviceDetect"
-import {PARSING_MODAL, PARSING_TEXT} from "../../../actions/actionTypes"
-import {globalStoreType} from "../../../typings/types"
+import { useDeviceDetect } from '../../../helper/useDeviceDetect'
+import { PARSING_MODAL, PARSING_TEXT } from '../../../actions/actionTypes'
+import { globalStoreType } from '../../../typings/types'
 
 const Dropzone: React.FC = () => {
-
-    //TODO - move tip text to translations
+    // TODO - move tip text to translations
     const linkedinTip = 'Profile - More - Save to PDF'
     const [myFiles, setMyFiles] = useState([])
     const [DZClass, setDZClass] = useState('zone')
-    const lessThan400 = useMediaPredicate("(max-width: 400px)")
-    const {isMobile} = useDeviceDetect()
+    const lessThan400 = useMediaPredicate('(max-width: 400px)')
+    const { isMobile } = useDeviceDetect()
     const acceptedTypes = isMobile ? '' : ACCEPTED_FILE_TYPES
 
-    const {email: userEmail, name: userName, isLoggedIn} = useSelector((state: globalStoreType) => state.user)
-    const {isParsingTextShowed, isParsingModal} = useSelector((state: globalStoreType) => state.modals)
-    const {processFailed, loading} = useSelector((state: globalStoreType) => state.app)
-    const {isCvSent} = useSelector((state: globalStoreType) => state.cv)
+    const { email: userEmail, name: userName, isLoggedIn } = useSelector(
+        (state: globalStoreType) => state.user
+    )
+    const { isParsingTextShowed, isParsingModal } = useSelector(
+        (state: globalStoreType) => state.modals
+    )
+    const { processFailed, loading } = useSelector((state: globalStoreType) => state.app)
+    const { isCvSent } = useSelector((state: globalStoreType) => state.cv)
     const dispatch = useDispatch()
 
     useEffect(() => {
         if (!processFailed && !isParsingTextShowed && isCvSent) {
-            dispatch(dispatch({type: PARSING_MODAL, isParsingModal: false}))
+            dispatch(dispatch({ type: PARSING_MODAL, isParsingModal: false }))
             dispatch(setCvSent(false))
             Router.push('/estimation')
         }
-    }, [processFailed, isParsingTextShowed, isCvSent])
+    }, [processFailed, isParsingTextShowed, isCvSent, dispatch])
 
     const onDrop = useCallback(acceptedFiles => {
         setMyFiles(acceptedFiles)
     }, [])
 
-    const {getRootProps, getInputProps, acceptedFiles, fileRejections} = useDropzone({
+    const { getRootProps, getInputProps, acceptedFiles, fileRejections } = useDropzone({
         onDrop,
         accept: acceptedTypes
     })
 
     const handlePushBtn = () => {
+        pushFile(acceptedFiles)
 
-        if (isLoggedIn) {
+        dispatch({ type: PARSING_MODAL, isParsingModal: true })
+        dispatch({ type: PARSING_TEXT, isParsingTextShowed: true })
 
-            pushFile(acceptedFiles)
-
-            dispatch({type: PARSING_MODAL, isParsingModal: true})
-            dispatch({type: PARSING_TEXT, isParsingTextShowed: true})
-
-            setTimeout(() => {
-                dispatch({type: PARSING_TEXT, isParsingTextShowed: false})
-            }, parsingDuration)
-        } else {
-            alert('need to be logged in')
-        }
+        setTimeout(() => {
+            dispatch({ type: PARSING_TEXT, isParsingTextShowed: false })
+        }, parsingDuration)
     }
 
     const pushFile = (files, email = userEmail, name = userName) => {
-
         if (files.length > 0) {
             const formData = new FormData()
             formData.append('email', email)
@@ -80,10 +83,9 @@ const Dropzone: React.FC = () => {
         }
     }
 
-    //can be list, but now it is ONE file
+    // can be list, but now it is ONE file
     const files = myFiles.map(file => {
-
-        const icon = setFileIcon(file.type);
+        const icon = setFileIcon(file.type)
 
         return (
             <div key={file.path} className={style.file}>
@@ -92,7 +94,7 @@ const Dropzone: React.FC = () => {
                     {icon}
                     <span className={style.fileName}>{file.path}</span>
                 </div>
-                {!isParsingModal && <DeleteBtn text={'delete file'} handle={() => setMyFiles([])}/>}
+                {!isParsingModal && <DeleteBtn text="delete file" handle={() => setMyFiles([])}/>}
             </div>
         )
     })
@@ -112,27 +114,36 @@ const Dropzone: React.FC = () => {
                     <span className={`${style.browse} color-accent`}>Browse</span>
                 </div>
                 <FaCloudUploadAlt className={style.uploadIcon}/>
-                <p className={style.formats}>Standardized formats{lessThan400 && <br/>} are preferred (<Tooltip tip={linkedinTip} direction="top"><span>LinkedIn</span></Tooltip> etc.)</p>
+                <p className={style.formats}>
+                    Standardized formats{lessThan400 && <br/>} are preferred (
+                    <Tooltip tip={linkedinTip} direction="top">
+                        <span>LinkedIn</span>
+                    </Tooltip>{' '}
+                    etc.)
+                </p>
             </div>
             {files}
-            {myFiles.length > 0 &&
-            <Button
-                startIcon={null}
-                endIcon={<FaArrowRight/>}
-                btnClass={`btn btn-accent btn-lg`}
-                title="send CV"
-                handle={handlePushBtn}
-            />}
+            {myFiles.length > 0 && (
+                <Button
+                    startIcon={null}
+                    endIcon={<FaArrowRight/>}
+                    btnClass="btn btn-accent btn-lg"
+                    title="send CV"
+                    handle={handlePushBtn}
+                />
+            )}
             {fileRejections.length > 0 && renderRejectedBlock()}
         </div>
     )
 
     function renderRejectedBlock() {
         return (
-            <BorderedBox borderColor={'#d73a49'}>
+            <BorderedBox borderColor="#d73a49">
                 <div className={style.rejectedWrap}>
-                    This file has not accepted type.<br/>
-                    Only following file types are accepted:<br/>
+                    This file has not accepted type.
+                    <br/>
+                    Only following file types are accepted:
+                    <br/>
                     <strong>{ACCEPTED_FILE_TYPES}</strong>
                 </div>
             </BorderedBox>
@@ -140,18 +151,20 @@ const Dropzone: React.FC = () => {
     }
 
     function setFileIcon(docType) {
-
         if (docType === 'application/pdf') {
             return <FaFilePdf className={`${style.fileIcon} ${style.pdf}`}/>
-        } else if (docType === 'application/msword' || docType === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
-            return <FaFileWord className={`${style.fileIcon} ${style.word}`}/>
-        } else if (docType === 'image/png' || docType === 'image/jpg' || docType === 'image/jpeg') {
-            return <FaFileImage className={`${style.fileIcon} ${style.image}`}/>
-        } else {
-            return <FaFileAlt className={`${style.fileIcon}`}/>
         }
+        if (
+            docType === 'application/msword' ||
+            docType === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+        ) {
+            return <FaFileWord className={`${style.fileIcon} ${style.word}`}/>
+        }
+        if (docType === 'image/png' || docType === 'image/jpg' || docType === 'image/jpeg') {
+            return <FaFileImage className={`${style.fileIcon} ${style.image}`}/>
+        }
+        return <FaFileAlt className={`${style.fileIcon}`}/>
     }
-
 }
 
 export default Dropzone
