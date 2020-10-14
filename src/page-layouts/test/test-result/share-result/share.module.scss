@@ -1,7 +1,7 @@
 @import '../../../../assets/scss/vars';
 
 .code {
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .desc {
@@ -9,6 +9,11 @@
 }
 
 .team {
+  background-color: $teamconstructor;
+  border-radius: $border-radius-md;
+  padding: 1rem 1.5rem;
+  color: $teamconstructor-text;
+  text-align: center;
 
   p {
     margin-bottom: 1rem;
@@ -23,11 +28,17 @@
   & > div {
     display: flex;
     align-items: center;
-    //justify-content: center;
+    justify-content: space-evenly;
 
     a {
-      margin-left: 2rem;
+      //margin-left: 2rem;
       line-height: calc(3rem - 10px);
+      color: $teamconstructor-text;
+      border-color: $teamconstructor-text;
+
+      &:hover {
+        background-color: lighten($teamconstructor, 5%);
+      }
 
       svg {
         position: relative;

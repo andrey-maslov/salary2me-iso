@@ -15,15 +15,15 @@
     }
   }
   &.teamconstructor {
-    border-color: #33363F;
+    border-color: $teamconstructor;
     .top {
-      background-color: #33363F;
+      background-color: $teamconstructor;
     }
   }
   &.thegreatbase {
-    border-color: #F96332;
+    border-color: $thegreatbase;
     .top {
-      background-color: #F96332;
+      background-color: $thegreatbase;
     }
   }
 }

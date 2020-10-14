@@ -40,7 +40,7 @@ const Result: React.FC<ResultProps> = ({ t }) => {
     // parse url query params if it has encoded data
     const dataFromUrl: AnyFullResultType | null = getAndDecodeData().data
 
-    const { isLoggedIn } = useSelector((state: globalStoreType) => state.user)
+    const { isLoggedIn, email } = useSelector((state: globalStoreType) => state.user)
     const storeData = useSelector((state: globalStoreType) => state.test)
     const { personalInfo, testData } = dataFromUrl
         ? { personalInfo: dataFromUrl[0], testData: dataFromUrl[1] }
@@ -57,7 +57,7 @@ const Result: React.FC<ResultProps> = ({ t }) => {
         if (descriptions) {
             setReady(true)
         }
-    }, [scheme, descriptions, dataFromUrl, dispatch])
+    }, [scheme, descriptions, email])
 
     // TODO check this!
     if (!isReady) {
@@ -104,9 +104,7 @@ const Result: React.FC<ResultProps> = ({ t }) => {
     )
 
     const encData = btoa(JSON.stringify([personalInfo, testData]))
-    const sharingUrl = `${HOST}/test/result?encdata=${encData}`
 
-    // fill full profile table title by translations
     const fpTableTile = [t('test:result_page.main_features'), t('test:result_page.revealed')]
 
     return (
@@ -134,6 +132,18 @@ const Result: React.FC<ResultProps> = ({ t }) => {
 
             <Box className="result-box full-profile">
                 <h4>{t('test:result_page.full_profile_title')}</h4>
+                <Table
+                    tableData={getComplexData(mainOctant, complexDataSoft).map(item => [
+                        item[0],
+                        <span dangerouslySetInnerHTML={{ __html: item[1] }} key={item[0]} />
+                    ])}
+                    tableHeader={fpTableTile}
+                    addClasses={['striped', 'large']}
+                />
+            </Box>
+
+            <Box className="result-box full-profile">
+                <h4>{t('test:result_page.full_profile_title')}</h4>
                 <div className="row justify-content-between">
                     {isXL ? (
                         [fullProfileData.slice(0, 11), fullProfileData.slice(11)].map(
@@ -157,18 +167,6 @@ const Result: React.FC<ResultProps> = ({ t }) => {
                         />
                     )}
                 </div>
-            </Box>
-
-            <Box className="result-box full-profile">
-                <h4>{t('test:result_page.full_profile_title')}</h4>
-                <Table
-                    tableData={getComplexData(mainOctant, complexDataSoft).map(item => [
-                        item[0],
-                        <span dangerouslySetInnerHTML={{ __html: item[1] }} key={item[0]} />
-                    ])}
-                    tableHeader={fpTableTile}
-                    addClasses={['striped', 'large']}
-                />
             </Box>
 
             <Box>
