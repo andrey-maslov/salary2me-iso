@@ -14,6 +14,7 @@ $text-color: #d1d1d1;
 .title {
   text-transform: uppercase;
   margin-bottom: 1.25rem;
+  margin-top: 0;
 }
 
 .content {
@@ -69,7 +70,7 @@ $text-color: #d1d1d1;
 
 .copy {
   text-align: center;
-  padding: .8rem;
+  padding: .8rem 0;
   border-top: 1px solid rgba(#fff, .1);
   font-size: 1rem;
   color: #999;

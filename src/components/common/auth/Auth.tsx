@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import Signin, { ISigninForm } from './Signin'
 import Registration, { ISignUpForm } from './Registration'
 import {
-    addAuthData, authUser,
+    addAuthData,
+    authUser,
     sendForgotEmail,
     sendNewPassword,
     updateUserData
@@ -142,7 +143,7 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
     }
 
     return (
-        <div>
+        <div className="container">
             <div className={style.wrapper}>
                 <h1 className={style.title}>{t(`signin:${page}`)}</h1>
                 <Form />

@@ -1,50 +1,104 @@
-import { FiHome, FiDollarSign } from 'react-icons/fi';
-import { SITE_TITLE } from '../../../../constants/constants';
-import style from './mobi-nav.module.scss';
+import { FiHome, FiSettings, FiCheckCircle } from 'react-icons/fi'
+import { Link, withTranslation } from '@i18n'
+import { useRouter } from 'next/router'
+import React, { useState } from 'react'
+import { SITE_TITLE } from '../../../../constants/constants'
+import style from './mobi-nav.module.scss'
+import Button from '../../../common/buttons/button/Button'
+import { isBrowser } from '../../../../helper/helper'
+import MobileNavToggle from '../nav-toggle/NavToggle'
 
 type MobiNavigation = {
     isLoggedIn: boolean
-    close: () => void
-    isOpened: boolean
+    handleLogoutBtn: () => void
+    t: any
 }
 
-const MobiNav = ({isLoggedIn, close, isOpened}: MobiNavigation) => {
+const MobiNav = ({ isLoggedIn, handleLogoutBtn, t }: MobiNavigation) => {
+    const router = useRouter()
 
-    let isOpenedClass = isOpened ? 'opened' : 'closed';
+    const [isVisible, setVisible] = useState(false)
+
+    const mobileNavOpen = (): any => {
+        setVisible(true)
+        if (isBrowser) {
+            document.body.classList.add('menu-opened')
+        }
+    }
+
+    const mobileNavClose = (): void => {
+        setVisible(false)
+        if (isBrowser) {
+            document.body.classList.remove('menu-opened')
+        }
+    }
 
     const navLinks = [
-        {title: 'Main', path: '/', access: 'all', icon: <FiHome/>},
-        {title: 'Results', path: '/estimation', access: 'authorized', icon: <FiDollarSign/>},
-    ];
+        { title: t('common:nav.home'), path: '/', icon: <FiHome/> },
+        { title: t('common:nav.test'), path: '/test', icon: <FiCheckCircle/> }
+    ]
+    const privateLinks = [{ title: 'Account settings', path: '/profile', icon: <FiSettings/> }]
+    const links = isLoggedIn ? [...navLinks, ...privateLinks] : navLinks
 
     return (
-        <div className={`${style.overlay} ${style[isOpenedClass]} mobile-nav-overlay`} onClick={close}>
-            <nav className={`${style.wrapper} mobile-nav-wrapper`}>
-                <h5 className={style.title}>Some title</h5>
-                <ul className={style.nav}>
-                    {navLinks.map(({title, path, access, icon}) => {
-                        return (
-                            <li className={style.item} key={title}>
-                                {/*<NavLink exact*/}
-                                {/*         className={`${style.link} nav-link`}*/}
-                                {/*         activeClassName={style.current}*/}
-                                {/*         to={path}*/}
-                                {/*         onClick={close}*/}
-                                {/*>*/}
-                                {/*    {icon}{title}*/}
-                                {/*</NavLink>*/}
+        <>
+            <MobileNavToggle handler={mobileNavOpen}/>
+            <div
+                className={`${style.overlay} ${isVisible ? style.opened : ''} mobile-nav-overlay`}
+                onClick={mobileNavClose}>
+                <nav className={`${style.wrapper} mobile-nav-wrapper`}>
+                    <h5 className={style.title}>
+                        Salary2<span className="color-accent">me</span>
+                    </h5>
+                    <ul className={style.nav}>
+                        {links.map(({ title, path, icon }) => (
+                            <li
+                                className={`${style.item} ${
+                                    router.pathname === path ? style.active : ''
+                                }`}
+                                key={title}>
+                                <Link href={path}>
+                                    <a className={style.link}>
+                                        {icon}
+                                        {title}
+                                    </a>
+                                </Link>
                             </li>
-                        );
-                    })}
-                </ul>
-                <div className={style.footer}>
-                    <div className={style.copy}>
-                        © {new Date().getFullYear()} | {SITE_TITLE}
+                        ))}
+                    </ul>
+                    <ul className={style.auth}>
+                        {isLoggedIn ? (
+                            <li>
+                                <Button
+                                    title="Log Out"
+                                    btnClass="btn btn-outlined"
+                                    handle={handleLogoutBtn}
+                                />
+                            </li>
+                        ) : (
+                            <>
+                                <li>
+                                    <Link href="/signin">
+                                        <a className={'btn btn-accent'}>{t('common:buttons.signin')}</a>
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/registration">
+                                        <a className={'btn btn-outlined'}>{t('common:buttons.signup')}</a>
+                                    </Link>
+                                </li>
+                            </>
+                        )}
+                    </ul>
+                    <div className={style.footer}>
+                        <div className={style.copy}>
+                            © {new Date().getFullYear()} | {SITE_TITLE}
+                        </div>
                     </div>
-                </div>
-            </nav>
-        </div>
-    );
-};
+                </nav>
+            </div>
+        </>
+    )
+}
 
-export default MobiNav;
+export default withTranslation('common')(MobiNav)

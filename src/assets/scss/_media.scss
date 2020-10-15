@@ -61,4 +61,16 @@ only screen and (min-resolution: 192dpi) {
     }
   }
 
+  .result-share {
+
+    .share-wrapper {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .btn-share {
+      width: 100%;
+    }
+  }
+
 }

@@ -1,7 +1,6 @@
 import { withTranslation, Link } from '@i18n'
 import { FiExternalLink } from 'react-icons/fi'
 import CodeBox from '../../../../components/common/code-box/CodeBox'
-import { HOST } from '../../../../constants/constants'
 import style from './share.module.scss'
 import SocialSharing from '../../../../components/common/buttons/social-sharing/SocialSharing'
 
@@ -17,12 +16,9 @@ function ShareResult({ t, encData, isLoggedIn }: IShareResult) {
             <div className="col-sm-6">
                 <h4>{t('test:result_page.export_result_title')}</h4>
                 <div className={style.desc}>{t('test:result_page.export_result_desc')}</div>
-                {/* <div className={style.code}> */}
-                {/*    <CodeBox content={encData} btnLabel="Скопировать код" /> */}
-                {/* </div> */}
                 <div className={style.code}>
                     <CodeBox
-                        content={`${HOST}/test/result?encdata=${encData}`}
+                        content={`${process.env.HOST}/test/result?encdata=${encData}`}
                         btnLabel="Скопировать ссылку"
                     />
                 </div>
@@ -41,7 +37,7 @@ function ShareResult({ t, encData, isLoggedIn }: IShareResult) {
                             target="_blank"
                             rel="noopener noreferrer">
                             Перейти
-                            <FiExternalLink />
+                            <FiExternalLink/>
                         </a>
                     </div>
                 </div>
@@ -49,7 +45,7 @@ function ShareResult({ t, encData, isLoggedIn }: IShareResult) {
             <div className="col-sm-6">
                 <h4>Поделитесь с друзьями в социальных сетях</h4>
                 <div className="result-share">
-                    <SocialSharing url={`${HOST}/test/result?encdata=${encData}`} />
+                    <SocialSharing url={`${process.env.HOST}/test/result?encdata=${encData}`}/>
                 </div>
             </div>
             {!isLoggedIn && (

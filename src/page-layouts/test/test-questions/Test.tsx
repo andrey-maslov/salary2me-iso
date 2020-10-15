@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import { withTranslation } from '@i18n'
 import { GrInfo } from 'react-icons/gr'
-import { savePersonalInfo, saveTestData } from '../../../actions/actionCreator'
-import Loader from '../../../components/common/loaders/loader/Loader'
 import PersonalInfo from './personal-info/PersonalInfo'
 import Questions from './questions/Questions'
 import style from './test.module.scss'
@@ -29,7 +27,7 @@ const Test = ({ t }) => {
         </>
     )
 
-    function changeTestBlock(blockToShow: string, currentBlock?: string): void {
+    function changeTestBlock(blockToShow: string): void {
         setTestBlock(blockToShow)
     }
 }

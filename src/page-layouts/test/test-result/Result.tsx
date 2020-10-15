@@ -126,19 +126,19 @@ const Result: React.FC<ResultProps> = ({ t }) => {
                 <h4>{t('test:result_page.psychological_portrait')}</h4>
                 {secondaryPortraitDesc
                     ? (
-                        <div className="pb-sm">
-                            <div>Ваш основной психотип
-                                 - <strong>{mainPsychoType} ({(mainOctantFraction * 100).toFixed(1)})</strong>,
-                                 дополнительный
-                                 - <strong>{secondaryPsychoType} ({(secondaryOctantFraction * 100).toFixed(1)})</strong>
+                        <div style={{marginBottom: '1rem'}}>
+                            <div style={{fontSize: '1.2rem', marginBottom: '.5rem'}}>Ваш основной психотип
+                                 - <strong>{mainPsychoType} ({(mainOctantFraction * 100).toFixed(1)}%)</strong>,
+                                 дополнительный психотип
+                                 - <strong>{secondaryPsychoType} ({(secondaryOctantFraction * 100).toFixed(1)}%)</strong>
                             </div>
-                            <div>Описание дополнительного психотипа:</div>
-                            {secondaryPortraitDesc}
-                            <div>Описание основного психотипа:</div>
+                            <div style={{fontSize: '1.2rem', marginBottom: '.5rem'}}>Описание дополнительного психотипа:</div>
+                            <p style={{marginBottom: '1.5rem'}}>{secondaryPortraitDesc}</p>
+                            <div style={{fontSize: '1.2rem', marginBottom: '.5rem'}}>Описание основного психотипа:</div>
                         </div>
                     ) : (
-                        <div>
-                            <div>Ваш психотип - {mainPsychoType}</div>
+                        <div className="pb-sm">
+                            <div>Ваш психотип - <strong>{mainPsychoType}</strong></div>
                         </div>
                     )}
                 <Table

@@ -23,7 +23,6 @@
 }
 
 .btn {
-  height: 4.5rem;
   color: $grey;
   padding: .5rem;
   border-radius: $border-radius-lg;
@@ -53,6 +52,7 @@
   &.withBtn {
 
     .btn {
+      height: 4.5rem;
       width: 10rem;
       line-height: 1.2;
     }
@@ -62,5 +62,20 @@
 
 @media(max-width: 992px) {
 
+  .enc {
+    //@include ellipsis;
+    height: auto;
+    margin-right: 0;
+    margin-bottom: .5rem;
+  }
+
+  .wrapper {
+    flex-wrap: wrap;
+
+    .btn {
+      width: 100%;
+      height: auto;
+    }
+  }
 
 }

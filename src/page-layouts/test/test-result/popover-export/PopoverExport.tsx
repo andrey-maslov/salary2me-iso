@@ -18,7 +18,7 @@ const PopoverExport: React.FC<PopoverExportProps> = ({ t }) => {
 
     return (
         <OutsideClickHandler onOutsideClick={() => setOpen(false)}>
-            <div className={style.moreBtn}>
+            <div className={style.btn}>
                 <ButtonMore
                     handler={() => setOpen(!isOpen)}
                     isOpened={isOpen}

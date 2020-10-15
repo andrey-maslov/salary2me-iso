@@ -1,13 +1,16 @@
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useSelector, useDispatch } from 'react-redux'
 import { useMediaPredicate } from 'react-media-hook'
 import { useDeviceDetect } from '../../../helper/useDeviceDetect'
 import { logOut, checkAuth } from '../../../actions/actionCreator'
-import MobiHeader from '../../mobi/header/MobiHeader'
-import WebHeader from '../../web/header/WebHeader'
 import { globalStoreType } from '../../../typings/types'
 import { REDIRECT_URL } from '../../../actions/actionTypes'
+import style from './header.module.scss'
+import LangSwitcher from '../../common/buttons/lang-switcher/LangSwitcher'
+import MobiNav from '../../mobi/header/nav/MobiNav'
+import TopLogo from './top-logo/TopLogo'
+import WebNav from '../../web/header/nav/WebNav'
 
 const Header: React.FC = () => {
     const { isLoggedIn, email } = useSelector((state: globalStoreType) => state.user)
@@ -29,9 +32,9 @@ const Header: React.FC = () => {
         if (!isSigninPage && !isSignupPage) {
             dispatch({ type: REDIRECT_URL, redirectUrl: currentRoute })
         }
-    }, [currentRoute])
-    // const mobile = Boolean(agent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop|XiaoMi|MiuiBrowser/))
-    const handleLoginBtn = () => {
+    }, [currentRoute, dispatch])
+
+    const handleLogoutBtn = () => {
         if (isLoggedIn) {
             dispatch(logOut())
             if (router.pathname === '/profile') {
@@ -41,21 +44,23 @@ const Header: React.FC = () => {
     }
 
     return (
-        <>
-            {isMobile ? (
-                <MobiHeader
-                    isLoggedIn={isLoggedIn}
-                    handleLoginBtn={handleLoginBtn}
-                    userEmail={email}
-                />
-            ) : (
-                <WebHeader
-                    isLoggedIn={isLoggedIn}
-                    handleLoginBtn={handleLoginBtn}
-                    userEmail={email}
-                />
-            )}
-        </>
+        <header className={style.header}>
+            <div className={style.bar}>
+                <TopLogo />
+                {isMobile ? (
+                    <>
+                        <MobiNav isLoggedIn={isLoggedIn} handleLogoutBtn={handleLogoutBtn} />
+                    </>
+                ) : (
+                    <WebNav
+                        isLoggedIn={isLoggedIn}
+                        handleLoginBtn={handleLogoutBtn}
+                        userEmail={email}
+                    />
+                )}
+                <LangSwitcher />
+            </div>
+        </header>
     )
 }
 

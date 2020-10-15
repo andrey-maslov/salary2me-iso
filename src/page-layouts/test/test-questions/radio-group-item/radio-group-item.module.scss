@@ -143,6 +143,11 @@ $baseWidth: 46px;
   .item {
     margin-left: -1rem;
     margin-right: -1rem;
+    margin-bottom: 2px;
+
+    &:last-of-type {
+      margin-bottom: 2rem;
+    }
 
     &.answered {
 

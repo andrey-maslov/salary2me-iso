@@ -50,7 +50,26 @@
 }
 
 .bottom {
-  margin-top: 2rem;
-  padding-top: 2rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
   border-top: 1px solid $grey-bg;
+}
+
+@media (max-width: 992px) {
+
+  .team {
+    margin-bottom: 2rem;
+
+    img {
+      margin-bottom: 1rem;
+    }
+
+    & > div {
+      flex-wrap: wrap;
+
+      a {
+        width: 100%;
+      }
+    }
+  }
 }

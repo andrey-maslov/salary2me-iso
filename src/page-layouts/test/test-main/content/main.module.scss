@@ -1,53 +1,33 @@
 @import '../../../../assets/scss/vars';
 
 .wrapper {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  width: 100%;
-}
 
-.mainImg {
-  display: block;
-  max-width: 100%;
-  height: auto;
 }
 
 .content {
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
   font-size: 1.25rem;
 
   h1 {
     text-transform: uppercase;
     color: $accent;
   }
-
-  .pretitle {
-    font-size: 2rem;
-    margin-bottom: .8rem;
-  }
-
 }
 
-.start {
-  border: 2px solid $accent;
-  color: $accent;
-  font-weight: 700;
-
-  &:hover {
-    background-color: $accent;
-    color: #fff
-  }
+.pretitle {
+  font-size: 2rem;
+  margin-bottom: .8rem;
 }
-
 
 @media(max-width: 992px) {
 
-  .wrapper {
-    padding: 0 0 1.25rem;
+  .content {
+    font-size: 1rem;
+    margin-bottom: 1rem;
   }
 
-  .content {
-    margin-bottom: 1.25rem;
+  .pretitle {
+    font-size: 1.5rem;
+    margin-bottom: .5rem;
   }
 }

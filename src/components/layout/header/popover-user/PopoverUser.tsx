@@ -1,17 +1,16 @@
-import {useState} from 'react'
-import {FiUser, FiUserCheck, FiLogOut, FiChevronDown, FiSettings} from "react-icons/fi"
-import {Popover} from "../../../common/popovers/Popover"
+import { useState } from 'react'
+import { FiUser, FiUserCheck, FiLogOut, FiChevronDown, FiSettings } from 'react-icons/fi'
 import OutsideClickHandler from 'react-outside-click-handler'
-import {Link} from '@i18n'
-import style from "./popover-user.module.scss"
+import { Link } from '@i18n'
+import { Popover } from '../../../common/popovers/Popover'
+import style from './popover-user.module.scss'
 
 interface PopoverUserProps {
     userEmail: string
     logoutHandle: () => void
 }
 
-const PopoverUser: React.FC<PopoverUserProps> = ({userEmail, logoutHandle}) => {
-
+const PopoverUser: React.FC<PopoverUserProps> = ({ userEmail, logoutHandle }) => {
     const [isOpen, setIsOpen] = useState(false)
 
     const outsideClickHandler = () => {
@@ -21,37 +20,35 @@ const PopoverUser: React.FC<PopoverUserProps> = ({userEmail, logoutHandle}) => {
     }
 
     return (
-        <OutsideClickHandler
-            onOutsideClick={outsideClickHandler}
-        >
+        <OutsideClickHandler onOutsideClick={outsideClickHandler}>
             <div className={style.wrapper}>
-
-                <button className={style.btn} onClick={() => {
-                    setIsOpen(!isOpen)
-                }}>
-                    <FiUser/>
-                    <FiChevronDown/>
+                <button
+                    className={style.btn}
+                    onClick={() => {
+                        setIsOpen(!isOpen)
+                    }}>
+                    <FiUser />
+                    <FiChevronDown />
                 </button>
 
-                <Popover isVisible={isOpen} className='user-popover'>
-
+                <Popover isVisible={isOpen} className="user-popover">
                     <div className={`${style.top} ${style.item}`}>
-                        <FiUserCheck/>
+                        <FiUserCheck />
                         <span>{userEmail}</span>
                     </div>
 
                     <ul className={style.links}>
                         <li>
-                            <Link href={'/profile'}>
+                            <Link href="/profile">
                                 <a className={`${style.item} ${style.creds}`}>
-                                    <FiSettings/>
+                                    <FiSettings />
                                     <span>Account settings</span>
                                 </a>
                             </Link>
                         </li>
                         <li>
                             <div className={style.item} onClick={logoutHandle}>
-                                <FiLogOut/>
+                                <FiLogOut />
                                 <span>Logout</span>
                             </div>
                         </li>
@@ -59,7 +56,7 @@ const PopoverUser: React.FC<PopoverUserProps> = ({userEmail, logoutHandle}) => {
                 </Popover>
             </div>
         </OutsideClickHandler>
-    );
+    )
 }
 
 export default PopoverUser

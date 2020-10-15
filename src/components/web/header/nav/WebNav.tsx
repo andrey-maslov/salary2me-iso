@@ -3,7 +3,6 @@ import { Link, withTranslation } from '@i18n'
 import { useRouter } from 'next/router'
 import style from './web-nav.module.scss'
 import PopoverUser from '../../../layout/header/popover-user/PopoverUser'
-import LangSwitcher from '../../../common/buttons/lang-switcher/LangSwitcher'
 
 export type Navigation = {
     handleLoginBtn: () => void
@@ -15,6 +14,10 @@ export type Navigation = {
 const WebNav = ({ handleLoginBtn, isLoggedIn, userEmail, t }: Navigation) => {
     const router = useRouter()
     const [logged, setLogged] = useState(false)
+    const navLinks = [
+        { title: t('common:nav.home'), path: '/' },
+        { title: t('common:nav.test'), path: '/test' }
+    ]
 
     useEffect(() => {
         setLogged(isLoggedIn)
@@ -24,16 +27,13 @@ const WebNav = ({ handleLoginBtn, isLoggedIn, userEmail, t }: Navigation) => {
         return (
             <nav>
                 <ul className={`${style.list} ${style.nav}`}>
-                    <li className={router.pathname === '/' ? style.active : ''}>
-                        <Link href="/">
-                            <a className={style.link}>{t('common:nav.home')}</a>
-                        </Link>
-                    </li>
-                    <li className={router.pathname === '/test' ? style.active : ''}>
-                        <Link href="/test">
-                            <a className={style.link}>{t('common:nav.test')}</a>
-                        </Link>
-                    </li>
+                    {navLinks.map(({ title, path }) => (
+                        <li className={router.pathname === path ? style.active : ''} key={title}>
+                            <Link href={path}>
+                                <a className={style.link}>{title}</a>
+                            </Link>
+                        </li>
+                    ))}
                 </ul>
             </nav>
         )
@@ -41,10 +41,10 @@ const WebNav = ({ handleLoginBtn, isLoggedIn, userEmail, t }: Navigation) => {
 
     return (
         <div className={style.wrapper}>
-            <MainNav />
+            <MainNav/>
             {logged ? (
                 <div className={style.user}>
-                    <PopoverUser userEmail={userEmail} logoutHandle={handleLoginBtn} />
+                    <PopoverUser userEmail={userEmail} logoutHandle={handleLoginBtn}/>
                 </div>
             ) : (
                 <ul className={`${style.list} ${style.auth}`}>
@@ -60,7 +60,6 @@ const WebNav = ({ handleLoginBtn, isLoggedIn, userEmail, t }: Navigation) => {
                     </li>
                 </ul>
             )}
-            <LangSwitcher />
         </div>
     )
 }

@@ -31,7 +31,7 @@ const Forgot: React.FC<ISignin<IForgotForm>> = ({
 
     return (
         <>
-            <p>{t('signin:forgot_explanation')}</p>
+            <div className={style.desc}>{t('signin:forgot_explanation')}</div>
             <form onSubmit={handleSubmit(submitHandle)}>
                 <div className={`form-group ${errors.email ? 'has-error' : ''}`}>
                     <label>

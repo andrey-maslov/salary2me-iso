@@ -3,6 +3,9 @@
 .wrapper {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
+  flex-shrink: 0;
+  flex-grow: 1;
 
   button {
     margin-bottom: 0;
@@ -71,4 +74,11 @@ ul.auth {
 .user {
   margin-right: 1.25rem;
   margin-left: 1.25rem;
+}
+
+@media(max-width: 992px) {
+
+  .wrapper {
+    display: none;
+  }
 }

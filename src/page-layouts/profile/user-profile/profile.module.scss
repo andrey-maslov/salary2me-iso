@@ -1,7 +1,7 @@
 @import '../../../assets/scss/vars';
 
 .wrapper {
-
+  color: currentColor;
 }
 
 .header {
@@ -66,6 +66,14 @@
   }
 }
 
+.list {
+  list-style: none;
+}
+
+.danger {
+  padding-top: 2rem;
+}
+
 .delete {
   display: flex;
   justify-content: space-between;
@@ -80,14 +88,33 @@
   }
 }
 
-/*===== Service box =====*/
 
+@media (max-width: 992px) {
 
+  .box {
+    margin-bottom: 1rem;
 
+    &_content {
+      padding: 1rem 1rem .3rem;
+    }
 
-/*===== END Service box =====*/
+    &.account {
 
+      .item {
+        width: 100%;
+      }
+    }
+  }
 
-@media (max-width: 768px) {
+  .delete {
+    flex-wrap: wrap;
 
+    & > div {
+      margin-bottom: 1.5rem;
+    }
+
+    button {
+      margin: 0 auto;
+    }
+  }
 }

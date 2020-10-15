@@ -4,23 +4,24 @@ import MobileNavToggle from './nav-toggle/NavToggle'
 import { Header } from '../../web/header/WebHeader'
 import style from './mobi-header.module.scss'
 import LangSwitcher from '../../common/buttons/lang-switcher/LangSwitcher'
-import TopLogo from "../../layout/header/top-logo/TopLogo"
+import TopLogo from '../../layout/header/top-logo/TopLogo'
+import { isBrowser } from "../../../helper/helper";
 
-const MobiHeader = ({isLoggedIn, handleLoginBtn, userEmail}: Header) => {
-
+const MobiHeader = ({ isLoggedIn, handleLoginBtn, userEmail }: Header) => {
     const [isMobiNavOpened, setMobiNav] = useState(false)
 
     const mobileNavOpen = (): any => {
         setMobiNav(true)
-        document.body.classList.toggle('menu-opened')
+        if (isBrowser) {
+            document.body.classList.add('menu-opened')
+        }
     }
 
     const mobileNavClose = (): void => {
-        setMobiNav(false);
-        // if (e.target.classList.contains('mobile-nav-overlay') || e.target.classList.contains('nav-link')) {
-        //     setMobiNav(false);
-        //     document.body.classList.toggle('menu-opened');
-        // }
+        setMobiNav(false)
+        if (isBrowser) {
+            document.body.classList.remove('menu-opened')
+        }
     }
 
     return (
@@ -32,11 +33,7 @@ const MobiHeader = ({isLoggedIn, handleLoginBtn, userEmail}: Header) => {
                     <LangSwitcher/>
                 </div>
             </div>
-            <MobiNav
-                isLoggedIn={isLoggedIn}
-                close={mobileNavClose}
-                isOpened={isMobiNavOpened}
-            />
+            <MobiNav isLoggedIn={isLoggedIn} close={mobileNavClose} isOpened={isMobiNavOpened}/>
         </header>
     )
 }
