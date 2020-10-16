@@ -125,6 +125,13 @@ body {
     }
   }
 
+  &-content {
+
+    p {
+      word-break: break-word;
+    }
+  }
+
   main {
     flex: 1 0 auto;
     min-height: auto;

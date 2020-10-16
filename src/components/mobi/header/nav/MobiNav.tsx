@@ -7,7 +7,7 @@ import style from './mobi-nav.module.scss'
 import Button from '../../../common/buttons/button/Button'
 import { isBrowser } from '../../../../helper/helper'
 import MobileNavToggle from '../nav-toggle/NavToggle'
-import LangSwitcher from "../../../common/buttons/lang-switcher/LangSwitcher";
+import LangSwitcher from '../../../common/buttons/lang-switcher/LangSwitcher'
 
 type MobiNavigation = {
     isLoggedIn: boolean
@@ -29,18 +29,16 @@ const MobiNav = ({ isLoggedIn, handleLogoutBtn, t }: MobiNavigation) => {
     }, [isVisible])
 
     const navLinks = [
-        { title: t('common:nav.home'), path: '/', icon: <FiHome/> },
-        { title: t('common:nav.test'), path: '/test', icon: <FiCheckCircle/> }
+        { title: t('common:nav.home'), path: '/', icon: <FiHome /> },
+        { title: t('common:nav.test'), path: '/test', icon: <FiCheckCircle /> }
     ]
-    const privateLinks = [{ title: 'Account settings', path: '/profile', icon: <FiSettings/> }]
+    const privateLinks = [{ title: 'Account settings', path: '/profile', icon: <FiSettings /> }]
     const allLinks = isLoggedIn ? [...navLinks, ...privateLinks] : navLinks
 
     return (
         <>
-            <MobileNavToggle handler={() => setVisible(true)}/>
-            <div
-                className={`${style.overlay} ${isVisible ? style.opened : ''} mobile-nav-overlay`}
-            >
+            <MobileNavToggle handler={() => setVisible(true)} />
+            <div className={`${style.overlay} ${isVisible ? style.opened : ''} mobile-nav-overlay`}>
                 <nav className={`${style.wrapper} mobile-nav-wrapper`}>
                     <h5 className={style.title}>
                         Salary2<span className="color-accent">me</span>
@@ -74,12 +72,16 @@ const MobiNav = ({ isLoggedIn, handleLogoutBtn, t }: MobiNavigation) => {
                             <>
                                 <li>
                                     <Link href="/signin">
-                                        <a className={'btn btn-accent'}>{t('common:buttons.signin')}</a>
+                                        <a className="btn btn-accent">
+                                            {t('common:buttons.signin')}
+                                        </a>
                                     </Link>
                                 </li>
                                 <li>
                                     <Link href="/registration">
-                                        <a className={'btn btn-outlined'}>{t('common:buttons.signup')}</a>
+                                        <a className="btn btn-outlined">
+                                            {t('common:buttons.signup')}
+                                        </a>
                                     </Link>
                                 </li>
                             </>
@@ -89,7 +91,7 @@ const MobiNav = ({ isLoggedIn, handleLogoutBtn, t }: MobiNavigation) => {
                         <div className={style.copy}>
                             © {new Date().getFullYear()} | {SITE_TITLE}
                         </div>
-                        <LangSwitcher/>
+                        <LangSwitcher />
                     </div>
                 </nav>
                 <div className={style.closure} onClick={() => setVisible(false)} />

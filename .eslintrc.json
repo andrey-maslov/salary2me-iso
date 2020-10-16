@@ -29,6 +29,7 @@
         "react-hooks"
     ],
     "rules": {
+        "no-static-element-interactions": 0,
         "react/button-has-type": 0,
         "jsx-a11y/label-has-associated-control": 0,
         "react/no-danger": 0,
