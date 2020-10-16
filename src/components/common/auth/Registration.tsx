@@ -31,7 +31,7 @@ const Registration: React.FC<ISignin<ISignUpForm>> = ({
                     <span>Email</span>
                     <input
                         className={style.input}
-                        name="email"
+                        name="username"
                         onFocus={clearApiError}
                         ref={register({
                             required: `${t('common:errors.required')}`,

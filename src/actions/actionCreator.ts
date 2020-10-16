@@ -229,7 +229,7 @@ export const sendCvForResults = formData => {
         dispatch({ type: LOADING, loading: true })
 
         axios
-            .post(`${process.env.BASE_API}/api/Predict`, formData, {
+            .post(`${process.env.Auth}/api/Predict`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

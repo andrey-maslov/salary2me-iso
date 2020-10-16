@@ -1,4 +1,4 @@
-import { getDescByRange, getFamous, getIndexByRange, UserResult } from 'psychology'
+import { UserResult } from 'psychology'
 
 export default function handler(req, res) {
     res.statusCode = 200

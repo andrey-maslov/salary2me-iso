@@ -4,7 +4,7 @@ module.exports = {
     balance: 0.0,
     firstName: '',
     lastName: '',
-    username: 'andrei.maslau@gmail.com',
+    username: 'test.mail@gmail.com',
     provider: 'local',
     isSubscribed: false,
     isPublic: true,

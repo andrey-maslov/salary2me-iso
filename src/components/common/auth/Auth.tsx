@@ -175,9 +175,8 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
             },
             ...data
         }
-        // dispatch(authUser(userData, 'signin'))
-        console.log({ ...userData, email: 'test@test.com' })
-        dispatch(addAuthData({ ...userData, email: 'test@test.com' }))
+        dispatch(authUser(userData, 'signin'))
+        // dispatch(addAuthData({ ...userData, email: 'test@test.com' }))
         router.push(redirectUrl || '/')
     }
 
@@ -191,7 +190,9 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
             },
             ...data
         }
+        console.log(data)
         dispatch(authUser(userData, 'registration'))
+        // dispatch(authUser(userData, 'registration'))
         router.push(redirectUrl || '/')
     }
 
