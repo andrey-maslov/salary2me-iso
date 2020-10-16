@@ -27,7 +27,6 @@ const Dropzone: React.FC = () => {
     // TODO - move tip text to translations
     const linkedinTip = 'Profile - More - Save to PDF'
     const [myFiles, setMyFiles] = useState([])
-    const [DZClass, setDZClass] = useState('zone')
     const lessThan400 = useMediaPredicate('(max-width: 400px)')
     const { isMobile } = useDeviceDetect()
     const acceptedTypes = isMobile ? '' : ACCEPTED_FILE_TYPES
@@ -59,7 +58,69 @@ const Dropzone: React.FC = () => {
         accept: acceptedTypes
     })
 
-    const handlePushBtn = () => {
+    // can be list, but now it is ONE file
+    const uploadedFiles = myFiles.map(file => {
+        const icon = setFileIcon(file.type)
+
+        return (
+            <div key={file.path} className={style.file}>
+                <div>
+                    <span className={style.fileSize}>{Helper.getConvertedSize(file.size)}</span>
+                    {icon}
+                    <span className={style.fileName}>{file.path}</span>
+                </div>
+                {!isParsingModal && <DeleteBtn text="delete file" handle={() => setMyFiles([])} />}
+            </div>
+        )
+    })
+
+    function renderRejectedBlock() {
+        return (
+            <BorderedBox borderColor="#d73a49">
+                <div className={style.rejectedWrap}>
+                    This file has not accepted type.
+                    <br />
+                    Only following file types are accepted:
+                    <br />
+                    <strong>{ACCEPTED_FILE_TYPES}</strong>
+                </div>
+            </BorderedBox>
+        )
+    }
+
+    return (
+        <div className={`${style.wrapper}`}>
+            <div {...getRootProps()} className={`${style.dropzone}`}>
+                <input {...getInputProps()} />
+                <div>
+                    <p>Drop your CV file here</p>
+                    <p>or</p>
+                    <span className={`${style.browse} color-accent`}>Browse</span>
+                </div>
+                <FaCloudUploadAlt className={style.uploadIcon} />
+                <p className={style.formats}>
+                    Standardized formats{lessThan400 && <br />} are preferred (
+                    <Tooltip tip={linkedinTip} direction="top">
+                        <span>LinkedIn</span>
+                    </Tooltip>{' '}
+                    etc.)
+                </p>
+            </div>
+            {uploadedFiles}
+            {myFiles.length > 0 && (
+                <Button
+                    startIcon={null}
+                    endIcon={<FaArrowRight />}
+                    btnClass="btn btn-accent btn-lg"
+                    title="send CV"
+                    handle={handlePushBtn}
+                />
+            )}
+            {fileRejections.length > 0 && renderRejectedBlock()}
+        </div>
+    )
+
+    function handlePushBtn() {
         pushFile(acceptedFiles)
 
         dispatch({ type: PARSING_MODAL, isParsingModal: true })
@@ -70,7 +131,7 @@ const Dropzone: React.FC = () => {
         }, parsingDuration)
     }
 
-    const pushFile = (files, email = userEmail, name = userName) => {
+    function pushFile(files, email = userEmail, name = userName) {
         if (files.length > 0) {
             const formData = new FormData()
             formData.append('email', email)
@@ -83,87 +144,20 @@ const Dropzone: React.FC = () => {
         }
     }
 
-    // can be list, but now it is ONE file
-    const files = myFiles.map(file => {
-        const icon = setFileIcon(file.type)
-
-        return (
-            <div key={file.path} className={style.file}>
-                <div>
-                    <span className={style.fileSize}>{Helper.getConvertedSize(file.size)}</span>
-                    {icon}
-                    <span className={style.fileName}>{file.path}</span>
-                </div>
-                {!isParsingModal && <DeleteBtn text="delete file" handle={() => setMyFiles([])}/>}
-            </div>
-        )
-    })
-
-    return (
-        <div className={`${style.wrapper}`}>
-            <div
-                {...getRootProps()}
-                className={`${style.dropzone} ${style[DZClass]}`}
-                // onDragOver={() => setDZClass('dragged')}
-                // onDragLeave={() => setDZClass('zone')}
-            >
-                <input {...getInputProps()} />
-                <div>
-                    <p>Drop your CV file here</p>
-                    <p>or</p>
-                    <span className={`${style.browse} color-accent`}>Browse</span>
-                </div>
-                <FaCloudUploadAlt className={style.uploadIcon}/>
-                <p className={style.formats}>
-                    Standardized formats{lessThan400 && <br/>} are preferred (
-                    <Tooltip tip={linkedinTip} direction="top">
-                        <span>LinkedIn</span>
-                    </Tooltip>{' '}
-                    etc.)
-                </p>
-            </div>
-            {files}
-            {myFiles.length > 0 && (
-                <Button
-                    startIcon={null}
-                    endIcon={<FaArrowRight/>}
-                    btnClass="btn btn-accent btn-lg"
-                    title="send CV"
-                    handle={handlePushBtn}
-                />
-            )}
-            {fileRejections.length > 0 && renderRejectedBlock()}
-        </div>
-    )
-
-    function renderRejectedBlock() {
-        return (
-            <BorderedBox borderColor="#d73a49">
-                <div className={style.rejectedWrap}>
-                    This file has not accepted type.
-                    <br/>
-                    Only following file types are accepted:
-                    <br/>
-                    <strong>{ACCEPTED_FILE_TYPES}</strong>
-                </div>
-            </BorderedBox>
-        )
-    }
-
     function setFileIcon(docType) {
         if (docType === 'application/pdf') {
-            return <FaFilePdf className={`${style.fileIcon} ${style.pdf}`}/>
+            return <FaFilePdf className={`${style.fileIcon} ${style.pdf}`} />
         }
         if (
             docType === 'application/msword' ||
             docType === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
         ) {
-            return <FaFileWord className={`${style.fileIcon} ${style.word}`}/>
+            return <FaFileWord className={`${style.fileIcon} ${style.word}`} />
         }
         if (docType === 'image/png' || docType === 'image/jpg' || docType === 'image/jpeg') {
-            return <FaFileImage className={`${style.fileIcon} ${style.image}`}/>
+            return <FaFileImage className={`${style.fileIcon} ${style.image}`} />
         }
-        return <FaFileAlt className={`${style.fileIcon}`}/>
+        return <FaFileAlt className={`${style.fileIcon}`} />
     }
 }
 

@@ -46,19 +46,21 @@ const Header: React.FC = () => {
     return (
         <header className={style.header}>
             <div className={style.bar}>
-                <TopLogo />
+                <TopLogo/>
                 {isMobile ? (
                     <>
-                        <MobiNav isLoggedIn={isLoggedIn} handleLogoutBtn={handleLogoutBtn} />
+                        <MobiNav isLoggedIn={isLoggedIn} handleLogoutBtn={handleLogoutBtn}/>
                     </>
                 ) : (
-                    <WebNav
-                        isLoggedIn={isLoggedIn}
-                        handleLoginBtn={handleLogoutBtn}
-                        userEmail={email}
-                    />
+                    <>
+                        <WebNav
+                            isLoggedIn={isLoggedIn}
+                            handleLoginBtn={handleLogoutBtn}
+                            userEmail={email}
+                        />
+                        <LangSwitcher/>
+                    </>
                 )}
-                <LangSwitcher />
             </div>
         </header>
     )

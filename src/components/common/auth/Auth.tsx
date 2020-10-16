@@ -53,7 +53,7 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
         }
 
         function toPrivacy() {
-            router.push('/privacy-policy')
+            router.push('/policies/privacy-policy')
         }
 
         return function cleanupListener() {

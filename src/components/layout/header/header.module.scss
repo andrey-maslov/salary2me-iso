@@ -26,19 +26,19 @@
     padding-top: 0;
     padding-bottom: 0;
 
-    & > div {
-
-      &:first-child {
-        order: 1
-      }
-
-      &:last-child {
-        order: 3
-      }
-    }
-
-    & > button {
-      order: 0;
-    }
+    //& > div {
+    //
+    //  &:first-child {
+    //    order: 1
+    //  }
+    //
+    //  &:last-child {
+    //    order: 3
+    //  }
+    //}
+    //
+    //& > button {
+    //  order: 0;
+    //}
   }
 }

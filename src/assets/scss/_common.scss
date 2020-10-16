@@ -23,6 +23,11 @@ body {
   }
 }
 
+.menu-opened {
+  height: 100vh;
+  overflow: hidden;
+}
+
 //focus visible polyfill
 .js-focus-visible :focus:not(.focus-visible) {
   outline: none;
@@ -228,6 +233,16 @@ table {
 .lang-popover {
   right: 0;
   //top: 10px;
+}
+
+/*===== MOBI MENU =====*/
+.mobile-nav-wrapper {
+
+  .lang-popover {
+    right: 0;
+    top: -140%;
+  }
+
 }
 
 

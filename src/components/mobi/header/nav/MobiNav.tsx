@@ -7,6 +7,7 @@ import style from './mobi-nav.module.scss'
 import Button from '../../../common/buttons/button/Button'
 import { isBrowser } from '../../../../helper/helper'
 import MobileNavToggle from '../nav-toggle/NavToggle'
+import LangSwitcher from "../../../common/buttons/lang-switcher/LangSwitcher";
 
 type MobiNavigation = {
     isLoggedIn: boolean
@@ -19,14 +20,14 @@ const MobiNav = ({ isLoggedIn, handleLogoutBtn, t }: MobiNavigation) => {
 
     const [isVisible, setVisible] = useState(false)
 
-    const mobileNavOpen = (): any => {
+    const mobiNavOpen = (): any => {
         setVisible(true)
         if (isBrowser) {
             document.body.classList.add('menu-opened')
         }
     }
 
-    const mobileNavClose = (): void => {
+    const mobiNavClose = (): void => {
         setVisible(false)
         if (isBrowser) {
             document.body.classList.remove('menu-opened')
@@ -38,20 +39,20 @@ const MobiNav = ({ isLoggedIn, handleLogoutBtn, t }: MobiNavigation) => {
         { title: t('common:nav.test'), path: '/test', icon: <FiCheckCircle/> }
     ]
     const privateLinks = [{ title: 'Account settings', path: '/profile', icon: <FiSettings/> }]
-    const links = isLoggedIn ? [...navLinks, ...privateLinks] : navLinks
+    const allLinks = isLoggedIn ? [...navLinks, ...privateLinks] : navLinks
 
     return (
         <>
-            <MobileNavToggle handler={mobileNavOpen}/>
+            <MobileNavToggle handler={mobiNavOpen}/>
             <div
                 className={`${style.overlay} ${isVisible ? style.opened : ''} mobile-nav-overlay`}
-                onClick={mobileNavClose}>
+            >
                 <nav className={`${style.wrapper} mobile-nav-wrapper`}>
                     <h5 className={style.title}>
                         Salary2<span className="color-accent">me</span>
                     </h5>
                     <ul className={style.nav}>
-                        {links.map(({ title, path, icon }) => (
+                        {allLinks.map(({ title, path, icon }) => (
                             <li
                                 className={`${style.item} ${
                                     router.pathname === path ? style.active : ''
@@ -94,8 +95,10 @@ const MobiNav = ({ isLoggedIn, handleLogoutBtn, t }: MobiNavigation) => {
                         <div className={style.copy}>
                             © {new Date().getFullYear()} | {SITE_TITLE}
                         </div>
+                        <LangSwitcher/>
                     </div>
                 </nav>
+                <div className={style.closure} onClick={mobiNavClose} />
             </div>
         </>
     )

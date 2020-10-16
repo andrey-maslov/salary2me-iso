@@ -137,7 +137,7 @@ const Profile = ({ t }: { t: any }) => {
                         <a>More about the terms of use</a>
                     </Link>
                     {` or `}
-                    <Link href="/privacy-policy">
+                    <Link href="/policies/privacy-policy">
                         <a>read our privacy policy</a>
                     </Link>
                 </p>
@@ -268,9 +268,8 @@ const Profile = ({ t }: { t: any }) => {
                 <div className={`${style.box_content}`}>
                     <div className={`${style.item} ${style.delete}`}>
                         <div>
-                            Once you delete your account, it cannot be undone. This is
-                            permanent.
-                        </div>
+                            Once you delete your account, it cannot be undone. This is permanent.
+q                        </div>
                         <button
                             className="btn"
                             onClick={() => {

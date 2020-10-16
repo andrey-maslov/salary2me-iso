@@ -38,7 +38,7 @@ const LangSwitcher: React.FC = () => {
         <OutsideClickHandler onOutsideClick={outsideClickHandler}>
             <div className={style.wrapper}>
                 <button
-                    className={style.btn}
+                    className={`${style.btn} lang-btn`}
                     onClick={() => {
                         setIsOpen(!isOpen)
                     }}

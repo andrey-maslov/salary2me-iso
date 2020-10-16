@@ -235,19 +235,28 @@ export const sendCvForResults = formData => {
                 }
             })
             .then(res => {
-                dispatch({
-                    type: ESTIMATION,
-                    predictions: res.data.predictions,
-                    position: res.data.position
-                })
-                dispatch(setCvSent(true))
-                console.log(res.data)
+                // dispatch({
+                //     type: ESTIMATION,
+                //     predictions: res.data.predictions,
+                //     position: res.data.position
+                // })
+                // dispatch(setCvSent(true))
             })
             .catch(error => {
-                console.error('FUKKK!!')
                 apiErrorHandling(error, dispatch)
             })
-            .finally(() => dispatch({ type: LOADING, loading: false }))
+            .finally(() => {
+                // TODO only for demo
+                const fakeData = require('../../api/predictions/predictions')
+                dispatch({
+                    type: ESTIMATION,
+                    predictions: fakeData.predictions,
+                    position: fakeData.position
+                })
+                dispatch(setCvSent(true))
+
+                dispatch({ type: LOADING, loading: false })
+            })
     }
 }
 
