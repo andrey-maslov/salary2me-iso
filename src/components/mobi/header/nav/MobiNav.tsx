@@ -1,7 +1,7 @@
 import { FiHome, FiSettings, FiCheckCircle } from 'react-icons/fi'
 import { Link, withTranslation } from '@i18n'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { SITE_TITLE } from '../../../../constants/constants'
 import style from './mobi-nav.module.scss'
 import Button from '../../../common/buttons/button/Button'
@@ -20,19 +20,13 @@ const MobiNav = ({ isLoggedIn, handleLogoutBtn, t }: MobiNavigation) => {
 
     const [isVisible, setVisible] = useState(false)
 
-    const mobiNavOpen = (): any => {
-        setVisible(true)
-        if (isBrowser) {
+    useEffect(() => {
+        if (isBrowser && isVisible) {
             document.body.classList.add('menu-opened')
-        }
-    }
-
-    const mobiNavClose = (): void => {
-        setVisible(false)
-        if (isBrowser) {
+        } else if (isBrowser && !isVisible) {
             document.body.classList.remove('menu-opened')
         }
-    }
+    }, [isVisible])
 
     const navLinks = [
         { title: t('common:nav.home'), path: '/', icon: <FiHome/> },
@@ -43,7 +37,7 @@ const MobiNav = ({ isLoggedIn, handleLogoutBtn, t }: MobiNavigation) => {
 
     return (
         <>
-            <MobileNavToggle handler={mobiNavOpen}/>
+            <MobileNavToggle handler={() => setVisible(true)}/>
             <div
                 className={`${style.overlay} ${isVisible ? style.opened : ''} mobile-nav-overlay`}
             >
@@ -98,7 +92,7 @@ const MobiNav = ({ isLoggedIn, handleLogoutBtn, t }: MobiNavigation) => {
                         <LangSwitcher/>
                     </div>
                 </nav>
-                <div className={style.closure} onClick={mobiNavClose} />
+                <div className={style.closure} onClick={() => setVisible(false)} />
             </div>
         </>
     )
