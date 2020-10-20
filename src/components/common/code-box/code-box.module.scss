@@ -47,15 +47,12 @@
   }
 }
 
-.wrapper {
+.withBtn {
 
-  &.withBtn {
-
-    .btn {
-      height: 4.5rem;
-      width: 10rem;
-      line-height: 1.2;
-    }
+  .btn {
+    height: 4.5rem;
+    width: 10rem;
+    line-height: 1.2;
   }
 }
 
@@ -72,7 +69,7 @@
   .wrapper {
     flex-wrap: wrap;
 
-    .btn {
+    button.btn {
       width: 100%;
       height: auto;
     }

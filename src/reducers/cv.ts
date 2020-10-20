@@ -2,18 +2,31 @@ import {
     ADD_USER_SALARY,
     ESTIMATION,
     CV_SENT,
+    SET_CURRENCY,
+    SET_SORTING,
+    SET_DISPLAYED_RESULTS,
+    GET_CURRENCY_RATES,
+    SET_PAY_PERIOD,
+    SET_PAY_TAX
 } from '../actions/actionTypes'
 
-import {loadState} from '../store/sessionStorage'
-import {isBrowser} from "../helper/helper";
+import { loadState } from '../store/sessionStorage'
+import { isBrowser } from '../helper/helper'
+import { currencies } from '../constants/constants'
 
 let STATE = isBrowser ? loadState('cv') : null
 
 export type cvStoreType = {
-    predictions: [],
-    position: string,
-    realSalary: string,
-    isCvSent: boolean,
+    predictions: []
+    position: string
+    realSalary: string
+    sorting: string
+    displayedResults: string
+    selectedCurrency: string
+    currencyRates: { EUR: number; USD: number; GBP: number }
+    payPeriod: string
+    payTax: string
+    isCvSent: boolean
 }
 
 if (!STATE) {
@@ -21,33 +34,78 @@ if (!STATE) {
         predictions: [],
         position: '',
         realSalary: '',
-        isCvSent: false,
+        sorting: 'normal',
+        displayedResults: 'netto-normal',
+        selectedCurrency: currencies.usd.nameISO,
+        currencyRates: { EUR: 0.92, USD: 1, GBP: 0.81 },
+        payPeriod: 'monthly',
+        payTax: 'netto',
+        isCvSent: false
     }
 }
 
-export const cv = (state = STATE, {
-    type,
-    position,
-    predictions,
-    realSalary,
-    isCvSent
-}) => {
+export const cv = (
+    state = STATE,
+    {
+        type,
+        position,
+        predictions,
+        realSalary,
+        sorting,
+        displayedResults,
+        selectedCurrency,
+        currencyRates,
+        payPeriod,
+        payTax,
+        isCvSent
+    }
+) => {
     switch (type) {
-        case ADD_USER_SALARY :
+        case ADD_USER_SALARY:
             return {
                 ...state,
-                realSalary,
+                realSalary
             }
-        case CV_SENT :
+        case SET_CURRENCY:
+            return {
+                ...state,
+                selectedCurrency
+            }
+        case SET_SORTING:
+            return {
+                ...state,
+                sorting
+            }
+        case SET_DISPLAYED_RESULTS:
+            return {
+                ...state,
+                displayedResults
+            }
+        case GET_CURRENCY_RATES:
+            return {
+                ...state,
+                currencyRates
+            }
+        case SET_PAY_PERIOD:
+            return {
+                ...state,
+                payPeriod
+            }
+        case SET_PAY_TAX:
+            return {
+                ...state,
+                payTax
+            }
+        case CV_SENT:
             return {
                 ...state,
                 isCvSent
             }
-        case ESTIMATION :
+        case ESTIMATION:
             return {
                 ...state,
                 predictions,
-                position,
+                position
             }
         default:
             return state

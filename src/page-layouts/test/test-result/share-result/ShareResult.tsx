@@ -27,7 +27,7 @@ function ShareResult({ t, encData, isLoggedIn }: IShareResult) {
                     <div>
                         <img
                             src="/img/tc-logo.png"
-                            srcSet="/img/tc-logo.png 2x"
+                            srcSet="/img/tc-logo@2x.png 2x"
                             className="img-responsive"
                             alt="teamconstructor"
                         />

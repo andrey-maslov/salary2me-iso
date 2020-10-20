@@ -1,11 +1,10 @@
-import { useRef, useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { Link, withTranslation } from '@i18n'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import Signin, { ISigninForm } from './Signin'
 import Registration, { ISignUpForm } from './Registration'
 import {
-    addAuthData,
     authUser,
     sendForgotEmail,
     sendNewPassword,
@@ -28,8 +27,8 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
     const router = useRouter()
     const dispatch = useDispatch()
     const agreement = useRef<HTMLDivElement>(null)
-    const { isLoggedIn, name } = useSelector((state: globalStoreType) => state.user)
-    const { loading, apiErrorMsg, redirectUrl } = useSelector((state: globalStoreType) => state.app)
+    const { isLoggedIn } = useSelector((state: globalStoreType) => state.user)
+    const { isLoading, apiErrorMsg, redirectUrl, processFailed } = useSelector((state: globalStoreType) => state.app)
 
     const page = getAuthPage(router.pathname)
 
@@ -72,7 +71,7 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
                 return (
                     <>
                         <Signin
-                            isLoading={loading}
+                            isLoading={isLoading}
                             errorApiMessage={apiErrorMsg}
                             submitHandle={SignIn}
                             clearApiError={clearApiError}
@@ -85,7 +84,7 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
             case authModes[1]:
                 return (
                     <Registration
-                        isLoading={loading}
+                        isLoading={isLoading}
                         errorApiMessage={apiErrorMsg}
                         submitHandle={signUp}
                         clearApiError={clearApiError}
@@ -95,7 +94,7 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
                 return (
                     <>
                         <Forgot
-                            isLoading={loading}
+                            isLoading={isLoading}
                             errorApiMessage={apiErrorMsg}
                             submitHandle={forgotHandle}
                             clearApiError={clearApiError}
@@ -109,7 +108,7 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
                 return (
                     <>
                         <Reset
-                            isLoading={loading}
+                            isLoading={isLoading}
                             errorApiMessage={apiErrorMsg}
                             submitHandle={resetHandle}
                             clearApiError={clearApiError}
@@ -131,7 +130,7 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
             case authModes[5]:
                 return (
                     <ExtraUserInfo
-                        isLoading={loading}
+                        isLoading={isLoading}
                         errorApiMessage={apiErrorMsg}
                         submitHandle={addExtraInfo}
                         clearApiError={clearApiError}
@@ -166,18 +165,8 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
     }
 
     function SignIn(data: ISigninForm): void {
-        const userData = {
-            firstName: 'John',
-            lastName: 'Doe',
-            city: {
-                id: 0,
-                name: 'city'
-            },
-            ...data
-        }
-        dispatch(authUser(userData, 'signin'))
-        // dispatch(addAuthData({ ...userData, email: 'test@test.com' }))
-        router.push(redirectUrl || '/')
+        dispatch(authUser(data, 'signin'))
+        setSuccessMsg(!isLoading && !processFailed)
     }
 
     function signUp(data: ISignUpForm): void {
@@ -190,10 +179,8 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
             },
             ...data
         }
-        console.log(data)
         dispatch(authUser(userData, 'registration'))
-        // dispatch(authUser(userData, 'registration'))
-        router.push(redirectUrl || '/')
+        setSuccessMsg(!isLoading && !processFailed)
     }
 
     function forgotHandle(data: IForgotForm): void {
@@ -209,7 +196,6 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
             email: data.email
         }
         dispatch(sendNewPassword(newData))
-        // console.log(newData)
     }
 
     function addExtraInfo(data: IInfoForm) {
@@ -224,6 +210,12 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
     function clearApiError() {
         // console.log('asdasd')
         // dispatch({type: SET_ERROR, errorApiMessage: ''})
+    }
+
+    function setSuccessMsg(condition: boolean): void {
+        if (condition) {
+            router.push(redirectUrl || '/')
+        }
     }
 }
 

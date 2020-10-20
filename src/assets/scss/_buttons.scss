@@ -49,6 +49,13 @@ button.btn-link {
   }
 }
 
+.btn-loader {
+
+  svg {
+    animation: loader 1s linear infinite;
+  }
+}
+
 /*===== SIZES =====*/
 .btn {
 

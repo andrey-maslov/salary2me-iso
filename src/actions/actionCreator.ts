@@ -98,8 +98,8 @@ export const authUser = (userData: ISignUpData | ISignInData, authType: keyof ty
             })
             .catch(error => {
                 apiErrorHandling(error, dispatch)
-                dispatch(setLoading(false))
             })
+            .finally(() => dispatch(setLoading(false)))
     }
 }
 
@@ -362,15 +362,7 @@ export function clearErrors() {
 
 function apiErrorHandling(error: any, dispatch: any) {
     if (error.response) {
-        let msg: string
-        try {
-            msg = Array.isArray(error.response.data.message)
-                ? error.response.data.message[0].messages[0].message
-                : 'Something wrong'
-        } catch {
-            msg = 'Something wrong with resources'
-        }
-        console.log(msg)
+        const msg: string = error.response.data?.title || 'Something wrong with resources'
         dispatch({
             type: SET_ERROR,
             apiErrorMsg: msg
@@ -379,11 +371,14 @@ function apiErrorHandling(error: any, dispatch: any) {
         // The request was made but no response was received
         // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
         // http.ClientRequest in node.js
-        console.error('Some troubles with network', error.request)
+        const msg = 'Some troubles with network'
+        dispatch({
+            type: SET_ERROR,
+            apiErrorMsg: msg
+        })
     } else {
         // Something happened in setting up the request that triggered an Error
         console.error('ERROR', error.message)
     }
     dispatch({ type: PROCESS_FAILED, processFailed: true })
-    console.log(error)
 }

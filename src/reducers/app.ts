@@ -1,34 +1,7 @@
-import {
-    SET_CURRENCY,
-    GET_CURRENCY_RATES,
-    SET_PAY_PERIOD,
-    SET_PAY_TAX,
-    SET_SORTING,
-    SET_DISPLAYED_RESULTS,
-    LOADING,
-    API_ERROR,
-    PROCESS_FAILED,
-    REDIRECT_URL,
-    SET_TOAST
-} from '../actions/actionTypes'
-import { currencies } from '../constants/constants'
-import { loadState } from '../store/sessionStorage'
-import { isBrowser } from '../helper/helper'
-
-let STATE
-
-if (isBrowser) {
-    STATE = loadState('app')
-}
+import { LOADING, PROCESS_FAILED, REDIRECT_URL, SET_TOAST, SET_ERROR } from '../actions/actionTypes'
 
 export type appStoreType = {
-    sorting: string
-    displayedResults: string
-    selectedCurrency: string
-    currencyRates: { EUR: number; USD: number; GBP: number }
-    payPeriod: string
-    payTax: string
-    loading: boolean
+    isLoading: boolean
     apiErrorMsg: string | null
     processFailed: boolean
     setToast: number
@@ -36,20 +9,12 @@ export type appStoreType = {
     redirectUrl: string | null
 }
 
-if (!STATE) {
-    STATE = {
-        sorting: 'normal',
-        displayedResults: 'netto-normal',
-        selectedCurrency: currencies.usd.nameISO,
-        currencyRates: { EUR: 0.92, USD: 1, GBP: 0.81 },
-        payPeriod: 'monthly',
-        payTax: 'netto',
-        loading: false,
-        apiErrorMsg: null,
-        processFailed: false,
-        setToast: 0,
-        redirectUrl: null
-    }
+const STATE = {
+    isLoading: false,
+    apiErrorMsg: null,
+    processFailed: false,
+    setToast: 0,
+    redirectUrl: null
 }
 
 /**
@@ -57,71 +22,23 @@ if (!STATE) {
  * @param state
  * @param type
  * @param sorting
- * @param displayedResults
- * @param selectedCurrency
- * @param currencyRates
- * @param payPeriod
- * @param payTax
- * @param loading
  * @param apiErrorMsg
  * @param processFailed
  * @param setToast {0 - default, 1 - success, 2 - fail}
+ * @param redirectUrl
  */
 
 export const app = (
     state = STATE,
-    {
-        type,
-        sorting,
-        displayedResults,
-        selectedCurrency,
-        currencyRates,
-        payPeriod,
-        payTax,
-        loading,
-        apiErrorMsg,
-        processFailed,
-        setToast,
-        redirectUrl
-    }
+    { type, isLoading, apiErrorMsg, processFailed, setToast, redirectUrl }
 ) => {
     switch (type) {
-        case SET_CURRENCY:
-            return {
-                ...state,
-                selectedCurrency
-            }
-        case SET_SORTING:
-            return {
-                ...state,
-                sorting
-            }
-        case SET_DISPLAYED_RESULTS:
-            return {
-                ...state,
-                displayedResults
-            }
-        case GET_CURRENCY_RATES:
-            return {
-                ...state,
-                currencyRates
-            }
-        case SET_PAY_PERIOD:
-            return {
-                ...state,
-                payPeriod
-            }
-        case SET_PAY_TAX:
-            return {
-                ...state,
-                payTax
-            }
         case LOADING:
             return {
                 ...state,
-                loading
+                isLoading
             }
-        case API_ERROR:
+        case SET_ERROR:
             return {
                 ...state,
                 apiErrorMsg

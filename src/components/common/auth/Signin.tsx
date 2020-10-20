@@ -1,9 +1,9 @@
-import style from "./auth.module.scss"
-import Button from "../buttons/button/Button"
-import {useForm} from 'react-hook-form'
-import {AiOutlineLoading} from 'react-icons/ai'
-import {withTranslation} from "@i18n"
-import Password from "../inputs/password/Password";
+import { useForm } from 'react-hook-form'
+import { AiOutlineLoading } from 'react-icons/ai'
+import { withTranslation } from '@i18n'
+import Button from '../buttons/button/Button'
+import style from './auth.module.scss'
+import Password from '../inputs/password/Password'
 
 export interface ISigninForm {
     username: string
@@ -18,13 +18,17 @@ export interface ISignin<T> {
     t?: any
 }
 
-const Signin: React.FC<ISignin<ISigninForm>> = ({isLoading, errorApiMessage, submitHandle, clearApiError, t}) => {
-
-    const {register, handleSubmit, reset, errors} = useForm<ISigninForm>()
+const Signin: React.FC<ISignin<ISigninForm>> = ({
+    isLoading,
+    errorApiMessage,
+    submitHandle,
+    clearApiError,
+    t
+}) => {
+    const { register, handleSubmit, errors } = useForm<ISigninForm>()
 
     return (
         <form onSubmit={handleSubmit(submitHandle)}>
-
             <div className={`form-group ${errors.username ? 'has-error' : ''}`}>
                 <label>
                     <span>{t('signin:identifier')}</span>
@@ -38,28 +42,28 @@ const Signin: React.FC<ISignin<ISigninForm>> = ({isLoading, errorApiMessage, sub
                         })}
                     />
                 </label>
-                {errors.username && <div className={`item-explain`}>{errors.username.message}</div>}
+                {errors.username && <div className="item-explain">{errors.username.message}</div>}
             </div>
             <div className={`form-group ${errors.password ? 'has-error' : ''}`}>
                 <Password
                     label={t('signin:pwd')}
                     innerRef={register({
-                        required: `${t('common:errors.required')}`,
+                        required: `${t('common:errors.required')}`
                     })}
                     clearApiError={clearApiError}
-                    name={"password"}
+                    name="password"
                 />
-                {errors.password && <div className={`item-explain`}>{errors.password.message}</div>}
+                {errors.password && <div className="item-explain">{errors.password.message}</div>}
             </div>
 
             <div className={`form-group ${errorApiMessage ? 'has-error' : ''}`}>
                 <Button
                     title={t('signin:sign_in')}
-                    startIcon={isLoading && <AiOutlineLoading/>}
-                    handle={() => void (0)}
-                    btnClass={'btn btn-accent btn-loader'}
+                    startIcon={isLoading && <AiOutlineLoading />}
+                    handle={() => void 0}
+                    btnClass="btn btn-accent btn-loader"
                 />
-                {errorApiMessage && <div className={`item-explain`}>{errorApiMessage}</div>}
+                {errorApiMessage && <div className="item-explain">{errorApiMessage}</div>}
             </div>
         </form>
     )
