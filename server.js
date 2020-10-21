@@ -22,11 +22,11 @@ app.prepare()
             }
         })
 
-        server.get('/register', (req, res) => {
+        server.get('/registration', (req, res) => {
             if (req.cookies.token) {
                 res.redirect('/')
             } else {
-                return app.render(req, res, '/register', req.query)
+                return app.render(req, res, '/registration', req.query)
             }
         })
 

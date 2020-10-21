@@ -2,7 +2,7 @@ import {
     SAVE_TEST_DATA,
     SAVE_PERSONAL_INFO,
     FETCH_TERMS,
-    FETCH_TEST_DESC
+    FETCH_TEST_DESC, CLEAR_USER_DATA
 } from '../actions/actionTypes'
 import { loadState } from '../store/sessionStorage'
 import { isBrowser } from '../helper/helper'
@@ -21,7 +21,7 @@ if (!STATE) {
 export type testStoreType = {
     personalInfo: [] | null
     testData: [] | null
-    terms: {} | null
+    terms: Record<string, unknown> | null
     descriptions: [] | null
 }
 
@@ -47,6 +47,12 @@ export const test = (state = STATE, { type, personalInfo, testData, terms, descr
             return {
                 ...state,
                 descriptions
+            }
+        case CLEAR_USER_DATA:
+            return {
+                ...state,
+                personalInfo: null,
+                testData: null
             }
         default:
             return state

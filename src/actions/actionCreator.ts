@@ -70,6 +70,8 @@ export function checkAuth(jwt?) {
                 })
                 .catch(error => apiErrorHandling(error, dispatch))
                 .finally(() => dispatch(setLoading(false)))
+        } else {
+            dispatch(logOut())
         }
     }
 }
@@ -130,6 +132,9 @@ export const updateUserData = (userData: any) => {
                     dispatch({ type: SET_TOAST, setToast: 2 })
                 })
                 .finally(() => dispatch(setLoading(false)))
+        } else {
+            console.log('no token')
+            dispatch(logOut())
         }
     }
 }

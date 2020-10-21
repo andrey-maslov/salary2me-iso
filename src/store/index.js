@@ -1,10 +1,10 @@
 import { useMemo } from 'react'
-import { createStore, compose, applyMiddleware, Middleware } from 'redux'
+import { createStore, compose, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import rootReducer from '../reducers'
-import {loadState, saveState} from './sessionStorage'
+import { saveState } from './sessionStorage'
 
-let store;
+let store
 
 /* eslint-disable no-underscore-dangle */
 const composeEnhancers =
@@ -12,9 +12,10 @@ const composeEnhancers =
     typeof window === 'object' &&
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
         window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({}) : compose
+
 /* eslint-enable */
 
-function initStore (preloadedState ) {
+function initStore(preloadedState) {
     return (
         createStore(
             rootReducer,
@@ -28,7 +29,7 @@ function initStore (preloadedState ) {
     )
 }
 
-export const initializeStore = (preloadedState) => {
+export const initializeStore = preloadedState => {
     let _store = store ?? initStore(preloadedState)
 
     // After navigating to a page with an initial Redux state, merge that state
@@ -36,7 +37,7 @@ export const initializeStore = (preloadedState) => {
     if (preloadedState && store) {
         _store = initStore({
             ...store.getState(),
-            ...preloadedState,
+            ...preloadedState
         })
         // Reset the current store
         store = undefined
@@ -53,13 +54,12 @@ export const initializeStore = (preloadedState) => {
 const myStore = initializeStore()
 
 myStore.subscribe(() => {
-    saveState('app', myStore.getState().app)
     saveState('test', myStore.getState().test)
     saveState('user', myStore.getState().user)
     saveState('cv', myStore.getState().cv)
 })
 
 export function useStore(initialState) {
-    const store = useMemo(() => initializeStore(initialState), [initialState])
-    return store
+    const memoizedStore = useMemo(() => initializeStore(initialState), [initialState])
+    return memoizedStore
 }

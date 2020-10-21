@@ -31,14 +31,17 @@ const Signin: React.FC<ISignin<ISigninForm>> = ({
         <form onSubmit={handleSubmit(submitHandle)}>
             <div className={`form-group ${errors.username ? 'has-error' : ''}`}>
                 <label>
-                    <span>{t('signin:identifier')}</span>
+                    <span>Email</span>
                     <input
                         className={style.input}
-                        type="text"
                         name="username"
                         onFocus={clearApiError}
                         ref={register({
-                            required: `${t('common:errors.required')}`
+                            required: `${t('common:errors.required')}`,
+                            pattern: {
+                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                message: `${t('common:errors.invalid_email')}`
+                            }
                         })}
                     />
                 </label>

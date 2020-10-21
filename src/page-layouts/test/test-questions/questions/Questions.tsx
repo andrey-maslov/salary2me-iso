@@ -18,6 +18,9 @@ const Questions = ({ changeBlock, t }: QuestionsProps) => {
     const { addToast } = useToasts()
     const { isLoggedIn } = useSelector((state: globalStoreType) => state.user)
 
+    // TODO fix if will be redundant
+    const user = useSelector((state: globalStoreType) => state.user)
+
     const questions = t(`questions:questions`, { returnObjects: true })
 
     let initAnswers: Array<AnswerType> = questions.map((item: any) => ({
@@ -134,10 +137,13 @@ const Questions = ({ changeBlock, t }: QuestionsProps) => {
 
     function sendAnswers(result: any) {
         dispatch(saveTestData(result))
+        const userData = {
+            ...user
+        }
 
         // TODO put here correct data object
         if (isLoggedIn) {
-            dispatch(updateUserData({}))
+            dispatch(updateUserData(userData))
         }
 
         router.push('result')

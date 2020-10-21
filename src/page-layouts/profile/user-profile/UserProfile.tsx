@@ -88,8 +88,12 @@ const Profile = ({ t }: { t: any }) => {
         dispatch
     ])
 
+    if (!isLoggedIn) {
+        router.push('/')
+    }
+
     if (!isReady) {
-        return <Loader/>
+        return <Loader />
     }
 
     const textFields = [
@@ -205,7 +209,7 @@ const Profile = ({ t }: { t: any }) => {
                                 <Link href="/resume">
                                     <a>Ваше резюме</a>
                                 </Link>
-                                <FaFilePdf/>
+                                <FaFilePdf />
                             </div>
                             <div className={`${style.item} flex between-xs`}>
                                 <Link href="/estimation">
@@ -242,7 +246,7 @@ const Profile = ({ t }: { t: any }) => {
                                 <a href={pairLink} target="_blank" rel="noopener noreferrer">
                                     Перейти к анализу совместимости
                                 </a>
-                                <MdAttachMoney/>
+                                <MdAttachMoney />
                             </div>
                             <div className={`${style.item} flex between-xs`}>
                                 <a href={teamLink} target="_blank" rel="noopener noreferrer">
@@ -256,7 +260,7 @@ const Profile = ({ t }: { t: any }) => {
                                 <a href={grBaseLink} target="_blank" rel="noopener noreferrer">
                                     Рабочий кабинет
                                 </a>
-                                <MdAttachMoney/>
+                                <MdAttachMoney />
                             </div>
                         </Service>
                     </div>
@@ -269,15 +273,13 @@ const Profile = ({ t }: { t: any }) => {
                     <div className={`${style.item} ${style.delete}`}>
                         <div>
                             Once you delete your account, it cannot be undone. This is permanent.
-q                        </div>
+                        </div>
                         <button
                             className="btn"
                             onClick={() => {
                                 if (
                                     // eslint-disable-next-line no-alert
-                                    window.confirm(
-                                        'Вы действительно хотите удалить аккаунт????'
-                                    )
+                                    window.confirm('Вы действительно хотите удалить аккаунт????')
                                 ) {
                                     // eslint-disable-next-line no-alert
                                     alert('Зря!')
@@ -288,7 +290,6 @@ q                        </div>
                     </div>
                 </div>
             </div>
-
         </div>
     )
 
