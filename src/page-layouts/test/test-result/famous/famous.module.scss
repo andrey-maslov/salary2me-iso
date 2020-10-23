@@ -1,8 +1,8 @@
 @import '../../../../assets/scss/vars';
 
 .wrapper {
-  border: 1px solid $grey-bg;
-  border-radius: $box-shadow-md;
+  //border: 1px solid $accent;
+  border-radius: $border-radius-sm;
   padding: 1.5rem;
 }
 
@@ -19,6 +19,7 @@
   display: block;
   max-width: 100%;
   height: auto;
-  width: 300px;
+  width: 250px;
   margin: 0 auto 1.5rem;
+  opacity: .8;
 }

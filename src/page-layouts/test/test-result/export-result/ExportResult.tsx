@@ -8,19 +8,28 @@ import CodeBox from '../../../../components/common/code-box/CodeBox'
 import style from './export-result.module.scss'
 import { globalStoreType } from '../../../../typings/types'
 
+const testData = {
+    famous: {
+        person: 'some name',
+        imgName: '0_0_0'
+    },
+    psychoTypeDesc:
+        'Вы легко адаптируетесь к любым изменениям, легко находите новое и с удовольствием его применяете. Правда, есть небольшая проблема с доведением дел до конца, т.к. снова и снова приходят новые увлечения'
+}
+
 interface ExportResultProps {
     data: string
     t: any
 }
 
 const ExportResult: React.FC<ExportResultProps> = ({ data, t }) => {
-    const { isLoggedIn } = useSelector((state: globalStoreType) => state.user)
+    const { email } = useSelector((state: globalStoreType) => state.user)
 
     return (
         <>
             <h5 className={style.title}>{t('test:result_page.your_encrypted_result')}:</h5>
             <div className={style.result}>
-                <CodeBox content={data}/>
+                <CodeBox content={data} />
             </div>
 
             <div className={style.bottom}>
@@ -50,15 +59,16 @@ const ExportResult: React.FC<ExportResultProps> = ({ data, t }) => {
         axios
             .post(
                 '/create-pdf',
-                { radar: dataImg },
+                { radar: dataImg, testData },
                 {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
                     responseType: 'arraybuffer'
                 }
             )
             .then(res => {
-                // const fileName = name.replace(' ', '-')
-                const fileName = 'test-file'
-                // console.log(res.data)
+                const fileName = email.split('@')[0].replace('.', '-')
                 const fileBlob = new Blob([res.data], { type: 'application/pdf' })
                 saveAs(fileBlob, `${fileName}-profile.pdf`)
             })

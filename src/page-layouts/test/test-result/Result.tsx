@@ -115,7 +115,8 @@ const Result: React.FC<ResultProps> = ({ t }) => {
                     </div>
                     <div className="col-lg-5">
                         <Famous
-                            person={famousPerson}
+                            person={famousPerson.person}
+                            imgName={famousPerson.picture}
                             desc={getPsychoTypeDesc(sortedOctants, psychoTypeList) || ''}
                         />
                     </div>

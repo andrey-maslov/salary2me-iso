@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import { useToasts } from 'react-toast-notifications'
 import { MdAttachMoney } from 'react-icons/md'
 import { FaFilePdf } from 'react-icons/fa'
+import QRCode from 'qrcode.react'
 import style from './profile.module.scss'
 import { globalStoreType, IOneFieldForm } from '../../../typings/types'
 import InputTransformer from '../../../components/common/inputs/input-transformer/InputTransformer'
@@ -34,6 +35,7 @@ const Profile = ({ t }: { t: any }) => {
     const { addToast } = useToasts()
     const dispatch = useDispatch()
     const router = useRouter()
+    const encData: string | null = testData ? btoa(JSON.stringify([personalInfo, testData])) : null
 
     const [localUser, setLocalUser] = useState<IUserData>({
         firstName,
@@ -125,9 +127,7 @@ const Profile = ({ t }: { t: any }) => {
         }
     ]
 
-    const pairLink = `https://teamconstructor.com${
-        testData ? `?encdata=${btoa(JSON.stringify([personalInfo, testData]))}` : ''
-    }`
+    const pairLink = `https://teamconstructor.com${encData ? `?encdata=${encData}` : ''}`
     const teamLink = `https://teamconstructor.com`
     const grBaseLink = `https://thegreatbase.online`
 
@@ -217,10 +217,16 @@ const Profile = ({ t }: { t: any }) => {
                                 </Link>
                             </div>
                             <div className={`${style.item} flex between-xs`}>
-                                {testData ? (
-                                    <CodeBox
-                                        content={btoa(JSON.stringify([personalInfo, testData]))}
-                                    />
+                                {encData ? (
+                                    <>
+                                        <QRCode
+                                            // value={`${process.env.HOST}/test/result/encdata=${encData}`}
+                                            value={`https://salary.nobugs.today/test/result?encdata=${encData}`}
+                                            size={200}
+                                        />
+                                        <br />
+                                        <CodeBox content={encData} />
+                                    </>
                                 ) : (
                                     <Link href="/test">
                                         <a>Пройдите тест</a>

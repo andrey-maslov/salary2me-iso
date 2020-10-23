@@ -1,14 +1,4 @@
-// const wrapper = document.getElementById('root')
-
-const date = new Date()
-const tableData1 = [
-    ['row1 title', 'row 1 description'],
-    ['row2 title', 'row 2 description'],
-    ['row3 title', 'row 3 description'],
-    ['row4 title', 'row 4 description']
-]
-
-const template = img => {
+const template = (img, testData) => {
     return `
     <!doctype html>
     <html>
@@ -41,10 +31,19 @@ const template = img => {
           <h1 class="justify-center">Ваш психологический профиль</h1>
             
             <div class="top">
-<!--                <img class="image" src="./test.png" alt="">-->
-                    <img src="${img}" alt="">
+                    <div class="radar">
+                        <img src="${img}" alt="">
+                    </div>
+                    <div class="famous">
+                    </div>
                 <div class="main-desc">
-                    Вы легко адаптируетесь к любым изменениям, легко находите новое и с удовольствием его применяете. Правда, есть небольшая проблема с доведением дел до конца, т.к. снова и снова приходят новые увлечения
+                    <img src="http://localhost:4000/img/famous/${
+                        testData.famous.imgName
+                    }.png" alt="famous">
+                    <div class="famous-desc">
+                        <div class="famous-name">${testData.famous.person}</div>
+                        <div class="famous-text">${testData.psychoTypeDesc}</div>
+                    </div>
                 </div>
             </div>
             <div class="box">
@@ -60,6 +59,16 @@ const template = img => {
     </html>`
 }
 
-// wrapper.innerHTML = template
+// const image = './test.png'
+// const testData = {
+//     famous: {
+//         person: 'Хан Соло',
+//         imgName: '0_0_0'
+//     },
+//     psychoTypeDesc:
+//         'Вы легко адаптируетесь к любым изменениям, легко находите новое и с удовольствием его применяете. Правда, есть небольшая проблема с доведением дел до конца, т.к. снова и снова приходят новые увлечения'
+// }
+// const wrapper = document.getElementById('root')
+// wrapper.innerHTML = template(image, testData)
 
 module.exports = template

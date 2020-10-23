@@ -1,6 +1,8 @@
 const express = require('express')
 const next = require('next')
 const cookieParser = require('cookie-parser')
+const bodyParser = require('body-parser')
+const cors = require('cors')
 const generatePdf = require('./pdf-generator/pdf-generator')
 
 const port = process.env.PORT || 4000
@@ -13,6 +15,10 @@ const server = express()
 app.prepare()
     .then(() => {
         server.use(cookieParser())
+        server.use(cors())
+        server.use(bodyParser.urlencoded({ extended: true }))
+        server.use(bodyParser.json())
+        server.use(generatePdf)
 
         server.get('/signin', (req, res) => {
             if (req.cookies.token) {
@@ -54,8 +60,6 @@ app.prepare()
             if (err) throw err
             console.log(`> Ready on http://localhost:${port}`)
         })
-
-        generatePdf(server)
     })
     .catch(ex => {
         console.error(ex.stack)

@@ -1,27 +1,22 @@
-const bodyParser = require('body-parser')
-const cors = require('cors')
 const convertHTMLToPDF = require('pdf-puppeteer')
-const template = require('./templates/template2')
+const { Router } = require('express')
+const template = require('./templates/template')
 
-function generatePdf(app) {
-    app.use(cors())
-    app.use(bodyParser.urlencoded({ extended: true }))
-    app.use(bodyParser.json())
+const router = Router()
 
-    app.post('/create-pdf', (req, res) => {
+router.post('/create-pdf', (req, res) => {
+    const { radar, testData } = req.body
 
-        const {radar} = req.body
-        convertHTMLToPDF(
-            template(radar),
-            pdf => {
-                // res.setHeader('Content-Type', 'application/pdf')
-                res.send(pdf)
-            },
-            null,
-            null,
-            true
-        )
-    })
-}
+    convertHTMLToPDF(
+        template(radar, testData),
+        pdf => {
+            res.setHeader('Content-Type', 'application/pdf')
+            res.send(pdf)
+        },
+        null,
+        null,
+        true
+    )
+})
 
-module.exports = generatePdf
+module.exports = router
