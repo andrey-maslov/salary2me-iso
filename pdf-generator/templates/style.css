@@ -1,0 +1,58 @@
+h2 {
+    margin-top: 0;
+}
+
+.wrapper {
+    max-width: 800px;
+    margin: auto;
+    padding: 30px;
+    border: 1px solid #eee;
+    font-family: sans-serif;
+    color: #555;
+}
+.top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+.radar {
+    margin-right: 50px;
+}
+.radar img {
+    width: 360px;
+}
+.main-desc img {
+    width: 180px;
+    margin: 0 auto 20px;
+}
+.famous-name {
+    font-weight: 700;
+    font-size: 120%;
+    margin-bottom: 12px;
+    text-align: center;
+}
+.famous-text {
+    font-size: 13px;
+}
+.image {
+    display: block;
+    width: 50%;
+    height: auto;
+}
+.box {
+    color: #fff;
+}
+table {
+    border-collapse: collapse;
+}
+table td, table th {
+    border: 1px solid #aeaeae;
+    padding: 5px 10px;
+    font-size: 13px;
+}
+.box table, td, h3 {
+    color: #333;
+}
+.box h3 {
+    margin-bottom: 0;
+}

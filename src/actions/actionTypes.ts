@@ -24,6 +24,7 @@ export const SAVE_TEST_DATA = 'SAVE_TEST_DATA'
 export const SAVE_PERSONAL_INFO = 'SAVE_PERSONAL_INFO'
 export const FETCH_TERMS = 'FETCH_TERMS'
 export const FETCH_TEST_DESC = 'FETCH_TEST_DESC'
+export const PSYCHO_RESULT = 'PSYCHO_RESULT'
 
 /*= ==== UTILS ===== */
 export const SET_SORTING = 'SET_SORTING'

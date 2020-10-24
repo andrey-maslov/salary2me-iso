@@ -25,6 +25,7 @@ import { savePersonalInfo, saveTestData } from '../../../actions/actionCreator'
 import { globalStoreType } from '../../../typings/types'
 import Famous from './famous/Famous'
 import ShareResult from './share-result/ShareResult'
+import { PSYCHO_RESULT } from "../../../actions/actionTypes";
 
 type AnyFullResultType = any
 type ResultProps = {
@@ -54,12 +55,16 @@ const Result: React.FC<ResultProps> = ({ t }) => {
         }
         if (descriptions) {
             setReady(true)
+            console.log(JSON.stringify({ fullProfileData, portraitDesc, famous, secondaryPortraitDesc, psychoTypeDesc }))
+            dispatch({
+                type: PSYCHO_RESULT, result: { fullProfileData, portraitDesc, famous, secondaryPortraitDesc, psychoTypeDesc }
+            })
         }
     }, [scheme, descriptions, email])
 
     // TODO check this!
     if (!isReady) {
-        return <Loader/>
+        return <Loader />
     }
 
     if (!testData || testData.length === 0) {
@@ -77,9 +82,11 @@ const Result: React.FC<ResultProps> = ({ t }) => {
     const sex = personalInfo[2] === 2 ? 1 : personalInfo[2]
     const { sortedOctants, mainOctant, profile, mainPsychoTypeList } = fullProfile
     const { fullProfileList, tablesWithBarsTitles, famousList, psychoTypeList, complexDataSoft, tendencies } = descriptions
-    const famousPerson = getFamous(mainOctant, famousList, sex)
+    const famous = getFamous(mainOctant, famousList, sex)
     const tables = TablesWithBars(modedSubAxes, tablesWithBarsTitles, testData)
     const fullProfileData = getProfileDesc()
+    const portraitDesc = getPortraitDesc(mainOctant, complexDataSoft)
+    const psychoTypeDesc = getPsychoTypeDesc(sortedOctants, psychoTypeList) || ''
     const mainPsychoType: string = scheme.psychoTypes[mainPsychoTypeList[0]]
     const secondaryPsychoType: string | null = mainPsychoTypeList[1] ? scheme.psychoTypes[mainPsychoTypeList[1]] : null
     const secondaryPortraitDesc: string | null = mainPsychoTypeList[1] ? complexDataSoft[mainPsychoTypeList[1]][0][1] : null
@@ -111,13 +118,13 @@ const Result: React.FC<ResultProps> = ({ t }) => {
                 />
                 <div className="row middle-xs">
                     <div className="col-lg-7">
-                        <ChartRadar profile={fullProfile.profile} chartLabels={scheme.tendencies}/>
+                        <ChartRadar profile={fullProfile.profile} chartLabels={scheme.tendencies} />
                     </div>
                     <div className="col-lg-5">
                         <Famous
-                            person={famousPerson.person}
-                            imgName={famousPerson.picture}
-                            desc={getPsychoTypeDesc(sortedOctants, psychoTypeList) || ''}
+                            person={famous.person}
+                            imgName={famous.picture}
+                            desc={psychoTypeDesc}
                         />
                     </div>
                 </div>
@@ -127,15 +134,18 @@ const Result: React.FC<ResultProps> = ({ t }) => {
                 <h4>{t('test:result_page.psychological_portrait')}</h4>
                 {secondaryPortraitDesc
                     ? (
-                        <div style={{marginBottom: '1rem'}}>
-                            <div style={{fontSize: '1.2rem', marginBottom: '.5rem'}}>Ваш основной психотип
-                                 - <strong>{mainPsychoType} ({(mainOctantFraction * 100).toFixed(1)}%)</strong>,
-                                 дополнительный психотип
-                                 - <strong>{secondaryPsychoType} ({(secondaryOctantFraction * 100).toFixed(1)}%)</strong>
+                        <div style={{ marginBottom: '1rem' }}>
+                            <div style={{ fontSize: '1.2rem', marginBottom: '.5rem' }}>Ваш основной психотип
+                                                                                       - <strong>{mainPsychoType} ({(mainOctantFraction * 100).toFixed(1)}%)</strong>,
+                                                                                       дополнительный психотип
+                                                                                       - <strong>{secondaryPsychoType} ({(secondaryOctantFraction * 100).toFixed(1)}%)</strong>
                             </div>
-                            <div style={{fontSize: '1.2rem', marginBottom: '.5rem'}}>Описание дополнительного психотипа:</div>
-                            <p style={{marginBottom: '1.5rem'}}>{secondaryPortraitDesc}</p>
-                            <div style={{fontSize: '1.2rem', marginBottom: '.5rem'}}>Описание основного психотипа:</div>
+                            <div style={{ fontSize: '1.2rem', marginBottom: '.5rem' }}>Описание дополнительного
+                                                                                       психотипа:
+                            </div>
+                            <p style={{ marginBottom: '1.5rem' }}>{secondaryPortraitDesc}</p>
+                            <div style={{ fontSize: '1.2rem', marginBottom: '.5rem' }}>Описание основного психотипа:
+                            </div>
                         </div>
                     ) : (
                         <div className="pb-sm">
@@ -143,9 +153,9 @@ const Result: React.FC<ResultProps> = ({ t }) => {
                         </div>
                     )}
                 <Table
-                    tableData={getPortraitDesc(mainOctant, complexDataSoft).map(item => [
+                    tableData={portraitDesc.map(item => [
                         item[0],
-                        <span dangerouslySetInnerHTML={{ __html: item[1] }} key={item[0]}/>
+                        <span dangerouslySetInnerHTML={{ __html: item[1] }} key={item[0]} />
                     ])}
                     tableHeader={fpTableTile}
                     addClasses={['striped', 'large']}

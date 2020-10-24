@@ -24,6 +24,7 @@ interface ExportResultProps {
 
 const ExportResult: React.FC<ExportResultProps> = ({ data, t }) => {
     const { email } = useSelector((state: globalStoreType) => state.user)
+    const { result } = useSelector((state: globalStoreType) => state.test)
 
     return (
         <>
@@ -59,7 +60,7 @@ const ExportResult: React.FC<ExportResultProps> = ({ data, t }) => {
         axios
             .post(
                 '/create-pdf',
-                { radar: dataImg, testData },
+                { radar: dataImg, testData: result },
                 {
                     headers: {
                         'Content-Type': 'application/json'
