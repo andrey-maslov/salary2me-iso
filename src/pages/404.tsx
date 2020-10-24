@@ -1,5 +1,5 @@
-import {NotFoundLayout} from "../page-layouts"
+import { NotFoundLayout } from '../page-layouts'
 
-const Error = () => <NotFoundLayout/>
+const Error = () => <NotFoundLayout />
 
 export default Error

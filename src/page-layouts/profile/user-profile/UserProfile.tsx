@@ -48,6 +48,10 @@ const Profile = ({ t }: { t: any }) => {
     })
 
     useEffect(() => {
+        if (!isLoggedIn) {
+            router.push('/')
+        }
+
         if (email && email.length > 0) {
             setReady(true)
         }
@@ -84,15 +88,12 @@ const Profile = ({ t }: { t: any }) => {
         position,
         provider,
         isPublic,
+        isLoggedIn,
         isLookingForJob,
         setToast,
         addToast,
         dispatch
     ])
-
-    if (!isLoggedIn) {
-        router.push('/')
-    }
 
     if (!isReady) {
         return <Loader />

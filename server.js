@@ -3,6 +3,7 @@ const next = require('next')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const convertHTMLToPDF = require('pdf-puppeteer')
 const generatePdf = require('./pdf-generator/pdf-generator')
 
 const port = process.env.PORT || 4000
@@ -10,14 +11,16 @@ const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
 
+const template = require('./pdf-generator/templates/template')
+
 const server = express()
 
 app.prepare()
     .then(() => {
         server.use(cookieParser())
         server.use(cors())
-        server.use(bodyParser.urlencoded({ extended: true }))
-        server.use(bodyParser.json())
+        // server.use(bodyParser.urlencoded({ extended: true }))
+        // server.use(bodyParser.json())
         server.use(generatePdf)
 
         server.get('/signin', (req, res) => {
