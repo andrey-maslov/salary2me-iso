@@ -4,24 +4,23 @@
 input[type=submit],
 .btn {
   position: relative;
-  font-size: 1.2rem;
   display: inline-block;
   border-radius: 3px;
+  //min-width: 11rem;
   text-transform: uppercase;
-  min-width: 11rem;
   padding: .3rem 1.25rem;
   vertical-align: middle;
   text-decoration: none;
   text-align: center;
   transition: all .2s ease-out;
   cursor: pointer;
-  height: 3rem;
+  height: 2.4rem;
   font-weight: normal;
 }
 
 a.btn {
-  height: 3rem;
-  line-height: calc(3rem - 7px);
+  height: 2.4rem;
+  line-height: calc(2.4rem - 8px);
 
   &:hover {
     text-decoration: none;
@@ -60,12 +59,12 @@ button.btn-link {
 .btn {
 
   &.btn-small {
-    height: 2.5rem;
+    height: 2rem;
   }
 
   &.btn-lg {
-    height: 3.5rem;
-    min-width: 200px;
+    height: 3rem;
+    //min-width: 200px;
     max-width: unset;
   }
 }
@@ -184,10 +183,10 @@ input[type=submit] {
 .btn-share {
   display: inline-block;
   position: relative;
-  font-size: 20px;
+  font-size: 18px;
   border-radius: $border-radius;
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   padding: 0;
   vertical-align: middle;
   text-decoration: none;
@@ -195,7 +194,7 @@ input[type=submit] {
   transition: all .2s ease-out;
   cursor: pointer;
   color: #fff;
-  line-height: 40px;
+  line-height: 36px;
   margin: 0 5px;
 
   .react-share__ShareButton {
@@ -212,5 +211,13 @@ input[type=submit] {
 
   &:last-child {
     margin-right: 0;
+  }
+}
+
+@media (max-width: 992px) {
+
+  a.btn {
+    display: block;
+    width: 100%;
   }
 }

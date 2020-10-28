@@ -27,7 +27,7 @@ const TestResultLayout: React.FC = () => {
             </Head>
             <div className="page-test-result">
                 <Layout>
-                    <section className="pt-lg pb-lgs">
+                    <section className="pt-lg pb-lg">
                         <div className="container">
                             <Result />
                         </div>

@@ -1,7 +1,7 @@
 @import '../../../../assets/scss/vars';
 
 $labelColumnWidth: 30%;
-$baseWidth: 46px;
+$baseWidth: 38px;
 
 .item {
   position: relative;
@@ -30,7 +30,7 @@ $baseWidth: 46px;
       background-color: $success;
       color: #fff;
       height: calc(#{$baseWidth} * 1.7);
-      line-height: calc(#{$baseWidth} * 1.5 / 1.7);
+      line-height: calc(#{$baseWidth} * 1.6 / 1.7);
 
       div {
         line-height: 1;
@@ -72,7 +72,7 @@ $baseWidth: 46px;
   left: calc((#{$baseWidth} + 20px) * -1);
   top: 50%;
   transform: translateY(-50%);
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   text-align: center;
   width: $baseWidth;
   height: $baseWidth;
@@ -86,7 +86,7 @@ $baseWidth: 46px;
 .content {
   display: flex;
   align-items: center;
-  padding: 2rem;
+  padding: 1.4rem;
   background-color: #fff;
 
   &.horizontal {
@@ -103,7 +103,6 @@ $baseWidth: 46px;
 
 .caption {
   min-width: $labelColumnWidth;
-  font-size: 18px;
   transition: opacity .3s;
 
   p {
@@ -127,11 +126,11 @@ $baseWidth: 46px;
 
   .content {
     flex-wrap: wrap;
-    padding: 1.25rem 1rem 1.25rem $baseWidth;
+    padding: 1rem 1rem 1rem $baseWidth;
 
     .options {
-      margin-top: 1rem;
-      margin-bottom: 1rem;
+      margin-top: .8rem;
+      margin-bottom: .8rem;
       width: 100%;
     }
 

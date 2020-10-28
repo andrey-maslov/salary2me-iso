@@ -113,15 +113,12 @@ const Questions = ({ changeBlock, t }: QuestionsProps) => {
                 })
             })
         })
-        console.log('arrSum', arrSum)
         return arrSum
     }
 
     function sendBtnHandler() {
         const num = checkAnswers(answers)
-        console.log('sendBtnHandler', num)
         if (num === -1) {
-            console.log('sendBtnHandler', calculateResults(answers))
             sendAnswers(calculateResults(answers))
         } else if (isBrowser && num !== -1) {
             addToast('Необходимо ответить на все вопросы', {
@@ -137,14 +134,13 @@ const Questions = ({ changeBlock, t }: QuestionsProps) => {
 
     function sendAnswers(result: any) {
         dispatch(saveTestData(result))
-        console.log('result', result)
-        // const userData = {
-        //     ...user
-        // }
+        const userData = {
+            ...user
+        }
         // TODO put here correct data object
-        // if (isLoggedIn) {
-        //     dispatch(updateUserData(userData))
-        // }
+        if (isLoggedIn) {
+            dispatch(updateUserData(userData))
+        }
 
         router.push('result')
     }

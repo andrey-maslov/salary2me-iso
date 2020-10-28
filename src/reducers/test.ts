@@ -2,7 +2,9 @@ import {
     SAVE_TEST_DATA,
     SAVE_PERSONAL_INFO,
     FETCH_TERMS,
-    FETCH_TEST_DESC, CLEAR_USER_DATA, PSYCHO_RESULT
+    FETCH_TEST_DESC,
+    CLEAR_TEST_DATA,
+    PSYCHO_RESULT
 } from '../actions/actionTypes'
 import { loadState } from '../store/sessionStorage'
 import { isBrowser } from '../helper/helper'
@@ -58,7 +60,7 @@ export const test = (
                 ...state,
                 descriptions
             }
-        case CLEAR_USER_DATA:
+        case CLEAR_TEST_DATA:
             return {
                 ...state,
                 personalInfo: null,

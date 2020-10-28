@@ -10,10 +10,10 @@ const TestMainContent: React.FC<{ t }> = ({ t }) => {
         <div className="pt-lg pb-lg">
             <div className="container">
                 <div className="row middle-xs">
-                    <div className="col-lg-5">
+                    <div className="col-xl-5">
                         <div className="robot">{isDesktop && <RobotQuestion />}</div>
                     </div>
-                    <div className="col-lg-7">
+                    <div className="col-xl-7">
                         <div className={style.content}>
                             <p className={style.pretitle}>{t('test:page.pretitle')}</p>
                             <h1>{t('test:page.title')}</h1>

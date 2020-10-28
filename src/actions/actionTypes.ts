@@ -4,6 +4,7 @@ export const PARSING_MODAL = 'PARSING_MODAL'
 export const PARSING_TEXT = 'PARSING_TEXT'
 export const CV_SENT = 'CV_SENT'
 export const ESTIMATION = 'ESTIMATION'
+export const CLEAR_CV_DATA = 'CLEAR_CV_DATA'
 
 /*= ==== AUTH ===== */
 export const CLEAR_USER_DATA = 'CLEAR_USER_DATA'
@@ -25,6 +26,7 @@ export const SAVE_PERSONAL_INFO = 'SAVE_PERSONAL_INFO'
 export const FETCH_TERMS = 'FETCH_TERMS'
 export const FETCH_TEST_DESC = 'FETCH_TEST_DESC'
 export const PSYCHO_RESULT = 'PSYCHO_RESULT'
+export const CLEAR_TEST_DATA = 'CLEAR_TEST_DATA'
 
 /*= ==== UTILS ===== */
 export const SET_SORTING = 'SET_SORTING'

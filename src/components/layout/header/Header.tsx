@@ -3,9 +3,9 @@ import { useRouter } from 'next/router'
 import { useSelector, useDispatch } from 'react-redux'
 import { useMediaPredicate } from 'react-media-hook'
 import { useDeviceDetect } from '../../../helper/useDeviceDetect'
-import { logOut, checkAuth } from '../../../actions/actionCreator'
+import { logOut, checkAuth, getCurrencyRates } from '../../../actions/actionCreator'
 import { globalStoreType } from '../../../typings/types'
-import { REDIRECT_URL } from '../../../actions/actionTypes'
+import { CLEAR_CV_DATA, CLEAR_TEST_DATA, REDIRECT_URL } from '../../../actions/actionTypes'
 import style from './header.module.scss'
 import LangSwitcher from '../../common/buttons/lang-switcher/LangSwitcher'
 import MobiNav from '../../mobi/header/nav/MobiNav'
@@ -21,6 +21,7 @@ const Header: React.FC = () => {
     const currentRoute = router.pathname
 
     useEffect(() => {
+        dispatch(getCurrencyRates())
         if (!isLoggedIn) {
             dispatch(checkAuth())
         }
@@ -37,6 +38,8 @@ const Header: React.FC = () => {
     const handleLogoutBtn = () => {
         if (isLoggedIn) {
             dispatch(logOut())
+            dispatch({ type: CLEAR_TEST_DATA })
+            dispatch({ type: CLEAR_CV_DATA })
             if (router.pathname === '/profile') {
                 router.push('/')
             }
@@ -46,10 +49,10 @@ const Header: React.FC = () => {
     return (
         <header className={style.header}>
             <div className={style.bar}>
-                <TopLogo/>
+                <TopLogo />
                 {isMobile ? (
                     <>
-                        <MobiNav isLoggedIn={isLoggedIn} handleLogoutBtn={handleLogoutBtn}/>
+                        <MobiNav isLoggedIn={isLoggedIn} handleLogoutBtn={handleLogoutBtn} />
                     </>
                 ) : (
                     <>
@@ -58,7 +61,7 @@ const Header: React.FC = () => {
                             handleLoginBtn={handleLogoutBtn}
                             userEmail={email}
                         />
-                        <LangSwitcher/>
+                        <LangSwitcher />
                     </>
                 )}
             </div>

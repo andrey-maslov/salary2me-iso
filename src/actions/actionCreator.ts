@@ -15,7 +15,7 @@ import {
     FETCH_TERMS,
     SAVE_PERSONAL_INFO,
     CHANGE_PWD,
-    SET_TOAST
+    SET_TOAST, CLEAR_TEST_DATA, CLEAR_CV_DATA
 } from './actionTypes'
 import { ISignInData, ISignUpData } from '../typings/types'
 import { authModes } from '../constants/constants'
@@ -71,7 +71,7 @@ export function checkAuth(jwt?) {
                 .catch(error => apiErrorHandling(error, dispatch))
                 .finally(() => dispatch(setLoading(false)))
         } else {
-            // dispatch(logOut())
+            dispatch({ type: CLEAR_USER_DATA })
         }
     }
 }
@@ -96,6 +96,8 @@ export const authUser = (userData: ISignUpData | ISignInData, authType: keyof ty
                     })
                 )
                 setCookie('token', data.jwtToken)
+                // dispatch({ type: CLEAR_TEST_DATA })
+                // dispatch({ type: CLEAR_CV_DATA })
                 dispatch(clearErrors())
             })
             .catch(error => {
@@ -133,8 +135,7 @@ export const updateUserData = (userData: any) => {
                 })
                 .finally(() => dispatch(setLoading(false)))
         } else {
-            console.log('no token')
-            dispatch(logOut())
+            dispatch({ type: CLEAR_USER_DATA })
         }
     }
 }
@@ -234,7 +235,7 @@ export const sendCvForResults = formData => {
         dispatch({ type: LOADING, loading: true })
 
         axios
-            .post(`${process.env.Auth}/api/Predict`, formData, {
+            .post(`${process.env.BASE_API}/api/Predict`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -339,10 +340,6 @@ export const getCurrencyRates = () => {
             })
             .catch(error => {
                 console.error(error)
-                dispatch({
-                    type: GET_CURRENCY_RATES,
-                    currencyRates: { EUR: 0.9 }
-                })
             })
     }
 }

@@ -1,6 +1,6 @@
-import {FaArrowRight} from "react-icons/fa";
-import style from "./form.module.scss";
-import Button from "../../../../components/common/buttons/button/Button";
+import { FaArrowRight } from 'react-icons/fa'
+import style from './form.module.scss'
+import Button from '../../../../components/common/buttons/button/Button'
 
 export default function Form(props) {
     return (
@@ -14,7 +14,7 @@ export default function Form(props) {
                 aria-label="salary value"
             />
             <Button
-                endIcon={<FaArrowRight/>}
+                endIcon={<FaArrowRight />}
                 btnClass="btn btn-accent"
                 title=""
                 handle={props.handleSendBtn}

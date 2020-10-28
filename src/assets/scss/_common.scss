@@ -347,7 +347,7 @@ table {
     background-color: transparent;
     color: $accent;
     border: 1px solid $accent;
-    margin: 0 0 1rem;
+    margin: 0 0 .8rem;
 
     &:hover {
       background-color: $accent;
@@ -365,7 +365,7 @@ table {
 input, textarea {
   display: block;
   width: 100%;
-  padding: .5rem .8rem;
+  padding: .4rem .8rem;
   background-color: $grey-bg;
   //caret-color: $text-light;
   //color: $text-light;

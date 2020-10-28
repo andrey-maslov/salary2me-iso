@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { FaFilter, FaChevronDown } from 'react-icons/fa'
 import { useMediaPredicate } from 'react-media-hook'
@@ -15,19 +15,27 @@ import { useDeviceDetect } from '../../../helper/useDeviceDetect'
 
 const CVEstimation: React.FC = () => {
     const { isLoggedIn } = useSelector((store: globalStoreType) => store.user)
-    const { predictions, position } = useSelector((store: globalStoreType) => store.cv)
-    const { displayedResults, selectedCurrency, payPeriod, currencyRates } = useSelector(
-        (store: globalStoreType) => store.app
-    )
+    const {
+        predictions,
+        position,
+        displayedResults,
+        selectedCurrency,
+        payPeriod,
+        currencyRates
+    } = useSelector((store: globalStoreType) => store.cv)
 
-    const biggerThan992 = useMediaPredicate('(min-width: 992px)')
     const { isMobile } = useDeviceDetect()
     const [isMobileOptionsShown, setMobileOptions] = useState(false)
+    const [state, setState] = useState({ position: '' })
     const mobiOptionsClass = isMobileOptionsShown ? style.mobiOptionsOpened : ''
 
-    if (isLoggedIn && predictions.length === 0) {
+    useEffect(() => {
+        setState({ position })
+    }, [position, displayedResults, predictions.length])
+
+    if (predictions.length === 0) {
         return (
-            <div className={`flex-centered text-center ${style.predictions}`}>
+            <div className="flex-centered text-center">
                 <strong>
                     Please,{' '}
                     <Link href="/">
@@ -59,22 +67,19 @@ const CVEstimation: React.FC = () => {
 
     return (
         <>
-            <div className={`${style.predictions} container`}>
+            <div className={`${style.predictions} container pt-lg`}>
                 <div className="row center-xs">
                     <div className="col-xl-10">
                         <div className={style.title}>
                             <h3 className={`${style.position}`}>
-                                {position || 'No experience detected'}:
+                                {state.position || 'no experience detected'}:
                             </h3>
                             <span> Estimated salary by city</span>
                         </div>
                     </div>
                     <div className="col-xl-3 col-lg-4 last-lg">
                         {isMobile && <MobileOptions />}
-                        <div
-                            className={`${style.sidebar} ${
-                                isMobile ? mobiOptionsClass : ''
-                            }`}>
+                        <div className={`${style.sidebar} ${isMobile ? mobiOptionsClass : ''}`}>
                             <EstSidebar />
                             <div className={style.sharing}>
                                 <SocialSharing url="https://salary2.me" />
@@ -83,21 +88,25 @@ const CVEstimation: React.FC = () => {
                     </div>
                     <div className="col-xl-7 col-lg-8">
                         <ul className={style.list}>
-                            {resultsToDisplay.map(({ city, avg, max }) => {
-                                const location = getLocation(city, locations)
-                                return (
-                                    <EstItem
-                                        location={location}
-                                        maxVal={max}
-                                        avgVal={avg}
-                                        limits={salaryLimits}
-                                        currencyRates={currencyRates}
-                                        payPeriod={payPeriod}
-                                        selectedCurrency={selectedCurrency}
-                                        key={city}
-                                    />
-                                )
-                            })}
+                            {displayedResults ? (
+                                resultsToDisplay.map(({ city, avg, max }) => {
+                                    const location = getLocation(city, locations)
+                                    return (
+                                        <EstItem
+                                            location={location}
+                                            maxVal={max}
+                                            avgVal={avg}
+                                            limits={salaryLimits}
+                                            currencyRates={currencyRates}
+                                            payPeriod={payPeriod}
+                                            selectedCurrency={selectedCurrency}
+                                            key={city}
+                                        />
+                                    )
+                                })
+                            ) : (
+                                <div>No results</div>
+                            )}
                         </ul>
                     </div>
                 </div>

@@ -7,7 +7,7 @@ import {
     SET_DISPLAYED_RESULTS,
     GET_CURRENCY_RATES,
     SET_PAY_PERIOD,
-    SET_PAY_TAX
+    SET_PAY_TAX, CLEAR_CV_DATA
 } from '../actions/actionTypes'
 
 import { loadState } from '../store/sessionStorage'
@@ -106,6 +106,20 @@ export const cv = (
                 ...state,
                 predictions,
                 position
+            }
+        case CLEAR_CV_DATA:
+            return {
+                ...state,
+                predictions: [],
+                position: '',
+                realSalary: '',
+                sorting: 'normal',
+                displayedResults: 'netto-normal',
+                selectedCurrency: currencies.usd.nameISO,
+                currencyRates: { EUR: 0.92, USD: 1, GBP: 0.81 },
+                payPeriod: 'monthly',
+                payTax: 'netto',
+                isCvSent: false
             }
         default:
             return state

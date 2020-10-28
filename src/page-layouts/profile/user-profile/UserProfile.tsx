@@ -220,12 +220,13 @@ const Profile = ({ t }: { t: any }) => {
                             <div className={`${style.item} flex between-xs`}>
                                 {encData ? (
                                     <>
-                                        <QRCode
-                                            // value={`${process.env.HOST}/test/result/encdata=${encData}`}
-                                            value={`https://salary.nobugs.today/test/result?encdata=${encData}`}
-                                            size={200}
-                                        />
-                                        <br />
+                                        <div className={style.qr}>
+                                            <QRCode
+                                                // value={`${process.env.HOST}/test/result/encdata=${encData}`}
+                                                value={`https://salary.nobugs.today/test/result?encdata=${encData}`}
+                                                size={160}
+                                            />
+                                        </div>
                                         <CodeBox content={encData} />
                                     </>
                                 ) : (

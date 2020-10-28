@@ -82,7 +82,7 @@ const Result: React.FC<ResultProps> = ({ t }) => {
     const sex = personalInfo[2] === 2 ? 1 : personalInfo[2]
     const { sortedOctants, mainOctant, profile, mainPsychoTypeList } = fullProfile
     const { fullProfileList, tablesWithBarsTitles, famousList, psychoTypeList, complexDataSoft, tendencies } = descriptions
-    const famous = getFamous(mainOctant, famousList, sex)
+    const famous: {person: string, picture: string} | null = getFamous(mainOctant, famousList, sex)
     const tables = TablesWithBars(modedSubAxes, tablesWithBarsTitles, testData)
     const fullProfileData = getProfileDesc()
     const portraitDesc = getPortraitDesc(mainOctant, complexDataSoft)
@@ -94,8 +94,6 @@ const Result: React.FC<ResultProps> = ({ t }) => {
     const secondaryOctantFraction: number | null = secondaryPsychoType
         ? getOctantFraction(sortedOctants[1], sortedOctants)
         : null
-
-    console.log(fullProfile)
 
     if (fullProfile.mainOctant.value <= 0) {
         return (
@@ -123,11 +121,11 @@ const Result: React.FC<ResultProps> = ({ t }) => {
                         <ChartRadar profile={fullProfile.profile} chartLabels={scheme.tendencies} />
                     </div>
                     <div className="col-lg-5">
-                        <Famous
+                        {famous && <Famous
                             person={famous.person}
                             imgName={famous.picture}
                             desc={psychoTypeDesc}
-                        />
+                        />}
                     </div>
                 </div>
             </Box>
