@@ -66,7 +66,6 @@ const Questions = ({ changeBlock, t }: QuestionsProps) => {
                     btnClass="btn btn-accent"
                     title={t('common:buttons.send')}
                     endIcon={<FiArrowRight />}
-                    // isEnabled={false}
                 />
                 {isLoggedIn && (
                     <button
@@ -114,16 +113,17 @@ const Questions = ({ changeBlock, t }: QuestionsProps) => {
                 })
             })
         })
-
+        console.log('arrSum', arrSum)
         return arrSum
     }
 
     function sendBtnHandler() {
         const num = checkAnswers(answers)
-
+        console.log('sendBtnHandler', num)
         if (num === -1) {
+            console.log('sendBtnHandler', calculateResults(answers))
             sendAnswers(calculateResults(answers))
-        } else if (isBrowser) {
+        } else if (isBrowser && num !== -1) {
             addToast('Необходимо ответить на все вопросы', {
                 appearance: 'error'
             })
@@ -137,14 +137,14 @@ const Questions = ({ changeBlock, t }: QuestionsProps) => {
 
     function sendAnswers(result: any) {
         dispatch(saveTestData(result))
-        const userData = {
-            ...user
-        }
-
+        console.log('result', result)
+        // const userData = {
+        //     ...user
+        // }
         // TODO put here correct data object
-        if (isLoggedIn) {
-            dispatch(updateUserData(userData))
-        }
+        // if (isLoggedIn) {
+        //     dispatch(updateUserData(userData))
+        // }
 
         router.push('result')
     }

@@ -71,7 +71,7 @@ export function checkAuth(jwt?) {
                 .catch(error => apiErrorHandling(error, dispatch))
                 .finally(() => dispatch(setLoading(false)))
         } else {
-            dispatch(logOut())
+            // dispatch(logOut())
         }
     }
 }
