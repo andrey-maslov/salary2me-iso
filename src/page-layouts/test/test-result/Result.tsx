@@ -95,6 +95,8 @@ const Result: React.FC<ResultProps> = ({ t }) => {
         ? getOctantFraction(sortedOctants[1], sortedOctants)
         : null
 
+    console.log(fullProfile)
+
     if (fullProfile.mainOctant.value <= 0) {
         return (
             <div className="flex-centered">

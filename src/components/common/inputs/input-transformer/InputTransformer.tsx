@@ -1,34 +1,38 @@
-import React, {useState} from "react"
-import {useDispatch} from 'react-redux'
-import {useForm} from 'react-hook-form'
-import style from './input-t.module.scss'
+import React, { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import OutsideClickHandler from 'react-outside-click-handler'
-import {IOneFieldForm} from "../../../../typings/types";
+import style from './input-t.module.scss'
+import { IOneFieldForm } from '../../../../typings/types'
 
 interface IInputTransformer {
     initValue: string
-    rules: object
+    rules: Record<string, unknown>
     objectKey: string
     handler: (value: IOneFieldForm<string>) => void
 }
 
-const InputTransformer: React.FC<IInputTransformer> = ({initValue, rules, objectKey, handler, ...props}) => {
-
+const InputTransformer: React.FC<IInputTransformer> = ({
+    initValue,
+    rules,
+    objectKey,
+    handler,
+    ...props
+}) => {
     const [isEdit, setEdit] = useState(false)
-    // const dispatch = useDispatch()
-    // console.log(initValue)
-    const {register, handleSubmit, errors, reset} = useForm<IOneFieldForm<string>>()
+    const { register, handleSubmit, errors, reset } = useForm<IOneFieldForm<string>>()
+
     return (
         <div className={style.wrapper}>
-            {isEdit ?
+            {isEdit ? (
                 <OutsideClickHandler
                     onOutsideClick={() => {
                         setEdit(!isEdit)
-
-                    }}
-                >
+                    }}>
                     <form onSubmit={handleSubmit(submit)}>
-                        <div className={`form-group ${errors[objectKey] ? 'has-error' : ''} ${style.group}`}>
+                        <div
+                            className={`form-group ${errors[objectKey] ? 'has-error' : ''} ${
+                                style.group
+                            }`}>
                             <input
                                 defaultValue={initValue}
                                 name={objectKey}
@@ -46,13 +50,11 @@ const InputTransformer: React.FC<IInputTransformer> = ({initValue, rules, object
                         </div>
                     </form>
                 </OutsideClickHandler>
-                :
-                <button
-                    className={style.title}
-                    onClick={() => setEdit(!isEdit)}
-                >
+            ) : (
+                <button className={style.title} onClick={() => setEdit(!isEdit)}>
                     {initValue}
-                </button>}
+                </button>
+            )}
         </div>
     )
 
