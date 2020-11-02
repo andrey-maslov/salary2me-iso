@@ -24,9 +24,9 @@ import { setCookie, removeCookie, getCookieFromBrowser } from '../helper/cookie'
 /*= ==== AUTH ===== */
 
 export interface IUserData {
-    firstName?: string
-    lastName?: string
-    email?: string
+    firstName: string
+    lastName: string
+    email: string
     position?: string
     provider?: string
     isPublic?: boolean
@@ -61,12 +61,7 @@ export function checkAuth(jwt?) {
             })
                 .then(res => res.data)
                 .then(data => {
-                    dispatch(
-                        addAuthData({
-                            ...data,
-                            email: data.username
-                        })
-                    )
+                    dispatch(addAuthData(data))
                 })
                 .catch(error => apiErrorHandling(error, dispatch))
                 .finally(() => dispatch(setLoading(false)))
@@ -84,9 +79,7 @@ export const authUser = (userData: ISignUpData | ISignInData, authType: keyof ty
     return (dispatch: any) => {
         dispatch(setLoading(true))
         axios
-            .post(url, {
-                data: userData
-            })
+            .post(url, userData)
             .then(res => res.data)
             .then(data => {
                 dispatch(
@@ -122,8 +115,10 @@ export const updateUserData = (userData: any) => {
             dispatch(clearErrors())
 
             axios
-                .put(url, {
-                    data: userData
+                .put(url, userData, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
                 })
                 .then(res => {
                     dispatch(addAuthData(userData))

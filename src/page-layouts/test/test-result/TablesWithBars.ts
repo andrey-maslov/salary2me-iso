@@ -5,11 +5,12 @@
  * @param testResult
  * @constructor
  */
-export function TablesWithBars(axes: string[][][], tablesWithBarsTitles: {title: string, desc: string}[] , testResult: number[][]) {
+export function TablesWithBars(axes: string[][][], tablesWithBarsTitles: { title: string, desc: string }[], testResult: number[][]) {
 
     const tablesWithBars = getTablesWithBars()
+
 //Data for tables with bars chart
-    function getTablesWithBars (): { data: (string | number)[][]; title: string; desc: string }[] {
+    function getTablesWithBars(): { data: (string | number)[][]; title: string; desc: string }[] {
         const tables = [
             getManagementData(),
             getSelfOrganizationData(),

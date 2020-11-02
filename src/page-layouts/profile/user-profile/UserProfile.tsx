@@ -112,12 +112,12 @@ const Profile = ({ t }: { t: any }) => {
             value: localUser.lastName,
             defaultValue: t('signin:extra.last_name')
         },
-        {
-            label: t('signin:extra.position'),
-            key: 'position',
-            value: localUser.position,
-            defaultValue: t('signin:extra.position')
-        }
+        // {
+        //     label: t('signin:extra.position'),
+        //     key: 'position',
+        //     value: localUser.position,
+        //     defaultValue: t('signin:extra.position')
+        // }
     ]
     const checkBoxes = [
         { label: t('signin:extra.want_to_open'), key: 'isPublic', value: localUser.isPublic },
@@ -307,11 +307,6 @@ const Profile = ({ t }: { t: any }) => {
                 firstName,
                 lastName,
                 email,
-                position,
-                provider,
-                isLoggedIn,
-                isPublic,
-                isLookingForJob,
                 ...formData
             })
         )
