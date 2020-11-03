@@ -32,7 +32,7 @@ function ShareResult({ t, encData, isLoggedIn }: IShareResult) {
                             alt="teamconstructor"
                         />
                         <a
-                            href={`${process.env.COOP_URL}?encdata=${encodeURIComponent(encData)}`}
+                            href={`${process.env.COOP_URL}/pair?encdata=${encodeURIComponent(encData)}`}
                             className="btn btn-outlined"
                             target="_blank"
                             rel="noopener noreferrer">

@@ -7,6 +7,7 @@ import {
     TablesWithBars,
     getPsychoTypeDesc
 } from '../../../../page-layouts/test/test-result/functions'
+import { LANG_DEFAULT } from "../../../../constants/constants";
 
 const urlDesc = `${process.env.CONTENT_API}/psychologies/2`
 const urlTerms = `${process.env.CONTENT_API}/psychologies/1`
@@ -23,14 +24,15 @@ export default async function handler(req, res) {
     }
 
     const { data, decoded } = getAndDecodeData(null, encdata)
+    const lang = req.body.data?.lang || LANG_DEFAULT
 
     if (!data) {
         res.status(400).send('failed result code :(')
         return
     }
 
-    const terms = await getTerms('ru')
-    const descriptions = await getDescriptions('ru')
+    const terms = await getTerms(lang)
+    const descriptions = await getDescriptions(lang)
     const {
         famousList,
         tablesWithBarsTitles,

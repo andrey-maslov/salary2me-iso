@@ -35,7 +35,7 @@ const ExportResult: React.FC<ExportResultProps> = ({ data, t }) => {
 
             <div className={style.bottom}>
                 <a
-                    href={`${process.env.COOP_URL}?encdata=${encodeURIComponent(data)}`}
+                    href={`${process.env.COOP_URL}/pair?encdata=${encodeURIComponent(data)}`}
                     className={style.link}
                     target="_blank"
                     rel="noopener noreferrer">
