@@ -128,7 +128,7 @@ const Profile = ({ t }: { t: any }) => {
         }
     ]
 
-    const pairLink = `https://teamconstructor.com${encData ? `?encdata=${encData}` : ''}`
+    const pairLink = `https://teamconstructor.com${encData ? `?encdata=${encodeURIComponent(encData)}` : ''}`
     const teamLink = `https://teamconstructor.com`
     const grBaseLink = `https://thegreatbase.online`
 
@@ -223,7 +223,7 @@ const Profile = ({ t }: { t: any }) => {
                                         <div className={style.qr}>
                                             <QRCode
                                                 // value={`${process.env.HOST}/test/result/encdata=${encData}`}
-                                                value={`https://salary.nobugs.today/test/result?encdata=${encData}`}
+                                                value={`https://salary.nobugs.today/test/result?encdata=${encodeURIComponent(encData)}`}
                                                 size={160}
                                             />
                                         </div>

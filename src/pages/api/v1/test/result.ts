@@ -1,9 +1,10 @@
-import { UserResult, getAndDecodeData, getFamous } from 'psychology'
+import { UserResult, getAndDecodeData, getFamous, getDescByRange } from 'psychology'
 import axios from 'axios'
-import { TablesWithBars } from '../../../../page-layouts/test/test-result/TablesWithBars'
 import {
     getModifiedSubAxes,
     getPortraitDesc,
+    getProfileDesc,
+    TablesWithBars,
     getPsychoTypeDesc
 } from '../../../../page-layouts/test/test-result/functions'
 
@@ -35,21 +36,30 @@ export default async function handler(req, res) {
     } = descriptions
     const { subAxes } = terms
     const sex = data[0][2] === 2 ? 1 : data[0][2]
-    const { mainOctant, sortedOctants } = UserResult(data[1])
-    const { person } = getFamous(mainOctant, famousList, sex)
+    const fullProfile = UserResult(data[1])
+    const { person } = getFamous(fullProfile.mainOctant, famousList, sex)
     const modedSubAxes = getModifiedSubAxes(subAxes)
     // @ts-ignore
     const tables = TablesWithBars(modedSubAxes, tablesWithBarsTitles, data[1])
-    const portraitDesc = getPortraitDesc(mainOctant, complexData, fullProfileList)
-    const portraitDescSoft = getPortraitDesc(mainOctant, complexDataSoft, fullProfileList)
-    const psychoTypeDesc = getPsychoTypeDesc(sortedOctants, psychoTypeList) || ''
+    const portraitDesc = getPortraitDesc(fullProfile.mainOctant, complexData, fullProfileList)
+    const portraitDescSoft = getPortraitDesc(fullProfile.mainOctant, complexDataSoft, fullProfileList)
+    const psychoTypeDesc = getPsychoTypeDesc(fullProfile.sortedOctants, psychoTypeList) || ''
+    const fullProfileData = getProfileDesc(
+        fullProfileList,
+        terms,
+        getDescByRange,
+        tables,
+        decoded,
+        fullProfile
+    )
 
     res.end(
         JSON.stringify({
             person,
             psychoTypeDesc,
             portraitDesc,
-            portraitDescSoft
+            portraitDescSoft,
+            fullProfileData
         })
     )
 }

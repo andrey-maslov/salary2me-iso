@@ -18,7 +18,7 @@ function ShareResult({ t, encData, isLoggedIn }: IShareResult) {
                 <div className={style.desc}>{t('test:result_page.export_result_desc')}</div>
                 <div className={style.code}>
                     <CodeBox
-                        content={`${process.env.HOST}/test/result?encdata=${encData}`}
+                        content={`${process.env.HOST}/test/result?encdata=${encodeURIComponent(encData)}`}
                         btnLabel="Скопировать ссылку"
                     />
                 </div>
@@ -32,12 +32,12 @@ function ShareResult({ t, encData, isLoggedIn }: IShareResult) {
                             alt="teamconstructor"
                         />
                         <a
-                            href={`${process.env.COOP_URL}?encdata=${encData}`}
+                            href={`${process.env.COOP_URL}?encdata=${encodeURIComponent(encData)}`}
                             className="btn btn-outlined"
                             target="_blank"
                             rel="noopener noreferrer">
                             Перейти
-                            <FiExternalLink/>
+                            <FiExternalLink />
                         </a>
                     </div>
                 </div>
@@ -45,7 +45,7 @@ function ShareResult({ t, encData, isLoggedIn }: IShareResult) {
             <div className="col-sm-6">
                 <h4>Поделитесь с друзьями в социальных сетях</h4>
                 <div className="result-share">
-                    <SocialSharing url={`${process.env.HOST}/test/result?encdata=${encData}`}/>
+                    <SocialSharing url={`${process.env.HOST}/test/result?encdata=${encData}`} />
                 </div>
             </div>
             {!isLoggedIn && (

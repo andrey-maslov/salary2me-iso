@@ -1,6 +1,6 @@
-import Layout from '../../components/layout/Layout'
 import Head from 'next/head'
 import { withTranslation } from '@i18n'
+import Layout from '../../components/layout/Layout'
 import CVEstimation from './cv-estimation/CVEstimation'
 import { SVGSource } from '../../components/common/media/svgflag/SVGFlag'
 
