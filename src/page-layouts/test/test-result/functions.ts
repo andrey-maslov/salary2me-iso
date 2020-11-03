@@ -1,4 +1,4 @@
-import { IOctant, ITendency, IDescWithRange, IDescWithStatus } from "psychology/build/main/types/types";
+import { IOctant, ITendency, IDescWithRange, IDescWithStatus, baseTestResultType } from "psychology/build/main/types/types";
 import { getIndexByRange } from "psychology";
 
 export function getModifiedSubAxes(subAxes: string[][]) {
@@ -153,7 +153,7 @@ export function getProfileDesc(descriptions, terms, getDescFn, keyValues, testDa
  * @param testResult
  * @constructor
  */
-export function TablesWithBars(axes: string[][][], tablesWithBarsTitles: { title: string, desc: string }[], testResult: number[][]) {
+export function TablesWithBars(axes: string[][][], tablesWithBarsTitles: { title: string, desc: string }[], testResult: baseTestResultType) {
 
     const tablesWithBars = getTablesWithBars()
 

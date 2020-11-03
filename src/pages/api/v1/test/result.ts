@@ -12,15 +12,20 @@ const urlDesc = `${process.env.CONTENT_API}/psychologies/2`
 const urlTerms = `${process.env.CONTENT_API}/psychologies/1`
 
 export default async function handler(req, res) {
-    res.statusCode = 200
-    res.setHeader('Content-Type', 'application/json')
+    let encdata: string
 
-    const { encData } = req.body.data
-    const { data, decoded, encoded } = getAndDecodeData(null, encData)
+    if (req.method === 'GET') {
+        encdata = req.query.encdata
+    } else if (req.method === 'POST') {
+        encdata = req.body.data.encdata
+    } else {
+        res.status(405).end()
+    }
+
+    const { data, decoded } = getAndDecodeData(null, encdata)
 
     if (!data) {
-        res.statusCode = 400
-        res.end('failed result code :(')
+        res.status(400).send('failed result code :(')
         return
     }
 
@@ -39,10 +44,14 @@ export default async function handler(req, res) {
     const fullProfile = UserResult(data[1])
     const { person } = getFamous(fullProfile.mainOctant, famousList, sex)
     const modedSubAxes = getModifiedSubAxes(subAxes)
-    // @ts-ignore
+
     const tables = TablesWithBars(modedSubAxes, tablesWithBarsTitles, data[1])
     const portraitDesc = getPortraitDesc(fullProfile.mainOctant, complexData, fullProfileList)
-    const portraitDescSoft = getPortraitDesc(fullProfile.mainOctant, complexDataSoft, fullProfileList)
+    const portraitDescSoft = getPortraitDesc(
+        fullProfile.mainOctant,
+        complexDataSoft,
+        fullProfileList
+    )
     const psychoTypeDesc = getPsychoTypeDesc(fullProfile.sortedOctants, psychoTypeList) || ''
     const fullProfileData = getProfileDesc(
         fullProfileList,
@@ -53,6 +62,8 @@ export default async function handler(req, res) {
         fullProfile
     )
 
+    res.status(200)
+    res.setHeader('Content-Type', 'application/json')
     res.end(
         JSON.stringify({
             person,
