@@ -16,7 +16,6 @@ const Forgot: React.FC<ISignin<IForgotForm>> = ({
     isLoading,
     errorApiMessage,
     submitHandle,
-    clearApiError,
     t
 }) => {
     const router = useRouter()
@@ -39,7 +38,6 @@ const Forgot: React.FC<ISignin<IForgotForm>> = ({
                         <input
                             className={style.input}
                             name="email"
-                            onFocus={clearApiError}
                             autoComplete="off"
                             ref={register({
                                 required: `${t('common:errors.required')}`,
@@ -57,7 +55,7 @@ const Forgot: React.FC<ISignin<IForgotForm>> = ({
                     <Button
                         title={t('common:buttons.send')}
                         startIcon={isLoading && <AiOutlineLoading />}
-                        handle={() => void 0}
+                        handle={null}
                         btnClass="btn btn-accent btn-loader"
                     />
                     {errorApiMessage && <div className="item-explain">{errorApiMessage}</div>}

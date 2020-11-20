@@ -12,6 +12,7 @@ export const ADD_AUTH_DATA = 'ADD_AUTH_DATA'
 export const OPEN_LOGIN_MODAL = 'OPEN_LOGIN_MODAL'
 export const SEND_EMAIL = 'SEND_EMAIL'
 export const CHANGE_PWD = 'CHANGE_PWD'
+export const SET_AUTH_ERROR = 'SET_AUTH_ERROR'
 
 /*= ==== APPLICATION STATE ===== */
 export const LOADING = 'LOADING'

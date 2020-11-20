@@ -1,8 +1,16 @@
-import { LOADING, PROCESS_FAILED, REDIRECT_URL, SET_TOAST, SET_ERROR } from '../actions/actionTypes'
+import {
+    LOADING,
+    PROCESS_FAILED,
+    REDIRECT_URL,
+    SET_TOAST,
+    SET_ERROR,
+    SET_AUTH_ERROR
+} from '../actions/actionTypes'
 
 export type appStoreType = {
     isLoading: boolean
     apiErrorMsg: string | null
+    authApiErrorMsg: string | null
     processFailed: boolean
     setToast: number
     isPwdChanged: false
@@ -12,6 +20,7 @@ export type appStoreType = {
 const STATE = {
     isLoading: false,
     apiErrorMsg: null,
+    authApiErrorMsg: null,
     processFailed: false,
     setToast: 0,
     redirectUrl: null
@@ -30,7 +39,7 @@ const STATE = {
 
 export const app = (
     state = STATE,
-    { type, isLoading, apiErrorMsg, processFailed, setToast, redirectUrl }
+    { type, isLoading, apiErrorMsg, processFailed, setToast, redirectUrl, authApiErrorMsg }
 ) => {
     switch (type) {
         case LOADING:
@@ -42,6 +51,11 @@ export const app = (
             return {
                 ...state,
                 apiErrorMsg
+            }
+        case SET_AUTH_ERROR:
+            return {
+                ...state,
+                authApiErrorMsg
             }
         case PROCESS_FAILED:
             return {

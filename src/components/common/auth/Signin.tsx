@@ -1,9 +1,12 @@
+import { useDispatch } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import { AiOutlineLoading } from 'react-icons/ai'
 import { withTranslation } from '@i18n'
 import Button from '../buttons/button/Button'
 import style from './auth.module.scss'
 import Password from '../inputs/password/Password'
+import axios from "axios";
+import { addAuthData, authUser } from "../../../actions/actionCreator";
 
 export interface ISigninForm {
     username: string
@@ -14,21 +17,45 @@ export interface ISignin<T> {
     isLoading: boolean
     errorApiMessage: string
     submitHandle: (data: T) => void
-    clearApiError: () => void
+    clearApiError?: () => void
     t?: any
 }
 
 const Signin: React.FC<ISignin<ISigninForm>> = ({
-    isLoading,
-    errorApiMessage,
-    submitHandle,
-    clearApiError,
-    t
-}) => {
-    const { register, handleSubmit, errors } = useForm<ISigninForm>()
+                                                    isLoading,
+                                                    errorApiMessage,
+                                                    submitHandle,
+                                                    clearApiError,
+                                                    t
+                                                }) => {
+    const { register, handleSubmit, errors, setError } = useForm<ISigninForm>()
+    const dispatch = useDispatch()
+
+    async function auth(userData) {
+        try {
+            const response = await axios
+                .post(`${process.env.BASE_API}/api/v1/Account/authenticate`, userData)
+                .then(res => res.data)
+                .then(data => {
+                    dispatch(addAuthData({ ...data, email: data.username }))
+                })
+        } catch {
+            alert('ERROR')
+        }
+    }
+
+    async function SignIn(data: ISigninForm) {
+        await dispatch(authUser(data, 'signin'))
+        setError('username', 'validate')
+
+        // dispatch(authUser(data, 'signin'))
+        // if (isLoggedIn) {
+        //     router.push(redirectUrl || '/')
+        // }
+    }
 
     return (
-        <form onSubmit={handleSubmit(submitHandle)}>
+        <form onSubmit={handleSubmit(SignIn)}>
             <div className={`form-group ${errors.username ? 'has-error' : ''}`}>
                 <label>
                     <span>Email</span>
@@ -63,7 +90,7 @@ const Signin: React.FC<ISignin<ISigninForm>> = ({
                 <Button
                     title={t('signin:sign_in')}
                     startIcon={isLoading && <AiOutlineLoading />}
-                    handle={() => void 0}
+                    handle={null}
                     btnClass="btn btn-accent btn-loader"
                 />
                 {errorApiMessage && <div className="item-explain">{errorApiMessage}</div>}

@@ -1,11 +1,11 @@
-import {FiCheckSquare} from "react-icons/fi"
+import { FiCheckSquare } from 'react-icons/fi'
 
-const ForgotSuccess: React.FC<{msg: string}> = ({msg}) => {
+const ForgotSuccess: React.FC<{ msg: string }> = ({ msg }) => {
 
     return (
         <div>
             <div className="auth-icon-success">
-                <FiCheckSquare/>
+                <FiCheckSquare />
             </div>
             <p>{msg}</p>
         </div>

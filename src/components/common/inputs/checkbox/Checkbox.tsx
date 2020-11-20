@@ -1,11 +1,11 @@
 import style from './checkbox.module.scss'
-//source : https://codepen.io/myleneb/pen/WMpyxG
+// source : https://codepen.io/myleneb/pen/WMpyxG
 
 type CheckBoxProps = {
     label?: string
     type?: string
     hasError?: boolean
-    handle: any
+    handle: any | null
     isChecked: boolean
     innerRef?: any
     inputProps?: any

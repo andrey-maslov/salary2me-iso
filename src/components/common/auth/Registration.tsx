@@ -1,25 +1,21 @@
-import style from "./auth.module.scss"
-import Button from "../buttons/button/Button"
-import {useForm} from 'react-hook-form'
-import {AiOutlineLoading} from 'react-icons/ai'
-import {withTranslation} from "@i18n"
-import {ISignin} from "./Signin"
-import Password from "../inputs/password/Password"
+import { useForm } from 'react-hook-form'
+import { AiOutlineLoading } from 'react-icons/ai'
+import { withTranslation } from '@i18n'
+import Button from '../buttons/button/Button'
+import style from './auth.module.scss'
+import { ISignin } from './Signin'
+import Password from '../inputs/password/Password'
 
 export interface ISignUpForm {
-    firstName: string,
-    lastName: string,
     email: string
     password: string
     passwordConfirm: string
-    errors: any
 }
 
 const Registration: React.FC<ISignin<ISignUpForm>> = ({
     isLoading,
     errorApiMessage,
     submitHandle,
-    clearApiError,
     t
 }) => {
     const { register, handleSubmit, getValues, errors } = useForm<ISignUpForm>()
@@ -31,8 +27,7 @@ const Registration: React.FC<ISignin<ISignUpForm>> = ({
                     <span>Email</span>
                     <input
                         className={style.input}
-                        name="username"
-                        onFocus={clearApiError}
+                        name="email"
                         ref={register({
                             required: `${t('common:errors.required')}`,
                             pattern: {
@@ -42,7 +37,7 @@ const Registration: React.FC<ISignin<ISignUpForm>> = ({
                         })}
                     />
                 </label>
-                {errors.email && <div className={`item-explain`}>{errors.email.message}</div>}
+                {errors.email && <div className="item-explain">{errors.email.message}</div>}
             </div>
 
             <div className={`form-group ${errors.password ? 'has-error' : ''}`}>
@@ -52,10 +47,9 @@ const Registration: React.FC<ISignin<ISignUpForm>> = ({
                         required: `${t('common:errors.required')}`,
                         minLength: { value: 3, message: `${t('signin:short_pwd')}` }
                     })}
-                    clearApiError={clearApiError}
-                    name={'password'}
+                    name="password"
                 />
-                {errors.password && <div className={`item-explain`}>{errors.password.message}</div>}
+                {errors.password && <div className="item-explain">{errors.password.message}</div>}
             </div>
 
             <div className={`form-group ${errors.passwordConfirm ? 'has-error' : ''}`}>
@@ -70,7 +64,6 @@ const Registration: React.FC<ISignin<ISignUpForm>> = ({
                             }
                         }
                     })}
-                    clearApiError={clearApiError}
                     name="passwordConfirm"
                 />
                 {errors.passwordConfirm && (
@@ -82,7 +75,7 @@ const Registration: React.FC<ISignin<ISignUpForm>> = ({
                 <Button
                     title={t('signin:sign_up')}
                     startIcon={isLoading && <AiOutlineLoading />}
-                    handle={() => void (0)}
+                    handle={null}
                     btnClass="btn btn-accent btn-loader"
                 />
                 {errorApiMessage && <div className="item-explain">{errorApiMessage}</div>}

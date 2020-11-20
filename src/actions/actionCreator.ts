@@ -7,19 +7,20 @@ import {
     ESTIMATION,
     CLEAR_USER_DATA,
     GET_CURRENCY_RATES,
-    SET_ERROR,
-    PROCESS_FAILED,
     LOADING,
     SAVE_TEST_DATA,
     FETCH_TEST_DESC,
     FETCH_TERMS,
     SAVE_PERSONAL_INFO,
     CHANGE_PWD,
-    SET_TOAST, CLEAR_TEST_DATA, CLEAR_CV_DATA
+    SET_TOAST
 } from './actionTypes'
 import { ISignInData, ISignUpData } from '../typings/types'
 import { authModes } from '../constants/constants'
 import { setCookie, removeCookie, getCookieFromBrowser } from '../helper/cookie'
+import { apiErrorHandling, authApiErrorHandling, clearErrors } from './errorHandling'
+
+const apiVer = process.env.API_VER
 
 /*= ==== AUTH ===== */
 
@@ -48,8 +49,8 @@ export function addAuthData(data: IUserData): { type: string; userData: IUserDat
     }
 }
 
-export function checkAuth(jwt?) {
-    const url = `${process.env.BASE_API}/api/v${process.env.API_VER}/Account`
+export function checkAuth(jwt?: string) {
+    const url = `${process.env.BASE_API}/api/v${apiVer}/Account`
     const token = jwt || getCookieFromBrowser('token')
     return (dispatch: any) => {
         if (token) {
@@ -72,7 +73,7 @@ export function checkAuth(jwt?) {
 }
 
 export const authUser = (userData: ISignUpData | ISignInData, authType: keyof typeof authModes) => {
-    const url = `${process.env.BASE_API}/api/v${process.env.API_VER}/Account/${
+    const url = `${process.env.BASE_API}/api/v${apiVer}/Account/${
         authType === authModes[1] ? 'register' : 'authenticate'
     }`
 
@@ -89,12 +90,11 @@ export const authUser = (userData: ISignUpData | ISignInData, authType: keyof ty
                     })
                 )
                 setCookie('token', data.jwtToken)
-                // dispatch({ type: CLEAR_TEST_DATA })
-                // dispatch({ type: CLEAR_CV_DATA })
-                dispatch(clearErrors())
+                clearErrors(dispatch)
             })
             .catch(error => {
-                apiErrorHandling(error, dispatch)
+                // apiErrorHandling(error, dispatch)
+                authApiErrorHandling(error, dispatch)
             })
             .finally(() => dispatch(setLoading(false)))
     }
@@ -107,12 +107,12 @@ export const updateUserData = (userData: any) => {
     //     }
     // }
 
-    const url = `${process.env.BASE_API}/api/v${process.env.API_VER}/Account/update`
+    const url = `${process.env.BASE_API}/api/v${apiVer}/Account/update`
     const token = getCookieFromBrowser('token')
     return (dispatch: any) => {
         if (token) {
             dispatch(setLoading(true))
-            dispatch(clearErrors())
+            clearErrors(dispatch)
 
             axios
                 .put(url, userData, {
@@ -136,7 +136,7 @@ export const updateUserData = (userData: any) => {
 }
 
 export const sendForgotEmail = (email: string) => {
-    const url = `${process.env.BASE_API}/api/v${process.env.API_VER}/Account/reset-password`
+    const url = `${process.env.BASE_API}/api/v${apiVer}/Account/reset-password`
 
     return (dispatch: any) => {
         dispatch(setLoading(true))
@@ -147,7 +147,7 @@ export const sendForgotEmail = (email: string) => {
             .then(res => res.data)
             .then(data => {
                 console.log('OK')
-                // dispatch(clearErrors())
+                // clearErrors(dispatch)
                 // dispatch({type: SEND_EMAIL, emailSent: true})
             })
             .catch(error => {
@@ -159,7 +159,7 @@ export const sendForgotEmail = (email: string) => {
 }
 
 export const sendNewPassword = (data: { code: string; newPassword: string; email: string }) => {
-    const url = `${process.env.BASE_API}/api/v${process.env.API_VER}/Account/confirm-reset-password`
+    const url = `${process.env.BASE_API}/api/v${apiVer}/Account/confirm-reset-password`
 
     return (dispatch: any) => {
         dispatch(setLoading(true))
@@ -168,7 +168,7 @@ export const sendNewPassword = (data: { code: string; newPassword: string; email
                 data
             })
             .then(() => {
-                dispatch(clearErrors())
+                clearErrors(dispatch)
                 dispatch({ type: CHANGE_PWD, isPwdChanged: true })
             })
             .catch(error => {
@@ -346,36 +346,4 @@ export function setLoading(isLoading: boolean) {
         type: LOADING,
         isLoading
     }
-}
-
-/*= ==== UTILS ===== */
-
-export function clearErrors() {
-    return (dispatch: any) => {
-        dispatch({ type: SET_ERROR, apiErrorMsg: null })
-        dispatch({ type: PROCESS_FAILED, processFailed: false })
-    }
-}
-
-function apiErrorHandling(error: any, dispatch: any) {
-    if (error.response) {
-        const msg: string = error.response.data?.title || 'Something wrong with resources'
-        dispatch({
-            type: SET_ERROR,
-            apiErrorMsg: msg
-        })
-    } else if (error.request) {
-        // The request was made but no response was received
-        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-        // http.ClientRequest in node.js
-        const msg = 'Some troubles with network'
-        dispatch({
-            type: SET_ERROR,
-            apiErrorMsg: msg
-        })
-    } else {
-        // Something happened in setting up the request that triggered an Error
-        console.error('ERROR', error.message)
-    }
-    dispatch({ type: PROCESS_FAILED, processFailed: true })
 }
