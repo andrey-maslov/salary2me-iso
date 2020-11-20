@@ -16,7 +16,7 @@ import { SET_TOAST } from '../../../actions/actionTypes'
 import CodeBox from '../../../components/common/code-box/CodeBox'
 import Service from './service/Service'
 
-const Profile = ({ t }: { t: any }) => {
+const UserProfile = ({ t }: { t: any }) => {
     const {
         firstName,
         lastName,
@@ -30,7 +30,6 @@ const Profile = ({ t }: { t: any }) => {
 
     const { personalInfo, testData } = useSelector((state: globalStoreType) => state.test)
     const { setToast } = useSelector((state: globalStoreType) => state.app)
-    // const {position} = useSelector((state: globalStoreType) => state.cv)
     const [isReady, setReady] = useState(false)
     const { addToast } = useToasts()
     const dispatch = useDispatch()
@@ -112,12 +111,12 @@ const Profile = ({ t }: { t: any }) => {
             value: localUser.lastName,
             defaultValue: t('signin:extra.last_name')
         },
-        // {
-        //     label: t('signin:extra.position'),
-        //     key: 'position',
-        //     value: localUser.position,
-        //     defaultValue: t('signin:extra.position')
-        // }
+        {
+            label: t('signin:extra.position'),
+            key: 'position',
+            value: localUser.position,
+            defaultValue: t('signin:extra.position')
+        }
     ]
     const checkBoxes = [
         { label: t('signin:extra.want_to_open'), key: 'isPublic', value: localUser.isPublic },
@@ -222,8 +221,9 @@ const Profile = ({ t }: { t: any }) => {
                                     <>
                                         <div className={style.qr}>
                                             <QRCode
-                                                // value={`${process.env.HOST}/test/result/encdata=${encData}`}
-                                                value={`https://salary.nobugs.today/test/result?encdata=${encodeURIComponent(encData)}`}
+                                                value={`${process.env.HOST}/test/result?encdata=${encodeURIComponent(
+                                                    encData
+                                                )}`}
                                                 size={160}
                                             />
                                         </div>
@@ -319,4 +319,4 @@ const Profile = ({ t }: { t: any }) => {
     }
 }
 
-export default withTranslation(['profile', 'common', 'signin'])(Profile)
+export default withTranslation(['profile', 'common', 'signin'])(UserProfile)

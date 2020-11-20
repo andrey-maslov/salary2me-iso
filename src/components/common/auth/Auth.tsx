@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Link, withTranslation } from '@i18n'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
