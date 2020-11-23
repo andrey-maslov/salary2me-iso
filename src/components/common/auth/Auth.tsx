@@ -28,7 +28,7 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
     const dispatch = useDispatch()
     const agreement = useRef<HTMLDivElement>(null)
     const { isLoggedIn } = useSelector((state: globalStoreType) => state.user)
-    const { authApiErrorMsg, redirectUrl, processFailed } = useSelector(
+    const { authApiErrorMsg, redirectUrl } = useSelector(
         (state: globalStoreType) => state.app
     )
     const page = getAuthPage(router.pathname)

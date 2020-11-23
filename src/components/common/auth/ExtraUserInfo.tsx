@@ -20,7 +20,7 @@ const ExtraUserInfo: React.FC<ISignin<IInfoForm>> = ({
     submitHandle,
     t
 }) => {
-    const { register, handleSubmit, reset, getValues, errors } = useForm<IInfoForm>()
+    const { register, handleSubmit, errors } = useForm<IInfoForm>()
 
     const textFields = [
         { label: t('signin:extra.first_name'), key: 'firstName', value: '' },

@@ -14,12 +14,12 @@ import {
     SAVE_PERSONAL_INFO,
     CHANGE_PWD,
     SET_TOAST,
-    SEND_EMAIL
+    SEND_EMAIL, SET_AUTH_PROVIDER
 } from './actionTypes'
 import { ISignInData, ISignUpData } from '../typings/types'
 import { authModes } from '../constants/constants'
 import { setCookie, removeCookie, getCookieFromBrowser } from '../helper/cookie'
-import { apiErrorHandling, authApiErrorHandling, clearErrors } from './errorHandling'
+import { apiErrorHandling, accountApiErrorHandling, clearErrors } from './errorHandling'
 
 const apiVer = process.env.API_VER
 
@@ -31,11 +31,11 @@ export interface IUserData {
     email: string
     position?: string
     provider?: string
-    isPublic?: boolean
-    isLookingForJob?: boolean
+    isPublicProfile?: boolean
+    isOpenForWork?: boolean
 }
 
-export function addAuthData(data: IUserData): { type: string; userData: IUserData } {
+export function setUserData(data: IUserData): { type: string; userData: IUserData } {
     return {
         type: ADD_AUTH_DATA,
         userData: {
@@ -44,8 +44,8 @@ export function addAuthData(data: IUserData): { type: string; userData: IUserDat
             email: data.email,
             position: data.position,
             provider: data.provider,
-            isPublic: data.isPublic,
-            isLookingForJob: data.isLookingForJob
+            isPublicProfile: data.isPublicProfile,
+            isOpenForWork: data.isOpenForWork
         }
     }
 }
@@ -61,10 +61,7 @@ export function checkAuth(jwt?: string): unknown {
                     Authorization: `Bearer ${token}`
                 }
             })
-                .then(res => res.data)
-                .then(data => {
-                    dispatch(addAuthData(data))
-                })
+                .then(res => {})
                 .catch(error => apiErrorHandling(error, dispatch))
                 .finally(() => dispatch(setLoading(false)))
         } else {
@@ -86,26 +83,37 @@ export function authUser(
         axios
             .post(url, userData)
             .then(res => {
-                dispatch(
-                    addAuthData({
-                        ...res.data,
-                        email: res.data.username
-                    })
-                )
-                setCookie('token', res.data.jwtToken)
+                const token = res.data.jwtToken
+                setCookie('token', token)
+                dispatch({ type: SET_AUTH_PROVIDER, provider: 'local' })
+                dispatch(fetchUserData(token))
             })
-            .catch(error => authApiErrorHandling(error, setError))
+            .catch(error => accountApiErrorHandling(error, setError))
     }
 }
 
-export const updateUserData = (userData: any) => {
+export function fetchUserData(token: string) {
+    const url = `${process.env.BASE_API}/api/v${apiVer}/Account`
+    return dispatch => {
+        axios
+            .get(url, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            .then(res => {
+                dispatch(setUserData(res.data))
+            })
+            .catch(error => console.error(error))
+    }
+}
+
+export const updateUserData = (userData: IUserData) => {
     const url = `${process.env.BASE_API}/api/v${apiVer}/Account/update`
     const token = getCookieFromBrowser('token')
-    return (dispatch: any) => {
+    return dispatch => {
         if (token) {
-            dispatch(setLoading(true))
             clearErrors(dispatch)
-
             axios
                 .put(url, userData, {
                     headers: {
@@ -113,14 +121,13 @@ export const updateUserData = (userData: any) => {
                     }
                 })
                 .then(res => {
-                    dispatch(addAuthData(userData))
+                    dispatch(setUserData(res.data))
                     dispatch({ type: SET_TOAST, setToast: 1 })
                 })
                 .catch(error => {
                     apiErrorHandling(error, dispatch)
                     dispatch({ type: SET_TOAST, setToast: 2 })
                 })
-                .finally(() => dispatch(setLoading(false)))
         } else {
             dispatch({ type: CLEAR_USER_DATA })
         }
@@ -134,7 +141,7 @@ export const sendForgotEmail = (email: string, setError: unknown): unknown => {
         axios
             .post(url, { email })
             .then(() => dispatch({ type: SEND_EMAIL, isEmailSent: true }))
-            .catch(error => authApiErrorHandling(error, setError))
+            .catch(error => accountApiErrorHandling(error, setError))
     }
 }
 
@@ -151,7 +158,7 @@ export const sendNewPassword = (data: INewPwdData, setError: unknown): unknown =
         axios
             .post(url, data)
             .then(() => dispatch({ type: CHANGE_PWD, isPwdChanged: true }))
-            .catch(error => authApiErrorHandling(error, setError))
+            .catch(error => accountApiErrorHandling(error, setError))
     }
 }
 
@@ -183,7 +190,7 @@ export const signInGoogle = () => {
 export const signOutGoogle = () => {
     // @ts-ignore
     const auth2 = window.gapi.auth2.getAuthInstance()
-    auth2.signOut().then(function () {
+    auth2.signOut().then(function() {
         console.log('User signed out.')
     })
 }

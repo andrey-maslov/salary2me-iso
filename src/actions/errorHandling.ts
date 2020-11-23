@@ -8,29 +8,21 @@ export function clearErrors(dispatch) {
 export function apiErrorHandling(error: any, dispatch: any) {
     if (error.response) {
         const msg: string = error.response.data?.title || 'Something wrong with resources'
-        dispatch({
-            type: SET_ERROR,
-            apiErrorMsg: msg
-        })
+        dispatch({ type: SET_ERROR, apiErrorMsg: msg })
     } else if (error.request) {
-        // The request was made but no response was received
-        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-        // http.ClientRequest in node.js
-        const msg = 'Some troubles with network'
-        dispatch({
-            type: SET_ERROR,
-            apiErrorMsg: msg
-        })
+        dispatch({ type: SET_ERROR, apiErrorMsg: 'Some troubles with network' })
     } else {
-        // Something happened in setting up the request that triggered an Error
         console.error('ERROR', error.message)
     }
     dispatch({ type: PROCESS_FAILED, processFailed: true })
 }
 
-export function authApiErrorHandling(error: any, setError) {
+export function accountApiErrorHandling(error: any, setError) {
     if (error.response) {
-        const { status, errors } = error.response.data
+        const { status, errors, title } = error.response.data
+        if (status === 400) {
+            setError('form', { message: title })
+        }
         if (status === 404) {
             setError('form', { message: 'User with this email not found' })
         }

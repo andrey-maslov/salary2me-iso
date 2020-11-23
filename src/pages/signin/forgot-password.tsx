@@ -1,14 +1,13 @@
-import {SigninLayout} from '../../page-layouts'
+import { SigninLayout } from '../../page-layouts'
 
-function Forgot({...props}) {
-
+function Forgot({ ...props }) {
     return (
         <SigninLayout {...props} />
     )
 }
 
 Forgot.getInitialProps = async () => ({
-    namespacesRequired: ['signin', 'common'],
+    namespacesRequired: ['signin', 'common']
 })
 
 export default Forgot

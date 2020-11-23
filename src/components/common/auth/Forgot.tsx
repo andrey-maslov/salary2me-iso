@@ -18,7 +18,7 @@ const Forgot: React.FC<ISignin<IForgotForm>> = ({
     submitHandle,
     t
 }) => {
-    const { isEmailSent } = useSelector((state: any) => state.user)
+    const { isEmailSent } = useSelector((state: any) => state.app)
     const { register, handleSubmit, errors, setError, clearErrors } = useForm<IForgotForm>()
 
     return (

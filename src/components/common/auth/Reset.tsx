@@ -23,7 +23,7 @@ const Reset: React.FC<ISignin<IResetForm>> = ({
     t
 }) => {
     const { register, handleSubmit, getValues, errors, setError, clearErrors } = useForm<IResetForm>()
-    const { isPwdChanged } = useSelector((state: globalStoreType) => state.user)
+    const { isPwdChanged } = useSelector((state: globalStoreType) => state.app)
 
     if (isPwdChanged) {
         return <ResetSuccess />

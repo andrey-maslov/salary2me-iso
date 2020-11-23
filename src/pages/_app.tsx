@@ -1,5 +1,4 @@
 import { Provider } from 'react-redux'
-import { useRouter } from 'next/router'
 import App from 'next/app'
 import '../assets/scss/index.scss'
 import { appWithTranslation } from '@i18n'

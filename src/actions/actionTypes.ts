@@ -10,16 +10,17 @@ export const CLEAR_CV_DATA = 'CLEAR_CV_DATA'
 export const CLEAR_USER_DATA = 'CLEAR_USER_DATA'
 export const ADD_AUTH_DATA = 'ADD_AUTH_DATA'
 export const OPEN_LOGIN_MODAL = 'OPEN_LOGIN_MODAL'
-export const SEND_EMAIL = 'SEND_EMAIL'
-export const CHANGE_PWD = 'CHANGE_PWD'
 export const SET_AUTH_ERROR = 'SET_AUTH_ERROR'
+export const SET_AUTH_PROVIDER = 'SET_AUTH_PROVIDER'
 
-/*= ==== APPLICATION STATE ===== */
+/*= ==== APPLICATION ===== */
 export const LOADING = 'LOADING'
 export const API_ERROR = 'API_ERROR'
 export const SET_TOAST = 'SET_TOAST'
 export const RES_STATUS = 'RESPONSE_STATUS'
 export const REDIRECT_URL = 'REDIRECT_URL'
+export const SEND_EMAIL = 'SEND_EMAIL'
+export const CHANGE_PWD = 'CHANGE_PWD'
 
 /*= ==== TEST ===== */
 export const SAVE_TEST_DATA = 'SAVE_TEST_DATA'

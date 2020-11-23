@@ -16,20 +16,19 @@ import { SET_TOAST } from '../../../actions/actionTypes'
 import CodeBox from '../../../components/common/code-box/CodeBox'
 import Service from './service/Service'
 
-const UserProfile = ({ t }: { t: any }) => {
+const UserProfile = ({ t }) => {
     const {
         firstName,
         lastName,
         email,
         position,
-        provider,
         isLoggedIn,
-        isPublic,
-        isLookingForJob
+        isPublicProfile,
+        isOpenForWork
     } = useSelector((state: globalStoreType) => state.user)
 
     const { personalInfo, testData } = useSelector((state: globalStoreType) => state.test)
-    const { setToast } = useSelector((state: globalStoreType) => state.app)
+    const { setToast, apiErrorMsg } = useSelector((state: globalStoreType) => state.app)
     const [isReady, setReady] = useState(false)
     const { addToast } = useToasts()
     const dispatch = useDispatch()
@@ -41,9 +40,8 @@ const UserProfile = ({ t }: { t: any }) => {
         lastName,
         email,
         position,
-        provider,
-        isPublic,
-        isLookingForJob
+        isPublicProfile,
+        isOpenForWork
     })
 
     useEffect(() => {
@@ -60,7 +58,7 @@ const UserProfile = ({ t }: { t: any }) => {
                 appearance: 'success'
             })
         } else if (setToast === 2) {
-            addToast('Что-то пошло не так', {
+            addToast(apiErrorMsg, {
                 appearance: 'error'
             })
         }
@@ -71,28 +69,15 @@ const UserProfile = ({ t }: { t: any }) => {
                 lastName,
                 email,
                 position,
-                provider,
-                isPublic,
-                isLookingForJob
+                isPublicProfile,
+                isOpenForWork
             })
 
             dispatch({ type: SET_TOAST, setToast: 0 })
         }
 
         updateLocalData()
-    }, [
-        firstName,
-        lastName,
-        email,
-        position,
-        provider,
-        isPublic,
-        isLoggedIn,
-        isLookingForJob,
-        setToast,
-        addToast,
-        dispatch
-    ])
+    }, [firstName, lastName, email, position, isPublicProfile, isLoggedIn, isOpenForWork])
 
     if (!isReady) {
         return <Loader />
@@ -118,18 +103,31 @@ const UserProfile = ({ t }: { t: any }) => {
             defaultValue: t('signin:extra.position')
         }
     ]
+    const emailField = {
+        label: 'Email',
+        key: 'email',
+        value: localUser.email,
+        defaultValue: 'email'
+    }
     const checkBoxes = [
-        { label: t('signin:extra.want_to_open'), key: 'isPublic', value: localUser.isPublic },
+        {
+            label: t('signin:extra.want_to_open'),
+            key: 'isPublicProfile',
+            value: localUser.isPublicProfile
+        },
         {
             label: t('signin:extra.looking_for_job'),
-            key: 'isLookingForJob',
-            value: localUser.isLookingForJob
+            key: 'isOpenForWork',
+            value: localUser.isOpenForWork
         }
     ]
 
-    const pairLink = `https://teamconstructor.com${encData ? `?encdata=${encodeURIComponent(encData)}` : ''}`
+    const pairLink = `https://teamconstructor.com${
+        encData ? `?encdata=${encodeURIComponent(encData)}` : ''
+    }`
     const teamLink = `https://teamconstructor.com`
     const grBaseLink = `https://thegreatbase.online`
+    const QRValue = `${process.env.HOST}/test/result?encdata=${encodeURIComponent(encData)}`
 
     return (
         <div className={style.wrapper}>
@@ -174,9 +172,23 @@ const UserProfile = ({ t }: { t: any }) => {
                                         />
                                     </div>
                                 ))}
-                                <div className={style.item} key="email">
-                                    <span className={style.label}>Email:</span>
-                                    <div className={style.field}>{email}</div>
+                                <div
+                                    className={`${style.item} ${
+                                        !emailField.value ? style.default : ''
+                                    }`}>
+                                    <span className={style.label}>{emailField.label}</span>
+                                    <InputTransformer
+                                        initValue={emailField.value || emailField.defaultValue}
+                                        rules={{
+                                            pattern: {
+                                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                                message: `${t('common:errors.invalid_email')}`
+                                            }
+                                        }}
+                                        objectKey={emailField.key}
+                                        handler={updateProfile}
+                                        {...{ type: 'text', autoComplete: 'off' }}
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -189,9 +201,9 @@ const UserProfile = ({ t }: { t: any }) => {
                                     <div className={style.item} key={item.key}>
                                         <Checkbox
                                             label={item.label}
-                                            handle={toast}
+                                            handle={updateProfile}
                                             isChecked={item.value}
-                                            // innerRef={register()}
+                                            {...{ name: item.key }}
                                         />
                                     </div>
                                 ))}
@@ -220,12 +232,7 @@ const UserProfile = ({ t }: { t: any }) => {
                                 {encData ? (
                                     <>
                                         <div className={style.qr}>
-                                            <QRCode
-                                                value={`${process.env.HOST}/test/result?encdata=${encodeURIComponent(
-                                                    encData
-                                                )}`}
-                                                size={160}
-                                            />
+                                            <QRCode value={QRValue} size={160} />
                                         </div>
                                         <CodeBox content={encData} />
                                     </>
@@ -302,11 +309,15 @@ const UserProfile = ({ t }: { t: any }) => {
     )
 
     function updateProfile(formData: IOneFieldForm<string | boolean>) {
+        console.log(formData)
         dispatch(
             updateUserData({
                 firstName,
                 lastName,
                 email,
+                position,
+                isPublicProfile,
+                isOpenForWork,
                 ...formData
             })
         )
