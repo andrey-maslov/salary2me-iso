@@ -10,6 +10,7 @@ export interface ISignUpForm {
     email: string
     password: string
     passwordConfirm: string
+    form?: unknown
 }
 
 const Registration: React.FC<ISignin<ISignUpForm>> = ({
@@ -18,10 +19,10 @@ const Registration: React.FC<ISignin<ISignUpForm>> = ({
     submitHandle,
     t
 }) => {
-    const { register, handleSubmit, getValues, errors } = useForm<ISignUpForm>()
+    const { register, handleSubmit, getValues, errors, setError, clearErrors } = useForm<ISignUpForm>()
 
     return (
-        <form onSubmit={handleSubmit(submitHandle)}>
+        <form onSubmit={handleSubmit(data => submitHandle(data, setError))}>
             <div className={`form-group ${errors.email ? 'has-error' : ''}`}>
                 <label>
                     <span>Email</span>
@@ -45,7 +46,7 @@ const Registration: React.FC<ISignin<ISignUpForm>> = ({
                     label={t('signin:pwd')}
                     innerRef={register({
                         required: `${t('common:errors.required')}`,
-                        minLength: { value: 3, message: `${t('signin:short_pwd')}` }
+                        minLength: { value: 7, message: `${t('signin:short_pwd')}` }
                     })}
                     name="password"
                 />
@@ -75,10 +76,10 @@ const Registration: React.FC<ISignin<ISignUpForm>> = ({
                 <Button
                     title={t('signin:sign_up')}
                     startIcon={isLoading && <AiOutlineLoading />}
-                    handle={null}
+                    handle={() => clearErrors()}
                     btnClass="btn btn-accent btn-loader"
                 />
-                {errorApiMessage && <div className="item-explain">{errorApiMessage}</div>}
+                {errors.form && <div className="item-explain api-error">{errors.form.message}</div>}
             </div>
         </form>
     )

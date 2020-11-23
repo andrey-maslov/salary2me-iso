@@ -13,7 +13,8 @@ import {
     FETCH_TERMS,
     SAVE_PERSONAL_INFO,
     CHANGE_PWD,
-    SET_TOAST
+    SET_TOAST,
+    SEND_EMAIL
 } from './actionTypes'
 import { ISignInData, ISignUpData } from '../typings/types'
 import { authModes } from '../constants/constants'
@@ -49,7 +50,7 @@ export function addAuthData(data: IUserData): { type: string; userData: IUserDat
     }
 }
 
-export function checkAuth(jwt?: string) {
+export function checkAuth(jwt?: string): unknown {
     const url = `${process.env.BASE_API}/api/v${apiVer}/Account`
     const token = jwt || getCookieFromBrowser('token')
     return (dispatch: any) => {
@@ -72,41 +73,32 @@ export function checkAuth(jwt?: string) {
     }
 }
 
-export const authUser = (userData: ISignUpData | ISignInData, authType: keyof typeof authModes) => {
+export function authUser(
+    userData: ISignUpData | ISignInData,
+    authType: keyof typeof authModes,
+    setError: unknown
+): unknown {
     const url = `${process.env.BASE_API}/api/v${apiVer}/Account/${
         authType === authModes[1] ? 'register' : 'authenticate'
     }`
 
-    return (dispatch: any) => {
-        dispatch(setLoading(true))
+    return dispatch => {
         axios
             .post(url, userData)
-            .then(res => res.data)
-            .then(data => {
+            .then(res => {
                 dispatch(
                     addAuthData({
-                        ...data,
-                        email: data.username
+                        ...res.data,
+                        email: res.data.username
                     })
                 )
-                setCookie('token', data.jwtToken)
-                clearErrors(dispatch)
+                setCookie('token', res.data.jwtToken)
             })
-            .catch(error => {
-                // apiErrorHandling(error, dispatch)
-                authApiErrorHandling(error, dispatch)
-            })
-            .finally(() => dispatch(setLoading(false)))
+            .catch(error => authApiErrorHandling(error, setError))
     }
 }
 
 export const updateUserData = (userData: any) => {
-    // for (const prop in userData) {
-    //     if (typeof prop === 'string') {
-    //         userData[prop] = sanitize(userData[prop].trim())
-    //     }
-    // }
-
     const url = `${process.env.BASE_API}/api/v${apiVer}/Account/update`
     const token = getCookieFromBrowser('token')
     return (dispatch: any) => {
@@ -135,54 +127,37 @@ export const updateUserData = (userData: any) => {
     }
 }
 
-export const sendForgotEmail = (email: string) => {
+export const sendForgotEmail = (email: string, setError: unknown): unknown => {
     const url = `${process.env.BASE_API}/api/v${apiVer}/Account/reset-password`
 
-    return (dispatch: any) => {
-        dispatch(setLoading(true))
+    return dispatch => {
         axios
-            .post(url, {
-                data: { email }
-            })
-            .then(res => res.data)
-            .then(data => {
-                console.log('OK')
-                // clearErrors(dispatch)
-                // dispatch({type: SEND_EMAIL, emailSent: true})
-            })
-            .catch(error => {
-                console.log('ERROR email')
-                apiErrorHandling(error, dispatch)
-            })
-            .finally(() => dispatch(setLoading(false)))
+            .post(url, { email })
+            .then(() => dispatch({ type: SEND_EMAIL, isEmailSent: true }))
+            .catch(error => authApiErrorHandling(error, setError))
     }
 }
 
-export const sendNewPassword = (data: { code: string; newPassword: string; email: string }) => {
+interface INewPwdData {
+    code: string
+    newPassword: string
+    email: string
+}
+
+export const sendNewPassword = (data: INewPwdData, setError: unknown): unknown => {
     const url = `${process.env.BASE_API}/api/v${apiVer}/Account/confirm-reset-password`
 
-    return (dispatch: any) => {
-        dispatch(setLoading(true))
+    return dispatch => {
         axios
-            .post(url, {
-                data
-            })
-            .then(() => {
-                clearErrors(dispatch)
-                dispatch({ type: CHANGE_PWD, isPwdChanged: true })
-            })
-            .catch(error => {
-                apiErrorHandling(error, dispatch)
-            })
-            .finally(() => dispatch(setLoading(false)))
+            .post(url, data)
+            .then(() => dispatch({ type: CHANGE_PWD, isPwdChanged: true }))
+            .catch(error => authApiErrorHandling(error, setError))
     }
 }
 
 export function logOut(): { type: string } {
     removeCookie('token')
-    return {
-        type: CLEAR_USER_DATA
-    }
+    return { type: CLEAR_USER_DATA }
 }
 
 // TODO change

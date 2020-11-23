@@ -13,7 +13,6 @@ export type appStoreType = {
     authApiErrorMsg: string | null
     processFailed: boolean
     setToast: number
-    isPwdChanged: false
     redirectUrl: string | null
 }
 

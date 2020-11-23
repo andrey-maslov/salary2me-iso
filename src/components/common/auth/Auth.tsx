@@ -5,11 +5,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import Signin, { ISigninForm } from './Signin'
 import Registration, { ISignUpForm } from './Registration'
 import {
-    addAuthData,
-    authUser,
     sendForgotEmail,
-    sendNewPassword, setLoading,
-    updateUserData
+    sendNewPassword,
+    updateUserData,
+    authUser
 } from '../../../actions/actionCreator'
 import Forgot, { IForgotForm } from './Forgot'
 import Reset, { IResetForm } from './Reset'
@@ -19,9 +18,6 @@ import ForgotSuccess from './ForgotSuccess'
 import { getQueryFromURL } from '../../../helper/helper'
 import { globalStoreType } from '../../../typings/types'
 import ExtraUserInfo, { IInfoForm } from './ExtraUserInfo'
-import { authApiErrorHandling, clearErrors } from '../../../actions/errorHandling'
-import axios from "axios";
-import { setCookie } from "../../../helper/cookie";
 
 type AuthProps = {
     t: any
@@ -32,8 +28,9 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
     const dispatch = useDispatch()
     const agreement = useRef<HTMLDivElement>(null)
     const { isLoggedIn } = useSelector((state: globalStoreType) => state.user)
-    const { isLoading, authApiErrorMsg, redirectUrl, processFailed } = useSelector((state: globalStoreType) => state.app)
-
+    const { authApiErrorMsg, redirectUrl, processFailed } = useSelector(
+        (state: globalStoreType) => state.app
+    )
     const page = getAuthPage(router.pathname)
 
     useEffect(() => {
@@ -67,11 +64,13 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
                 privacyLink.removeEventListener('click', toPrivacy)
             }
         }
-    }, [agreement, isLoggedIn, router])
+    }, [agreement, router])
 
     useEffect(() => {
-        clearErrors(dispatch)
-    }, [])
+        if (isLoggedIn) {
+            router.push(redirectUrl || '/')
+        }
+    }, [isLoggedIn])
 
     const Form = () => {
         switch (page) {
@@ -79,9 +78,9 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
                 return (
                     <>
                         <Signin
-                            isLoading={isLoading}
+                            isLoading={false}
                             errorApiMessage={authApiErrorMsg}
-                            submitHandle={SignIn}
+                            submitHandle={signIn}
                         />
                         <Link href="/signin/forgot-password">
                             <a>{t('signin:forgot_pwd_question')}</a>
@@ -91,7 +90,7 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
             case authModes[1]:
                 return (
                     <Registration
-                        isLoading={isLoading}
+                        isLoading={false}
                         errorApiMessage={authApiErrorMsg}
                         submitHandle={signUp}
                     />
@@ -100,7 +99,7 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
                 return (
                     <>
                         <Forgot
-                            isLoading={isLoading}
+                            isLoading={false}
                             errorApiMessage={authApiErrorMsg}
                             submitHandle={forgotHandle}
                         />
@@ -113,7 +112,7 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
                 return (
                     <>
                         <Reset
-                            isLoading={isLoading}
+                            isLoading={false}
                             errorApiMessage={authApiErrorMsg}
                             submitHandle={resetHandle}
                         />
@@ -134,7 +133,7 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
             case authModes[5]:
                 return (
                     <ExtraUserInfo
-                        isLoading={isLoading}
+                        isLoading={false}
                         errorApiMessage={authApiErrorMsg}
                         submitHandle={addExtraInfo}
                     />
@@ -160,28 +159,11 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
         </div>
     )
 
-    function getAuthPage(pathname: string): string {
-        if (!pathname) {
-            return ''
-        }
-        return pathname.split('/').slice(-1)[0]
+    function signIn(data: ISigninForm, setError) {
+        dispatch(authUser(data, 'signin', setError))
     }
 
-    async function SignIn(data: ISigninForm) {
-        if (data.username === 'sdasdasd') {
-            alert('OK')
-        } else {
-            // setError('username', 'not good')
-        }
-        // dispatch(authUser(data, 'signin'))
-        // if (isLoggedIn) {
-        //     router.push(redirectUrl || '/')
-        // }
-    }
-
-
-
-    function signUp(data: ISignUpForm): void {
+    function signUp(data: ISignUpForm, setError): void {
         const userData = {
             firstName: '',
             lastName: '',
@@ -191,17 +173,14 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
             },
             ...data
         }
-        dispatch(authUser(userData, 'registration'))
-        if (isLoggedIn) {
-            router.push(redirectUrl || '/')
-        }
+        dispatch(authUser(userData, 'registration', setError))
     }
 
-    function forgotHandle(data: IForgotForm): void {
-        dispatch(sendForgotEmail(data.email))
+    function forgotHandle(data: IForgotForm, setError): void {
+        dispatch(sendForgotEmail(data.email, setError))
     }
 
-    function resetHandle(data: IResetForm): void {
+    function resetHandle(data: IResetForm, setError): void {
         // TODO fix this
         const code = getQueryFromURL(window.location.search, 'code')
         const newData = {
@@ -209,7 +188,7 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
             newPassword: data.password,
             email: data.email
         }
-        dispatch(sendNewPassword(newData))
+        dispatch(sendNewPassword(newData, setError))
     }
 
     function addExtraInfo(data: IInfoForm) {
@@ -219,6 +198,13 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
             position: data.position
         }
         dispatch(updateUserData(userData))
+    }
+
+    function getAuthPage(pathname: string): string {
+        if (!pathname) {
+            return ''
+        }
+        return pathname.split('/').slice(-1)[0]
     }
 }
 

@@ -1,68 +1,39 @@
-import { useDispatch } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import { AiOutlineLoading } from 'react-icons/ai'
 import { withTranslation } from '@i18n'
 import Button from '../buttons/button/Button'
 import style from './auth.module.scss'
 import Password from '../inputs/password/Password'
-import axios from "axios";
-import { addAuthData, authUser } from "../../../actions/actionCreator";
 
 export interface ISigninForm {
     username: string
     password: string
+    form?: unknown
 }
 
 export interface ISignin<T> {
     isLoading: boolean
     errorApiMessage: string
-    submitHandle: (data: T) => void
-    clearApiError?: () => void
+    submitHandle: (data: T, setError) => void
     t?: any
 }
 
 const Signin: React.FC<ISignin<ISigninForm>> = ({
-                                                    isLoading,
-                                                    errorApiMessage,
-                                                    submitHandle,
-                                                    clearApiError,
-                                                    t
-                                                }) => {
-    const { register, handleSubmit, errors, setError } = useForm<ISigninForm>()
-    const dispatch = useDispatch()
-
-    async function auth(userData) {
-        try {
-            const response = await axios
-                .post(`${process.env.BASE_API}/api/v1/Account/authenticate`, userData)
-                .then(res => res.data)
-                .then(data => {
-                    dispatch(addAuthData({ ...data, email: data.username }))
-                })
-        } catch {
-            alert('ERROR')
-        }
-    }
-
-    async function SignIn(data: ISigninForm) {
-        await dispatch(authUser(data, 'signin'))
-        setError('username', 'validate')
-
-        // dispatch(authUser(data, 'signin'))
-        // if (isLoggedIn) {
-        //     router.push(redirectUrl || '/')
-        // }
-    }
+    isLoading,
+    errorApiMessage,
+    submitHandle,
+    t
+}) => {
+    const { register, handleSubmit, errors, setError, clearErrors } = useForm<ISigninForm>()
 
     return (
-        <form onSubmit={handleSubmit(SignIn)}>
+        <form onSubmit={handleSubmit(data => submitHandle(data, setError))}>
             <div className={`form-group ${errors.username ? 'has-error' : ''}`}>
                 <label>
                     <span>Email</span>
                     <input
                         className={style.input}
                         name="username"
-                        onFocus={clearApiError}
                         ref={register({
                             required: `${t('common:errors.required')}`,
                             pattern: {
@@ -80,7 +51,6 @@ const Signin: React.FC<ISignin<ISigninForm>> = ({
                     innerRef={register({
                         required: `${t('common:errors.required')}`
                     })}
-                    clearApiError={clearApiError}
                     name="password"
                 />
                 {errors.password && <div className="item-explain">{errors.password.message}</div>}
@@ -90,10 +60,10 @@ const Signin: React.FC<ISignin<ISigninForm>> = ({
                 <Button
                     title={t('signin:sign_in')}
                     startIcon={isLoading && <AiOutlineLoading />}
-                    handle={null}
+                    handle={() => clearErrors()}
                     btnClass="btn btn-accent btn-loader"
                 />
-                {errorApiMessage && <div className="item-explain">{errorApiMessage}</div>}
+                {errors.form && <div className="item-explain api-error">{errors.form.message}</div>}
             </div>
         </form>
     )

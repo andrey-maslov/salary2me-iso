@@ -7,11 +7,13 @@ import style from './auth.module.scss'
 import ResetSuccess from './ResetSuccess'
 import { ISignin } from './Signin'
 import { globalStoreType } from '../../../typings/types'
+import Password from '../inputs/password/Password'
 
 export interface IResetForm {
     password: string
     passwordConfirm: string
     email: string
+    form?: unknown
 }
 
 const Reset: React.FC<ISignin<IResetForm>> = ({
@@ -20,26 +22,25 @@ const Reset: React.FC<ISignin<IResetForm>> = ({
     submitHandle,
     t
 }) => {
-    const { register, handleSubmit, reset, getValues, errors } = useForm<IResetForm>()
-    const { isPwdChanged } = useSelector((state: globalStoreType) => state.app)
+    const { register, handleSubmit, getValues, errors, setError, clearErrors } = useForm<IResetForm>()
+    const { isPwdChanged } = useSelector((state: globalStoreType) => state.user)
 
     if (isPwdChanged) {
         return <ResetSuccess />
     }
 
     return (
-        <form onSubmit={handleSubmit(submitHandle)}>
+        <form onSubmit={handleSubmit(data => submitHandle(data, setError))}>
             <div className={`form-group ${errors.password ? 'has-error' : ''}`}>
                 <label>
-                    <span>{t('signin:new_pwd')}</span>
-                    <input
-                        className={style.input}
-                        type="password"
-                        name="password"
-                        ref={register({
+                    <Password
+                        label={t('signin:new_pwd')}
+                        innerRef={register({
                             required: `${t('common:errors.required')}`,
-                            minLength: { value: 3, message: `${t('common:errors.short_pwd')}` }
+                            minLength: { value: 7, message: `${t('signin:short_pwd')}` }
                         })}
+                        name="password"
+                        autoComplete="off"
                     />
                 </label>
                 {errors.password && <div className="item-explain">{errors.password.message}</div>}
@@ -47,22 +48,19 @@ const Reset: React.FC<ISignin<IResetForm>> = ({
 
             <div className={`form-group ${errors.passwordConfirm ? 'has-error' : ''}`}>
                 <label>
-                    <span>{t('signin:repeat_pwd')}</span>
-                    <input
-                        className={style.input}
-                        type="password"
-                        name="passwordConfirm"
-                        ref={register({
-                            required: `${t('common:errors.confirm_pwd')}`,
+                    <Password
+                        label={t('signin:confirm_pwd')}
+                        innerRef={register({
+                            required: `${t('signin:confirm_pwd')}`,
                             validate: {
                                 matchesPreviousPassword: value => {
                                     const { password } = getValues()
-                                    return (
-                                        password === value || `${t('common:errors.pwd_mismatch')}`
-                                    )
+                                    return password === value || `${t('signin:pwd_mismatch')}`
                                 }
                             }
                         })}
+                        name="passwordConfirm"
+                        autoComplete="off"
                     />
                 </label>
                 {errors.passwordConfirm && (
@@ -76,6 +74,7 @@ const Reset: React.FC<ISignin<IResetForm>> = ({
                     <input
                         className={style.input}
                         name="email"
+                        autoComplete="off"
                         ref={register({
                             required: `${t('common:errors.required')}`,
                             pattern: {
@@ -92,10 +91,10 @@ const Reset: React.FC<ISignin<IResetForm>> = ({
                 <Button
                     title={t('common:buttons.send')}
                     startIcon={isLoading && <AiOutlineLoading />}
-                    handle={null}
+                    handle={() => clearErrors()}
                     btnClass="btn btn-outlined btn-loader"
                 />
-                {errorApiMessage && <div className="item-explain">{errorApiMessage}</div>}
+                {errors.form && <div className="item-explain api-error">{errors.form.message}</div>}
             </div>
         </form>
     )

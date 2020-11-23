@@ -1,11 +1,8 @@
-import { PROCESS_FAILED, SET_AUTH_ERROR, SET_ERROR } from "./actionTypes";
+import { PROCESS_FAILED, SET_ERROR } from "./actionTypes";
 
 export function clearErrors(dispatch) {
-    console.log('from clear')
     dispatch({ type: SET_ERROR, apiErrorMsg: null })
     dispatch({ type: PROCESS_FAILED, processFailed: false })
-    dispatch({ type: SET_AUTH_ERROR, authApiErrorMsg: null })
-
 }
 
 export function apiErrorHandling(error: any, dispatch: any) {
@@ -31,36 +28,35 @@ export function apiErrorHandling(error: any, dispatch: any) {
     dispatch({ type: PROCESS_FAILED, processFailed: true })
 }
 
-export function authApiErrorHandling(error: any, dispatch: any) {
+export function authApiErrorHandling(error: any, setError) {
     if (error.response) {
-        const { title, status, detail, errors } = error.response.data
-        // console.log(title, status, detail, errors)
+        const { status, errors } = error.response.data
         if (status === 404) {
-            dispatch({ type: SET_AUTH_ERROR, authApiErrorMsg: `User not found` })
+            setError('form', { message: 'User with this email not found' })
         }
         if (status === 500) {
-            dispatch({ type: SET_AUTH_ERROR, authApiErrorMsg: `Something wrong` })
+            setError('form', { message: 'something wrong' })
         }
         if (errors) {
             const { password, email } = errors
-
             if (password) {
-                setSpecificError(password, dispatch)
+                setSpecificError(password, setError)
             } else if (email) {
-                setSpecificError(email, dispatch)
+                setSpecificError(email, setError)
             } else {
-                dispatch({ type: SET_AUTH_ERROR, authApiErrorMsg: `Something wrong` })
+                setError('form', { message: 'something wrong' })
             }
         }
     } else {
-        dispatch({ type: SET_AUTH_ERROR, authApiErrorMsg: `Something wrong` })
+        setError('form', { message: 'something wrong' })
     }
 }
 
-function setSpecificError(errorList: string[], dispatch): void {
+function setSpecificError(errorList: string[], setError): void {
     if (!Array.isArray(errorList)) {
-        dispatch({ type: SET_AUTH_ERROR, authApiErrorMsg: `Something wrong` })
+        setError()
+        setError('form', { message: 'something wrong' })
     }
     const msg = errorList.length > 1 ? errorList.join(', ') : errorList[0]
-    dispatch({ type: SET_AUTH_ERROR, authApiErrorMsg: msg })
+    setError('form', { message: msg })
 }
