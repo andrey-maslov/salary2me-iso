@@ -3,8 +3,8 @@ import { Link, withTranslation } from '@i18n'
 import { useSelector, useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
 import { useToasts } from 'react-toast-notifications'
-import { MdAttachMoney } from 'react-icons/md'
-import { FaFilePdf } from 'react-icons/fa'
+import { RiQrCodeLine } from 'react-icons/ri'
+import { FiExternalLink } from 'react-icons/fi'
 import QRCode from 'qrcode.react'
 import style from './profile.module.scss'
 import { globalStoreType, IOneFieldForm } from '../../../typings/types'
@@ -12,9 +12,10 @@ import InputTransformer from '../../../components/common/inputs/input-transforme
 import { IUserData, updateUserData } from '../../../actions/actionCreator'
 import Loader from '../../../components/common/loaders/loader/Loader'
 import Checkbox from '../../../components/common/inputs/checkbox/Checkbox'
-import { SET_TOAST } from '../../../actions/actionTypes'
+import { DANGER_MODAL, SET_TOAST } from '../../../actions/actionTypes'
 import CodeBox from '../../../components/common/code-box/CodeBox'
 import Service from './service/Service'
+import Button from "../../../components/common/buttons/button/Button";
 
 const UserProfile = ({ t }) => {
     const {
@@ -30,6 +31,7 @@ const UserProfile = ({ t }) => {
     const { personalInfo, testData } = useSelector((state: globalStoreType) => state.test)
     const { setToast, apiErrorMsg } = useSelector((state: globalStoreType) => state.app)
     const [isReady, setReady] = useState(false)
+    const [isQRCode, setQRCode] = useState(false)
     const { addToast } = useToasts()
     const dispatch = useDispatch()
     const router = useRouter()
@@ -77,7 +79,16 @@ const UserProfile = ({ t }) => {
         }
 
         updateLocalData()
-    }, [firstName, lastName, email, position, isPublicProfile, isLoggedIn, isOpenForWork])
+    }, [
+        firstName,
+        lastName,
+        email,
+        position,
+        isPublicProfile,
+        isLoggedIn,
+        isOpenForWork,
+        apiErrorMsg
+    ])
 
     if (!isReady) {
         return <Loader />
@@ -122,25 +133,27 @@ const UserProfile = ({ t }) => {
         }
     ]
 
-    const pairLink = `https://teamconstructor.com${
+    const pairLink = `${process.env.COOP_URL}${
         encData ? `?encdata=${encodeURIComponent(encData)}` : ''
     }`
-    const teamLink = `https://teamconstructor.com`
+    const teamLink = `${process.env.COOP_URL}`
     const grBaseLink = `https://thegreatbase.online`
     const QRValue = `${process.env.HOST}/test/result?encdata=${encodeURIComponent(encData)}`
 
     return (
         <div className={style.wrapper}>
             <div className={style.header}>
-                <h2 className={style.title}>Account Settings</h2>
-                <p>Here you can change your personal data and privacy settings.</p>
+                <h2 className={style.title}>Настройки аккаунта</h2>
+                <p>
+                    Здесь вы можете управлять своими персональными данными и настройками приватности
+                </p>
                 <p>
                     <Link href="/terms">
-                        <a>More about the terms of use</a>
+                        <a>Подробнее о правилах использования</a>
                     </Link>
-                    {` or `}
+                    {` или `}
                     <Link href="/policies/privacy-policy">
-                        <a>read our privacy policy</a>
+                        <a>прочитайте нашу политику приватности</a>
                     </Link>
                 </p>
             </div>
@@ -148,7 +161,7 @@ const UserProfile = ({ t }) => {
             <div className="row">
                 <div className="col-md-6">
                     <div className={`${style.box} ${style.account}`}>
-                        <h5 className={style.box_title}>Account</h5>
+                        <h5 className={style.box_title}>Аккаунт</h5>
                         <div className={`${style.box_content}`}>
                             <div className={`${style.list} flex`}>
                                 {textFields.map(item => (
@@ -201,7 +214,7 @@ const UserProfile = ({ t }) => {
                                     <div className={style.item} key={item.key}>
                                         <Checkbox
                                             label={item.label}
-                                            handle={updateProfile}
+                                            handle={checkBoxHandle}
                                             isChecked={item.value}
                                             {...{ name: item.key }}
                                         />
@@ -214,40 +227,53 @@ const UserProfile = ({ t }) => {
 
                 <div className="col-md-6">
                     <div className={`${style.box} ${style.services}`}>
-                        <h5 className={style.box_title}>Services</h5>
+                        <h5 className={style.box_title}>Сервисы</h5>
 
                         <Service service="salary2me">
-                            <div className={`${style.item} flex between-xs`}>
-                                <Link href="/resume">
-                                    <a>Ваше резюме</a>
-                                </Link>
-                                <FaFilePdf />
-                            </div>
-                            <div className={`${style.item} flex between-xs`}>
-                                <Link href="/estimation">
-                                    <a>Оценка резюме по городам</a>
-                                </Link>
-                            </div>
-                            <div className={`${style.item} flex between-xs`}>
-                                {encData ? (
-                                    <>
-                                        <div className={style.qr}>
-                                            <QRCode value={QRValue} size={160} />
-                                        </div>
-                                        <CodeBox content={encData} />
-                                    </>
-                                ) : (
-                                    <Link href="/test">
-                                        <a>Пройдите тест</a>
-                                    </Link>
-                                )}
-                            </div>
+                            {/* <div className={`${style.item} flex between-xs`}> */}
+                            {/*    <Link href="/resume"> */}
+                            {/*        <a>Ваше резюме</a> */}
+                            {/*    </Link> */}
+                            {/*    <FaFilePdf /> */}
+                            {/* </div> */}
+                            {/* <div className={`${style.item} flex between-xs`}> */}
+                            {/*    <Link href="/estimation"> */}
+                            {/*        <a>Оценка резюме по городам</a> */}
+                            {/*    </Link> */}
+                            {/* </div> */}
 
-                            <div className={`${style.item} flex between-xs`}>
+                            <div className={`${style.item}`}>
+                                <h4 className={style.itemTitle}>Психологический профиль</h4>
+                                {testData && (
+                                    <>
+                                        <p style={{ marginBottom: '1rem' }}>
+                                            Зашифрованный результат
+                                        </p>
+                                        <div style={{ marginBottom: '1rem' }}>
+                                            <CodeBox content={encData} />
+                                        </div>
+                                    </>
+                                )}
                                 {testData ? (
-                                    <Link href="/test/result">
-                                        <a>Перейти к психологическому профилю</a>
-                                    </Link>
+                                    <div className={style.goToProfile}>
+                                        {!isQRCode ? (
+                                            <div>
+                                                <Link href="/test/result">
+                                                    <a>Перейти к моему психологическому профилю</a>
+                                                </Link>
+                                            </div>
+                                        ) : (
+                                            <div className={style.qr}>
+                                                <QRCode value={QRValue} size={160} />
+                                            </div>
+                                        )}
+                                        <Button
+                                            title=""
+                                            btnClass="btn btn-outlined"
+                                            startIcon={<RiQrCodeLine />}
+                                            handle={() => setQRCode(!isQRCode)}
+                                        />
+                                    </div>
                                 ) : (
                                     <Link href="/test">
                                         <a>Пройдите тест</a>
@@ -261,12 +287,13 @@ const UserProfile = ({ t }) => {
                                 <a href={pairLink} target="_blank" rel="noopener noreferrer">
                                     Перейти к анализу совместимости
                                 </a>
-                                <MdAttachMoney />
+                                <FiExternalLink />
                             </div>
                             <div className={`${style.item} flex between-xs`}>
                                 <a href={teamLink} target="_blank" rel="noopener noreferrer">
                                     Перейти к формированию команды
                                 </a>
+                                <FiExternalLink />
                             </div>
                         </Service>
 
@@ -275,7 +302,7 @@ const UserProfile = ({ t }) => {
                                 <a href={grBaseLink} target="_blank" rel="noopener noreferrer">
                                     Рабочий кабинет
                                 </a>
-                                <MdAttachMoney />
+                                <FiExternalLink />
                             </div>
                         </Service>
                     </div>
@@ -286,21 +313,9 @@ const UserProfile = ({ t }) => {
                 <h5 className={style.box_title}>Danger zone</h5>
                 <div className={`${style.box_content}`}>
                     <div className={`${style.item} ${style.delete}`}>
-                        <div>
-                            Once you delete your account, it cannot be undone. This is permanent.
-                        </div>
-                        <button
-                            className="btn"
-                            onClick={() => {
-                                if (
-                                    // eslint-disable-next-line no-alert
-                                    window.confirm('Вы действительно хотите удалить аккаунт????')
-                                ) {
-                                    // eslint-disable-next-line no-alert
-                                    alert('Зря!')
-                                }
-                            }}>
-                            Delete account
+                        <div>Если Вы удалите аккаунт, то вы не сможете его восстановить</div>
+                        <button className="btn" onClick={deleteAccountBtnHandler}>
+                            Удалить аккаунт
                         </button>
                     </div>
                 </div>
@@ -309,7 +324,6 @@ const UserProfile = ({ t }) => {
     )
 
     function updateProfile(formData: IOneFieldForm<string | boolean>) {
-        console.log(formData)
         dispatch(
             updateUserData({
                 firstName,
@@ -323,10 +337,12 @@ const UserProfile = ({ t }) => {
         )
     }
 
-    function toast() {
-        addToast('Изменения приняты', {
-            appearance: 'success'
-        })
+    function checkBoxHandle(e) {
+        updateProfile({ [e.target.name]: e.target.checked })
+    }
+
+    function deleteAccountBtnHandler() {
+        dispatch({ type: DANGER_MODAL, isDangerModal: true })
     }
 }
 

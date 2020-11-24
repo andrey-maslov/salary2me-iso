@@ -14,6 +14,8 @@ export default function Password({ ...props }) {
                     type={isVisible ? 'text' : 'password'}
                     name={props.name}
                     ref={props.innerRef}
+                    aria-label="password"
+                    placeholder={props.placeholder}
                 />
                 <div className={style.show}>
                     <ShowPwd handle={() => setVisible(!isVisible)} />

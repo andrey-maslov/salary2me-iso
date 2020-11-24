@@ -4,12 +4,7 @@ import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import Signin, { ISigninForm } from './Signin'
 import Registration, { ISignUpForm } from './Registration'
-import {
-    sendForgotEmail,
-    sendNewPassword,
-    updateUserData,
-    authUser
-} from '../../../actions/actionCreator'
+import { sendForgotEmail, sendNewPassword, authUser } from '../../../actions/actionCreator'
 import Forgot, { IForgotForm } from './Forgot'
 import Reset, { IResetForm } from './Reset'
 import { authModes } from '../../../constants/constants'
@@ -17,7 +12,6 @@ import style from './auth.module.scss'
 import ForgotSuccess from './ForgotSuccess'
 import { getQueryFromURL } from '../../../helper/helper'
 import { globalStoreType } from '../../../typings/types'
-import ExtraUserInfo, { IInfoForm } from './ExtraUserInfo'
 
 type AuthProps = {
     t: any
@@ -28,9 +22,7 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
     const dispatch = useDispatch()
     const agreement = useRef<HTMLDivElement>(null)
     const { isLoggedIn } = useSelector((state: globalStoreType) => state.user)
-    const { authApiErrorMsg, redirectUrl } = useSelector(
-        (state: globalStoreType) => state.app
-    )
+    const { accountApiErrorMsg, redirectUrl } = useSelector((state: globalStoreType) => state.app)
     const page = getAuthPage(router.pathname)
 
     useEffect(() => {
@@ -79,7 +71,7 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
                     <>
                         <Signin
                             isLoading={false}
-                            errorApiMessage={authApiErrorMsg}
+                            errorApiMessage={accountApiErrorMsg}
                             submitHandle={signIn}
                         />
                         <Link href="/signin/forgot-password">
@@ -91,7 +83,7 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
                 return (
                     <Registration
                         isLoading={false}
-                        errorApiMessage={authApiErrorMsg}
+                        errorApiMessage={accountApiErrorMsg}
                         submitHandle={signUp}
                     />
                 )
@@ -100,7 +92,7 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
                     <>
                         <Forgot
                             isLoading={false}
-                            errorApiMessage={authApiErrorMsg}
+                            errorApiMessage={accountApiErrorMsg}
                             submitHandle={forgotHandle}
                         />
                         <Link href="/signin">
@@ -113,7 +105,7 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
                     <>
                         <Reset
                             isLoading={false}
-                            errorApiMessage={authApiErrorMsg}
+                            errorApiMessage={accountApiErrorMsg}
                             submitHandle={resetHandle}
                         />
                         <Link href="/signin">
@@ -129,14 +121,6 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
                             <a>{t('signin:ready_to_signin')}</a>
                         </Link>
                     </>
-                )
-            case authModes[5]:
-                return (
-                    <ExtraUserInfo
-                        isLoading={false}
-                        errorApiMessage={authApiErrorMsg}
-                        submitHandle={addExtraInfo}
-                    />
                 )
             default:
                 return null
@@ -189,15 +173,6 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
             email: data.email
         }
         dispatch(sendNewPassword(newData, setError))
-    }
-
-    function addExtraInfo(data: IInfoForm) {
-        const userData = {
-            firstName: data.firstName,
-            lastName: data.lastName,
-            position: data.position
-        }
-        dispatch(updateUserData(userData))
     }
 
     function getAuthPage(pathname: string): string {

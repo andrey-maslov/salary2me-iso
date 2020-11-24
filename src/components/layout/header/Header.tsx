@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useSelector, useDispatch } from 'react-redux'
 import { useMediaPredicate } from 'react-media-hook'
+import { FiCheckCircle, FiHome, FiSettings } from 'react-icons/fi'
+import { withTranslation } from '@i18n'
 import { useDeviceDetect } from '../../../helper/useDeviceDetect'
 import { logOut, checkAuth, getCurrencyRates } from '../../../actions/actionCreator'
 import { globalStoreType } from '../../../typings/types'
@@ -12,13 +14,14 @@ import MobiNav from '../../mobi/header/nav/MobiNav'
 import TopLogo from './top-logo/TopLogo'
 import WebNav from '../../web/header/nav/WebNav'
 
-const Header: React.FC = () => {
+const Header = ({ t }) => {
     const { isLoggedIn, email } = useSelector((state: globalStoreType) => state.user)
     const dispatch = useDispatch()
     const smallDevice = useMediaPredicate('(max-width: 992px)')
     const { isMobile } = useDeviceDetect()
     const router = useRouter()
     const currentRoute = router.pathname
+    const { testData } = useSelector((state: globalStoreType) => state.test)
 
     useEffect(() => {
         dispatch(getCurrencyRates())
@@ -34,6 +37,17 @@ const Header: React.FC = () => {
             dispatch({ type: REDIRECT_URL, redirectUrl: currentRoute })
         }
     }, [currentRoute, dispatch])
+
+    const navLinks = [
+        { title: t('common:nav.home'), path: '/', icon: <FiHome /> },
+        {
+            title: t('common:nav.test'),
+            path: testData ? '/test/result' : '/test',
+            icon: <FiCheckCircle />
+        }
+    ]
+    const privateLinks = [{ title: 'Account settings', path: '/profile', icon: <FiSettings /> }]
+    const allLinks = isLoggedIn ? [...navLinks, ...privateLinks] : navLinks
 
     const handleLogoutBtn = () => {
         if (isLoggedIn) {
@@ -51,15 +65,18 @@ const Header: React.FC = () => {
             <div className={style.bar}>
                 <TopLogo />
                 {isMobile ? (
-                    <>
-                        <MobiNav isLoggedIn={isLoggedIn} handleLogoutBtn={handleLogoutBtn} />
-                    </>
+                    <MobiNav
+                        isLoggedIn={isLoggedIn}
+                        handleLogoutBtn={handleLogoutBtn}
+                        navLinks={allLinks}
+                    />
                 ) : (
                     <>
                         <WebNav
                             isLoggedIn={isLoggedIn}
                             handleLoginBtn={handleLogoutBtn}
                             userEmail={email}
+                            navLinks={navLinks}
                         />
                         <LangSwitcher />
                     </>
@@ -69,4 +86,4 @@ const Header: React.FC = () => {
     )
 }
 
-export default Header
+export default withTranslation('common')(Header)

@@ -81,6 +81,7 @@
 .delete {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
   button {
     background-color: transparent;
@@ -89,6 +90,18 @@
     color: $danger;
     font-size: 1rem;
     min-width: 180px;
+  }
+}
+
+.goToProfile {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-top: 1rem;
+
+  button {
+    color: $accent;
+    padding: 0 0 0 .6rem;
   }
 }
 
@@ -119,6 +132,17 @@
 
     button {
       margin: 0 auto;
+    }
+  }
+}
+
+@media(max-width: 576px) {
+
+  .goToProfile {
+    flex-wrap: wrap;
+
+    button {
+      margin-top: 1rem;
     }
   }
 }

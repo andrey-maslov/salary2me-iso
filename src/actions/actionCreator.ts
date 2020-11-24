@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { DecodedDataType, baseTestResultType } from 'psychology/build/main/types/types'
 import {
     ADD_USER_SALARY,
     ADD_AUTH_DATA,
@@ -14,16 +15,25 @@ import {
     SAVE_PERSONAL_INFO,
     CHANGE_PWD,
     SET_TOAST,
-    SEND_EMAIL, SET_AUTH_PROVIDER
+    SEND_EMAIL,
+    SET_AUTH_PROVIDER,
+    DANGER_MODAL
 } from './actionTypes'
-import { ISignInData, ISignUpData } from '../typings/types'
+import { globalStoreType, ISignInData, ISignUpData } from '../typings/types'
 import { authModes } from '../constants/constants'
 import { setCookie, removeCookie, getCookieFromBrowser } from '../helper/cookie'
 import { apiErrorHandling, accountApiErrorHandling, clearErrors } from './errorHandling'
 
 const apiVer = process.env.API_VER
 
-/*= ==== AUTH ===== */
+/*= ==== INTERFACES ===== */
+
+interface IGetTestsResponse {
+    id: number
+    userId: string
+    value: string
+    type: number
+}
 
 export interface IUserData {
     firstName: string
@@ -34,6 +44,14 @@ export interface IUserData {
     isPublicProfile?: boolean
     isOpenForWork?: boolean
 }
+
+interface INewPwdData {
+    code: string
+    newPassword: string
+    email: string
+}
+
+/*= ==== AUTH ===== */
 
 export function setUserData(data: IUserData): { type: string; userData: IUserData } {
     return {
@@ -51,22 +69,10 @@ export function setUserData(data: IUserData): { type: string; userData: IUserDat
 }
 
 export function checkAuth(jwt?: string): unknown {
-    const url = `${process.env.BASE_API}/api/v${apiVer}/Account`
     const token = jwt || getCookieFromBrowser('token')
-    return (dispatch: any) => {
-        if (token) {
-            dispatch(setLoading(true))
-            axios(url, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
-                .then(res => {})
-                .catch(error => apiErrorHandling(error, dispatch))
-                .finally(() => dispatch(setLoading(false)))
-        } else {
-            dispatch({ type: CLEAR_USER_DATA })
-        }
+    return dispatch => {
+        dispatch(fetchUserData(token))
+        dispatch(fetchTestData(token))
     }
 }
 
@@ -87,24 +93,29 @@ export function authUser(
                 setCookie('token', token)
                 dispatch({ type: SET_AUTH_PROVIDER, provider: 'local' })
                 dispatch(fetchUserData(token))
+                dispatch(fetchTestData(token))
             })
             .catch(error => accountApiErrorHandling(error, setError))
     }
 }
 
-export function fetchUserData(token: string) {
+export function fetchUserData(token: string): unknown {
     const url = `${process.env.BASE_API}/api/v${apiVer}/Account`
     return dispatch => {
-        axios
-            .get(url, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
-            .then(res => {
-                dispatch(setUserData(res.data))
-            })
-            .catch(error => console.error(error))
+        if (token) {
+            axios
+                .get(url, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                .then(res => {
+                    dispatch(setUserData(res.data))
+                })
+                .catch(error => console.error(error))
+        } else {
+            dispatch({type: CLEAR_USER_DATA})
+        }
     }
 }
 
@@ -145,12 +156,6 @@ export const sendForgotEmail = (email: string, setError: unknown): unknown => {
     }
 }
 
-interface INewPwdData {
-    code: string
-    newPassword: string
-    email: string
-}
-
 export const sendNewPassword = (data: INewPwdData, setError: unknown): unknown => {
     const url = `${process.env.BASE_API}/api/v${apiVer}/Account/confirm-reset-password`
 
@@ -159,6 +164,32 @@ export const sendNewPassword = (data: INewPwdData, setError: unknown): unknown =
             .post(url, data)
             .then(() => dispatch({ type: CHANGE_PWD, isPwdChanged: true }))
             .catch(error => accountApiErrorHandling(error, setError))
+    }
+}
+
+export function deleteAccount(password: string): unknown {
+    const url = `${process.env.BASE_API}/api/v${apiVer}/Account/delete`
+    const token = getCookieFromBrowser('token')
+    return dispatch => {
+        if (token) {
+            axios
+                .post(
+                    url,
+                    { password },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    }
+                )
+                .then(() => {
+                    dispatch(logOut())
+                    dispatch({ type: DANGER_MODAL, isDangerModal: false })
+                })
+                .catch(error => apiErrorHandling(error, dispatch))
+        } else {
+            dispatch({ type: CLEAR_USER_DATA })
+        }
     }
 }
 
@@ -228,9 +259,7 @@ export const sendCvForResults = formData => {
             .catch(error => {
                 apiErrorHandling(error, dispatch)
             })
-            .finally(() => {
-                dispatch({ type: LOADING, loading: false })
-            })
+            .finally(() =>  dispatch({ type: LOADING, loading: false }))
     }
 }
 
@@ -256,19 +285,68 @@ export const sendRealSalary = formData => {
 
 /*= ==== TEST ===== */
 
-export const savePersonalInfo = (personalInfo: number[]) => {
-    return {
-        type: SAVE_PERSONAL_INFO,
-        personalInfo
+// eslint-disable-next-line prettier/prettier
+export const savePersonalInfo = (personalInfo: readonly number[]) => {
+    return { type: SAVE_PERSONAL_INFO, personalInfo }
+}
+
+export const saveTestData = (testData: baseTestResultType) => {
+    return { type: SAVE_TEST_DATA, testData }
+}
+
+export function sendTestData(): unknown {
+    const url = `${process.env.BASE_API}/api/v${apiVer}/PsychologicalTests/add`
+    const token = getCookieFromBrowser('token')
+    return (dispatch, getState: () => globalStoreType) => {
+        const {
+            test: { personalInfo, testData }
+        } = getState()
+        const encData: string = btoa(JSON.stringify([personalInfo, testData]))
+        const data = { value: encData, type: 0 }
+        if (token) {
+            axios
+                .post(url, data, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                .then(() => dispatch({ type: SET_TOAST, setToast: 1 }))
+                .catch(() => dispatch({ type: SET_TOAST, setToast: 2 }))
+        } else {
+            dispatch({ type: CLEAR_USER_DATA })
+        }
     }
 }
 
-export const saveTestData = (testData: number[][]) => {
-    return {
-        type: SAVE_TEST_DATA,
-        testData
+export function fetchTestData(token: string): unknown {
+    const url = `${process.env.BASE_API}/api/v${apiVer}/PsychologicalTests/list`
+    return dispatch => {
+        if (token) {
+            axios
+                .get(url, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                .then((res) => {
+                    const decodedData = getDecodedTestData(res.data)
+                    dispatch(savePersonalInfo(decodedData[0]))
+                    dispatch(saveTestData(decodedData[1]))
+                })
+                .catch(error => console.error(error))
+        } else {
+            dispatch({ type: CLEAR_USER_DATA })
+        }
     }
 }
+
+function getDecodedTestData(testList: IGetTestsResponse[]): DecodedDataType {
+    const neededTest: IGetTestsResponse = testList.filter(test => test.type === 0)[0]
+    const decodedData = atob(neededTest.value)
+    return JSON.parse(decodedData)
+}
+
+/*= ==== CONTENT ===== */
 
 export const fetchTerms = (lang: string) => {
     const url = `${process.env.CONTENT_API}/psychologies/1`
@@ -276,13 +354,7 @@ export const fetchTerms = (lang: string) => {
     return (dispatch: any) => {
         fetch(url)
             .then(response => response.json())
-            .then(data => {
-                // console.log(data)
-                dispatch({
-                    type: FETCH_TERMS,
-                    terms: data[`content_${lang}`]
-                })
-            })
+            .then(data => dispatch({ type: FETCH_TERMS, terms: data[`content_${lang}`] }))
     }
 }
 
@@ -292,40 +364,23 @@ export const fetchContent = (lang: string) => {
     return (dispatch: any) => {
         fetch(url)
             .then(response => response.json())
-            .then(data => {
-                dispatch({
-                    type: FETCH_TEST_DESC,
-                    descriptions: data[`content_${lang}`]
-                })
-            })
+            .then(data => dispatch({ type: FETCH_TEST_DESC, descriptions: data[`content_${lang}`] }))
     }
 }
 
-/*= ==== APIs ===== */
+/*= ==== EXTERNAL APIs ===== */
 
 export const getCurrencyRates = () => {
     return dispatch => {
         axios('https://api.exchangeratesapi.io/latest?base=USD&symbols=USD,EUR,GBP')
-            .then(response => {
-                return response.data.rates
-            })
-            .then(rates => {
-                dispatch({
-                    type: GET_CURRENCY_RATES,
-                    currencyRates: rates
-                })
-            })
-            .catch(error => {
-                console.error(error)
-            })
+            .then(response => response.data.rates)
+            .then(rates => dispatch({ type: GET_CURRENCY_RATES, currencyRates: rates}))
+            .catch(error => console.error(error))
     }
 }
 
 /*= ==== APPLICATION MODE (app reducer) ===== */
 
 export function setLoading(isLoading: boolean) {
-    return {
-        type: LOADING,
-        isLoading
-    }
+    return { type: LOADING, isLoading }
 }

@@ -12,7 +12,7 @@ import {
 export type appStoreType = {
     isLoading: boolean
     apiErrorMsg: string | null
-    authApiErrorMsg: string | null
+    accountApiErrorMsg: string | null
     processFailed: boolean
     setToast: number
     redirectUrl: string | null
@@ -23,7 +23,7 @@ export type appStoreType = {
 const STATE = {
     isLoading: false,
     apiErrorMsg: null,
-    authApiErrorMsg: null,
+    accountApiErrorMsg: null,
     processFailed: false,
     setToast: 0,
     redirectUrl: null,
@@ -51,7 +51,7 @@ export const app = (
         processFailed,
         setToast,
         redirectUrl,
-        authApiErrorMsg,
+        accountApiErrorMsg,
         isEmailSent,
         isPwdChanged
     }
@@ -70,7 +70,7 @@ export const app = (
         case SET_AUTH_ERROR:
             return {
                 ...state,
-                authApiErrorMsg
+                accountApiErrorMsg
             }
         case PROCESS_FAILED:
             return {

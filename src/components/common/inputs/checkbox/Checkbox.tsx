@@ -19,7 +19,6 @@ function Checkbox(props: CheckBoxProps) {
 
     return (
         <div className={checkboxClassname}>
-
             <label className={labelClassname}>
                 <input
                     tabIndex={0}

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link, withTranslation } from '@i18n'
 import { getDescByRange, getFamous, UserResult, getAndDecodeData } from 'psychology'
-import { IUserResult } from 'psychology/build/main/types/types'
+import { IUserResult, DecodedDataType } from 'psychology/build/main/types/types'
 import { useMediaPredicate } from 'react-media-hook'
 import ChartRadar from './radar-chart/ChartRadar'
 import TopBar from './top-bar/TopBar'
@@ -23,7 +23,6 @@ import {
     TablesWithBars
 } from './functions'
 
-type AnyFullResultType = any
 type ResultProps = {
     t: any
 }
@@ -33,7 +32,7 @@ const Result: React.FC<ResultProps> = ({ t }) => {
     const isXL = useMediaPredicate('(min-width: 1360px)')
 
     // parse url query params if it has encoded data
-    const dataFromUrl: AnyFullResultType | null = getAndDecodeData().data
+    const dataFromUrl: DecodedDataType | null = getAndDecodeData().data
 
     const { isLoggedIn, email } = useSelector((state: globalStoreType) => state.user)
     const storeData = useSelector((state: globalStoreType) => state.test)
@@ -51,15 +50,6 @@ const Result: React.FC<ResultProps> = ({ t }) => {
         }
         if (descriptions) {
             setReady(true)
-            console.log(
-                JSON.stringify({
-                    fullProfileData,
-                    portraitDesc,
-                    famous,
-                    secondaryPortraitDesc,
-                    psychoTypeDesc
-                })
-            )
             dispatch({
                 type: PSYCHO_RESULT,
                 result: {
@@ -141,7 +131,16 @@ const Result: React.FC<ResultProps> = ({ t }) => {
 
     return (
         <div id="result">
-            <h3>{t('test:result_page.title')}</h3>
+            <div
+                className="between-xs middle-xs"
+                style={{ display: 'flex', flexWrap: 'wrap', marginBottom: '1rem' }}>
+                <h3>{t('test:result_page.title')}</h3>
+                <Link href="/test">
+                    <a className="btn btn-outlined" style={{ marginBottom: '1rem' }}>
+                        Пройти еще раз
+                    </a>
+                </Link>
+            </div>
             <Box>
                 <TopBar
                     title={t('test:result_page.your_profile')}
@@ -176,7 +175,7 @@ const Result: React.FC<ResultProps> = ({ t }) => {
                             </strong>
                             , дополнительный психотип -{' '}
                             <strong>
-                                {secondaryPsychoType} ({(secondaryOctantFraction * 100).toFixed(1)}%)
+                                {`${secondaryPsychoType} ${(secondaryOctantFraction * 100).toFixed(1)}%`}
                             </strong>
                         </div>
                         <div style={{ fontSize: '1.2rem', marginBottom: '.5rem' }}>

@@ -1,4 +1,3 @@
-import { FiHome, FiSettings, FiCheckCircle } from 'react-icons/fi'
 import { Link, withTranslation } from '@i18n'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
@@ -8,14 +7,13 @@ import Button from '../../../common/buttons/button/Button'
 import { isBrowser } from '../../../../helper/helper'
 import MobileNavToggle from '../nav-toggle/NavToggle'
 import LangSwitcher from '../../../common/buttons/lang-switcher/LangSwitcher'
+import { INavigation } from '../../../web/header/nav/WebNav'
 
-type MobiNavigation = {
-    isLoggedIn: boolean
+interface MobiNavigation extends INavigation {
     handleLogoutBtn: () => void
-    t: any
 }
 
-const MobiNav = ({ isLoggedIn, handleLogoutBtn, t }: MobiNavigation) => {
+const MobiNav = ({ isLoggedIn, handleLogoutBtn, navLinks, t }: MobiNavigation) => {
     const router = useRouter()
 
     const [isVisible, setVisible] = useState(false)
@@ -28,13 +26,6 @@ const MobiNav = ({ isLoggedIn, handleLogoutBtn, t }: MobiNavigation) => {
         }
     }, [isVisible])
 
-    const navLinks = [
-        { title: t('common:nav.home'), path: '/', icon: <FiHome /> },
-        { title: t('common:nav.test'), path: '/test', icon: <FiCheckCircle /> }
-    ]
-    const privateLinks = [{ title: 'Account settings', path: '/profile', icon: <FiSettings /> }]
-    const allLinks = isLoggedIn ? [...navLinks, ...privateLinks] : navLinks
-
     return (
         <>
             <MobileNavToggle handler={() => setVisible(true)} />
@@ -44,7 +35,7 @@ const MobiNav = ({ isLoggedIn, handleLogoutBtn, t }: MobiNavigation) => {
                         Salary2<span className="color-accent">me</span>
                     </h5>
                     <ul className={style.nav}>
-                        {allLinks.map(({ title, path, icon }) => (
+                        {navLinks.map(({ title, path, icon }) => (
                             <li
                                 className={`${style.item} ${
                                     router.pathname === path ? style.active : ''
