@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux'
-import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { AiOutlineLoading } from 'react-icons/ai'
 import { withTranslation } from '@i18n'
@@ -10,36 +9,28 @@ import { ISignin } from './Signin'
 
 export interface IForgotForm {
     email: string
+    form?: unknown
 }
 
 const Forgot: React.FC<ISignin<IForgotForm>> = ({
     isLoading,
     errorApiMessage,
     submitHandle,
-    clearApiError,
     t
 }) => {
-    const router = useRouter()
-    const { isEmailSent } = useSelector((state: any) => state.user)
-    const { register, handleSubmit, errors } = useForm<IForgotForm>()
-
-    useEffect(() => {
-        if (isEmailSent) {
-            router.push('/signin/forgot-password-success')
-        }
-    }, [isEmailSent, router])
+    const { isEmailSent } = useSelector((state: any) => state.app)
+    const { register, handleSubmit, errors, setError, clearErrors } = useForm<IForgotForm>()
 
     return (
         <>
             <div className={style.desc}>{t('signin:forgot_explanation')}</div>
-            <form onSubmit={handleSubmit(submitHandle)}>
+            <form onSubmit={handleSubmit(data => submitHandle(data, setError))}>
                 <div className={`form-group ${errors.email ? 'has-error' : ''}`}>
                     <label>
                         <span>Email</span>
                         <input
                             className={style.input}
                             name="email"
-                            onFocus={clearApiError}
                             autoComplete="off"
                             ref={register({
                                 required: `${t('common:errors.required')}`,
@@ -57,10 +48,15 @@ const Forgot: React.FC<ISignin<IForgotForm>> = ({
                     <Button
                         title={t('common:buttons.send')}
                         startIcon={isLoading && <AiOutlineLoading />}
-                        handle={() => void 0}
+                        handle={() => clearErrors()}
                         btnClass="btn btn-accent btn-loader"
                     />
-                    {errorApiMessage && <div className="item-explain">{errorApiMessage}</div>}
+                    {errors.form && (
+                        <div className="item-explain api-error">{errors.form.message}</div>
+                    )}
+                    {isEmailSent && (
+                        <div className="item-explain api-success">Письмо отправлено</div>
+                    )}
                 </div>
             </form>
         </>

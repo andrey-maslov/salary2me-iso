@@ -8,13 +8,13 @@ import Password from '../inputs/password/Password'
 export interface ISigninForm {
     username: string
     password: string
+    form?: unknown
 }
 
 export interface ISignin<T> {
     isLoading: boolean
     errorApiMessage: string
-    submitHandle: (data: T) => void
-    clearApiError: () => void
+    submitHandle: (data: T, setError) => void
     t?: any
 }
 
@@ -22,20 +22,18 @@ const Signin: React.FC<ISignin<ISigninForm>> = ({
     isLoading,
     errorApiMessage,
     submitHandle,
-    clearApiError,
     t
 }) => {
-    const { register, handleSubmit, errors } = useForm<ISigninForm>()
+    const { register, handleSubmit, errors, setError, clearErrors } = useForm<ISigninForm>()
 
     return (
-        <form onSubmit={handleSubmit(submitHandle)}>
+        <form onSubmit={handleSubmit(data => submitHandle(data, setError))}>
             <div className={`form-group ${errors.username ? 'has-error' : ''}`}>
                 <label>
                     <span>Email</span>
                     <input
                         className={style.input}
                         name="username"
-                        onFocus={clearApiError}
                         ref={register({
                             required: `${t('common:errors.required')}`,
                             pattern: {
@@ -53,7 +51,6 @@ const Signin: React.FC<ISignin<ISigninForm>> = ({
                     innerRef={register({
                         required: `${t('common:errors.required')}`
                     })}
-                    clearApiError={clearApiError}
                     name="password"
                 />
                 {errors.password && <div className="item-explain">{errors.password.message}</div>}
@@ -63,10 +60,10 @@ const Signin: React.FC<ISignin<ISigninForm>> = ({
                 <Button
                     title={t('signin:sign_in')}
                     startIcon={isLoading && <AiOutlineLoading />}
-                    handle={() => void 0}
+                    handle={() => clearErrors()}
                     btnClass="btn btn-accent btn-loader"
                 />
-                {errorApiMessage && <div className="item-explain">{errorApiMessage}</div>}
+                {errors.form && <div className="item-explain api-error">{errors.form.message}</div>}
             </div>
         </form>
     )

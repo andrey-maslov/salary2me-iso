@@ -5,21 +5,18 @@ import { FiArrowRight, FiArrowLeft, FiMoreVertical } from 'react-icons/fi'
 import { withTranslation } from '@i18n'
 import { useToasts } from 'react-toast-notifications'
 import Button from '../../../../components/common/buttons/button/Button'
-import fakeData from './fakeData.json'
-import { checkAnswers, getRandomIntInclusive, isBrowser } from '../../../../helper/helper'
+import { checkAnswers, isBrowser } from '../../../../helper/helper'
 import { AnswerType, globalStoreType, QuestionsProps } from '../../../../typings/types'
 import RadioGroupItem from '../radio-group-item/RadioGroupItem'
 import style from './questions.module.scss'
-import { saveTestData, updateUserData } from '../../../../actions/actionCreator'
+import { saveTestData, sendTestData } from '../../../../actions/actionCreator'
+import FakeResults from '../../../../pages/test/FakeResults'
 
 const Questions = ({ changeBlock, t }: QuestionsProps) => {
     const router = useRouter()
     const dispatch = useDispatch()
     const { addToast } = useToasts()
     const { isLoggedIn } = useSelector((state: globalStoreType) => state.user)
-
-    // TODO fix if will be redundant
-    const user = useSelector((state: globalStoreType) => state.user)
 
     const questions = t(`questions:questions`, { returnObjects: true })
 
@@ -78,21 +75,35 @@ const Questions = ({ changeBlock, t }: QuestionsProps) => {
                 )}
             </div>
             {isAddButtons && (
-                <div className={style.addButtons}>
-                    <Button
-                        handle={sendFakeData}
-                        btnClass="btn btn-accent"
-                        title="send example data"
-                    />
-                    <Button
-                        handle={sendRandomFakeData}
-                        btnClass="btn btn-accent"
-                        title="send generated data"
-                    />
-                </div>
+                <FakeResults calculateResults={calculateResults} sendAnswers={sendAnswers} />
             )}
         </>
     )
+
+    function sendBtnHandler() {
+        const num = checkAnswers(answers)
+        if (num === -1) {
+            sendAnswers(calculateResults(answers))
+        } else if (isBrowser && num !== -1) {
+            addToast('Необходимо ответить на все вопросы', {
+                appearance: 'error'
+            })
+            // scroll to first not answered question
+            const targetElem: any = document.querySelector(
+                `.visible [data-item-index="${num + 1}"]`
+            )
+            targetElem.scrollIntoView({ block: 'center', behavior: 'smooth' })
+        }
+    }
+
+    function sendAnswers(result: any) {
+        dispatch(saveTestData(result))
+
+        if (isLoggedIn) {
+            dispatch(sendTestData())
+        }
+        router.push('result')
+    }
 
     function calculateResults(answersArr: Array<AnswerType>) {
         const arrSum = [
@@ -114,53 +125,6 @@ const Questions = ({ changeBlock, t }: QuestionsProps) => {
             })
         })
         return arrSum
-    }
-
-    function sendBtnHandler() {
-        const num = checkAnswers(answers)
-        if (num === -1) {
-            sendAnswers(calculateResults(answers))
-        } else if (isBrowser && num !== -1) {
-            addToast('Необходимо ответить на все вопросы', {
-                appearance: 'error'
-            })
-            // scroll to first not answered question
-            const targetElem: any = document.querySelector(
-                `.visible [data-item-index="${num + 1}"]`
-            )
-            targetElem.scrollIntoView({ block: 'center', behavior: 'smooth' })
-        }
-    }
-
-    function sendAnswers(result: any) {
-        dispatch(saveTestData(result))
-        const userData = {
-            ...user
-        }
-        // TODO put here correct data object
-        if (isLoggedIn) {
-            dispatch(updateUserData(userData))
-        }
-
-        router.push('result')
-    }
-
-    // send template answers
-    function sendFakeData() {
-        const data = fakeData.fakeData
-        const calculatedResult = calculateResults(data)
-        sendAnswers(calculatedResult)
-    }
-
-    // Generate and send random generated answers
-    function sendRandomFakeData() {
-        const fake: any = []
-        for (let i = 1; i <= 75; i++) {
-            const value = getRandomIntInclusive(-2, 2)
-            fake.push({ id: `${i}`, value })
-        }
-        const calculatedResult = calculateResults(fake)
-        sendAnswers(calculatedResult)
     }
 }
 

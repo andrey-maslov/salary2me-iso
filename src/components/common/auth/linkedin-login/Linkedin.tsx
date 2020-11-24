@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from "react-redux"
 import {useHistory} from 'react-router-dom'
-import {addAuthData} from "../../../../actions/actionCreator"
+import {setUserData} from "../../../../actions/actionCreator"
 import {parseQueryString} from "../../../../helper/helper"
 
 interface LinkedinProps {
@@ -30,4 +30,4 @@ const Linkedin: React.FC<LinkedinProps> = ({addAuthData, redirectUrl}) => {
 
 export default connect((state: any) => ({
     redirectUrl: state.applicationMode.redirectUrl,
-}), {addAuthData})(Linkedin);
+}), {addAuthData: setUserData})(Linkedin);

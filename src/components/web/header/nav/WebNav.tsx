@@ -1,23 +1,20 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, withTranslation } from '@i18n'
 import { useRouter } from 'next/router'
 import style from './web-nav.module.scss'
 import PopoverUser from '../../../layout/header/popover-user/PopoverUser'
 
-export type Navigation = {
+export interface INavigation {
     handleLoginBtn: () => void
     isLoggedIn: boolean
     userEmail: string
-    t: any
+    navLinks: { title: string, path: string, icon?: React.ReactElement }[]
+    t?: any
 }
 
-const WebNav = ({ handleLoginBtn, isLoggedIn, userEmail, t }: Navigation) => {
+const WebNav = ({ handleLoginBtn, isLoggedIn, userEmail, navLinks, t }: INavigation) => {
     const router = useRouter()
     const [logged, setLogged] = useState(false)
-    const navLinks = [
-        { title: t('common:nav.home'), path: '/' },
-        { title: t('common:nav.test'), path: '/test' }
-    ]
 
     useEffect(() => {
         setLogged(isLoggedIn)
@@ -41,10 +38,10 @@ const WebNav = ({ handleLoginBtn, isLoggedIn, userEmail, t }: Navigation) => {
 
     return (
         <div className={style.wrapper}>
-            <MainNav/>
+            <MainNav />
             {logged ? (
                 <div className={style.user}>
-                    <PopoverUser userEmail={userEmail} logoutHandle={handleLoginBtn}/>
+                    <PopoverUser userEmail={userEmail} logoutHandle={handleLoginBtn} />
                 </div>
             ) : (
                 <ul className={`${style.list} ${style.auth}`}>

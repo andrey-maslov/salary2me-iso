@@ -1,4 +1,4 @@
-import { ADD_AUTH_DATA, CHANGE_PWD, CLEAR_USER_DATA, SEND_EMAIL } from '../actions/actionTypes'
+import { ADD_AUTH_DATA, CLEAR_USER_DATA, SET_AUTH_PROVIDER } from '../actions/actionTypes'
 import { loadState } from '../store/sessionStorage'
 import { isBrowser } from '../helper/helper'
 
@@ -10,12 +10,9 @@ export type userStoreType = {
     email: string | null
     position: string | null
     provider: string | null
-    isLoggedIn: boolean
-    isEmailSent: boolean | null
-    isPwdChanged: boolean | null
-    isSubscribed: boolean | null
     isPublic: boolean | null
     isLookingForJob: boolean | null
+    isOpenForWork: boolean | null
 }
 
 if (!STATE) {
@@ -26,15 +23,12 @@ if (!STATE) {
         position: null,
         provider: null,
         isLoggedIn: false,
-        isEmailSent: null,
-        isPwdChanged: null,
-        isSubscribed: null,
-        isPublic: null,
-        isLookingForJob: null
+        isPublicProfile: null,
+        isOpenForWork: null
     }
 }
 
-export const user = (state = STATE, { type, userData, isEmailSent, isPwdChanged }) => {
+export const user = (state = STATE, { type, userData, provider }) => {
     switch (type) {
         case ADD_AUTH_DATA:
             return {
@@ -42,15 +36,10 @@ export const user = (state = STATE, { type, userData, isEmailSent, isPwdChanged 
                 ...userData,
                 isLoggedIn: true
             }
-        case SEND_EMAIL:
+        case SET_AUTH_PROVIDER:
             return {
                 ...state,
-                isEmailSent
-            }
-        case CHANGE_PWD:
-            return {
-                ...state,
-                isPwdChanged
+                provider
             }
         case CLEAR_USER_DATA:
             return {
@@ -58,10 +47,11 @@ export const user = (state = STATE, { type, userData, isEmailSent, isPwdChanged 
                 firstName: null,
                 lastName: null,
                 email: null,
+                position: null,
                 provider: null,
-                isLoggedIn: null,
-                isPublic: null,
-                isLookingForJob: null
+                isLoggedIn: false,
+                isPublicProfile: null,
+                isOpenForWork: null
             }
         default:
             return state

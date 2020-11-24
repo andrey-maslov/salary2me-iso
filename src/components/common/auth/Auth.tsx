@@ -1,15 +1,10 @@
-import { useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Link, withTranslation } from '@i18n'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import Signin, { ISigninForm } from './Signin'
 import Registration, { ISignUpForm } from './Registration'
-import {
-    authUser,
-    sendForgotEmail,
-    sendNewPassword,
-    updateUserData
-} from '../../../actions/actionCreator'
+import { sendForgotEmail, sendNewPassword, authUser } from '../../../actions/actionCreator'
 import Forgot, { IForgotForm } from './Forgot'
 import Reset, { IResetForm } from './Reset'
 import { authModes } from '../../../constants/constants'
@@ -17,7 +12,6 @@ import style from './auth.module.scss'
 import ForgotSuccess from './ForgotSuccess'
 import { getQueryFromURL } from '../../../helper/helper'
 import { globalStoreType } from '../../../typings/types'
-import ExtraUserInfo, { IInfoForm } from './ExtraUserInfo'
 
 type AuthProps = {
     t: any
@@ -28,8 +22,7 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
     const dispatch = useDispatch()
     const agreement = useRef<HTMLDivElement>(null)
     const { isLoggedIn } = useSelector((state: globalStoreType) => state.user)
-    const { isLoading, apiErrorMsg, redirectUrl, processFailed } = useSelector((state: globalStoreType) => state.app)
-
+    const { accountApiErrorMsg, redirectUrl } = useSelector((state: globalStoreType) => state.app)
     const page = getAuthPage(router.pathname)
 
     useEffect(() => {
@@ -63,7 +56,13 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
                 privacyLink.removeEventListener('click', toPrivacy)
             }
         }
-    }, [agreement, isLoggedIn, router])
+    }, [agreement, router])
+
+    useEffect(() => {
+        if (isLoggedIn) {
+            router.push(redirectUrl || '/')
+        }
+    }, [isLoggedIn])
 
     const Form = () => {
         switch (page) {
@@ -71,10 +70,9 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
                 return (
                     <>
                         <Signin
-                            isLoading={isLoading}
-                            errorApiMessage={apiErrorMsg}
-                            submitHandle={SignIn}
-                            clearApiError={clearApiError}
+                            isLoading={false}
+                            errorApiMessage={accountApiErrorMsg}
+                            submitHandle={signIn}
                         />
                         <Link href="/signin/forgot-password">
                             <a>{t('signin:forgot_pwd_question')}</a>
@@ -84,20 +82,18 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
             case authModes[1]:
                 return (
                     <Registration
-                        isLoading={isLoading}
-                        errorApiMessage={apiErrorMsg}
+                        isLoading={false}
+                        errorApiMessage={accountApiErrorMsg}
                         submitHandle={signUp}
-                        clearApiError={clearApiError}
                     />
                 )
             case authModes[2]:
                 return (
                     <>
                         <Forgot
-                            isLoading={isLoading}
-                            errorApiMessage={apiErrorMsg}
+                            isLoading={false}
+                            errorApiMessage={accountApiErrorMsg}
                             submitHandle={forgotHandle}
-                            clearApiError={clearApiError}
                         />
                         <Link href="/signin">
                             <a>{t('signin:ready_to_signin')}</a>
@@ -108,10 +104,9 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
                 return (
                     <>
                         <Reset
-                            isLoading={isLoading}
-                            errorApiMessage={apiErrorMsg}
+                            isLoading={false}
+                            errorApiMessage={accountApiErrorMsg}
                             submitHandle={resetHandle}
-                            clearApiError={clearApiError}
                         />
                         <Link href="/signin">
                             <a>{t('signin:ready_to_signin')}</a>
@@ -126,15 +121,6 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
                             <a>{t('signin:ready_to_signin')}</a>
                         </Link>
                     </>
-                )
-            case authModes[5]:
-                return (
-                    <ExtraUserInfo
-                        isLoading={isLoading}
-                        errorApiMessage={apiErrorMsg}
-                        submitHandle={addExtraInfo}
-                        clearApiError={clearApiError}
-                    />
                 )
             default:
                 return null
@@ -157,19 +143,11 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
         </div>
     )
 
-    function getAuthPage(pathname: string): string {
-        if (!pathname) {
-            return ''
-        }
-        return pathname.split('/').slice(-1)[0]
+    function signIn(data: ISigninForm, setError) {
+        dispatch(authUser(data, 'signin', setError))
     }
 
-    function SignIn(data: ISigninForm): void {
-        dispatch(authUser(data, 'signin'))
-        setSuccessMsg(!isLoading && !processFailed)
-    }
-
-    function signUp(data: ISignUpForm): void {
+    function signUp(data: ISignUpForm, setError): void {
         const userData = {
             firstName: '',
             lastName: '',
@@ -179,15 +157,14 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
             },
             ...data
         }
-        dispatch(authUser(userData, 'registration'))
-        setSuccessMsg(!isLoading && !processFailed)
+        dispatch(authUser(userData, 'registration', setError))
     }
 
-    function forgotHandle(data: IForgotForm): void {
-        dispatch(sendForgotEmail(data.email))
+    function forgotHandle(data: IForgotForm, setError): void {
+        dispatch(sendForgotEmail(data.email, setError))
     }
 
-    function resetHandle(data: IResetForm): void {
+    function resetHandle(data: IResetForm, setError): void {
         // TODO fix this
         const code = getQueryFromURL(window.location.search, 'code')
         const newData = {
@@ -195,27 +172,14 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
             newPassword: data.password,
             email: data.email
         }
-        dispatch(sendNewPassword(newData))
+        dispatch(sendNewPassword(newData, setError))
     }
 
-    function addExtraInfo(data: IInfoForm) {
-        const userData = {
-            firstName: data.firstName,
-            lastName: data.lastName,
-            position: data.position
+    function getAuthPage(pathname: string): string {
+        if (!pathname) {
+            return ''
         }
-        dispatch(updateUserData(userData))
-    }
-
-    function clearApiError() {
-        // console.log('asdasd')
-        // dispatch({type: SET_ERROR, errorApiMessage: ''})
-    }
-
-    function setSuccessMsg(condition: boolean): void {
-        if (condition) {
-            router.push(redirectUrl || '/')
-        }
+        return pathname.split('/').slice(-1)[0]
     }
 }
 
