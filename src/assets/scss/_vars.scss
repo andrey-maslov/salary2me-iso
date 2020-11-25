@@ -50,15 +50,6 @@ $h4-fontsize: 1.25rem;
 $h5-fontsize: 1rem;
 $h6-fontsize: .8rem;
 
-/// Customization Bootstrap vars from "app/libs/bootstrap/scss/_variables.scss"
-$grid-gutter-width: 2rem;
-$grid-columns: 12;
-$grid-breakpoints: (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1360px);
-$container-max-widths: (sm: 540px, md: 720px, lg: 980px, xl: 1290px) !default;
-
-$gutter: $grid-gutter-width;
-
-
 //Brands Colors
 $facebook: #3b5998;
 $linkedin: #0077b5;
@@ -84,3 +75,17 @@ $thegreatbase: #f96332;
   }
 }
 
+// Rewrite values in flexgridcustom.scss
+
+$gutter-width: 30px;
+
+$sm-max: 540px;
+$md-max: 720px;
+$lg-max: 980px;
+$xl-max: 1290px;
+
+$xs-breakpoint: 0;
+$sm-breakpoint: 576px;
+$md-breakpoint: 768px;
+$lg-breakpoint: 992px;
+$xl-breakpoint: 1360px;

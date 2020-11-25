@@ -1,12 +1,11 @@
-import {EstimationLayout} from '../page-layouts'
+import { EstimationLayout } from '../page-layouts'
 
 function Estimation(props) {
-    return (
-        <EstimationLayout {...props} />
-    )
+    return <EstimationLayout {...props} />
 }
+
 Estimation.getInitialProps = async () => ({
-    namespacesRequired: ['estimation'],
+    namespacesRequired: ['estimation']
 })
 
 export default Estimation

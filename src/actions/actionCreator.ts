@@ -239,47 +239,62 @@ export const setCvSent = bool => ({
 })
 
 export const sendCvForResults = formData => {
+    const url = `${process.env.BASE_API}/api/v${apiVer}/Predict`
+    const token = getCookieFromBrowser('token')
+
     return dispatch => {
         dispatch({ type: LOADING, loading: true })
-
-        axios
-            .post(`${process.env.BASE_API}/api/Predict`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            })
-            .then(res => {
-                dispatch({
-                    type: ESTIMATION,
-                    predictions: res.data.predictions,
-                    position: res.data.position
+        if (token) {
+            axios
+                .post(url, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        Authorization: `Bearer ${token}`
+                    }
                 })
-                dispatch(setCvSent(true))
-            })
-            .catch(error => {
-                apiErrorHandling(error, dispatch)
-            })
-            .finally(() =>  dispatch({ type: LOADING, loading: false }))
+                .then(res => {
+                    dispatch({
+                        type: ESTIMATION,
+                        predictions: res.data.predictions,
+                        position: res.data.position
+                    })
+                    dispatch(setCvSent(true))
+                })
+                .catch(error => {
+                    apiErrorHandling(error, dispatch)
+                })
+                .finally(() =>  dispatch({ type: LOADING, loading: false }))
+        } else {
+            dispatch({ type: CLEAR_USER_DATA })
+        }
     }
 }
 
 // Send real user salary to base
 export const sendRealSalary = formData => {
+    const url = `${process.env.BASE_API}/api/v${apiVer}/Predict`
+    const token = getCookieFromBrowser('token')
+
     return dispatch => {
         dispatch({ type: LOADING, loading: true })
-        axios
-            .put(`${process.env.BASE_API}/api/Predict`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            })
-            .then(() => {
-                dispatch({ type: ADD_USER_SALARY, realSalary: formData.get('salary') })
-            })
-            .catch(err => {
-                apiErrorHandling(err, dispatch)
-            })
-            .finally(() => dispatch({ type: LOADING, loading: true }))
+        if (token) {
+            axios
+                .put(`${process.env.BASE_API}/api/v${apiVer}/Predict`, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                .then(() => {
+                    dispatch({ type: ADD_USER_SALARY, realSalary: formData.get('salary') })
+                })
+                .catch(err => {
+                    apiErrorHandling(err, dispatch)
+                })
+                .finally(() => dispatch({ type: LOADING, loading: true }))
+        } else {
+            dispatch({ type: CLEAR_USER_DATA })
+        }
     }
 }
 

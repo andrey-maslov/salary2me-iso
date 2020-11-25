@@ -9,8 +9,7 @@ import {
     FaFileWord,
     FaFileImage
 } from 'react-icons/fa'
-import { useMediaPredicate } from 'react-media-hook'
-import { Router } from '@i18n'
+import { Router, Link } from '@i18n'
 import { ACCEPTED_FILE_TYPES, parsingDuration } from '../../../constants/constants'
 import Button from '../buttons/button/Button'
 import DeleteBtn from '../buttons/delete-btn/DeleteBtn'
@@ -27,17 +26,14 @@ const Dropzone: React.FC = () => {
     // TODO - move tip text to translations
     const linkedinTip = 'Profile - More - Save to PDF'
     const [myFiles, setMyFiles] = useState([])
-    const lessThan400 = useMediaPredicate('(max-width: 400px)')
     const { isMobile } = useDeviceDetect()
     const acceptedTypes = isMobile ? '' : ACCEPTED_FILE_TYPES
 
-    const { email: userEmail, name: userName, isLoggedIn } = useSelector(
-        (state: globalStoreType) => state.user
-    )
+    const { email, name, isLoggedIn } = useSelector((state: globalStoreType) => state.user)
     const { isParsingTextShowed, isParsingModal } = useSelector(
         (state: globalStoreType) => state.modals
     )
-    const { processFailed, loading } = useSelector((state: globalStoreType) => state.app)
+    const { processFailed } = useSelector((state: globalStoreType) => state.app)
     const { isCvSent } = useSelector((state: globalStoreType) => state.cv)
     const dispatch = useDispatch()
 
@@ -55,6 +51,7 @@ const Dropzone: React.FC = () => {
 
     const { getRootProps, getInputProps, acceptedFiles, fileRejections } = useDropzone({
         onDrop,
+        disabled: !isLoggedIn,
         accept: acceptedTypes
     })
 
@@ -90,21 +87,28 @@ const Dropzone: React.FC = () => {
 
     return (
         <div className={`${style.wrapper}`}>
-            <div {...getRootProps()} className={`${style.dropzone}`}>
+            <div {...getRootProps()} className={`${style.dropzone} ${!isLoggedIn ? style.disabled : ''}`}>
                 <input {...getInputProps()} />
                 <div>
-                    <p>Drop your CV file here</p>
-                    <p>or</p>
-                    <span className={`${style.browse} color-accent`}>Browse</span>
+                    <div className={style.browse}>
+                        <span>Выберите файл</span> или перетащите сюда
+                    </div>
+                    <div className={style.formats}>
+                        Стандатные форматы более предпочтительны (
+                        <Tooltip tip={linkedinTip} direction="top">
+                            <span>LinkedIn</span>
+                        </Tooltip>{' '}
+                        и т.д.)
+                    </div>
                 </div>
                 <FaCloudUploadAlt className={style.uploadIcon} />
-                <p className={style.formats}>
-                    Standardized formats{lessThan400 && <br />} are preferred (
-                    <Tooltip tip={linkedinTip} direction="top">
-                        <span>LinkedIn</span>
-                    </Tooltip>{' '}
-                    etc.)
-                </p>
+                {!isLoggedIn && (
+                    <div className={style.toSignIn}>
+                        <Link href="/registration">
+                            <a>Сначала зарегистрируйтесь</a>
+                        </Link>
+                    </div>
+                )}
             </div>
             {uploadedFiles}
             {myFiles.length > 0 && (
@@ -131,7 +135,7 @@ const Dropzone: React.FC = () => {
         }, parsingDuration)
     }
 
-    function pushFile(files, email = userEmail, name = userName) {
+    function pushFile(files) {
         if (files.length > 0) {
             const formData = new FormData()
             formData.append('email', email)

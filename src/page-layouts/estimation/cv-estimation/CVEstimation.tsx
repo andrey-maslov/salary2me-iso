@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { FaFilter, FaChevronDown } from 'react-icons/fa'
-import { useMediaPredicate } from 'react-media-hook'
 import { Link } from '@i18n'
 import { getSalariesLimits } from '../../../helper/helper'
 import SocialSharing from '../../../components/common/buttons/social-sharing/SocialSharing'
@@ -26,23 +25,25 @@ const CVEstimation: React.FC = () => {
 
     const { isMobile } = useDeviceDetect()
     const [isMobileOptionsShown, setMobileOptions] = useState(false)
-    const [state, setState] = useState({ position: '' })
+    const [state, setState] = useState({ position: '', predictions: [] })
     const mobiOptionsClass = isMobileOptionsShown ? style.mobiOptionsOpened : ''
 
     useEffect(() => {
-        setState({ position })
+        setState({ ...state, predictions, position })
     }, [position, displayedResults, predictions.length])
 
-    if (predictions.length === 0) {
+    if (state.predictions.length === 0) {
         return (
-            <div className="flex-centered text-center">
-                <strong>
-                    Please,{' '}
-                    <Link href="/">
-                        <a>upload</a>
-                    </Link>{' '}
-                    your CV
-                </strong>
+            <div className={style.wrapper}>
+                <div className="flex-centered text-center">
+                    <strong>
+                        Please,{' '}
+                        <Link href="/">
+                            <a>upload</a>
+                        </Link>{' '}
+                        your CV
+                    </strong>
+                </div>
             </div>
         )
     }
@@ -66,15 +67,15 @@ const CVEstimation: React.FC = () => {
     }
 
     return (
-        <>
+        <div className={style.wrapper}>
             <div className={`${style.predictions} container pt-lg`}>
                 <div className="row center-xs">
                     <div className="col-xl-10">
                         <div className={style.title}>
-                            <h3 className={`${style.position}`}>
-                                {state.position || 'no experience detected'}:
-                            </h3>
-                            <span> Estimated salary by city</span>
+                            <div className={`${style.position}`}>
+                                <span>{state.position || 'no experience detected'}: </span>
+                                estimated salary by city
+                            </div>
                         </div>
                     </div>
                     <div className="col-xl-3 col-lg-4 last-lg">
@@ -113,7 +114,7 @@ const CVEstimation: React.FC = () => {
             </div>
             <div className="divider" />
             <HelpUs />
-        </>
+        </div>
     )
 
     function getSorting() {

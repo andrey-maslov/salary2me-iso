@@ -1,5 +1,9 @@
 @import '../../../assets/scss/vars';
 
+.wrapper {
+  color: currentColor;
+}
+
 .predictions {
   margin-bottom: 100px;
 
@@ -16,15 +20,14 @@
 .position {
   font-weight: 700;
   display: inline-block;
-  color: $accent;
+  font-size: 2rem;
 
   &:first-letter {
     text-transform: capitalize;
   }
 
-  & + span {
-    font-size: 32px;
-    font-family: $title-font;
+  span {
+    color: $accent
   }
 }
 

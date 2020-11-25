@@ -1,0 +1,33 @@
+@import '../../../assets/scss/vars';
+
+.wrapper {
+  background-color: rgba($accent, .2);
+  padding-top: 0;
+  padding-bottom: 0;
+  border-top: 1px solid rgba($accent, .2);
+  border-bottom: 1px solid rgba($accent, .2);
+
+  .headline {
+    margin-bottom: 3rem;
+  }
+}
+
+.imgWrapper {
+  background-color: #fff;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+@media (max-width: $lg-breakpoint) {
+
+}
+
+
+@media (max-width: $md-breakpoint) {
+
+
+}

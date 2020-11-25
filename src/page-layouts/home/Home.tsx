@@ -1,43 +1,26 @@
 import Hero from './hero/Hero'
-import Layout from "../../components/layout/Layout"
-import HomeContent from "./home-content/HomeContent"
-import { withTranslation } from '@i18n'
-import Head from "next/head"
+import Layout from '../../components/layout/Layout'
+import AboutSection from './about-section/AboutSection'
+import HomeMeta from './HomeMeta'
+import CVSection from './cv-section/CVSection'
+import PricesSection from './prices-section/PricesSection'
+import TestSection from './test-section/TestSection'
 
-type HomeType = {
-    t: any
-}
-
-const Home = ({ t }: HomeType) => {
+const Home: React.FC = () => {
     return (
         <>
-            <Head>
-                <meta name="description" content={t('main:meta.description')}/>
-                <title>{t('main:meta.title')}</title>
-
-                <meta name="description" content={''}/>
-                <title>{'some title'}</title>
-                <meta property="og:type" content="website"/>
-                <meta property="og:title" content="Know your market rate - Salary2.me"/>
-                <meta property="og:site_name"
-                      content="Free service of CV instant AI analytics with results for multiple cities. Also service helps you to find a job. Know your resume rate!"/>
-                <meta property="og:url" content={process.env.HOST}/>
-                <meta property="og:image" content="/img/social.jpg"/>
-                <meta name="twitter:card" content="summary_large_image"/>
-                <meta name="twitter:title" content="Know your market rate - Salary2.me"/>
-                <meta name="twitter:description"
-                      content="Free service of CV instant AI analytics with results for multiple cities. Also service helps you to find a job. Know your resume rate!"/>
-                <meta name="twitter:site" content={process.env.HOST}/>
-                <meta name="twitter:image" content="/img/social.jpg"/>
-            </Head>
-            <div className='home page'>
+            <HomeMeta />
+            <div className="home page landing">
                 <Layout>
-                    <Hero content={t('main:title')}/>
-                    <HomeContent content={t('main:content')}/>
+                    <Hero />
+                    {/*<CVSection />*/}
+                    <TestSection />
+                    <PricesSection />
+                    <AboutSection />
                 </Layout>
             </div>
         </>
     )
 }
 
-export default withTranslation('main')(Home)
+export default Home

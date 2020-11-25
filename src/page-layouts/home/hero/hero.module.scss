@@ -2,23 +2,63 @@
 
 .wrapper {
   position: relative;
+  padding-top: 8rem;
 
   &:before {
     position: absolute;
     content: '';
     display: block;
     width: 35rem;
-    height: 234px;
+    height: 236px;
     background-image: radial-gradient(rgba($grey, .2) 5px, transparent 2px);
     background-size: calc(10 * 2px) calc(10 * 2px);
     top: 200px;
     right: 0;
     z-index: -1;
   }
+
+  &:after {
+    position: absolute;
+    content: '';
+    display: block;
+    width: 21rem;
+    height: 236px;
+    background-image: radial-gradient(rgba($grey, .2) 5px, transparent 2px);
+    background-size: calc(10 * 2px) calc(10 * 2px);
+    top: 4rem;
+    left: 200px;
+    z-index: -1;
+    transform: rotate(90deg);
+  }
 }
 
-.title {
-  margin-bottom: 3rem;
+.headline {
+  margin-bottom: 5rem;
+
+  .title {
+    margin-bottom: 2rem;
+    font-size: 3rem;
+  }
+
+  .desc {
+    font-size: 1.5rem;
+    margin-bottom: 3rem;
+  }
+}
+
+.btn {
+  margin: 0 auto 2rem;
+  width: 12rem;
+  height: 60px;
+  font-size: 1.2rem;
+}
+
+.dropzone {
+
+  .desc {
+
+    margin-bottom: 1rem;
+  }
 }
 
 .robots {
