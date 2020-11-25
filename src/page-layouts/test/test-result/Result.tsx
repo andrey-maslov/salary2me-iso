@@ -61,7 +61,7 @@ const Result: React.FC<ResultProps> = ({ t }) => {
                 }
             })
         }
-    }, [terms, email])
+    }, [terms, email, descriptions])
 
     // TODO check this!
     if (!isReady) {
