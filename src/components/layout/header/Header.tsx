@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useSelector, useDispatch } from 'react-redux'
 import { useMediaPredicate } from 'react-media-hook'
@@ -22,6 +22,7 @@ const Header = ({ t }) => {
     const router = useRouter()
     const currentRoute = router.pathname
     const { testData } = useSelector((state: globalStoreType) => state.test)
+    const [testLink, setTestLink] = useState('/test')
 
     useEffect(() => {
         dispatch(getCurrencyRates())
@@ -38,11 +39,17 @@ const Header = ({ t }) => {
         }
     }, [currentRoute, dispatch])
 
+    useEffect(() => {
+        if (testData) {
+            setTestLink('/test/result')
+        }
+    }, [testData])
+
     const navLinks = [
         { title: t('common:nav.home'), path: '/', icon: <FiHome /> },
         {
             title: t('common:nav.test'),
-            path: testData ? '/test/result' : '/test',
+            path: testLink,
             icon: <FiCheckCircle />
         }
     ]
