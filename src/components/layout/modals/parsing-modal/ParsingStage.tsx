@@ -1,34 +1,29 @@
-import React, {useState, useEffect} from 'react'
-import {PARSING_STAGES, parsingDuration} from '../../../../constants/constants'
+import React, { useState, useEffect } from 'react'
 
+interface IParsingStage {
+    stageList: string[]
+    duration: number
+}
 
-const ParsingStage: React.FC = () => {
-
-    const interval = (parsingDuration - 1000) / PARSING_STAGES.length
-    const [phrase, setPhrase] = useState(PARSING_STAGES[0])
+const ParsingStage: React.FC<IParsingStage> = ({ stageList, duration }) => {
+    const interval = (duration - 1000) / stageList.length
+    const [phrase, setPhrase] = useState(stageList[0])
     let i = 1
 
     useEffect(() => {
-
         const iterate = setInterval(() => {
-            if (i < (PARSING_STAGES.length - 1)) {
+            if (i < stageList.length - 1) {
                 i++
-                setPhrase(PARSING_STAGES[i])
+                setPhrase(stageList[i])
             }
         }, interval)
 
         return function cleanup() {
             clearInterval(iterate)
         }
-    }, [i])
+    }, [i, interval])
 
-
-    return (
-        <div className="text-center">
-            {phrase}
-        </div>
-    )
-
+    return <div className="text-center">{phrase}</div>
 }
 
 export default ParsingStage

@@ -1,12 +1,12 @@
 const express = require('express')
-const next = require('next')
+const Next = require('next')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
 const generatePdf = require('./pdf-generator/pdf-generator')
 
 const port = process.env.PORT || 4000
 const dev = process.env.NODE_ENV !== 'production'
-const app = next({ dev })
+const app = Next({ dev })
 const handle = app.getRequestHandler()
 
 const server = express()
@@ -19,27 +19,19 @@ app.prepare()
         // server.use(bodyParser.json())
         server.use(generatePdf)
 
-        server.get('/signin', (req, res) => {
+        server.use(['/signin', '/registration'], (req, res, next) => {
             if (req.cookies.token) {
                 res.redirect('/')
             } else {
-                return app.render(req, res, '/signin', req.query)
+                next()
             }
         })
 
-        server.get('/registration', (req, res) => {
-            if (req.cookies.token) {
-                res.redirect('/')
-            } else {
-                return app.render(req, res, '/registration', req.query)
-            }
-        })
-
-        server.get('/profile', (req, res) => {
+        server.use(['/profile', '/estimation'], (req, res, next) => {
             if (!req.cookies.token) {
                 res.redirect('/')
             } else {
-                return app.render(req, res, '/profile', req.query)
+                next()
             }
         })
 

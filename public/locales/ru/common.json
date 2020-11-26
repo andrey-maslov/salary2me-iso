@@ -36,7 +36,8 @@
     "need_to_authorize": "Пожалуйста, авторизуйтесь",
     "required": "Это обязательное поле",
     "invalid": "Значение не валидно",
-    "invalid_email": "email должен содержать @"
+    "invalid_email": "email должен содержать @",
+    "invalid_salary": "поле должно содержать только цифры"
   },
   "cookie_consent": {
     "title": "Политика Куки",

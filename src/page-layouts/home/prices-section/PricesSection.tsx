@@ -7,7 +7,8 @@ interface IPricesSection {
 }
 
 const PricesSection: React.FC<IPricesSection> = ({ t }) => {
-    const desc = 'Использование этого сервиса совершенно бесплатно. Однако, если Вы не хотите, чтобы Ваше резюме находилось в открытом доступе, то нужно оплатить годовую подписку в размере $2.99'
+    const desc =
+        'Использование этого сервиса совершенно бесплатно. Однако, если Вы не хотите, чтобы Ваше резюме находилось в открытом доступе, то нужно оплатить годовую подписку в размере $2.99'
 
     return (
         <div className={`${style.wrapper}`}>
@@ -25,14 +26,13 @@ const PricesSection: React.FC<IPricesSection> = ({ t }) => {
                         </section>
                     </div>
                     <div className="col-lg-5">
-                        <div className={style.imgWrapper}>
-                            <img
-                                className={`img-fluid ${style.image}`}
-                                srcSet="/img/landing/robot_happy@2x.png 2x"
-                                src="/img/landing/robot_happy.png"
-                                alt="test result"
-                            />
-                        </div>
+                        <div className={style.imgWrapper} />
+                        {/* <img */}
+                        {/*    className={`img-fluid ${style.image}`} */}
+                        {/*    srcSet="/img/landing/robot_happy@2x.png 2x" */}
+                        {/*    src="/img/landing/robot_happy.png" */}
+                        {/*    alt="test result" */}
+                        {/* /> */}
                     </div>
                 </div>
             </div>

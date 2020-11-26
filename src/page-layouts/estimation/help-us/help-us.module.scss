@@ -34,14 +34,6 @@
   max-width: 500px;
 }
 
-.icon {
-  display: block;
-  width: 80px;
-  height: auto;
-  margin: 20px auto 30px;
-  color: $accent;
-}
-
 .close {
   display: none;
 }
@@ -87,6 +79,63 @@
   position: static;
 }
 
+.form {
+  max-width: 260px;
+}
+
+.group {
+  display: flex;
+  position: relative;
+  align-items: center;
+
+  &:before {
+    content: '$';
+    font-size: 1.5rem;
+    color: #36A9E0;
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .btn {
+    min-width: 3rem;
+    height: 3rem;
+    width: 3rem;
+    margin-bottom: 0;
+    padding: 0;
+
+    svg {
+      position: relative;
+      font-size: 1.25rem;
+      bottom: -4px;
+    }
+  }
+}
+
+.input {
+  height: 3rem;
+  line-height: 3rem;
+  width: 100%;
+  margin-right: 15px;
+  padding-left: 3rem;
+  font-size: 1.5rem;
+  color: #999;
+  border: 1px solid #DFE5EC;
+  box-sizing: border-box;
+  box-shadow: 0 1px 3px #EFF1F4;
+  border-radius: 3px;
+}
+
+.group {
+  margin-bottom: 1rem;
+}
+
+.error {
+  color: $danger;
+  font-size: .8rem;
+}
+
 @media (max-width: 1360px) {
   .img {
     max-width: 370px;
@@ -129,5 +178,16 @@
         min-width: unset;
       }
     }
+  }
+}
+
+@media(max-width: $xs-breakpoint) {
+
+  .form {
+    display: flex;
+    position: relative;
+    height: 57px;
+    max-width: unset;
+    width: 100%;
   }
 }

@@ -1,23 +1,24 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { FaRegSmile } from 'react-icons/fa'
-import Rodal from 'rodal'
+import { FaArrowRight } from 'react-icons/fa'
 import { useMediaPredicate } from 'react-media-hook'
+import { useForm } from 'react-hook-form'
+import { withTranslation } from '@i18n'
 import { sendRealSalary } from '../../../actions/actionCreator'
-import Form from './form/Form'
 import ButtonClose from '../../../components/common/buttons/button-close/ButtonClose'
 import { globalStoreType } from '../../../typings/types'
 import style from './help-us.module.scss'
 
-function HelpUs() {
+function HelpUs({ t }) {
     const { realSalary } = useSelector((state: globalStoreType) => state.cv)
-    const { email } = useSelector((state: globalStoreType) => state.user)
+    const { accountApiErrorMsg } = useSelector((state: globalStoreType) => state.app)
     const containerRef = useRef(null)
     const dispatch = useDispatch()
     const [fixedClass, setFixedClass] = useState('')
     const [canBeFixed, setCanBeFixed] = useState(true)
+    const { register, handleSubmit, errors, clearErrors } = useForm<{ salary: string }>()
 
-    const onScroll = e => {
+    const onScroll = () => {
         if (containerRef.current) {
             if (containerRef.current.getBoundingClientRect().top < window.innerHeight) {
                 setFixedClass('')
@@ -43,90 +44,6 @@ function HelpUs() {
     }
 
     const biggerThan992 = useMediaPredicate('(min-width: 992px)')
-
-    const [isModalShown, setModalShown] = useState(false)
-    const [value, setValue] = useState('')
-    const [isConsentEstimation, setConsentEstimation] = useState(false)
-
-    const sendSalary = () => {
-        const formData = new FormData()
-        formData.append('email', email)
-        formData.append('salary', value)
-        formData.append('estimate', isConsentEstimation.toString())
-
-        dispatch(sendRealSalary(formData))
-        setModalShown(true)
-    }
-
-    // send
-    const handleSendBtn = () => {
-        if (value.length >= 3) {
-            sendSalary()
-        } else {
-            // console.log('is it correct value?')
-        }
-    }
-
-    // send
-    const handlePressEnter = ({ key }) => {
-        if (key === 'Enter' && value.length >= 3) {
-            sendSalary()
-        }
-    }
-
-    // set to redux
-    const handleInput = ({ target: { value } }) => {
-        const pattern = /([^0-9])/
-
-        if (!pattern.exec(value)) {
-            setValue(value)
-        }
-    }
-
-    useEffect(() => {
-        if (isModalShown) {
-            setTimeout(() => {
-                setModalShown(false)
-                // if (!hasErrored) {
-                //     setValue('')
-                // }
-            }, 5000)
-        }
-    }, [isModalShown])
-
-    const ThanxModal = () => {
-        function renderModalContent() {
-            // if (isLoading) return <Loader/>
-            // TODO change to 'if error'
-            if (false)
-                return (
-                    <div className={style.modalContent}>
-                        <h5 className="text-center modal-title">Something wen wrong</h5>
-                        <p>
-                            Try to enter your salary
-                            <br /> in number format, like 1300
-                        </p>
-                    </div>
-                )
-
-            return (
-                <div className={style.modalContent}>
-                    <FaRegSmile className={style.icon} />
-                    <h5 className="text-center modal-title">Thank you for your help!</h5>
-                </div>
-            )
-        }
-
-        return (
-            <Rodal
-                visible={isModalShown}
-                onClose={() => setModalShown(false)}
-                height={450}
-                width={450}>
-                {renderModalContent()}
-            </Rodal>
-        )
-    }
 
     return (
         <div ref={containerRef} className={style.section}>
@@ -160,14 +77,36 @@ function HelpUs() {
                                         You can support our project by sharing your actual or latest
                                         salary (monthly, brutto)
                                     </div>
-                                    <Form
-                                        handleInput={handleInput}
-                                        handlePressEnter={handlePressEnter}
-                                        userRealSalary={value}
-                                        handleSendBtn={handleSendBtn}
-                                    />
+                                    <form
+                                        className={style.form}
+                                        onSubmit={handleSubmit(({ salary }) =>
+                                            dispatch(sendRealSalary(+salary))
+                                        )}>
+                                        <div className={style.group}>
+                                            <input
+                                                name="salary"
+                                                className={`${style.input} input`}
+                                                type="tel"
+                                                aria-label="salary value"
+                                                pattern="\d*"
+                                                ref={register({
+                                                    required: `${t('common:errors.required')}`
+                                                })}
+                                            />
+                                            <button className={`btn btn-accent ${style.btn}`}>
+                                                <FaArrowRight />
+                                            </button>
+                                        </div>
+                                        {errors.salary && (
+                                            <div className={style.error}>
+                                                {errors.salary.message}
+                                            </div>
+                                        )}
+                                        {accountApiErrorMsg && (
+                                            <div className={style.error}>{accountApiErrorMsg}</div>
+                                        )}
+                                    </form>
                                 </div>
-                                <ThanxModal />
                             </div>
                         </div>
                     </div>
@@ -177,4 +116,4 @@ function HelpUs() {
     )
 }
 
-export default HelpUs
+export default withTranslation('common', 'estimation')(HelpUs)

@@ -17,7 +17,7 @@ import {
     SET_TOAST,
     SEND_EMAIL,
     SET_AUTH_PROVIDER,
-    DANGER_MODAL
+    DANGER_MODAL, THANX_MODAL
 } from './actionTypes'
 import { globalStoreType, ISignInData, ISignUpData } from '../typings/types'
 import { authModes } from '../constants/constants'
@@ -271,22 +271,27 @@ export const sendCvForResults = formData => {
 }
 
 // Send real user salary to base
-export const sendRealSalary = formData => {
+export const sendRealSalary = (salary: number) => {
     const url = `${process.env.BASE_API}/api/v${apiVer}/Predict`
     const token = getCookieFromBrowser('token')
-
-    return dispatch => {
+    return (dispatch, getState) => {
         dispatch({ type: LOADING, loading: true })
+        const data = {
+            email: getState().user.email,
+            salary,
+            estimate: false
+        }
+
         if (token) {
             axios
-                .put(`${process.env.BASE_API}/api/v${apiVer}/Predict`, formData, {
+                .put(url, data, {
                     headers: {
-                        'Content-Type': 'multipart/form-data',
                         Authorization: `Bearer ${token}`
                     }
                 })
                 .then(() => {
-                    dispatch({ type: ADD_USER_SALARY, realSalary: formData.get('salary') })
+                    console.log('take off')
+                    dispatch({ type: THANX_MODAL, isThanxModal: true })
                 })
                 .catch(err => {
                     apiErrorHandling(err, dispatch)

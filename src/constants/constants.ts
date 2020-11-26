@@ -23,22 +23,22 @@ export const LINKEDIN_REDIRECT_URI = `${process.env.BASE_URL}/callbacklinkedin`
 
 export const ACCEPTED_FILE_TYPES = '.rtf, .png, .jpg, .jpeg, .pdf, .doc, .docx'
 
-export const PARSING_STAGES = [
-    'Resume parser started.',
-    'Parsing section bio',
-    'Parsing section contacts',
-    'Parsing section education',
-    'Parsing section projects',
-    'Parsing section',
-    'Parsing section history',
-    'Parsing section experience',
-    'Parsing section languages',
-    'Parsing section skills',
-    'Parsing section certifications',
-    'Parsing section specializations',
-    'Parsing section interests',
-    'Resume parsed.'
-]
+// export const PARSING_STAGES = [
+//     'Resume parser started.',
+//     'Parsing section bio',
+//     'Parsing section contacts',
+//     'Parsing section education',
+//     'Parsing section projects',
+//     'Parsing section',
+//     'Parsing section history',
+//     'Parsing section experience',
+//     'Parsing section languages',
+//     'Parsing section skills',
+//     'Parsing section certifications',
+//     'Parsing section specializations',
+//     'Parsing section interests',
+//     'Resume parsed.'
+// ]
 
 export const locations = [
     { countryISO: 'by', city: 'Minsk', costLivingIndex: '32' },

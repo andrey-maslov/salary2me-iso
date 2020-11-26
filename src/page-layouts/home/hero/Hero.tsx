@@ -18,13 +18,13 @@ const Hero: React.FC<HeroType> = ({ t }) => {
                         <div className={style.headline}>
                             <h1
                                 className={style.title}
-                                dangerouslySetInnerHTML={{ __html: t('main:title') }}
+                                dangerouslySetInnerHTML={{ __html: t('main:hero.title') }}
                             />
-                            <p className={style.desc}>
-                                Оцени стоимость своего резюме в десятках городов мира
-                            </p>
+                            <p className={style.desc}>{t('main:hero.subtitle')}</p>
                             <Link href="/registration">
-                                <a className={`btn btn-accent ${style.btn}`}>Начать!</a>
+                                <a className={`btn btn-accent ${style.btn}`}>
+                                    {t('main:hero.btn_cta')}
+                                </a>
                             </Link>
                         </div>
                     </div>
@@ -33,11 +33,7 @@ const Hero: React.FC<HeroType> = ({ t }) => {
                     <div className="col-lg-6">
                         <div className={style.dropzone}>
                             <div className={style.desc}>
-                                <p>
-                                    Создай бесплатный аккаунт, загрузи свое резюме на наш сервис и
-                                    получи оценку своих зарплатных перспектив в более чем 20 городах
-                                    более чем 20 городах мира
-                                </p>
+                                <p>{t('main:dropzone.desc')}</p>
                             </div>
                             <Dropzone />
                         </div>

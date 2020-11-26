@@ -9,7 +9,7 @@ import {
     FaFileWord,
     FaFileImage
 } from 'react-icons/fa'
-import { Router, Link } from '@i18n'
+import { Router, Link, withTranslation } from '@i18n'
 import { ACCEPTED_FILE_TYPES, parsingDuration } from '../../../constants/constants'
 import Button from '../buttons/button/Button'
 import DeleteBtn from '../buttons/delete-btn/DeleteBtn'
@@ -22,7 +22,7 @@ import { useDeviceDetect } from '../../../helper/useDeviceDetect'
 import { PARSING_MODAL, PARSING_TEXT } from '../../../actions/actionTypes'
 import { globalStoreType } from '../../../typings/types'
 
-const Dropzone: React.FC = () => {
+const Dropzone = ({ t }) => {
     // TODO - move tip text to translations
     const linkedinTip = 'Profile - More - Save to PDF'
     const [myFiles, setMyFiles] = useState([])
@@ -75,10 +75,7 @@ const Dropzone: React.FC = () => {
         return (
             <BorderedBox borderColor="#d73a49">
                 <div className={style.rejectedWrap}>
-                    This file has not accepted type.
-                    <br />
-                    Only following file types are accepted:
-                    <br />
+                    <p>{t('main:dropzone.format_error')}</p>
                     <strong>{ACCEPTED_FILE_TYPES}</strong>
                 </div>
             </BorderedBox>
@@ -87,25 +84,27 @@ const Dropzone: React.FC = () => {
 
     return (
         <div className={`${style.wrapper}`}>
-            <div {...getRootProps()} className={`${style.dropzone} ${!isLoggedIn ? style.disabled : ''}`}>
+            <div
+                {...getRootProps()}
+                className={`${style.dropzone} ${!isLoggedIn ? style.disabled : ''}`}>
                 <input {...getInputProps()} />
                 <div>
                     <div className={style.browse}>
-                        <span>Выберите файл</span> или перетащите сюда
+                        <p dangerouslySetInnerHTML={{ __html: t('main:dropzone.instruction') }} />
                     </div>
                     <div className={style.formats}>
-                        Стандатные форматы более предпочтительны (
+                        {t('main:dropzone.standard')} (
                         <Tooltip tip={linkedinTip} direction="top">
                             <span>LinkedIn</span>
-                        </Tooltip>{' '}
-                        и т.д.)
+                        </Tooltip>
+                        {` ${t('main:dropzone.etc')}`})
                     </div>
                 </div>
                 <FaCloudUploadAlt className={style.uploadIcon} />
                 {!isLoggedIn && (
                     <div className={style.toSignIn}>
                         <Link href="/registration">
-                            <a>Сначала зарегистрируйтесь</a>
+                            <a>{t('main:dropzone.unlogged_error')}</a>
                         </Link>
                     </div>
                 )}
@@ -165,4 +164,4 @@ const Dropzone: React.FC = () => {
     }
 }
 
-export default Dropzone
+export default withTranslation('main')(Dropzone)

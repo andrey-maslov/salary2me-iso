@@ -42,6 +42,7 @@ export const SET_PAY_TAX = 'SET_PAY_TAX'
 export const OPEN_LOGIN_MODAL = 'OPEN_LOGIN_MODAL'
 export const PARSING_MODAL = 'PARSING_MODAL'
 export const DANGER_MODAL = 'DANGER_MODAL'
+export const THANX_MODAL = 'THANX_MODAL'
 
 /*= ==== ERRORS ===== */
 export const PROCESS_FAILED = 'PROCESS_FAILED'

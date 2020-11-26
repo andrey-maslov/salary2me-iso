@@ -16,6 +16,7 @@
   min-height: 15rem;
   transition: all .2s ease-in-out;
   cursor: pointer;
+  margin-bottom: 1rem;
 
   &:focus {
     border-color: $accent;
@@ -98,7 +99,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 1rem;
   margin-bottom: 2rem;
 }
 

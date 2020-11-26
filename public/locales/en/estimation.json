@@ -11,9 +11,28 @@
   "annually": "Annually",
   "netto": "Netto",
   "brutto": "Brutto",
+  "no_results": "",
+  "error_title": "Oooops... Something went wrong",
+  "error_desc": "We are only beta and we can't parse your CV right now. But you can either try one more time or wait until we proceed your valuation manually. The result will be sent to your email",
+  "parsing_stage_list": [
+    "Resume parser started",
+    "Parsing section bio",
+    "Parsing section contacts",
+    "Parsing section education",
+    "Parsing section projects",
+    "Parsing section history",
+    "Parsing section experience",
+    "Parsing section languages",
+    "Parsing section skills",
+    "Parsing section certifications",
+    "Parsing section specializations",
+    "Parsing section interests",
+    "Resume parsed"
+  ],
   "help_block": {
     "title": "We are wrong?</br> Sorry, we are only beta",
-    "desc": "You can support our project by sharing your actual or latest salary (monthly, brutto)"
+    "desc": "You can support our project by sharing your actual or latest salary (monthly, brutto)",
+    "thanx_msg": "Thank you for your help!"
   },
   "meta": {
     "title": "title for result page",

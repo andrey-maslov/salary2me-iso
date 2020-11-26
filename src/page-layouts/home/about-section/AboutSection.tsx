@@ -6,9 +6,12 @@ type AboutSectionType = {
 }
 
 const AboutSection: React.FC<AboutSectionType> = ({ t }) => {
+    const contentList = t('main:about.content_list', { returnObjects: true })
+    
     return (
         <section className={`${style.wrapper} section`}>
             <div className="container">
+                <h2 className="section-title">{t('main:about.title')}</h2>
                 <div className="row between-xs middle-xs">
                     <div className="col-lg-7">
                         <img
@@ -19,10 +22,11 @@ const AboutSection: React.FC<AboutSectionType> = ({ t }) => {
                         />
                     </div>
                     <div className="col-lg-5">
-                        <div
-                            className="fade-in"
-                            dangerouslySetInnerHTML={{ __html: t('main:content') }}
-                        />
+                        <div className="fade-in">
+                            {Array.isArray(contentList) &&
+                                contentList.map((item, i) => <p key={`${i}`}>{item}</p>)}
+                            <a href="mailto:contact@salary2.me">contact@salary2.me</a>
+                        </div>
                     </div>
                 </div>
             </div>

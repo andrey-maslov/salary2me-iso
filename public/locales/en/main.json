@@ -1,11 +1,67 @@
 {
-  "title": "<span class='color-accent'>AI</span> valuation of your market salary for different locations",
-  "content": "<h2 class='color-accent'>About our project</h2><p>Our goal is to build an accurate AI tool of market salary instant analytics based on CV profile. Multiple data sources are used for that goal, but the main is your feedback. So, please, specify your real salary, it will help us to train the neural network in a best way. Of course, dynamics is very important, because market is changing rapidly from time to time.</p><p>Current state is trained on data collected during <strong>second half of 2019</strong>. We are working to adapt data for current situation, but please be forgiving of our possible mistakes, because we are only beta now.</p><p>In future we plan to provide more tools of analytics, including psychological tests and support for those who want to find a new job.</p><p>Please send all your feedback to <strong><a href='mailto:contact@salary2.me'>contact@salary2.me</a></strong></p>",
+  "hero": {
+    "title": "<span>AI</span> valuation of your market salary for different locations",
+    "subtitle": "Оцени стоимость своего резюме в десятках городов мира",
+    "btn_cta": "начать!"
+  },
   "dropzone": {
-    "drop_file": "Drop your CV file here",
-    "or": "or",
-    "browse": "Browse",
-    "standard": "Standardized formats are preferred (LinkedIn etc.)"
+    "desc": "Создай бесплатный аккаунт, загрузи свое резюме на наш сервис и получи оценку своих зарплатных перспектив в более чем 20 городах более чем 20 городах мира",
+    "instruction": "<span class='color-accent'>Выберите файл</span> или перетащите его сюда",
+    "standard": "Standardized formats are preferred",
+    "etc": "etc.",
+    "format_error": "This file has not accepted type. Only following file types are accepted:",
+    "unlogged_error": "Сначала зарегистрируйтесь",
+    "btn_cta": "send"
+  },
+  "about": {
+    "title": "About our project",
+    "content": [
+      "Our goal is to build an accurate AI tool of market salary instant analytics based on CV profile. Multiple data sources are used for that goal, but the main is your feedback. So, please, specify your real salary, it will help us to train the neural network in a best way. Of course, dynamics is very important, because market is changing rapidly from time to time",
+      "Current state is trained on data collected during second half of 2019. We are working to adapt data for current situation, but please be forgiving of our possible mistakes, because we are only beta now",
+      "In future we plan to provide more tools of analytics, including psychological tests and support for those who want to find a new job",
+      "Please send all your feedback to "
+    ]
+  },
+  "features": {
+    "title": "Особенности сервиса",
+    "desc": "",
+    "btn_cta": "",
+    "features": [
+      {
+        "title": "Оценка резюме",
+        "desc": ""
+      },
+      {
+        "title": "Психологический профиль",
+        "desc": ""
+      },
+      {
+        "title": "Интеграция с другими сервисами",
+        "desc": ""
+      }
+    ]
+  },
+  "prices": {
+    "title": "Ценовая политика",
+    "desc": "Использование этого сервиса совершенно бесплатно. Однако, если Вы не хотите, чтобы Ваше резюме находилось в открытом доступе, то нужно оплатить годовую подписку в размере $2.99",
+    "btn_cta": "купить подписку"
+  },
+  "cv": {
+    "title": "Оценка резюме",
+    "desc": "",
+    "btn_cta": "Оценить резюме!"
+  },
+  "test": {
+    "title": "Психологический тест",
+    "desc": "Потратьте 15 минут своего времени на прохождение экспресс теста. Вы получите ценную информацию о своей личности и инструменты для результативного построения взаимоотношений. Так же Вы получите зашифрованный результат пройденного теста, который можно использовать в других наших сервисах, количество которых растет",
+    "features_title": "Чем может помочь тест?",
+    "features_list": [
+      "Полная характеристика личности человека, его врожденные сильные и слабые стороны, оптимальный формат коммуникации",
+      "Профориентация, определение той работы, к которой у человека есть максимальная склонность (работа с людьми, работа с системами, творческая работа)",
+      "Определение лучших методов обучения для конкретного человека по его психотипу (визуальное, вербальное, текстовое и тд.)",
+      "Определение эмоционального выгорания и стресса (в случае периодического прохождения), определение поведения в стрессе"
+    ],
+    "btn_cta": ""
   },
   "meta": {
     "title": "Know your market rate",

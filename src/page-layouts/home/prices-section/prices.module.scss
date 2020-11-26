@@ -1,11 +1,11 @@
 @import '../../../assets/scss/vars';
 
 .wrapper {
-  background-color: rgba($accent, .2);
+  background: linear-gradient(to right, rgba($accent, .1), rgba($accent, .4) );
   padding-top: 0;
   padding-bottom: 0;
-  border-top: 1px solid rgba($accent, .2);
-  border-bottom: 1px solid rgba($accent, .2);
+  //border-top: 1px solid rgba($accent, .2);
+  //border-bottom: 1px solid rgba($accent, .2);
 
   .headline {
     margin-bottom: 3rem;
@@ -18,6 +18,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background-image: radial-gradient(rgba($grey, .2) 5px, transparent 2px);
+  background-size: calc(10 * 2px) calc(10 * 2px);
 }
 
 

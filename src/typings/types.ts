@@ -7,6 +7,7 @@ import { appStoreType } from '../reducers/app'
 export interface IModalProps {
     isModalShown: boolean
     closeModal: () => void
+    t?: any
 }
 
 export interface ILocation {

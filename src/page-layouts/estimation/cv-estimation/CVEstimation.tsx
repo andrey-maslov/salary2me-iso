@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { FaFilter, FaChevronDown } from 'react-icons/fa'
-import { Link } from '@i18n'
+import { Link, withTranslation } from '@i18n'
 import { getSalariesLimits } from '../../../helper/helper'
 import SocialSharing from '../../../components/common/buttons/social-sharing/SocialSharing'
 import style from './cv-estimation.module.scss'
@@ -12,8 +12,7 @@ import HelpUs from '../help-us/HelpUs'
 import { globalStoreType } from '../../../typings/types'
 import { useDeviceDetect } from '../../../helper/useDeviceDetect'
 
-const CVEstimation: React.FC = () => {
-    const { isLoggedIn } = useSelector((store: globalStoreType) => store.user)
+const CVEstimation = ({ t }) => {
     const {
         predictions,
         position,
@@ -74,7 +73,7 @@ const CVEstimation: React.FC = () => {
                         <div className={style.title}>
                             <div className={`${style.position}`}>
                                 <span>{state.position || 'no experience detected'}: </span>
-                                estimated salary by city
+                                {t('estimation:title')}
                             </div>
                         </div>
                     </div>
@@ -106,7 +105,7 @@ const CVEstimation: React.FC = () => {
                                     )
                                 })
                             ) : (
-                                <div>No results</div>
+                                <div>{t('estimation:no_results')}</div>
                             )}
                         </ul>
                     </div>
@@ -152,7 +151,6 @@ const CVEstimation: React.FC = () => {
             }))
             .sort(sortAZ)
 
-        const bruttoNormalSorted = [...bruttoNormal].sort()
         const bruttoMinFirst = [...bruttoNormal].sort((a, b) => a.avg - b.avg)
         const bruttoMaxFirst = [...bruttoNormal].sort((a, b) => b.avg - a.avg)
 
@@ -182,4 +180,4 @@ const CVEstimation: React.FC = () => {
     }
 }
 
-export default CVEstimation
+export default withTranslation('estimation')(CVEstimation)
