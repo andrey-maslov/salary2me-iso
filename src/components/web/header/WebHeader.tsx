@@ -11,12 +11,8 @@ export type Header = {
 const WebHeader = ({ isLoggedIn, handleLoginBtn, userEmail }: Header) => {
     return (
         <nav className={style.bar}>
-            <TopLogo/>
-            <WebNav
-                isLoggedIn={isLoggedIn}
-                handleLoginBtn={handleLoginBtn}
-                userEmail={userEmail}
-            />
+            <TopLogo />
+            <WebNav isLoggedIn={isLoggedIn} handleLoginBtn={handleLoginBtn} userEmail={userEmail} />
         </nav>
     )
 }

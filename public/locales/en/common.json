@@ -12,7 +12,8 @@
     "signout": "Logout",
     "signup": "Registration",
     "start_test": "Start test",
-    "to_main": "To main"
+    "to_main": "To main",
+    "account": "Account settings"
   },
   "cookie_consent": {
     "text": "We care about you, so you have to agree to our cookie policy",
@@ -32,7 +33,8 @@
     "invalid": "Invalid value",
     "invalid_email": "invalid email",
     "need_to_authorize": "Sign in, please",
-    "required": "This field is required"
+    "required": "This field is required",
+    "invalid_salary": "The field must contain only numbers"
   },
   "misc": {
     "subscribe_msg": "I would like to receive newsletters of new vacancies"

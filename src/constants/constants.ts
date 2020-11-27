@@ -1,9 +1,8 @@
 export const SITE_TITLE = 'salary2me'
 export const IS_BETA = true
 
-export const LANG_DEFAULT = 'en'
-// export const LANGS = ['ru', 'en', 'pl', 'es', 'de', 'fr', 'it', 'tk']
 export const LANGS = ['ru', 'en']
+export const LANG_DEFAULT = 'en'
 
 export const accentColor = '#36A9E0'
 export const parsingDuration = 6000
@@ -22,23 +21,6 @@ export const COLORS = {
 export const LINKEDIN_REDIRECT_URI = `${process.env.BASE_URL}/callbacklinkedin`
 
 export const ACCEPTED_FILE_TYPES = '.rtf, .png, .jpg, .jpeg, .pdf, .doc, .docx'
-
-// export const PARSING_STAGES = [
-//     'Resume parser started.',
-//     'Parsing section bio',
-//     'Parsing section contacts',
-//     'Parsing section education',
-//     'Parsing section projects',
-//     'Parsing section',
-//     'Parsing section history',
-//     'Parsing section experience',
-//     'Parsing section languages',
-//     'Parsing section skills',
-//     'Parsing section certifications',
-//     'Parsing section specializations',
-//     'Parsing section interests',
-//     'Resume parsed.'
-// ]
 
 export const locations = [
     { countryISO: 'by', city: 'Minsk', costLivingIndex: '32' },
@@ -88,3 +70,22 @@ export enum authModes {
     'reset-password-success',
     'onboarding'
 }
+
+// export const LANGS = ['ru', 'en', 'pl', 'es', 'de', 'fr', 'it', 'tk']
+
+// export const PARSING_STAGES = [
+//     'Resume parser started.',
+//     'Parsing section bio',
+//     'Parsing section contacts',
+//     'Parsing section education',
+//     'Parsing section projects',
+//     'Parsing section',
+//     'Parsing section history',
+//     'Parsing section experience',
+//     'Parsing section languages',
+//     'Parsing section skills',
+//     'Parsing section certifications',
+//     'Parsing section specializations',
+//     'Parsing section interests',
+//     'Resume parsed.'
+// ]

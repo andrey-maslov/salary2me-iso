@@ -34,6 +34,11 @@ export interface QuestionsProps {
     t?: any
 }
 
+export interface IQuestion {
+    title: string
+    values: string[]
+}
+
 export interface ISignUpData {
     email: string
     password: string

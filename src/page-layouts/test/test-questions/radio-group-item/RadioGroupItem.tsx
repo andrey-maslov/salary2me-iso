@@ -11,11 +11,17 @@ type RadioGroupItem = {
     index: number | null
     testHandler: any
     type?: string
-    isRequired?: boolean
 }
 
-const RadioGroupItem = ({caption1, caption2, values, labels, index, testHandler, type = 'horizontal'}: RadioGroupItem) => {
-
+const RadioGroupItem = ({
+    caption1,
+    caption2,
+    values,
+    labels,
+    index,
+    testHandler,
+    type = 'horizontal'
+}: RadioGroupItem) => {
     type LocalStateType = {
         selectedBtn: string
         question: number | null
@@ -24,41 +30,92 @@ const RadioGroupItem = ({caption1, caption2, values, labels, index, testHandler,
     }
 
     const [localState, setLocalState] = useState<LocalStateType>({
-                                                                     selectedBtn: '',
-                                                                     question: 0,
-                                                                     isAnswered: false,
-                                                                     closestCaptionClass: ''
-                                                                 })
+        selectedBtn: '',
+        question: 0,
+        isAnswered: false,
+        closestCaptionClass: ''
+    })
 
-    const handleRadioBtn = (e: any): void => {
-        let value: string = e.target.dataset.value
+    const itemClasses = `test-item ${style.item} ${
+        localState.isAnswered ? `${style.answered} answered` : ''
+    } ${localState.closestCaptionClass ? style[localState.closestCaptionClass] : ''}`
+
+    return (
+        <div className={itemClasses} data-item-index={index}>
+            <div className={style.index}>
+                {index}
+                {localState.isAnswered && (
+                    <div className="fade-in">
+                        <FiCheck />
+                    </div>
+                )}
+            </div>
+            <div className={`${style.content} ${style[type]}`}>
+                {caption1 && (
+                    <div className={`${style.caption}`}>
+                        <p>{caption1}</p>
+                    </div>
+                )}
+                <div className={`${style.options}`}>
+                    {values.map((value, i) => {
+                        const isSelected: boolean = localState.selectedBtn === value
+
+                        return (
+                            <RadioBtn
+                                key={value}
+                                value={value}
+                                label={labels && labels[i]}
+                                isSelected={isSelected}
+                                handler={handleRadioBtn}
+                            />
+                        )
+                    })}
+                </div>
+                {caption2 && (
+                    <div className={`${style.caption}`}>
+                        <p>{caption2}</p>
+                    </div>
+                )}
+            </div>
+        </div>
+    )
+
+    function handleRadioBtn(e: any): void {
+        const { value } = e.target.dataset
         setLocalState({
-                          ...localState,
-                          selectedBtn: value,
-                          question: index,
-                          isAnswered: true,
-                          closestCaptionClass: getClosestCaptionClass(value)
-                      });
+            ...localState,
+            selectedBtn: value,
+            question: index,
+            isAnswered: true,
+            closestCaptionClass: getClosestCaptionClass(value)
+        })
         testHandler(index, value)
         // if (window && document.scrollHeight > 1300) {
-            // scrollToNext();
-            // console.log('document.scrollHeight')
+        // scrollToNext();
+        // console.log('document.scrollHeight')
         // }
-    };
+    }
+
+    function getClosestCaptionClass(val: string) {
+        if (Math.sign(+val) === -1) {
+            return 'first'
+        }
+        if (Math.sign(+val) === 1) {
+            return 'second'
+        }
+        return 'neutral'
+    }
 
     function scrollToNext() {
-
-        const QIndex: number = Number(index)
+        const QIndex = Number(index)
         let i = 1
 
         function scroll() {
-
-            let targetElem: any = document.querySelector(`[data-item-index="${QIndex + i}"]`)
+            const targetElem: any = document.querySelector(`[data-item-index="${QIndex + i}"]`)
 
             if (targetElem !== null && !targetElem.classList.contains('answered')) {
-                targetElem.scrollIntoView({block: 'center', behavior: 'smooth'})
+                targetElem.scrollIntoView({ block: 'center', behavior: 'smooth' })
             } else if (targetElem === null) {
-                return;
             } else {
                 i++
                 scroll()
@@ -66,49 +123,6 @@ const RadioGroupItem = ({caption1, caption2, values, labels, index, testHandler,
         }
 
         scroll()
-    }
-
-    const itemClasses = `test-item ${style.item} ${localState.isAnswered ? (style.answered + ' answered') : ''} ${localState.closestCaptionClass ? style[localState.closestCaptionClass] : ''}`
-
-    return (
-        <div className={itemClasses} data-item-index={index}>
-            <div className={style.index}>
-                {index}
-                {localState.isAnswered && <div className="fade-in"><FiCheck/></div>}
-            </div>
-            <div className={`${style.content} ${style[type]}`}>
-                {caption1 && <div className={`${style.caption}`}>
-                    <p>{caption1}</p>
-                </div>}
-                <div className={`${style.options}`}>
-                    {values.map((value, index) => {
-
-                        let isSelected: boolean = (localState.selectedBtn === value);
-
-                        return (
-                            <RadioBtn key={value}
-                                      value={value}
-                                      label={labels && labels[index]}
-                                      isSelected={isSelected}
-                                      handler={handleRadioBtn}
-                            />
-                        )
-                    })}
-                </div>
-                {caption2 && <div className={`${style.caption}`}>
-                    <p>{caption2}</p>
-                </div>}
-            </div>
-        </div>
-    );
-
-    function getClosestCaptionClass(val: string) {
-        if (Math.sign(+val) === -1) {
-            return 'first'
-        } else if (Math.sign(+val) === 1) {
-            return 'second'
-        }
-        return 'neutral'
     }
 }
 

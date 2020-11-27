@@ -17,7 +17,7 @@ const CodeBox: React.FC<CodeBoxType> = ({ content, successMsg, btnLabel }) => {
             <textarea
                 className={style.enc}
                 defaultValue={content}
-                onFocus={(e: any) => e.target.select()}
+                onFocus={(e: React.FocusEvent<HTMLTextAreaElement>) => e.target.select()}
                 readOnly
             />
             <CopyToClipboard

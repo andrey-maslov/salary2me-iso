@@ -41,7 +41,8 @@
   },
   "errors": {
     "take_the_test": "Пройдите тест",
-    "test_failed": "Тест не пройден"
+    "test_failed": "Тест не пройден",
+    "all_q_required": "Необходимо ответить на все вопросы"
   },
   "meta": {
     "description": "описание теста",

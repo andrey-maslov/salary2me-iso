@@ -340,8 +340,8 @@ export function sendTestData(): unknown {
 
 export function fetchTestData(token: string): unknown {
     const url = `${process.env.BASE_API}/api/v${apiVer}/PsychologicalTests/list`
-    return dispatch => {
-        if (token) {
+    return (dispatch, getState) => {
+        if (token && getState().user.isLoggedIn) {
             axios
                 .get(url, {
                     headers: {

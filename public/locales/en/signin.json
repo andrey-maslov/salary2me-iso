@@ -6,7 +6,7 @@
   "sign_out": "Sign out",
   "signout": "Signout",
   "registration": "Registration",
-  "onboarding": "Добро пожаловать в Salary2me",
+  "onboarding": "Welcome to Salary2me",
   "identifier": "Name or email",
   "pwd": "Password",
   "confirm_pwd": "Repeat password",
@@ -31,6 +31,13 @@
     "last_name": "Last name",
     "want_to_open": "I want to open my profile data for searching within the service",
     "looking_for_job": "I am open to job offers",
-    "position": "Position"
+    "position": "Position",
+    "onboarding": "Welcome to Salary2me"
+  },
+  "email_sent": "Email sent",
+  "errors": {
+    "404": "No such user found",
+    "500": "Something went wrong",
+    "wrong_password": "Wrong password"
   }
 }

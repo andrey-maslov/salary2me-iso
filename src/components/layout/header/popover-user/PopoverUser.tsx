@@ -1,16 +1,17 @@
 import { useState } from 'react'
 import { FiUser, FiUserCheck, FiLogOut, FiChevronDown, FiSettings } from 'react-icons/fi'
 import OutsideClickHandler from 'react-outside-click-handler'
-import { Link } from '@i18n'
+import { Link, withTranslation } from '@i18n'
 import { Popover } from '../../../common/popovers/Popover'
 import style from './popover-user.module.scss'
 
 interface PopoverUserProps {
     userEmail: string
     logoutHandle: () => void
+    t: any
 }
 
-const PopoverUser: React.FC<PopoverUserProps> = ({ userEmail, logoutHandle }) => {
+const PopoverUser: React.FC<PopoverUserProps> = ({ userEmail, logoutHandle, t }) => {
     const [isOpen, setIsOpen] = useState(false)
 
     const outsideClickHandler = () => {
@@ -42,15 +43,15 @@ const PopoverUser: React.FC<PopoverUserProps> = ({ userEmail, logoutHandle }) =>
                             <Link href="/profile">
                                 <a className={`${style.item} ${style.creds}`}>
                                     <FiSettings />
-                                    <span>Account settings</span>
+                                    <span>{t('common:account')}</span>
                                 </a>
                             </Link>
                         </li>
                         <li>
-                            <div className={style.item} onClick={logoutHandle}>
+                            <button className={style.item} onClick={logoutHandle}>
                                 <FiLogOut />
-                                <span>Logout</span>
-                            </div>
+                                <span>{t('common:signout')}</span>
+                            </button>
                         </li>
                     </ul>
                 </Popover>
@@ -59,4 +60,4 @@ const PopoverUser: React.FC<PopoverUserProps> = ({ userEmail, logoutHandle }) =>
     )
 }
 
-export default PopoverUser
+export default withTranslation('common')(PopoverUser)

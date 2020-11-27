@@ -1,4 +1,4 @@
-import {FiChevronDown} from "react-icons/fi"
+import { FiChevronDown } from 'react-icons/fi'
 import style from './button-more.module.scss'
 
 interface ButtonMoreProps {
@@ -7,14 +7,16 @@ interface ButtonMoreProps {
     title?: string
 }
 
-const ButtonMore: React.FC<ButtonMoreProps> = ({isOpened, handler, title}) => {
-
+const ButtonMore: React.FC<ButtonMoreProps> = ({ isOpened, handler, title }) => {
     return (
-        <button onClick={handler} className={`${style.btn} ${isOpened ? style.opened : ''}`} tabIndex={0}>
+        <button
+            onClick={handler}
+            className={`${style.btn} ${isOpened ? style.opened : ''}`}
+            tabIndex={0}>
             {title && <span>{title}</span>}
-            <FiChevronDown/>
+            <FiChevronDown />
         </button>
-    );
+    )
 }
 
 export default ButtonMore

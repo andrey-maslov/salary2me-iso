@@ -15,7 +15,7 @@ import Checkbox from '../../../components/common/inputs/checkbox/Checkbox'
 import { DANGER_MODAL, SET_TOAST } from '../../../actions/actionTypes'
 import CodeBox from '../../../components/common/code-box/CodeBox'
 import Service from './service/Service'
-import Button from "../../../components/common/buttons/button/Button";
+import Button from '../../../components/common/buttons/button/Button'
 
 const UserProfile = ({ t }) => {
     const {
@@ -87,7 +87,11 @@ const UserProfile = ({ t }) => {
         isPublicProfile,
         isLoggedIn,
         isOpenForWork,
-        apiErrorMsg
+        apiErrorMsg,
+        setToast,
+        router,
+        addToast,
+        dispatch
     ])
 
     if (!isReady) {
@@ -143,17 +147,15 @@ const UserProfile = ({ t }) => {
     return (
         <div className={style.wrapper}>
             <div className={style.header}>
-                <h2 className={style.title}>Настройки аккаунта</h2>
-                <p>
-                    Здесь вы можете управлять своими персональными данными и настройками приватности
-                </p>
+                <h2 className={style.title}>{t('profile:title')}</h2>
+                <p>{t('profile:hello')}</p>
                 <p>
                     <Link href="/terms">
-                        <a>Подробнее о правилах использования</a>
+                        <a>{t('profile:more_terms')}</a>
                     </Link>
-                    {` или `}
+                    {` ${t('profile:or')} `}
                     <Link href="/policies/privacy-policy">
-                        <a>прочитайте нашу политику приватности</a>
+                        <a>{t('profile:more_privacy')}</a>
                     </Link>
                 </p>
             </div>
@@ -161,7 +163,7 @@ const UserProfile = ({ t }) => {
             <div className="row">
                 <div className="col-md-6">
                     <div className={`${style.box} ${style.account}`}>
-                        <h5 className={style.box_title}>Аккаунт</h5>
+                        <h5 className={style.box_title}>{t('profile:account')}</h5>
                         <div className={`${style.box_content}`}>
                             <div className={`${style.list} flex`}>
                                 {textFields.map(item => (
@@ -207,7 +209,7 @@ const UserProfile = ({ t }) => {
                         </div>
                     </div>
                     <div className={`${style.box} ${style.privacy}`}>
-                        <h5 className={style.box_title}>Privacy</h5>
+                        <h5 className={style.box_title}>{t('profile:privacy')}</h5>
                         <div className={`${style.box_content}`}>
                             <div className={style.list}>
                                 {checkBoxes.map(item => (
@@ -227,27 +229,27 @@ const UserProfile = ({ t }) => {
 
                 <div className="col-md-6">
                     <div className={`${style.box} ${style.services}`}>
-                        <h5 className={style.box_title}>Сервисы</h5>
+                        <h5 className={style.box_title}>{t('profile:services')}</h5>
 
                         <Service service="salary2me">
                             {/* <div className={`${style.item} flex between-xs`}> */}
                             {/*    <Link href="/resume"> */}
-                            {/*        <a>Ваше резюме</a> */}
+                            {/*        <a>{t('profile:cv')}</a> */}
                             {/*    </Link> */}
                             {/*    <FaFilePdf /> */}
                             {/* </div> */}
-                            {/* <div className={`${style.item} flex between-xs`}> */}
-                            {/*    <Link href="/estimation"> */}
-                            {/*        <a>Оценка резюме по городам</a> */}
-                            {/*    </Link> */}
-                            {/* </div> */}
-
+                            <div className={`${style.item} flex between-xs`}>
+                                <h4 className={style.itemTitle}>{t('profile:cv_est')}</h4>
+                                <Link href="/estimation">
+                                    <a>{t('profile:cv_est_cities')}</a>
+                                </Link>
+                            </div>
                             <div className={`${style.item}`}>
-                                <h4 className={style.itemTitle}>Психологический профиль</h4>
+                                <h4 className={style.itemTitle}>{t('profile:psycho_profile')}</h4>
                                 {testData && (
                                     <>
                                         <p style={{ marginBottom: '1rem' }}>
-                                            Зашифрованный результат
+                                            {t('profile:enc_result')}
                                         </p>
                                         <div style={{ marginBottom: '1rem' }}>
                                             <CodeBox content={encData} />
@@ -259,7 +261,7 @@ const UserProfile = ({ t }) => {
                                         {!isQRCode ? (
                                             <div>
                                                 <Link href="/test/result">
-                                                    <a>Перейти к моему психологическому профилю</a>
+                                                    <a>{t('profile:go_to_psycho_profile')}</a>
                                                 </Link>
                                             </div>
                                         ) : (
@@ -276,7 +278,7 @@ const UserProfile = ({ t }) => {
                                     </div>
                                 ) : (
                                     <Link href="/test">
-                                        <a>Пройдите тест</a>
+                                        <a>{t('profile:take_the_test')}</a>
                                     </Link>
                                 )}
                             </div>
@@ -285,13 +287,13 @@ const UserProfile = ({ t }) => {
                         <Service service="teamconstructor">
                             <div className={`${style.item} flex between-xs`}>
                                 <a href={pairLink} target="_blank" rel="noopener noreferrer">
-                                    Перейти к анализу совместимости
+                                    {t('profile:pair_analysis')}
                                 </a>
                                 <FiExternalLink />
                             </div>
                             <div className={`${style.item} flex between-xs`}>
                                 <a href={teamLink} target="_blank" rel="noopener noreferrer">
-                                    Перейти к формированию команды
+                                    {t('profile:go_to_team')}
                                 </a>
                                 <FiExternalLink />
                             </div>
@@ -300,7 +302,7 @@ const UserProfile = ({ t }) => {
                         <Service service="thegreatbase">
                             <div className={`${style.item} flex between-xs`}>
                                 <a href={grBaseLink} target="_blank" rel="noopener noreferrer">
-                                    Рабочий кабинет
+                                    {t('profile:go_to_dashboard')}
                                 </a>
                                 <FiExternalLink />
                             </div>
@@ -313,9 +315,9 @@ const UserProfile = ({ t }) => {
                 <h5 className={style.box_title}>Danger zone</h5>
                 <div className={`${style.box_content}`}>
                     <div className={`${style.item} ${style.delete}`}>
-                        <div>Если Вы удалите аккаунт, то вы не сможете его восстановить</div>
+                        <div>{t('profile:delete_warning_msg_1')}</div>
                         <button className="btn" onClick={deleteAccountBtnHandler}>
-                            Удалить аккаунт
+                            {t('profile:delete.delete_account')}
                         </button>
                     </div>
                 </div>

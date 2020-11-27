@@ -13,7 +13,7 @@ const Test = ({ t }) => {
             <div className={`${testBlock === 'personalInfo' ? 'visible' : 'hidden'} fade-in`}>
                 <div className={style.info}>
                     <GrInfo />
-                    <div dangerouslySetInnerHTML={{ __html: t('test:page.info_block_desc') }} />
+                    <div>{t('test:page.info_block_desc')}</div>
                 </div>
                 <PersonalInfo changeBlock={changeTestBlock} />
             </div>
@@ -32,4 +32,4 @@ const Test = ({ t }) => {
     }
 }
 
-export default withTranslation('questions')(Test)
+export default withTranslation('test')(Test)

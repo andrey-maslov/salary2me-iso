@@ -31,7 +31,7 @@ const Hero: React.FC<HeroType> = ({ t }) => {
                 </div>
                 <div className="row between-xs bottom-xs">
                     <div className="col-lg-6">
-                        <div className={style.dropzone}>
+                        <div className={style.dropzone} id="upload">
                             <div className={style.desc}>
                                 <p>{t('main:dropzone.desc')}</p>
                             </div>

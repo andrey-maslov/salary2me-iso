@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useMediaPredicate } from 'react-media-hook'
+import { withTranslation } from '@i18n'
 import Bar from './bar/Bar'
 import { getCurrencySymbol, Helper } from '../../../helper/helper'
 import style from './est-item.module.scss'
@@ -14,6 +15,7 @@ interface IEstItemProps {
     currencyRates: { EUR: number; USD: number; GBP: number }
     payPeriod: string
     selectedCurrency: string
+    t: any
 }
 
 const EstItem: React.FC<IEstItemProps> = ({
@@ -23,25 +25,26 @@ const EstItem: React.FC<IEstItemProps> = ({
     limits,
     currencyRates,
     payPeriod,
-    selectedCurrency
+    selectedCurrency,
+    t
 }) => {
     const biggerThan992 = useMediaPredicate('(min-width: 992px)')
     let livingIndexCity = location.city
-
-    const getCurrencyRate = name => {
-        const currencyName = name.toUpperCase()
-        return currencyRates[currencyName]
-    }
 
     const currenciesObjectLength = Object.keys(currencyRates).length
     const indexPeriod = payPeriod === 'annually' ? 12 : 1
     const [indexCurrency, setIndexCurrency] = useState(0)
 
     useEffect(() => {
+        const getCurrencyRate = name => {
+            const currencyName = name.toUpperCase()
+            return currencyRates[currencyName]
+        }
+
         if (Object.keys(currencyRates).length !== 0) {
             setIndexCurrency(getCurrencyRate(selectedCurrency))
         }
-    }, [currenciesObjectLength, currencyRates, getCurrencyRate, selectedCurrency])
+    }, [currenciesObjectLength, currencyRates, selectedCurrency])
 
     const indexCombined = indexCurrency * indexPeriod
 
@@ -91,7 +94,7 @@ const EstItem: React.FC<IEstItemProps> = ({
                             href={`https://www.numbeo.com/cost-of-living/in/${livingIndexCity}`}
                             target="_blank"
                             rel="noopener noreferrer">
-                            <span>Cost of living index:</span>{' '}
+                            <span>{t('estimation:living_index')}</span>{' '}
                             <strong>{location.costLivingIndex}</strong>
                         </a>
                     </div>
@@ -101,4 +104,4 @@ const EstItem: React.FC<IEstItemProps> = ({
     )
 }
 
-export default EstItem
+export default withTranslation('estimation')(EstItem)

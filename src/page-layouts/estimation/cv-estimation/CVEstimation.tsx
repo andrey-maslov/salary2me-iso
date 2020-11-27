@@ -36,11 +36,11 @@ const CVEstimation = ({ t }) => {
             <div className={style.wrapper}>
                 <div className="flex-centered text-center">
                     <strong>
-                        Please,{' '}
-                        <Link href="/">
-                            <a>upload</a>
+                        {`${t('estimation:dropzone.please')}, `}
+                        <Link href="/#upload">
+                            <a>{t('estimation:dropzone.upload')}</a>
                         </Link>{' '}
-                        your CV
+                        {t('estimation:dropzone.your_cv')}
                     </strong>
                 </div>
             </div>

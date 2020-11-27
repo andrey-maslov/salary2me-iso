@@ -6,7 +6,7 @@ import { withTranslation } from '@i18n'
 import { useToasts } from 'react-toast-notifications'
 import Button from '../../../../components/common/buttons/button/Button'
 import { checkAnswers, isBrowser } from '../../../../helper/helper'
-import { AnswerType, globalStoreType, QuestionsProps } from '../../../../typings/types'
+import { AnswerType, globalStoreType, IQuestion, QuestionsProps } from '../../../../typings/types'
 import RadioGroupItem from '../radio-group-item/RadioGroupItem'
 import style from './questions.module.scss'
 import { saveTestData, sendTestData } from '../../../../actions/actionCreator'
@@ -18,9 +18,9 @@ const Questions = ({ changeBlock, t }: QuestionsProps) => {
     const { addToast } = useToasts()
     const { isLoggedIn } = useSelector((state: globalStoreType) => state.user)
 
-    const questions = t(`questions:questions`, { returnObjects: true })
+    const questions: IQuestion[] = t(`questions:questions`, { returnObjects: true })
 
-    let initAnswers: Array<AnswerType> = questions.map((item: any) => ({
+    let initAnswers: Array<AnswerType> = questions.map(item => ({
         id: item.title,
         value: ''
     }))
@@ -41,16 +41,18 @@ const Questions = ({ changeBlock, t }: QuestionsProps) => {
 
     return (
         <>
-            {questions.map((item, i) => (
-                <RadioGroupItem
-                    caption1={t(`questions:questions.${i}.values.0`)}
-                    caption2={t(`questions:questions.${i}.values.1`)}
-                    values={['-2', '-1', '0', '1', '2']}
-                    index={i + 1}
-                    testHandler={testHandler}
-                    key={i}
-                />
-            ))}
+            <div>
+                {questions.map((item, i) => (
+                    <RadioGroupItem
+                        caption1={t(`questions:questions.${i}.values.0`)}
+                        caption2={t(`questions:questions.${i}.values.1`)}
+                        values={['-2', '-1', '0', '1', '2']}
+                        index={i + 1}
+                        testHandler={testHandler}
+                        key={i}
+                    />
+                ))}
+            </div>
             <div className={style.buttons}>
                 <Button
                     handle={returnBtnHandler}
@@ -85,7 +87,7 @@ const Questions = ({ changeBlock, t }: QuestionsProps) => {
         if (num === -1) {
             sendAnswers(calculateResults(answers))
         } else if (isBrowser && num !== -1) {
-            addToast('Необходимо ответить на все вопросы', {
+            addToast(t('test:errors.all_q_required'), {
                 appearance: 'error'
             })
             // scroll to first not answered question

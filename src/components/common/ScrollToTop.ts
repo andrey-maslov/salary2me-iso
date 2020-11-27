@@ -1,8 +1,7 @@
 import { useEffect } from 'react'
-import {useRouter} from 'next/router'
+import { useRouter } from 'next/router'
 
-export default function ScrollToTop() {
-
+export default function ScrollToTop(): null {
     const router = useRouter()
 
     useEffect(() => {

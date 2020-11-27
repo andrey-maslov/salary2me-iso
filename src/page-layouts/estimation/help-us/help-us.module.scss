@@ -59,6 +59,7 @@
   .content {
     max-width: unset;
     display: flex;
+    justify-content: space-around;
   }
   .desc {
     font-size: 18px;
@@ -72,6 +73,7 @@
     margin-right: 40px;
     margin-bottom: 0;
     line-height: 1.5;
+    width: 20%;
   }
 }
 
@@ -136,13 +138,13 @@
   font-size: .8rem;
 }
 
-@media (max-width: 1360px) {
+@media (max-width: $xl-breakpoint) {
   .img {
     max-width: 370px;
   }
 }
 
-@media (max-width: 992px) {
+@media (max-width: $lg-breakpoint) {
 
   .wrapper {
     text-align: left;
@@ -181,7 +183,7 @@
   }
 }
 
-@media(max-width: $xs-breakpoint) {
+@media(max-width: $sm-breakpoint) {
 
   .form {
     display: flex;

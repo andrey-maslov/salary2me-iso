@@ -65,6 +65,11 @@
     padding: .8rem 1rem;
     transition: background-color .2s ease-in-out;
     border-bottom: 1px solid $grey-bg;
+    background-color: transparent;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    text-align: left;
 
     &:hover {
       cursor: pointer;

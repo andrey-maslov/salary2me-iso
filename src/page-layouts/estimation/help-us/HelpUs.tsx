@@ -70,12 +70,10 @@ function HelpUs({ t }) {
                                 )}
                                 <div className={style.content}>
                                     <h3 className={`${style.title} color-accent`}>
-                                        We are wrong?
-                                        <br /> Sorry, we are only beta.
+                                        {t('estimation:help_block.title')}
                                     </h3>
                                     <div className={style.desc}>
-                                        You can support our project by sharing your actual or latest
-                                        salary (monthly, brutto)
+                                        {t('estimation:help_block.desc')}
                                     </div>
                                     <form
                                         className={style.form}

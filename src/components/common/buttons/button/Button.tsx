@@ -17,8 +17,7 @@ const Button = ({ title, btnClass, startIcon = null, endIcon = null, handle, isE
         <button
             className={`${style.btn} ${btnClass} ${!isEnabled ? style.disabled : ''}`}
             onClick={handle}
-            aria-label={ariaLabel}
-        >
+            aria-label={ariaLabel}>
             {startIcon && <span className={style.start}>{startIcon}</span>}
             {title}
             {endIcon && <span className={style.end}>{endIcon}</span>}

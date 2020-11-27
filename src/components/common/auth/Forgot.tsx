@@ -6,6 +6,7 @@ import { withTranslation } from '@i18n'
 import Button from '../buttons/button/Button'
 import style from './auth.module.scss'
 import { ISignin } from './Signin'
+import { globalStoreType } from '../../../typings/types'
 
 export interface IForgotForm {
     email: string
@@ -18,7 +19,7 @@ const Forgot: React.FC<ISignin<IForgotForm>> = ({
     submitHandle,
     t
 }) => {
-    const { isEmailSent } = useSelector((state: any) => state.app)
+    const { isEmailSent } = useSelector((state: globalStoreType) => state.app)
     const { register, handleSubmit, errors, setError, clearErrors } = useForm<IForgotForm>()
 
     return (
@@ -55,7 +56,7 @@ const Forgot: React.FC<ISignin<IForgotForm>> = ({
                         <div className="item-explain api-error">{errors.form.message}</div>
                     )}
                     {isEmailSent && (
-                        <div className="item-explain api-success">Письмо отправлено</div>
+                        <div className="item-explain api-success">{t('signin:email_sent')}</div>
                     )}
                 </div>
             </form>

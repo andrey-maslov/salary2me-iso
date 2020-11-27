@@ -1,8 +1,7 @@
-import {ContentLayout} from '../../../page-layouts'
+import { ContentLayout } from '../../../page-layouts'
 
-const PageContent: React.FC<{content: any}>  = (props) => {
-
-    return <ContentLayout {...props}/>
+const PageContent: React.FC<{ content: any }> = props => {
+    return <ContentLayout {...props} />
 }
 
 export default PageContent

@@ -4,15 +4,14 @@ import { Link, withTranslation } from '@i18n'
 import Button from '../../../common/buttons/button/Button'
 import style from './cookie-consent.module.scss'
 
-const cookiesConsentText =
-    "We care about your data, and we'd use cookies only to improve your experience. Privacy settings & policy."
-
 const CookieConsent: React.FC<{ t: any }> = ({ t }) => {
     const [isConsented, setConsented] = useState(false)
 
     useEffect(() => {
         const consent = Cookie.get('cookie-consent')
-        consent && setConsented(true)
+        if (consent) {
+            setConsented(true)
+        }
     }, [])
 
     if (isConsented) {
@@ -22,14 +21,12 @@ const CookieConsent: React.FC<{ t: any }> = ({ t }) => {
     return (
         <div className={style.popup}>
             <div className={style.content}>
-                {/* <p>{t('common:cookie_consent.text')}</p> */}
-                <p>{cookiesConsentText}</p>
+                <p>{t('common:cookies_consent.text')}</p>
                 <Link href="/policies/cookie-policy">
-                    <a className={style.policyLink}>cookie policy</a>
+                    <a className={style.policyLink}>{t('common:cookies_consent.title')}</a>
                 </Link>
                 <Button
-                    // title={t('common:buttons.agree')}
-                    title="Agree"
+                    title={t('common:buttons.agree')}
                     btnClass="btn-outlined btn"
                     handle={handleCookiesConsent}
                 />

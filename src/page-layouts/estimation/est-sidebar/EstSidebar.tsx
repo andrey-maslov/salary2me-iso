@@ -1,4 +1,5 @@
 import React from 'react'
+import { withTranslation } from '@i18n'
 import { useSelector, useDispatch } from 'react-redux'
 import style from './est-sidebar.module.scss'
 import { currencies } from '../../../constants/constants'
@@ -13,15 +14,15 @@ import {
     SET_SORTING
 } from '../../../actions/actionTypes'
 
-const EstSidebar: React.FC = () => {
+const EstSidebar: React.FC<{ t: any }> = ({ t }) => {
     const { selectedCurrency, payPeriod, payTax, sorting } = useSelector(
         (state: globalStoreType) => state.cv
     )
     const dispatch = useDispatch()
     const sortingValues = [
-        { value: `normal`, title: 'Choose sorting' },
-        { value: `min-first`, title: 'Minimal first' },
-        { value: `max-first`, title: 'Maximum first' }
+        { value: `normal`, title: t('estimation:choose_sorting') },
+        { value: `min-first`, title: t('estimation:min_first') },
+        { value: `max-first`, title: t('estimation:max_first') }
     ]
 
     const sortHandler = e => {
@@ -50,7 +51,7 @@ const EstSidebar: React.FC = () => {
                 <Select selected={sorting} handler={sortHandler} values={sortingValues} />
             </div>
             <div className={style.option}>
-                <div className={style.optionTitle}>Preferred currency</div>
+                <div className={style.optionTitle}>{t('estimation:currency')}</div>
                 <Tabs
                     values={[
                         currencies.usd.nameISO.toUpperCase(),
@@ -61,19 +62,23 @@ const EstSidebar: React.FC = () => {
                 />
             </div>
             <div className={style.option}>
-                <div className={style.optionTitle}>Pay period</div>
+                <div className={style.optionTitle}>{t('estimation:pay_period')}</div>
                 <Tabs
-                    values={['Monthly', 'Annually']}
+                    values={[t('estimation:monthly'), t('estimation:annually')]}
                     handler={selectPayPeriod}
                     activeValue={payPeriod}
                 />
             </div>
             <div className={style.option}>
-                <div className={style.optionTitle}>Approximate taxation?</div>
-                <Tabs values={['Netto', 'Brutto']} handler={selectPayTax} activeValue={payTax} />
+                <div className={style.optionTitle}>{t('estimation:tax')}</div>
+                <Tabs
+                    values={[t('estimation:netto'), t('estimation:brutto')]}
+                    handler={selectPayTax}
+                    activeValue={payTax}
+                />
             </div>
         </div>
     )
 }
 
-export default EstSidebar
+export default withTranslation('estimation')(EstSidebar)

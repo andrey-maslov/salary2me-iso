@@ -6,7 +6,7 @@
   "sign_out": "Выйти",
   "signout": "Выход",
   "registration": "Регистрация",
-  "onboarding": "Welcome to Salary2me",
+  "onboarding": "Добро пожаловать в Salary2me",
   "identifier": "Имя или email",
   "pwd": "Пароль",
   "new_pwd": "Новый пароль",
@@ -24,8 +24,9 @@
   "confirm_pwd": "Пожалуйста, подтвердите пароль",
   "repeat_pwd": "Повторите пароль",
   "pwd_mismatch": "Пароли не совпадают!",
-  "extra" : {
-    "onboarding": "Добро пожаловать в Salary@me",
+  "email_sent": "Письмо отправлено",
+  "extra": {
+    "onboarding": "Добро пожаловать в Salary2me",
     "title": "Дополнительная информация",
     "desc": "Дополнительные данные, которые помогут нам лучше представить Вас",
     "first_name": "Имя",

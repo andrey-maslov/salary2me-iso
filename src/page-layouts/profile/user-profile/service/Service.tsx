@@ -1,16 +1,14 @@
-import style from "./service.module.scss"
-import PopoverInfo from "../../../../components/common/popovers/popover-info/PopoverInfo"
-import {Link, withTranslation} from "@i18n"
-
-import React from "react"
+import { Link, withTranslation } from '@i18n'
+import React from 'react'
+import style from './service.module.scss'
+import PopoverInfo from '../../../../components/common/popovers/popover-info/PopoverInfo'
 
 interface IServiceBox {
     service: 'salary2me' | 'teamconstructor' | 'thegreatbase' | 'default'
     children: React.ReactNode
 }
 
-function Service({children, service,}: IServiceBox) {
-
+function Service({ children, service }: IServiceBox) {
     return (
         <div className={`${style.service} ${style[service]}`}>
             <div className={style.top}>
@@ -21,15 +19,13 @@ function Service({children, service,}: IServiceBox) {
                     <span>premium</span>
                     <PopoverInfo
                         contentList={[
-                            {url: '/', label: 'Перейти к сервису'},
-                            {url: '/', label: 'Управлять подпиской'},
+                            { url: '/', label: 'Перейти к сервису' },
+                            { url: '/', label: 'Управлять подпиской' }
                         ]}
                     />
                 </div>
             </div>
-            <div className={style.content}>
-                {children}
-            </div>
+            <div className={style.content}>{children}</div>
         </div>
     )
 }
