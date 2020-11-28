@@ -7,7 +7,7 @@ const TestMainLayout: React.FC = () => {
         <>
             <Head>
                 <meta name="description" content="" />
-                <title>some title</title>
+                <title>Психологичесикй тест</title>
             </Head>
             <div className="page-test-main main">
                 <Layout>

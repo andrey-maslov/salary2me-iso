@@ -7,7 +7,7 @@ const TestQuestionsLayout: React.FC = () => {
         <>
             <Head>
                 <meta name="description" content="" />
-                <title>some title</title>
+                <title>Вопросы - психологический тест</title>
             </Head>
             <div className="page-test-questions">
                 <Layout>

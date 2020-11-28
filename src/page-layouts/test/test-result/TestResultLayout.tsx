@@ -7,7 +7,7 @@ const TestResultLayout: React.FC = () => {
         <>
             <Head>
                 <meta name="description" content="" />
-                <title>some title</title>
+                <title>Результат психологического теста</title>
                 <meta property="og:type" content="website" />
                 <meta property="og:title" content="Know your market rate - Salary2.me" />
                 <meta
