@@ -56,7 +56,7 @@ const Modals: React.FC = () => {
                 />
             )}
 
-            <CookieConsent />
+            {/*<CookieConsent />*/}
         </>
     )
 }

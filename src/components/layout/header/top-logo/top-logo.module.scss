@@ -1,7 +1,19 @@
 .logo {
 
+  a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+  }
+
   img {
-    width: 140px;
+    max-height: 30px;
+    margin-right: 10px;
+  }
+
+  span {
+    color: #203152;
+    font-size: 1.5rem;
   }
 }
 
@@ -10,7 +22,7 @@
   .logo {
 
     img {
-      width: 120px;
+      max-height: 25px;
     }
   }
 }

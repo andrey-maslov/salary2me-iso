@@ -37,42 +37,44 @@ const LangSwitcher: React.FC = () => {
     return (
         <OutsideClickHandler onOutsideClick={outsideClickHandler}>
             <div className={style.wrapper}>
-                <button
-                    className={`${style.btn} lang-btn`}
-                    onClick={() => {
-                        setIsOpen(!isOpen)
-                    }}
-                    suppressHydrationWarning>
-                    <SVGFlag id={language} tagClass={style.flag} />
-                    {language}
-                </button>
+                {/*<button*/}
+                {/*    className={`${style.btn} lang-btn`}*/}
+                {/*    onClick={() => {*/}
+                {/*        setIsOpen(!isOpen)*/}
+                {/*    }}*/}
+                {/*    suppressHydrationWarning>*/}
+                {/*    <SVGFlag id={language} tagClass={style.flag} />*/}
+                {/*    {language}*/}
+                {/*</button>*/}
 
-                <Popover isVisible={isOpen} className="lang-popover">
-                    <ul className={style.links}>
-                        {LANGS.map(lang => {
-                            let activeClass = ''
-                            if (lang === language) {
-                                activeClass = 'current'
-                            }
-                            return (
-                                <li
-                                    key={lang}
-                                    className={`${style.item} ${
-                                        activeClass ? style[activeClass] : ''
-                                    }`}>
-                                    <button
-                                        className={style.switcher}
-                                        onClick={() => {
-                                            changeLanguage(lang)
-                                        }}>
-                                        <SVGFlag id={lang} tagClass={style.flag} />
-                                        {lang}
-                                    </button>
-                                </li>
-                            )
-                        })}
-                    </ul>
-                </Popover>
+                {isOpen && (
+                    <Popover isVisible={isOpen} className="lang-popover">
+                        <ul className={style.links}>
+                            {LANGS.map(lang => {
+                                let activeClass = ''
+                                if (lang === language) {
+                                    activeClass = 'current'
+                                }
+                                return (
+                                    <li
+                                        key={lang}
+                                        className={`${style.item} ${
+                                            activeClass ? style[activeClass] : ''
+                                        }`}>
+                                        <button
+                                            className={style.switcher}
+                                            onClick={() => {
+                                                changeLanguage(lang)
+                                            }}>
+                                            <SVGFlag id={lang} tagClass={style.flag} />
+                                            {lang}
+                                        </button>
+                                    </li>
+                                )
+                            })}
+                        </ul>
+                    </Popover>
+                )}
             </div>
         </OutsideClickHandler>
     )

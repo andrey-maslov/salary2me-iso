@@ -71,7 +71,7 @@ const Result: React.FC<ResultProps> = ({ t }) => {
     if (!testData || testData.length === 0) {
         return (
             <div className="flex-centered">
-                <Link href="/test">
+                <Link href="/">
                     <a>{t('test:errors.take_the_test')}</a>
                 </Link>
             </div>
@@ -230,9 +230,9 @@ const Result: React.FC<ResultProps> = ({ t }) => {
                 </div>
             </Box>
 
-            <Box>
-                <ShareResult encData={encData} isLoggedIn={isLoggedIn} />
-            </Box>
+            {/*<Box>*/}
+            {/*    <ShareResult encData={encData} isLoggedIn={isLoggedIn} />*/}
+            {/*</Box>*/}
         </div>
     )
 }

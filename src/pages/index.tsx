@@ -1,16 +1,14 @@
-import {HomeLayout} from '../page-layouts'
+import React from 'react'
+import { TestMainLayout } from '../page-layouts'
 
-function Home(props) {
-
-    return (
-        <>
-            <HomeLayout {...props} />
-        </>
-    )
+function Index() {
+    return <TestMainLayout />
 }
 
-Home.getInitialProps = async () => ({
-    namespacesRequired: ['main', 'common'],
-})
+Index.getInitialProps = async () => {
+    return {
+        namespacesRequired: ['test', 'questions']
+    }
+}
 
-export default Home
+export default Index

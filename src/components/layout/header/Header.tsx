@@ -79,12 +79,6 @@ const Header = ({ t }) => {
                     />
                 ) : (
                     <>
-                        <WebNav
-                            isLoggedIn={isLoggedIn}
-                            handleLoginBtn={handleLogoutBtn}
-                            userEmail={email}
-                            navLinks={navLinks}
-                        />
                         <LangSwitcher />
                     </>
                 )}

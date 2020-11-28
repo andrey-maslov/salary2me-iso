@@ -4,7 +4,7 @@ const cookieParser = require('cookie-parser')
 const cors = require('cors')
 const generatePdf = require('./pdf-generator/pdf-generator')
 
-const port = process.env.PORT || 4000
+const port = process.env.PORT || 4002
 const dev = process.env.NODE_ENV !== 'production'
 const app = Next({ dev })
 const handle = app.getRequestHandler()
