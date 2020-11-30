@@ -37,7 +37,14 @@
     "your_encrypted_result": "Ваш зашифрованный результат",
     "go_to_comparison": "К сравнению!",
     "details": "Подробнее",
-    "create_pdf": "экспорт в PDF"
+    "create_pdf": "экспорт в PDF",
+    "again": "Пройти еще раз",
+    "value": "Значение",
+    "your_type": "Ваш психотип",
+    "your_main_type": "Ваш основной психотип",
+    "main_type_desc": "Описание основного психотипа",
+    "sec_type": "дополнительный психотип",
+    "sec_type_desc": "Описание дополнительного психотипа"
   },
   "errors": {
     "take_the_test": "Пройдите тест",

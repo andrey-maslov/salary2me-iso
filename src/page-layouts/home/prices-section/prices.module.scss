@@ -13,12 +13,12 @@
 }
 
 .imgWrapper {
-  background-color: #fff;
   height: 100%;
+  max-width: 500px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: radial-gradient(rgba($grey, .2) 5px, transparent 2px);
+  background-image: radial-gradient(rgba(#fff, .5) 5px, transparent 2px);
   background-size: calc(10 * 2px) calc(10 * 2px);
 }
 

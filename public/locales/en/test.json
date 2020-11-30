@@ -46,6 +46,13 @@
     "full_profile_title": "Complete psychographic profile",
     "psychological_portrait": "Psychological portrait",
     "psychological_profile_desc": "Psychological profile description",
-    "title": "We offer you the results and your competencies"
+    "title": "We offer you the results and your competencies",
+    "again": "Take the test again",
+    "value": "Value",
+    "your_type": "Your psychotype",
+    "your_main_type": "Your main psychotype",
+    "main_type_desc": "Main psychotype description",
+    "sec_type": "Your secondary psychotype",
+    "sec_type_desc": "Secondary psychotype description"
   }
 }

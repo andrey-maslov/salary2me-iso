@@ -137,7 +137,7 @@ const Result: React.FC<ResultProps> = ({ t }) => {
                 <h3>{t('test:result_page.title')}</h3>
                 <Link href="/test">
                     <a className="btn btn-outlined" style={{ marginBottom: '1rem' }}>
-                        Пройти еще раз
+                        {t('test:result_page.again')}
                     </a>
                 </Link>
             </div>
@@ -169,27 +169,28 @@ const Result: React.FC<ResultProps> = ({ t }) => {
                 {secondaryPortraitDesc ? (
                     <div style={{ marginBottom: '1rem' }}>
                         <div style={{ fontSize: '1.2rem', marginBottom: '.5rem' }}>
-                            Ваш основной психотип -{' '}
+                            {`${t('test:result_page.your_main_type')} `}
                             <strong>
                                 {mainPsychoType} ({(mainOctantFraction * 100).toFixed(1)}%)
                             </strong>
-                            , дополнительный психотип -{' '}
+                            {`, ${t('test:result_page.sec_type')} `}
                             <strong>
                                 {`${secondaryPsychoType} ${(secondaryOctantFraction * 100).toFixed(1)}%`}
                             </strong>
                         </div>
                         <div style={{ fontSize: '1.2rem', marginBottom: '.5rem' }}>
-                            Описание дополнительного психотипа:
+                            {`${t('test:result_page.sec_type_desc')}:`}
                         </div>
                         <p style={{ marginBottom: '1.5rem' }}>{secondaryPortraitDesc}</p>
                         <div style={{ fontSize: '1.2rem', marginBottom: '.5rem' }}>
-                            Описание основного психотипа:
+                            {`${t('test:result_page.main_type_desc')}:`}
                         </div>
                     </div>
                 ) : (
                     <div className="pb-sm">
                         <div>
-                            Ваш психотип - <strong>{mainPsychoType}</strong>
+                            {`${t('test:result_page.your_type')} - `}
+                            <strong>{mainPsychoType}</strong>
                         </div>
                     </div>
                 )}

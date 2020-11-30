@@ -1,17 +1,18 @@
 import React from 'react'
-import {Radar} from 'react-chartjs-2'
-import {ITendency} from 'psychology/build/main/types/types'
-import {COLORS} from '../../../../constants/constants'
+import { Radar } from 'react-chartjs-2'
+import { ITendency } from 'psychology/build/main/types/types'
+import { useMediaPredicate } from 'react-media-hook'
+import { COLORS } from '../../../../constants/constants'
 import hexToRgba from '../../../../helper/hexToRgba'
-import {useMediaPredicate} from 'react-media-hook'
 import style from './radar-chart.module.scss'
 
 type ChartsPropsType = {
     profile: readonly ITendency[]
     chartLabels: string[]
+    label?: string
 }
 
-const ChartRadar: React.FC<ChartsPropsType> = ({profile, chartLabels}) => {
+const ChartRadar: React.FC<ChartsPropsType> = ({ profile, chartLabels, label }) => {
 
     const chartRadarOptions: any = {
         desktop: {
@@ -28,13 +29,13 @@ const ChartRadar: React.FC<ChartsPropsType> = ({profile, chartLabels}) => {
 
     const isMobi = useMediaPredicate('(max-width: 600px)')
 
-    const currentOptions = !isMobi ? {...chartRadarOptions.desktop} : {...chartRadarOptions.mobi};
+    const currentOptions = !isMobi ? { ...chartRadarOptions.desktop } : { ...chartRadarOptions.mobi };
 
     const data = {
         labels: currentOptions.labels,
         datasets: [
             {
-                label: 'userName1',
+                label: label && '',
                 backgroundColor: hexToRgba(COLORS.orange, .5),
                 pointBackgroundColor: COLORS.orange,
                 borderColor: COLORS.orange,
@@ -55,7 +56,7 @@ const ChartRadar: React.FC<ChartsPropsType> = ({profile, chartLabels}) => {
         scale: {
             reverse: false,
             gridLines: {
-                color: ['black', 'red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet']
+                color: ['black', 'red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet', 'red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet']
             },
             ticks: {
                 // suggestedMax: 30,
@@ -68,7 +69,7 @@ const ChartRadar: React.FC<ChartsPropsType> = ({profile, chartLabels}) => {
         tooltips: {
             // enabled: false,
             callbacks: {
-                title: function (tooltipItem: any) {
+                title (tooltipItem: any) {
                     const i = tooltipItem[0].index
                     return chartLabels[i]
                 },
