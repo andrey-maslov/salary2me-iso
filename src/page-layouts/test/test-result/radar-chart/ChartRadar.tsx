@@ -1,9 +1,9 @@
 import React from 'react'
 import {Radar} from 'react-chartjs-2'
 import {ITendency} from 'psychology/build/main/types/types'
+import {useMediaPredicate} from 'react-media-hook'
 import {COLORS} from '../../../../constants/constants'
 import hexToRgba from '../../../../helper/hexToRgba'
-import {useMediaPredicate} from 'react-media-hook'
 import style from './radar-chart.module.scss'
 
 type ChartsPropsType = {
@@ -34,7 +34,7 @@ const ChartRadar: React.FC<ChartsPropsType> = ({profile, chartLabels}) => {
         labels: currentOptions.labels,
         datasets: [
             {
-                label: 'userName1',
+                label: 'значение',
                 backgroundColor: hexToRgba(COLORS.orange, .5),
                 pointBackgroundColor: COLORS.orange,
                 borderColor: COLORS.orange,
