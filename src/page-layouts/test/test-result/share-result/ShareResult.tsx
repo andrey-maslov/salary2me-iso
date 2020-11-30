@@ -48,22 +48,22 @@ function ShareResult({ t, encData, isLoggedIn }: IShareResult) {
                     <SocialSharing url={`${process.env.HOST}/test/result?encdata=${encData}`} />
                 </div>
             </div>
-            {!isLoggedIn && (
-                <div className="col-sm-12">
-                    <div className={style.bottom}>
-                        <div>
-                            *Зарегистрированные пользователи могут сохранить результат в своем
-                            личном кабинете и экспортировать его в PDF.
-                        </div>
-                        <div>
-                            Перейти к{' '}
-                            <Link href="/registration">
-                                <a>Регистрации</a>
-                            </Link>
-                        </div>
-                    </div>
-                </div>
-            )}
+            {/*{!isLoggedIn && (*/}
+            {/*    <div className="col-sm-12">*/}
+            {/*        <div className={style.bottom}>*/}
+            {/*            <div>*/}
+            {/*                *Зарегистрированные пользователи могут сохранить результат в своем*/}
+            {/*                личном кабинете и экспортировать его в PDF.*/}
+            {/*            </div>*/}
+            {/*            <div>*/}
+            {/*                Перейти к{' '}*/}
+            {/*                <Link href="/registration">*/}
+            {/*                    <a>Регистрации</a>*/}
+            {/*                </Link>*/}
+            {/*            </div>*/}
+            {/*        </div>*/}
+            {/*    </div>*/}
+            {/*)}*/}
         </div>
     )
 }

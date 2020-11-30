@@ -230,9 +230,9 @@ const Result: React.FC<ResultProps> = ({ t }) => {
                 </div>
             </Box>
 
-            {/*<Box>*/}
-            {/*    <ShareResult encData={encData} isLoggedIn={isLoggedIn} />*/}
-            {/*</Box>*/}
+            <Box>
+                <ShareResult encData={encData} isLoggedIn={isLoggedIn} />
+            </Box>
         </div>
     )
 }
