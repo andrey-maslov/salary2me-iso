@@ -135,7 +135,7 @@ const Result: React.FC<ResultProps> = ({ t }) => {
                 className="between-xs middle-xs"
                 style={{ display: 'flex', flexWrap: 'wrap', marginBottom: '1rem' }}>
                 <h3>{t('test:result_page.title')}</h3>
-                <Link href="/test">
+                <Link href="/test/questions">
                     <a className="btn btn-outlined" style={{ marginBottom: '1rem' }}>
                         Пройти еще раз
                     </a>
