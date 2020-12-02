@@ -82,27 +82,23 @@
   }
 }
 
-
-@media (max-width: 1200px) {
-
-  .wrapper {
-
-    &:before {
-      display: none;
-    }
-  }
-
-}
-
-@media (max-width: 992px) {
+@media (max-width: $lg-breakpoint) {
 
   .wrapper {
     padding-bottom: 0;
+    padding-top: 2rem;
+
+    &:before,
+    &:after {
+      content: none;
+    }
+
+    .title {
+      font-size: 2.25rem;
+      margin-bottom: 2rem;
+    }
   }
 
-  .title {
-    margin-bottom: 2rem;
-  }
 
   .robots {
     display: none;

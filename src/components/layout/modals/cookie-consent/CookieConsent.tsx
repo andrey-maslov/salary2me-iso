@@ -21,9 +21,9 @@ const CookieConsent: React.FC<{ t: any }> = ({ t }) => {
     return (
         <div className={style.popup}>
             <div className={style.content}>
-                <p>{t('common:cookies_consent.text')}</p>
+                <p>{t('common:cookie_consent.text')}</p>
                 <Link href="/policies/cookie-policy">
-                    <a className={style.policyLink}>{t('common:cookies_consent.title')}</a>
+                    <a className={style.policyLink}>{t('common:cookie_consent.title')}</a>
                 </Link>
                 <Button
                     title={t('common:buttons.agree')}

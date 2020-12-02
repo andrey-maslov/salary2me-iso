@@ -38,6 +38,10 @@
   position: relative;
   margin-bottom: 1rem;
 
+  &:last-child {
+    margin-bottom: 0;
+  }
+
   &:before {
     content: '';
     position: absolute;
@@ -51,6 +55,10 @@
   }
 }
 
-@media (max-width: $xl-breakpoint) {
+@media (max-width: $lg-breakpoint) {
 
+
+  .images {
+    margin-bottom: 2rem;
+  }
 }
