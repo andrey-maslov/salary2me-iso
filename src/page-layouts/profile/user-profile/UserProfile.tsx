@@ -315,7 +315,7 @@ const UserProfile = ({ t }) => {
                 <h5 className={style.box_title}>Danger zone</h5>
                 <div className={`${style.box_content}`}>
                     <div className={`${style.item} ${style.delete}`}>
-                        <div>{t('profile:delete_warning_msg_1')}</div>
+                        <div>{t('profile:delete.warning_msg_1')}</div>
                         <button className="btn" onClick={deleteAccountBtnHandler}>
                             {t('profile:delete.delete_account')}
                         </button>

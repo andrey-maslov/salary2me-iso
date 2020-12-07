@@ -13,7 +13,7 @@
   "brutto": "Brutto",
   "no_results": "No results",
   "error_title": "Oooops... Something went wrong",
-  "error_desc": "We are only beta and we can't parse your CV right now. But you can either try one more time or wait until we proceed your valuation manually. The result will be sent to your email",
+  "error_desc": "We are only beta and we can't parse your CV right now. But you can either try one more time or wait until we proceed your valuation manually. Try once again.",
   "parsing_stage_list": [
     "Resume parser started",
     "Parsing section bio",

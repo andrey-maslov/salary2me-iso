@@ -43,7 +43,7 @@
   },
   "prices": {
     "title": "Pricing policy",
-    "desc": "Our service is completely free. However, if you don't want your resume to be the public, you need to pay an annual subscription in the amount of $ 2.99",
+    "desc": "Our service is completely free. However, if you don't want your resume to be the public, you need to pay an annual subscription in the amount of $2.99",
     "btn_cta": "buy subscription"
   },
   "cv": {
@@ -53,13 +53,13 @@
   },
   "test": {
     "title": "Psychological test",
-    "desc": "Spend 15 minutes of your time taking a quick test. You will receive valuable information about your personality and tools for effectively building relationships. You will also receive an encrypted result of the passed test, which can be used in our other services, the number of which is growing",
+    "desc": "Spend 15 minutes of your time taking a quick psychological test. You will find out our talents and strength together with tools for building effective relationships. You will also get an encrypted result of the passed test, which can be used in our other services.",
     "features_title": "How can a test help?",
     "features_list": [
       "A complete characteristic of a person's personality, his innate strengths and weaknesses, the optimal communication format",
       "Vocational guidance, determination of the work to which a person has the maximum inclination (work with people, work with systems, creative work)",
       "Determination of the best teaching methods for a specific person according to his psychotype (visual, verbal, text, etc.)",
-      "Determination of emotional burnout and stress (in case of periodic passing), determination of behavior in stress"
+      "Determination of emotional burnout and stress (test shoud be passed from time to time), determination of stress behavior type"
     ],
     "btn_cta": "take the test"
   },
