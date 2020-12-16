@@ -20,8 +20,8 @@ const Questions = ({ changeBlock, t }: QuestionsProps) => {
 
     const questions: IQuestion[] = t(`questions:questions`, { returnObjects: true })
 
-    let initAnswers: Array<AnswerType> = questions.map(item => ({
-        id: item.title,
+    let initAnswers: Array<AnswerType> = questions.map((item, i) => ({
+        id: `${i + 1}`,
         value: ''
     }))
 
@@ -44,8 +44,8 @@ const Questions = ({ changeBlock, t }: QuestionsProps) => {
             <div>
                 {questions.map((item, i) => (
                     <RadioGroupItem
-                        caption1={t(`questions:questions.${i}.values.0`)}
-                        caption2={t(`questions:questions.${i}.values.1`)}
+                        caption1={t(`questions:questions.${i}.0`)}
+                        caption2={t(`questions:questions.${i}.1`)}
                         values={['-2', '-1', '0', '1', '2']}
                         index={i + 1}
                         testHandler={testHandler}

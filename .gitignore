@@ -20,6 +20,7 @@
 .env*
 .idea
 next.config.js
+package-lock.json
 
 # debug
 npm-debug.log*

@@ -1,7 +1,10 @@
 .buttons {
   position: relative;
+  display: flex;
+  max-width: 350px;
 
   button {
+    width: 50%;
     &:first-child {
       margin-right: .7rem;
     }
@@ -40,5 +43,6 @@
 
   .buttons {
     margin-top: 2rem;
+    max-width: unset;
   }
 }

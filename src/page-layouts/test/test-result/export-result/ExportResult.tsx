@@ -8,15 +8,6 @@ import CodeBox from '../../../../components/common/code-box/CodeBox'
 import style from './export-result.module.scss'
 import { globalStoreType } from '../../../../typings/types'
 
-const testData = {
-    famous: {
-        person: 'some name',
-        imgName: '0_0_0'
-    },
-    psychoTypeDesc:
-        'Вы легко адаптируетесь к любым изменениям, легко находите новое и с удовольствием его применяете. Правда, есть небольшая проблема с доведением дел до конца, т.к. снова и снова приходят новые увлечения'
-}
-
 interface ExportResultProps {
     data: string
     t: any

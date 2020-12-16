@@ -23,7 +23,7 @@ const PersonalInfo = ({ changeBlock, t }: QuestionsProps) => {
         isBtnEnabled: true
     })
 
-    const personalInfoScheme = [['0', '1', '2'], ['0', '1', '2', '3', '4', '5'], ['0', '1', '2']]
+    const personalInfoScheme = [['0', '1', '2', '4'], ['0', '1', '2', '3', '4', '5'], ['0', '1', '2']]
 
     return (
         <>

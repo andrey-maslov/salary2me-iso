@@ -118,7 +118,7 @@ const Result: React.FC<ResultProps> = ({ t }) => {
         ? getOctantFraction(sortedOctants[1], sortedOctants)
         : null
 
-    if (fullProfile.mainOctant.value <= 0) {
+    if (fullProfile.mainOctant.value <= 0.1) {
         return (
             <div className="flex-centered">
                 <h2>{t('test:errors.test_failed')}</h2>

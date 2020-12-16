@@ -11,6 +11,7 @@ interface IShareResult {
 }
 
 function ShareResult({ t, encData, isLoggedIn }: IShareResult) {
+    const host = typeof window !== 'undefined' ? window.location.host : ''
     return (
         <div className="row">
             <div className="col-sm-6">
@@ -18,7 +19,7 @@ function ShareResult({ t, encData, isLoggedIn }: IShareResult) {
                 <div className={style.desc}>{t('test:result_page.export_result_desc')}</div>
                 <div className={style.code}>
                     <CodeBox
-                        content={`${process.env.HOST}/test/result?encdata=${encodeURIComponent(encData)}`}
+                        content={`https://${host}/test/result?encdata=${encodeURIComponent(encData)}`}
                         btnLabel="Скопировать ссылку"
                     />
                 </div>
@@ -45,7 +46,7 @@ function ShareResult({ t, encData, isLoggedIn }: IShareResult) {
             <div className="col-sm-6">
                 <h4>Поделитесь с друзьями в социальных сетях</h4>
                 <div className="result-share">
-                    <SocialSharing url={`${process.env.HOST}/test/result?encdata=${encData}`} />
+                    <SocialSharing url={`https://${host}/test/result?encdata=${encData}`} />
                 </div>
             </div>
             {!isLoggedIn && (

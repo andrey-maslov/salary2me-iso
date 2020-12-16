@@ -9,7 +9,9 @@ export function getSum(tableData: ([string, number] | [string, number, number])[
     return tableData.map(item => item[1]).reduce((a, b) => Number(a) + Number(b))
 }
 
-export function getOctantFraction(octant: IOctant, octantList: readonly IOctant[]): number {
+// eslint-disable-next-line prettier/prettier
+type ReadonlyOctant = readonly IOctant[]
+export function getOctantFraction(octant: IOctant, octantList: ReadonlyOctant): number {
     const sum: number = octantList.map(item => item.value).reduce((a, b) => a + b)
     return octant.value / sum
 }
@@ -42,13 +44,13 @@ export function getPortraitDesc(octant: IOctant, data: string[][][], fullProfile
  * Описание психотипа
  * @param octants
  * @param data
+ * @param range - default [0, 42.35, 140, 1000]
  */
-export function getPsychoTypeDesc(octants: readonly IOctant[], data: (string[])[]): string | null {
+export function getPsychoTypeDesc(octants: readonly IOctant[], data: (string[])[], range = [0, 42.35, 140, 1000]): string | null {
     const value1 = octants[0].value
     const value2 = octants[1].value
     const typeInd = octants[0].index // get psycho type group index
     const diff: number = value1 * 0.15 // difference between 1st and 2nd max values
-    const range = [8.75, 42.35, 140, 218.57]
     let descInd: number
 
     if (value1 < range[0] || value1 > range[3]) {
@@ -76,6 +78,7 @@ export function getPsychoTypeDesc(octants: readonly IOctant[], data: (string[])[
 /**
  * Лидерские качества
  * @param data
+ * @param profile
  */
 export function getLeadershipSkills(data: IDescWithRange[], profile: readonly ITendency[]): string {
     const as = profile[3][1] + profile[4][1] // aggressiveness + spontaneity

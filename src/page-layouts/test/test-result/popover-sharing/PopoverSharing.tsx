@@ -15,6 +15,7 @@ const PopoverSharing: React.FC<PopoverSharingProps> = ({ t }) => {
     const { personalInfo, testData } = useSelector((state: globalStoreType) => state.test)
     const encData = btoa(JSON.stringify([personalInfo, testData]))
     const [isOpen, setOpen] = useState(false)
+    const host = typeof window !== 'undefined' ? window.location.host : ''
 
     return (
         <OutsideClickHandler onOutsideClick={() => setOpen(false)}>
@@ -24,7 +25,7 @@ const PopoverSharing: React.FC<PopoverSharingProps> = ({ t }) => {
             {isOpen && (
                 <div className={`${style.body} ${style.sharing}`}>
                     <div className={style.desc}>Share result with your friends</div>
-                    <SocialSharing url={`${process.env.HOST}/test/result?encdata=${encData}`} />
+                    <SocialSharing url={`${host}/test/result?encdata=${encData}`} />
                 </div>
             )}
         </OutsideClickHandler>
