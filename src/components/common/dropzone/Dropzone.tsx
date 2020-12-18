@@ -103,7 +103,7 @@ const Dropzone = ({ t }) => {
                 <FaCloudUploadAlt className={style.uploadIcon} />
                 {!isLoggedIn && (
                     <div className={style.toSignIn}>
-                        <Link href="/registration">
+                        <Link href="/signin">
                             <a>{t('main:dropzone.unlogged_error')}</a>
                         </Link>
                     </div>

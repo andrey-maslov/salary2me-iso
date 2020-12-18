@@ -41,7 +41,7 @@ const PopoverUser: React.FC<PopoverUserProps> = ({ userEmail, logoutHandle, t })
                     <ul className={style.links}>
                         <li>
                             <Link href="/profile">
-                                <a className={`${style.item} ${style.creds}`}>
+                                <a className={`${style.item}`}>
                                     <FiSettings />
                                     <span>{t('common:account')}</span>
                                 </a>

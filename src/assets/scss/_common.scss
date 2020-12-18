@@ -121,7 +121,9 @@ body {
   min-height: 100vh;
 
   &-estimation {
+
     .section {
+      min-height: 50vh;
       padding-bottom: 0;
     }
   }

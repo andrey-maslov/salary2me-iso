@@ -56,13 +56,13 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
                 privacyLink.removeEventListener('click', toPrivacy)
             }
         }
-    }, [agreement, router])
+    }, [ agreement, router ])
 
     useEffect(() => {
         if (isLoggedIn) {
             router.push(redirectUrl || '/')
         }
-    }, [isLoggedIn])
+    }, [ isLoggedIn ])
 
     const Form = () => {
         switch (page) {
@@ -74,18 +74,30 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
                             errorApiMessage={accountApiErrorMsg}
                             submitHandle={signIn}
                         />
-                        <Link href="/signin/forgot-password">
-                            <a>{t('signin:forgot_pwd_question')}</a>
-                        </Link>
+                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <Link href="/signin/forgot-password">
+                                <a>{t('signin:forgot_pwd_question')}</a>
+                            </Link>
+                            <Link href="/registration">
+                                <a>{t('signin:sign_up')}</a>
+                            </Link>
+                        </div>
                     </>
                 )
             case authModes[1]:
                 return (
-                    <Registration
-                        isLoading={false}
-                        errorApiMessage={accountApiErrorMsg}
-                        submitHandle={signUp}
-                    />
+                    <>
+                        <Registration
+                            isLoading={false}
+                            errorApiMessage={accountApiErrorMsg}
+                            submitHandle={signUp}
+                        />
+                        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                            <Link href="/signin">
+                                <a>{t('signin:sign_in')}</a>
+                            </Link>
+                        </div>
+                    </>
                 )
             case authModes[2]:
                 return (
@@ -183,4 +195,4 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
     }
 }
 
-export default withTranslation(['common', 'signin'])(Auth)
+export default withTranslation([ 'common', 'signin' ])(Auth)

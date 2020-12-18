@@ -3,11 +3,14 @@ import { cvStoreType } from '../reducers/cv'
 import { testStoreType } from '../reducers/test'
 import { modalsStoreType } from '../reducers/modals'
 import { appStoreType } from '../reducers/app'
+import { authModes } from '../constants/constants'
+
+export type anyType = any
 
 export interface IModalProps {
     isModalShown: boolean
     closeModal: () => void
-    t?: any
+    t?: anyType
 }
 
 export interface ILocation {
@@ -31,7 +34,7 @@ export type AnswerType = {
 
 export interface QuestionsProps {
     changeBlock: (blockToShow: string, currentBlock?: string) => void
-    t?: any
+    t?: anyType
 }
 
 export interface IQuestion {
@@ -56,4 +59,36 @@ export interface ISignInData {
 
 export interface IOneFieldForm<T> {
     [key: string]: T
+}
+
+export interface IGetTestsResponse {
+    id: number
+    userId: string
+    value: string
+    type: number
+}
+
+export interface IUserData {
+    firstName: string
+    lastName: string
+    email: string
+    position?: string
+    provider?: string
+    isPublicProfile?: boolean
+    isOpenForWork?: boolean
+}
+
+export interface INewPwdData {
+    code: string
+    newPassword: string
+    email: string
+}
+
+export type AuthData = ISignUpData | ISignInData
+
+export type AuthType = keyof typeof authModes
+
+// TODO need to typing
+export interface IResumeUpload {
+    [key: string]: anyType
 }

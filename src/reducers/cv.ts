@@ -7,7 +7,8 @@ import {
     SET_DISPLAYED_RESULTS,
     GET_CURRENCY_RATES,
     SET_PAY_PERIOD,
-    SET_PAY_TAX, CLEAR_CV_DATA
+    SET_PAY_TAX,
+    CLEAR_CV_DATA
 } from '../actions/actionTypes'
 
 import { loadState } from '../store/sessionStorage'

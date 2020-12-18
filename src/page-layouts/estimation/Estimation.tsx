@@ -17,7 +17,7 @@ const Estimation: React.FC<ResultsType> = ({ t }) => {
             </Head>
             <div className="page-estimation page bg-grey">
                 <Layout>
-                    <section>
+                    <section className="section">
                         <CVEstimation />
                     </section>
                 </Layout>

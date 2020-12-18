@@ -76,6 +76,12 @@
       background-color: $grey-bg;
     }
 
+    span {
+      &:first-letter {
+        text-transform: uppercase;
+      }
+    }
+
     svg {
       position: relative;
       bottom: -3px;

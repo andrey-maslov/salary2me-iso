@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { FaFilter, FaChevronDown } from 'react-icons/fa'
 import { Link, withTranslation } from '@i18n'
 import { getSalariesLimits } from '../../../helper/helper'
@@ -11,6 +11,7 @@ import EstSidebar from '../est-sidebar/EstSidebar'
 import HelpUs from '../help-us/HelpUs'
 import { globalStoreType } from '../../../typings/types'
 import { useDeviceDetect } from '../../../helper/useDeviceDetect'
+import { getPredictions } from '../../../actions/api/predictAPI'
 
 const CVEstimation = ({ t }) => {
     const {
@@ -22,13 +23,19 @@ const CVEstimation = ({ t }) => {
         currencyRates
     } = useSelector((store: globalStoreType) => store.cv)
 
+    const dispatch = useDispatch()
     const { isMobile } = useDeviceDetect()
     const [isMobileOptionsShown, setMobileOptions] = useState(false)
     const [state, setState] = useState({ position: '', predictions: [] })
     const mobiOptionsClass = isMobileOptionsShown ? style.mobiOptionsOpened : ''
 
     useEffect(() => {
-        setState({ ...state, predictions, position })
+        if (predictions.length !== 0) {
+            console.log('predictions.length !== 0')
+            setState({ ...state, predictions, position })
+        } else {
+            dispatch(getPredictions())
+        }
     }, [position, displayedResults, predictions.length])
 
     if (state.predictions.length === 0) {
@@ -36,11 +43,11 @@ const CVEstimation = ({ t }) => {
             <div className={style.wrapper}>
                 <div className="flex-centered text-center">
                     <strong>
-                        {`${t('estimation:dropzone.please')}, `}
+                        {`${t('estimation:please')}, `}
                         <Link href="/#upload">
-                            <a>{t('estimation:dropzone.upload')}</a>
+                            <a>{t('estimation:upload')}</a>
                         </Link>{' '}
-                        {t('estimation:dropzone.your_cv')}
+                        {t('estimation:your_cv')}
                     </strong>
                 </div>
             </div>
@@ -67,7 +74,7 @@ const CVEstimation = ({ t }) => {
 
     return (
         <div className={style.wrapper}>
-            <div className={`${style.predictions} container pt-lg`}>
+            <div className={`${style.predictions} container`}>
                 <div className="row center-xs">
                     <div className="col-xl-10">
                         <div className={style.title}>

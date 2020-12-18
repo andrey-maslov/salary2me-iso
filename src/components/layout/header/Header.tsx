@@ -32,9 +32,8 @@ const Header = ({ t }) => {
     }, [dispatch, isLoggedIn, isMobile, smallDevice])
 
     useEffect(() => {
-        const isSigninPage = Boolean(currentRoute.match(/signin/))
-        const isSignupPage = Boolean(currentRoute.match(/registration/))
-        if (!isSigninPage && !isSignupPage) {
+        const isUnwantedPage = Boolean(currentRoute.match(/(signin)|(registration)|(404)/))
+        if (!isUnwantedPage) {
             dispatch({ type: REDIRECT_URL, redirectUrl: currentRoute })
         }
     }, [currentRoute, dispatch])
@@ -55,17 +54,6 @@ const Header = ({ t }) => {
     ]
     const privateLinks = [{ title: 'Account settings', path: '/profile', icon: <FiSettings /> }]
     const allLinks = isLoggedIn ? [...navLinks, ...privateLinks] : navLinks
-
-    const handleLogoutBtn = () => {
-        if (isLoggedIn) {
-            dispatch(logOut())
-            dispatch({ type: CLEAR_TEST_DATA })
-            dispatch({ type: CLEAR_CV_DATA })
-            if (router.pathname === '/profile') {
-                router.push('/')
-            }
-        }
-    }
 
     return (
         <header className={style.header}>
@@ -91,6 +79,15 @@ const Header = ({ t }) => {
             </div>
         </header>
     )
+
+    function handleLogoutBtn() {
+        if (isLoggedIn) {
+            dispatch(logOut())
+            dispatch({ type: CLEAR_TEST_DATA })
+            dispatch({ type: CLEAR_CV_DATA })
+            router.push('/')
+        }
+    }
 }
 
 export default withTranslation('common')(Header)
