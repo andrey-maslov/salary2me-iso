@@ -55,12 +55,14 @@ export function fetchUserData(token: string): unknown {
 }
 
 export const updateUserData = (userData: IUserData) => {
+    console.log(userData)
     const token = getCookieFromBrowser('token')
-    return dispatch => {
+    return (dispatch, getState) => {
         if (token) {
             clearErrors(dispatch)
+            const data = { ...getState().user, ...userData }
             axios
-                .put(`${accountApiUrl}/update`, userData, getAuthConfig(token))
+                .put(`${accountApiUrl}/update`, data, getAuthConfig(token))
                 .then(res => {
                     dispatch(setUserData(res.data))
                     dispatch({ type: SET_TOAST, setToast: 1 })

@@ -1,49 +1,45 @@
-import React from 'react';
-import {GoogleLoginButton} from 'ts-react-google-login-component';
-import Button from "../../buttons/button/Button";
-import {FaGoogle} from "react-icons/fa";
+import React from 'react'
+import { GoogleLoginButton } from 'ts-react-google-login-component'
+import { FaGoogle } from 'react-icons/fa'
+import Button from '../../buttons/button/Button'
 
 export interface LoginBtnProps {
     handleLogin: (name: string, email: string) => void
     isEnabled: boolean
 }
 
-export const GoogleLogin: React.FC<LoginBtnProps> = ({handleLogin, isEnabled}) => {
-
+export const GoogleLogin: React.FC<LoginBtnProps> = ({ handleLogin, isEnabled }) => {
     const preLoginTracking = (): void => {
-        console.log('Attempt to login with google');
+        console.log('Attempt to login with google')
     }
 
     const errorHandler = (error: string): void => {
         // handle error if login got failed...
-        console.error('FAIL: ' + error)
+        console.error(`FAIL: ${error}`)
     }
 
     // @ts-ignore
     const responseGoogle = (googleUser: gapi.auth2.GoogleUser): void => {
-
-        const profile = googleUser.getBasicProfile();
+        const profile = googleUser.getBasicProfile()
         const name = profile.getName()
-        const email = profile.getEmail();
+        const email = profile.getEmail()
 
-        handleLogin(name, email);
+        handleLogin(name, email)
     }
 
-    const clientConfig = {client_id: process.env.GOOGLE_CLIENT_ID}
+    const clientConfig = { client_id: process.env.GOOGLE_CLIENT_ID }
 
     return (
-
         <GoogleLoginButton
             responseHandler={responseGoogle}
             clientConfig={clientConfig}
             preLogin={preLoginTracking}
-            failureHandler={errorHandler}
-        >
+            failureHandler={errorHandler}>
             <Button
-                handle={() => {}}
+                handle={null}
                 btnClass="btn btn-google"
-                title={'Google'}
-                startIcon={<FaGoogle/>}
+                title=""
+                startIcon={<FaGoogle />}
                 isEnabled={isEnabled}
             />
         </GoogleLoginButton>

@@ -1,18 +1,17 @@
-import React from 'react';
-import {FaFacebookF} from "react-icons/fa";
-import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
-import Button from "../../buttons/button/Button";
-import {LoginBtnProps} from "../google-login/GoogleLogin";
+import React from 'react'
+import { FaFacebookF } from 'react-icons/fa'
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
+import Button from '../../buttons/button/Button'
+import { LoginBtnProps } from '../google-login/GoogleLogin'
 
-export const FacebookLoginBtn: React.FC<LoginBtnProps> = ({handleLogin, isEnabled}) => {
-
+export const FacebookLoginBtn: React.FC<LoginBtnProps> = ({ handleLogin, isEnabled }) => {
     const responseFacebook = (response: any) => {
-        handleLogin(response.name, response.email);
-    };
+        handleLogin(response.name, response.email)
+    }
 
     const handleFailure = (response: any) => {
-        console.log('facebook auth failure');
-    };
+        console.log('facebook auth failure')
+    }
 
     return (
         <FacebookLogin
@@ -24,11 +23,11 @@ export const FacebookLoginBtn: React.FC<LoginBtnProps> = ({handleLogin, isEnable
                 <Button
                     handle={renderProps.onClick}
                     btnClass="btn btn-facebook"
-                    title={'Facebook'}
-                    startIcon={<FaFacebookF/>}
+                    title=""
+                    startIcon={<FaFacebookF />}
                     isEnabled={isEnabled}
                 />
             )}
         />
     )
-};
+}

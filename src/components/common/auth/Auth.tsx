@@ -7,11 +7,12 @@ import Registration, { ISignUpForm } from './Registration'
 import { sendForgotEmail, sendNewPassword, authUser } from '../../../actions/actionCreator'
 import Forgot, { IForgotForm } from './Forgot'
 import Reset, { IResetForm } from './Reset'
-import { authModes } from '../../../constants/constants'
+import { authModes, SERVICE } from '../../../constants/constants'
 import style from './auth.module.scss'
 import ForgotSuccess from './ForgotSuccess'
 import { getQueryFromURL } from '../../../helper/helper'
 import { globalStoreType } from '../../../typings/types'
+import SocialAuth from './social-auth/SocialAuth'
 
 type AuthProps = {
     t: any
@@ -24,6 +25,13 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
     const { isLoggedIn } = useSelector((state: globalStoreType) => state.user)
     const { accountApiErrorMsg, redirectUrl } = useSelector((state: globalStoreType) => state.app)
     const page = getAuthPage(router.pathname)
+
+    useEffect(() => {
+        console.log('in use effect')
+        window.addEventListener('storage', function (event) {
+            console.log(event.key, event.newValue)
+        })
+    })
 
     useEffect(() => {
         let termsLink: Element | null
@@ -82,6 +90,7 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
                                 <a>{t('signin:sign_up')}</a>
                             </Link>
                         </div>
+                        <SocialAuth />
                     </>
                 )
             case authModes[1]:
@@ -97,6 +106,7 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
                                 <a>{t('signin:sign_in')}</a>
                             </Link>
                         </div>
+                        <SocialAuth />
                     </>
                 )
             case authModes[2]:
@@ -167,6 +177,7 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
                 id: 0,
                 name: 'city'
             },
+            service: SERVICE,
             ...data
         }
         dispatch(authUser(userData, 'registration', setError))

@@ -77,3 +77,4 @@ export const BASE_API = 'https://apibase.pashtaljon.by'
 export const CONTENT_API = 'https://api.salary2.me'
 export const TEST_URL = 'https://salary.nobugs.today/test'
 export const API_VER = 1
+export const SERVICE = 4

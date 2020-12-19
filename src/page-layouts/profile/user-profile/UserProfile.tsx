@@ -7,9 +7,9 @@ import { RiQrCodeLine } from 'react-icons/ri'
 import { FiExternalLink } from 'react-icons/fi'
 import QRCode from 'qrcode.react'
 import style from './profile.module.scss'
-import { globalStoreType, IOneFieldForm } from '../../../typings/types'
+import { globalStoreType, IOneFieldForm, IUserData } from '../../../typings/types'
 import InputTransformer from '../../../components/common/inputs/input-transformer/InputTransformer'
-import { IUserData, updateUserData } from '../../../actions/actionCreator'
+import { updateUserData } from '../../../actions/actionCreator'
 import Loader from '../../../components/common/loaders/loader/Loader'
 import Checkbox from '../../../components/common/inputs/checkbox/Checkbox'
 import { DANGER_MODAL, SET_TOAST } from '../../../actions/actionTypes'
@@ -327,15 +327,7 @@ const UserProfile = ({ t }) => {
 
     function updateProfile(formData: IOneFieldForm<string | boolean>) {
         dispatch(
-            updateUserData({
-                firstName,
-                lastName,
-                email,
-                position,
-                isPublicProfile,
-                isOpenForWork,
-                ...formData
-            })
+            updateUserData(formData)
         )
     }
 
