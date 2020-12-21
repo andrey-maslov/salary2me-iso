@@ -6,7 +6,8 @@ import {
     SET_ERROR,
     SET_AUTH_ERROR,
     SEND_EMAIL,
-    CHANGE_PWD
+    CHANGE_PWD,
+    EMAIL_CONFIRMATION
 } from '../actions/actionTypes'
 
 export type appStoreType = {
@@ -17,6 +18,7 @@ export type appStoreType = {
     setToast: number
     redirectUrl: string | null
     isEmailSent: boolean | null
+    isEmailConfirmed: boolean | null
     isPwdChanged: boolean | null
 }
 
@@ -28,7 +30,8 @@ const STATE = {
     setToast: 0,
     redirectUrl: null,
     isEmailSent: null,
-    isPwdChanged: null,
+    isEmailConfirmed: null,
+    isPwdChanged: null
 }
 
 /**
@@ -53,6 +56,7 @@ export const app = (
         redirectUrl,
         accountApiErrorMsg,
         isEmailSent,
+        isEmailConfirmed,
         isPwdChanged
     }
 ) => {
@@ -91,6 +95,11 @@ export const app = (
             return {
                 ...state,
                 isEmailSent
+            }
+        case EMAIL_CONFIRMATION:
+            return {
+                ...state,
+                isEmailConfirmed
             }
         case CHANGE_PWD:
             return {

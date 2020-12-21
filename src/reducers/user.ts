@@ -2,7 +2,7 @@ import { ADD_AUTH_DATA, CLEAR_USER_DATA, SET_AUTH_PROVIDER } from '../actions/ac
 import { loadState } from '../store/sessionStorage'
 import { isBrowser } from '../helper/helper'
 
-let STATE = isBrowser ? loadState('user') : null
+// let STATE = isBrowser ? loadState('user') : null
 
 export type userStoreType = {
     firstName: string
@@ -15,17 +15,15 @@ export type userStoreType = {
     isOpenForWork: boolean
 }
 
-if (!STATE) {
-    STATE = {
-        firstName: '',
-        lastName: '',
-        email: '',
-        position: '',
-        provider: '',
-        isLoggedIn: false,
-        isPublicProfile: false,
-        isOpenForWork: false
-    }
+const STATE = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    position: '',
+    provider: '',
+    isLoggedIn: false,
+    isPublicProfile: false,
+    isOpenForWork: false
 }
 
 export const user = (state = STATE, { type, userData, provider }) => {

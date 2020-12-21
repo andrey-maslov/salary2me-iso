@@ -485,6 +485,18 @@ input, textarea {
   }
 }
 
+.success {
+  color: $success;
+}
+
+.danger {
+  color: $danger;
+}
+
+.warning {
+  color: $warning;
+}
+
 .auth-icon-success {
   color: $success;
   font-size: 3rem;

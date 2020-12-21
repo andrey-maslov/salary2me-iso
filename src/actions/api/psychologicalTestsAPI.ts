@@ -29,9 +29,11 @@ export function fetchTestData(token: string): unknown {
             axios
                 .get(`${testApiUrl}/list`, getAuthConfig(token))
                 .then(res => {
-                    const decodedData = getDecodedTestData(res.data)
-                    dispatch(savePersonalInfo(decodedData[0]))
-                    dispatch(saveTestData(decodedData[1]))
+                    if (res.data.length > 0) {
+                        const decodedData = getDecodedTestData(res.data)
+                        dispatch(savePersonalInfo(decodedData[0]))
+                        dispatch(saveTestData(decodedData[1]))
+                    }
                 })
                 .catch(error => console.error(error))
         } else {

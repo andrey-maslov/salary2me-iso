@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { FiArrowRight, FiArrowLeft, FiMoreVertical } from 'react-icons/fi'
 import { withTranslation } from '@i18n'
 import { useToasts } from 'react-toast-notifications'
+import { UserResult } from 'psychology'
+import { baseTestResultType, IUserResult } from 'psychology/build/main/types/types'
 import Button from '../../../../components/common/buttons/button/Button'
 import { checkAnswers, isBrowser } from '../../../../helper/helper'
 import { AnswerType, globalStoreType, IQuestion, QuestionsProps } from '../../../../typings/types'
@@ -11,6 +13,7 @@ import RadioGroupItem from '../radio-group-item/RadioGroupItem'
 import style from './questions.module.scss'
 import { saveTestData, sendTestData } from '../../../../actions/actionCreator'
 import FakeResults from '../../../../pages/test/FakeResults'
+import { TEST_THRESHOLD } from '../../../../constants/constants'
 
 const Questions = ({ changeBlock, t }: QuestionsProps) => {
     const router = useRouter()
@@ -27,17 +30,6 @@ const Questions = ({ changeBlock, t }: QuestionsProps) => {
 
     const [answers, setAnswers] = useState<AnswerType[]>(initAnswers)
     const [isAddButtons, setAddButtons] = useState(false)
-
-    const testHandler = (questionNumber: number, value: string) => {
-        initAnswers = answers
-        initAnswers[questionNumber - 1] = { id: questionNumber.toString(), value }
-        setAnswers([...initAnswers])
-    }
-
-    const returnBtnHandler = () => {
-        changeBlock('personalInfo')
-        window.scrollTo(0, 0)
-    }
 
     return (
         <>
@@ -82,6 +74,17 @@ const Questions = ({ changeBlock, t }: QuestionsProps) => {
         </>
     )
 
+    function testHandler(questionNumber: number, value: string) {
+        initAnswers = answers
+        initAnswers[questionNumber - 1] = { id: questionNumber.toString(), value }
+        setAnswers([...initAnswers])
+    }
+
+    function returnBtnHandler() {
+        changeBlock('personalInfo')
+        window.scrollTo(0, 0)
+    }
+
     function sendBtnHandler() {
         const num = checkAnswers(answers)
         if (num === -1) {
@@ -101,7 +104,7 @@ const Questions = ({ changeBlock, t }: QuestionsProps) => {
     function sendAnswers(result: any) {
         dispatch(saveTestData(result))
 
-        if (isLoggedIn) {
+        if (isLoggedIn && isTestPassed(calculateResults(answers), TEST_THRESHOLD)) {
             dispatch(sendTestData())
         }
         router.push('result')
@@ -127,6 +130,16 @@ const Questions = ({ changeBlock, t }: QuestionsProps) => {
             })
         })
         return arrSum
+    }
+
+    /**
+     * Validate if user answered thruthly. If value of main octant more than minimum threshold
+     * @param testResult
+     * @param threshold
+     */
+    function isTestPassed(testResult: baseTestResultType, threshold): boolean {
+        const fullProfile: IUserResult = UserResult(testResult)
+        return fullProfile.mainOctant.value > threshold
     }
 }
 

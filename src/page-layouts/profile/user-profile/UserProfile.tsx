@@ -9,7 +9,7 @@ import QRCode from 'qrcode.react'
 import style from './profile.module.scss'
 import { globalStoreType, IOneFieldForm, IUserData } from '../../../typings/types'
 import InputTransformer from '../../../components/common/inputs/input-transformer/InputTransformer'
-import { updateUserData } from '../../../actions/actionCreator'
+import { changeEmail, updateUserData } from '../../../actions/actionCreator'
 import Loader from '../../../components/common/loaders/loader/Loader'
 import Checkbox from '../../../components/common/inputs/checkbox/Checkbox'
 import { DANGER_MODAL, SET_TOAST } from '../../../actions/actionTypes'
@@ -29,15 +29,15 @@ const UserProfile = ({ t }) => {
     } = useSelector((state: globalStoreType) => state.user)
 
     const { personalInfo, testData } = useSelector((state: globalStoreType) => state.test)
-    const { setToast, apiErrorMsg } = useSelector((state: globalStoreType) => state.app)
-    const [isReady, setReady] = useState(false)
-    const [isQRCode, setQRCode] = useState(false)
+    const { setToast, apiErrorMsg, isEmailSent } = useSelector((state: globalStoreType) => state.app)
+    const [ isReady, setReady ] = useState(false)
+    const [ isQRCode, setQRCode ] = useState(false)
     const { addToast } = useToasts()
     const dispatch = useDispatch()
     const router = useRouter()
-    const encData: string | null = testData ? btoa(JSON.stringify([personalInfo, testData])) : null
+    const encData: string | null = testData ? btoa(JSON.stringify([ personalInfo, testData ])) : null
 
-    const [localUser, setLocalUser] = useState<IUserData>({
+    const [ localUser, setLocalUser ] = useState<IUserData>({
         firstName,
         lastName,
         email,
@@ -47,10 +47,6 @@ const UserProfile = ({ t }) => {
     })
 
     useEffect(() => {
-        if (!isLoggedIn) {
-            router.push('/')
-        }
-
         if (email && email.length > 0) {
             setReady(true)
         }
@@ -190,7 +186,7 @@ const UserProfile = ({ t }) => {
                                 <div
                                     className={`${style.item} ${
                                         !emailField.value ? style.default : ''
-                                    }`}>
+                                    } ${isEmailSent ? 'has-success' : ''}`}>
                                     <span className={style.label}>{emailField.label}</span>
                                     <InputTransformer
                                         initValue={emailField.value || emailField.defaultValue}
@@ -201,9 +197,14 @@ const UserProfile = ({ t }) => {
                                             }
                                         }}
                                         objectKey={emailField.key}
-                                        handler={updateProfile}
+                                        handler={changeUserEmail}
                                         {...{ type: 'text', autoComplete: 'off' }}
                                     />
+                                    {isEmailSent && (
+                                        <div className="success">
+                                            {t('profile:email_send_success')}
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -326,9 +327,11 @@ const UserProfile = ({ t }) => {
     )
 
     function updateProfile(formData: IOneFieldForm<string | boolean>) {
-        dispatch(
-            updateUserData(formData)
-        )
+        dispatch(updateUserData(formData))
+    }
+
+    function changeUserEmail(data: { email: string }) {
+        dispatch(changeEmail(data))
     }
 
     function checkBoxHandle(e) {
@@ -340,4 +343,4 @@ const UserProfile = ({ t }) => {
     }
 }
 
-export default withTranslation(['profile', 'common', 'signin'])(UserProfile)
+export default withTranslation([ 'profile', 'common', 'signin' ])(UserProfile)

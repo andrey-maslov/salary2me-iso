@@ -22,6 +22,8 @@ import {
     getProfileDesc,
     TablesWithBars
 } from './functions'
+import RobotQuestion from '../../../components/common/media/robots/robot-question/RobotQuestion'
+import { TEST_THRESHOLD } from "../../../constants/constants";
 
 type ResultProps = {
     t: any
@@ -118,10 +120,23 @@ const Result: React.FC<ResultProps> = ({ t }) => {
         ? getOctantFraction(sortedOctants[1], sortedOctants)
         : null
 
-    if (fullProfile.mainOctant.value <= 0.1) {
+    if (fullProfile.mainOctant.value <= TEST_THRESHOLD) {
         return (
-            <div className="flex-centered">
-                <h2>{t('test:errors.test_failed')}</h2>
+            <div className="flex-centered center-xs">
+                <div className="col-lg-8">
+                    <div
+                        style={{ display: 'flex', justifyContent: 'center', marginBottom: '4rem' }}>
+                        <RobotQuestion />
+                    </div>
+                    <div style={{ fontSize: '1.4rem', marginBottom: '3rem' }}>
+                        {t('test:errors.test_failed')}
+                    </div>
+                    <Link href="/test/questions">
+                        <a className="btn btn-outlined">
+                            {t('test:result_page.again')}
+                        </a>
+                    </Link>
+                </div>
             </div>
         )
     }
@@ -135,7 +150,7 @@ const Result: React.FC<ResultProps> = ({ t }) => {
                 className="between-xs middle-xs"
                 style={{ display: 'flex', flexWrap: 'wrap', marginBottom: '1rem' }}>
                 <h3>{t('test:result_page.title')}</h3>
-                <Link href="/test">
+                <Link href="/test/questions">
                     <a className="btn btn-outlined" style={{ marginBottom: '1rem' }}>
                         {t('test:result_page.again')}
                     </a>

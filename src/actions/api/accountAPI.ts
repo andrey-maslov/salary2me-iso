@@ -1,17 +1,17 @@
 import axios from 'axios'
-import { AuthData, AuthType, INewPwdData, IUserData } from '../../typings/types'
-import { authModes } from '../../constants/constants'
+import { AuthData, AuthType, IChangeEmail, IEmailConfirmation, INewPwdData, IUserData } from '../../typings/types'
+import { authModes, SERVICE } from '../../constants/constants'
 import { getCookieFromBrowser, setCookie } from '../../helper/cookie'
 import {
     CHANGE_PWD,
     CLEAR_USER_DATA,
-    DANGER_MODAL,
+    DANGER_MODAL, EMAIL_CONFIRMATION,
     SEND_EMAIL,
     SET_AUTH_PROVIDER,
     SET_TOAST
 } from '../actionTypes'
 import { accountApiErrorHandling, apiErrorHandling, clearErrors } from '../errorHandling'
-import { logOut, setUserData, fetchTestData } from '../actionCreator'
+import { logOut, setUserData, fetchTestData, setLoading } from '../actionCreator'
 import { accountApiUrl, getAuthConfig } from './utils'
 
 export function checkAuth(jwt?: string): unknown {
@@ -77,6 +77,31 @@ export const updateUserData = (userData: IUserData) => {
     }
 }
 
+export const changeEmail = ({ email }) => {
+    const token = getCookieFromBrowser('token')
+    return (dispatch, getState) => {
+        if (token) {
+            clearErrors(dispatch)
+            axios
+                .post(
+                    `${accountApiUrl}/change-email`,
+                    { newEmail: email, service: SERVICE },
+                    getAuthConfig(token)
+                )
+                .then(res => {
+                    dispatch({ type: SEND_EMAIL, isEmailSent: true })
+                    dispatch(setUserData({ ...getState().user, email }))
+                })
+                .catch(error => {
+                    apiErrorHandling(error, dispatch)
+                    dispatch({ type: SET_TOAST, setToast: 2 })
+                })
+        } else {
+            dispatch({ type: CLEAR_USER_DATA })
+        }
+    }
+}
+
 export const sendForgotEmail = (email: string, setError: unknown): unknown => {
     return dispatch => {
         axios
@@ -92,6 +117,34 @@ export const sendNewPassword = (data: INewPwdData, setError: unknown): unknown =
             .post(`${accountApiUrl}/confirm-reset-password`, data)
             .then(() => dispatch({ type: CHANGE_PWD, isPwdChanged: true }))
             .catch(error => accountApiErrorHandling(error, setError))
+    }
+}
+
+export const sendEmailConfirmation = (data: IEmailConfirmation) => {
+    const token = getCookieFromBrowser('token')
+    return (dispatch, getState) => {
+        if (token) {
+            dispatch(setLoading(true))
+            console.log(getState().user)
+            axios
+                .post(
+                    `${accountApiUrl}/confirm-email-change`,
+                    data,
+                    getAuthConfig(token)
+                )
+                .then(res => {
+                    dispatch(setUserData(res.data))
+                    dispatch({ type: SET_TOAST, setToast: 1 })
+                    dispatch({ type: EMAIL_CONFIRMATION, isEmailConfirmed: true })
+                })
+                .catch(error => {
+                    apiErrorHandling(error, dispatch)
+                    dispatch({ type: SET_TOAST, setToast: 2 })
+                })
+                .finally(() => dispatch(setLoading(false)))
+        } else {
+            dispatch({ type: CLEAR_USER_DATA })
+        }
     }
 }
 

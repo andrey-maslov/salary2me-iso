@@ -52,6 +52,7 @@ export interface ISignUpData {
         name: string
     }
 }
+
 export interface ISignInData {
     username: string
     password: string
@@ -91,4 +92,15 @@ export type AuthType = keyof typeof authModes
 // TODO need to typing
 export interface IResumeUpload {
     [key: string]: anyType
+}
+
+export interface IEmailConfirmation {
+    userId: string
+    code: string
+    email?: string
+}
+
+export interface IChangeEmail {
+    newEmail: string
+    service: number
 }

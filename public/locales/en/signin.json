@@ -25,6 +25,8 @@
   "repeat_pwd": "Repeat password",
   "pwd_mismatch": "Passwords do not match!",
   "short_pwd": "Too short password",
+  "need_to_confirm_email": "You have created a temporary account. After confirming the email, it will become permanent. To confirm the email, go to the mailbox that you indicated during registration and follow the link in the letter",
+  "email_confirmed": "Thank you. Your email confirmed",
   "extra": {
     "title": "Additional information",
     "desc": "Additional information that will help us to better represent you",

@@ -20,6 +20,7 @@ export const RES_STATUS = 'RESPONSE_STATUS'
 export const REDIRECT_URL = 'REDIRECT_URL'
 export const SEND_EMAIL = 'SEND_EMAIL'
 export const CHANGE_PWD = 'CHANGE_PWD'
+export const EMAIL_CONFIRMATION = 'EMAIL_CONFIRMATION'
 
 /*= ==== TEST ===== */
 export const SAVE_TEST_DATA = 'SAVE_TEST_DATA'

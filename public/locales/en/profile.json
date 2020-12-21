@@ -31,6 +31,8 @@
   "your_first_name": "Your first name",
   "your_last_name": "Your surname",
   "your_position": "Your position",
+  "email_send_success": "Для подтверждения нового email перейдите в почтовый ящик, который вы указывали при регистрации и пройдите по ссылке в письме",
+  "email_confirm_success": "Thank you. Your email confirmed",
   "delete": {
     "are_you_sure": "Are you sure?",
     "delete_account": "Delete account",
