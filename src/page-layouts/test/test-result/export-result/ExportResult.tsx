@@ -7,6 +7,7 @@ import { FaFilePdf } from 'react-icons/fa'
 import CodeBox from '../../../../components/common/code-box/CodeBox'
 import style from './export-result.module.scss'
 import { globalStoreType } from '../../../../typings/types'
+import { COOP_URL } from "../../../../constants/constants";
 
 interface ExportResultProps {
     data: string
@@ -26,7 +27,7 @@ const ExportResult: React.FC<ExportResultProps> = ({ data, t }) => {
 
             <div className={style.bottom}>
                 <a
-                    href={`${process.env.COOP_URL}/pair?encdata=${encodeURIComponent(data)}`}
+                    href={`${COOP_URL}/pair?encdata=${encodeURIComponent(data)}`}
                     className={style.link}
                     target="_blank"
                     rel="noopener noreferrer">

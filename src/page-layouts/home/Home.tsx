@@ -13,9 +13,9 @@ const Home: React.FC = () => {
             <div className="home page landing">
                 <Layout>
                     <Hero />
-                    {/*<CVSection />*/}
+                    {/* <CVSection /> */}
                     <TestSection />
-                    <PricesSection />
+                    {/* <PricesSection /> */}
                     <AboutSection />
                 </Layout>
             </div>

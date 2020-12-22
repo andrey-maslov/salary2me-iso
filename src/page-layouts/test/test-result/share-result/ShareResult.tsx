@@ -3,6 +3,7 @@ import { FiExternalLink } from 'react-icons/fi'
 import CodeBox from '../../../../components/common/code-box/CodeBox'
 import style from './share.module.scss'
 import SocialSharing from '../../../../components/common/buttons/social-sharing/SocialSharing'
+import { COOP_URL } from "../../../../constants/constants";
 
 interface IShareResult {
     encData: string
@@ -33,7 +34,7 @@ function ShareResult({ t, encData, isLoggedIn }: IShareResult) {
                             alt="teamconstructor"
                         />
                         <a
-                            href={`${process.env.COOP_URL}/pair?encdata=${encodeURIComponent(encData)}`}
+                            href={`${COOP_URL}/pair?encdata=${encodeURIComponent(encData)}`}
                             className="btn btn-outlined"
                             target="_blank"
                             rel="noopener noreferrer">

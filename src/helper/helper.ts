@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { currencies, locations } from '../constants/constants'
+import { CONTENT_API, currencies, locations } from '../constants/constants'
 import { AnswerType } from '../typings/types'
 
 // export const getLocation = (city = '', locationsArr = locations) => {
@@ -59,13 +59,12 @@ export const isBrowser: boolean = typeof window !== 'undefined'
 
 export const parseQueryString = queryString => {
     const params = {}
-    let queries
     let temp
     let i
     let l
 
     // Split into key/value pairs
-    queries = queryString
+    const queries = queryString
         .replace(/%20/g, ' ')
         .replace('  ', ' ')
         .split('&')
@@ -106,7 +105,7 @@ export async function fetchPageContent(page: string) {
         'privacy-policy': 3
     }
 
-    return axios(`${process.env.CONTENT_API}/content-blocks/${pages[page]}`)
+    return axios(`${CONTENT_API}/content-blocks/${pages[page]}`)
         .then(res => {
             return res.data.content_en
         })
@@ -125,9 +124,9 @@ export const checkAnswers = (answers: AnswerType[]) => {
 }
 
 export function getRandomIntInclusive(min: number, max: number) {
-    min = Math.ceil(min)
-    max = Math.floor(max)
-    return Math.floor(Math.random() * (max - min + 1)) + min // Max and Min includes
+    const Min = Math.ceil(min)
+    const Max = Math.floor(max)
+    return Math.floor(Math.random() * (Max - Min + 1)) + Min // Max and Min includes
 }
 
 export function getQueryFromURL(searchStr: string, key: string): string {

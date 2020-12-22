@@ -1,6 +1,6 @@
 import { FiMail, FiMapPin } from 'react-icons/fi'
 import { Link, withTranslation } from '@i18n'
-import { SITE_TITLE } from '../../../constants/constants'
+import { HOST, SITE_TITLE } from '../../../constants/constants'
 import SocialSharing from '../../common/buttons/social-sharing/SocialSharing'
 import style from './footer.module.scss'
 
@@ -29,7 +29,7 @@ const Footer: React.FC<{ t: any }> = ({ t }) => {
                             <h5 className={style.title}>{SITE_TITLE}</h5>
                             <p className={style.content}>{t('footer.sharing_text')}</p>
                             <div className={style.sharing}>
-                                <SocialSharing url={process.env.HOST} />
+                                <SocialSharing url={HOST} />
                             </div>
                         </div>
                     </div>

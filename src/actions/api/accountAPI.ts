@@ -13,6 +13,7 @@ import {
 import { accountApiErrorHandling, apiErrorHandling, clearErrors } from '../errorHandling'
 import { logOut, setUserData, fetchTestData, setLoading } from '../actionCreator'
 import { accountApiUrl, getAuthConfig } from './utils'
+import { fetchUsersBillingData } from "./subscriptionsAPI";
 
 export function checkAuth(jwt?: string): unknown {
     const token = jwt || getCookieFromBrowser('token')
@@ -46,6 +47,9 @@ export function fetchUserData(token: string): unknown {
                 .then(res => {
                     dispatch(setUserData(res.data))
                     dispatch(fetchTestData(token))
+                })
+                .then(() => {
+                    dispatch(fetchUsersBillingData())
                 })
                 .catch(error => console.error(error))
         } else {

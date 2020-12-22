@@ -7,6 +7,8 @@ export const usersApiUrl = `${BASE_API}/api/v${API_VER}/Users`
 export const testApiUrl = `${BASE_API}/api/v${API_VER}/PsychologicalTests`
 export const predictApiUrl = `${BASE_API}/api/v${API_VER}/Predict`
 export const termsApiUrl = `${CONTENT_API}/psychologies`
+export const billingApiUrl = `${BASE_API}/api/v${API_VER}/Subscriptions`
+export const tariffsApiUrl = `${BASE_API}/api/v${API_VER}/MembershipPlans`
 
 export interface IProjectFromBase {
     id: string

@@ -40,6 +40,11 @@
     "warning_msg_1": "Once you delete your account, you will not be able to restore it",
     "warning_msg_2": "This action cannot be undone. This will permanently delete your account, projects, test results etc."
   },
+  "billing": {
+    "free": "Free",
+    "basic": "Basic",
+    "manage_subscr": "Manage subscriptions"
+  },
   "meta": {
     "description": "",
     "title": "Salary2me - account settings"

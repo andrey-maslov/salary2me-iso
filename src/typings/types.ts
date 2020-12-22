@@ -104,3 +104,13 @@ export interface IChangeEmail {
     newEmail: string
     service: number
 }
+
+export interface ITariff {
+    id: number
+    title: string
+    description: string
+    service: number
+    price: number
+    monthCount: number
+    autoSearchCount: number
+}

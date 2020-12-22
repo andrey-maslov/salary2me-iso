@@ -29,7 +29,7 @@ app.prepare()
 
         server.use(['/profile', '/estimation'], (req, res, next) => {
             if (!req.cookies.token) {
-                res.redirect('/')
+                res.redirect('/signin')
             } else {
                 next()
             }

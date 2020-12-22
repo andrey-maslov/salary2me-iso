@@ -7,10 +7,10 @@ import {
     TablesWithBars,
     getPsychoTypeDesc
 } from '../../../../page-layouts/test/test-result/functions'
-import { LANG_DEFAULT } from "../../../../constants/constants";
+import { CONTENT_API, LANG_DEFAULT } from "../../../../constants/constants";
 
-const urlDesc = `${process.env.CONTENT_API}/psychologies/2`
-const urlTerms = `${process.env.CONTENT_API}/psychologies/1`
+const urlDesc = `${CONTENT_API}/psychologies/2`
+const urlTerms = `${CONTENT_API}/psychologies/1`
 
 export default async function handler(req, res) {
     let encdata: string

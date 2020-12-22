@@ -1,6 +1,15 @@
 export const SITE_TITLE = 'salary2me'
 export const IS_BETA = true
 
+export const HOST = 'https://salary2.me'
+export const BASE_API = 'https://apibase.pashtaljon.by'
+export const CONTENT_API = 'https://api.salary2.me'
+export const TEST_URL = 'https://salary.nobugs.today/test'
+export const COOP_URL = 'https://teamconstructor.nobugs.today'
+export const TGB_URL = 'https://base.pashtaljon.by'
+export const API_VER = 1
+export const SERVICE = 4
+
 export const LANGS = ['ru', 'en']
 export const LANG_DEFAULT = 'en'
 
@@ -18,7 +27,7 @@ export const COLORS = {
     greyBg: '#EFF1F4'
 }
 
-export const LINKEDIN_REDIRECT_URI = `${process.env.BASE_URL}/callbacklinkedin`
+export const LINKEDIN_REDIRECT_URI = `${BASE_API}/callbacklinkedin`
 
 export const ACCEPTED_FILE_TYPES = '.rtf, .png, .jpg, .jpeg, .pdf, .doc, .docx'
 
@@ -72,12 +81,6 @@ export enum authModes {
 }
 
 // export const LANGS = ['ru', 'en', 'pl', 'es', 'de', 'fr', 'it', 'tk']
-
-export const BASE_API = 'https://apibase.pashtaljon.by'
-export const CONTENT_API = 'https://api.salary2.me'
-export const TEST_URL = 'https://salary.nobugs.today/test'
-export const API_VER = 1
-export const SERVICE = 4
 
 // minimal value of main octant to pass the test
 export const TEST_THRESHOLD = 6.75
