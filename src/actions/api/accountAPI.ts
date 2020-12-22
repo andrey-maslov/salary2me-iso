@@ -48,9 +48,6 @@ export function fetchUserData(token: string): unknown {
                     dispatch(setUserData(res.data))
                     dispatch(fetchTestData(token))
                 })
-                .then(() => {
-                    dispatch(fetchUsersBillingData())
-                })
                 .catch(error => console.error(error))
         } else {
             dispatch({ type: CLEAR_USER_DATA })
@@ -59,7 +56,6 @@ export function fetchUserData(token: string): unknown {
 }
 
 export const updateUserData = (userData: IUserData) => {
-    console.log(userData)
     const token = getCookieFromBrowser('token')
     return (dispatch, getState) => {
         if (token) {
@@ -109,7 +105,7 @@ export const changeEmail = ({ email }) => {
 export const sendForgotEmail = (email: string, setError: unknown): unknown => {
     return dispatch => {
         axios
-            .post(`${accountApiUrl}/reset-password`, { email })
+            .post(`${accountApiUrl}/reset-password`, { email, service: 4 })
             .then(() => dispatch({ type: SEND_EMAIL, isEmailSent: true }))
             .catch(error => accountApiErrorHandling(error, setError))
     }

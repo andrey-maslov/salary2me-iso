@@ -194,10 +194,6 @@ const Result: React.FC<ResultProps> = ({ t }) => {
                             </strong>
                         </div>
                         <div style={{ fontSize: '1.2rem', marginBottom: '.5rem' }}>
-                            {`${t('test:result_page.sec_type_desc')}:`}
-                        </div>
-                        <p style={{ marginBottom: '1.5rem' }}>{secondaryPortraitDesc}</p>
-                        <div style={{ fontSize: '1.2rem', marginBottom: '.5rem' }}>
                             {`${t('test:result_page.main_type_desc')}:`}
                         </div>
                     </div>
@@ -217,6 +213,19 @@ const Result: React.FC<ResultProps> = ({ t }) => {
                     tableHeader={fpTableTile}
                     addClasses={['striped', 'large']}
                 />
+                {secondaryPortraitDesc && (
+                    <>
+                        <div
+                            style={{
+                                fontSize: '1.2rem',
+                                marginBottom: '.5rem',
+                                marginTop: '2rem'
+                            }}>
+                            {`${t('test:result_page.sec_type_desc')}:`}
+                        </div>
+                        <p>{secondaryPortraitDesc}</p>
+                    </>
+                )}
             </Box>
 
             <Box className="result-box full-profile">

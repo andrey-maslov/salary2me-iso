@@ -1,4 +1,4 @@
-import { Link, withTranslation } from '@i18n'
+import { withTranslation } from '@i18n'
 import React from 'react'
 import style from './service.module.scss'
 import PopoverInfo from '../../../../components/common/popovers/popover-info/PopoverInfo'
@@ -24,9 +24,9 @@ function Service({ children, service, ancillaryLinks, tariff }: IServiceBox) {
                         {service.title}
                     </a>
                 </div>
-                <div className={`${style.rate} ${style.on}`}>
+                <div className={style.rate}>
                     <span>{tariff}</span>
-                    {ancillaryLinks && <PopoverInfo contentList={ancillaryLinks} />}
+                    {ancillaryLinks && <PopoverInfo links={ancillaryLinks} />}
                 </div>
             </div>
             <div className={style.content}>{children}</div>

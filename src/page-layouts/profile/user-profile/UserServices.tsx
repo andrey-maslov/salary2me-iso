@@ -14,30 +14,40 @@ import { fetchUsersBillingData } from '../../../actions/api/subscriptionsAPI'
 
 const UserServices = ({ t }) => {
     const [isQRCode, setQRCode] = useState(false)
-    const [usersTariffs, setUsersTariffs] = useState(null)
+    const [usersTariffs, setUsersTariffs] = useState({
+        tgb: null,
+        tc: null
+    })
     const { personalInfo, testData } = useSelector((state: globalStoreType) => state.test)
 
     const host = typeof window !== 'undefined' ? window.location.host : ''
 
     useEffect(() => {
+        let tgb = '';
+        let tc = '';
         fetchUsersBillingData().then(data => {
-            const tariffList = data.filter(item => item.service === SERVICE)
-            setUsersTariffs(tariffList)
+            data.forEach(item => {
+                if (item?.membershipPlan?.service === 0 || item?.membershipPlan?.service === 1) {
+                    tgb = item.membershipPlan.title
+                } else if (item?.membershipPlan?.service === 2) {
+                    tc = item.membershipPlan.title
+                }
+            })
+            setUsersTariffs({ tgb, tc })
         })
-        console.log(usersTariffs)
     }, [])
 
     const encData: string | null = testData ? btoa(JSON.stringify([personalInfo, testData])) : null
     const encDataForUrl = encodeURIComponent(encData)
 
-    const pairLink = `${COOP_URL}${encData ? `?encdata=${encDataForUrl}` : ''}`
+    const pairLink = `${COOP_URL}/pair${encData ? `?encdata=${encDataForUrl}` : ''}`
     const QRValue = `https://${host}/test/result?encdata=${encDataForUrl}`
 
     return (
         <div className={`${style.box} ${style.services}`}>
             <h5 className={style.box_title}>{t('profile:services')}</h5>
             <Service
-                service={{ name: 'salary2me', link: '/' }}
+                service={{ title: 'salary2me', link: '/' }}
                 ancillaryLinks={null}
                 tariff={t('profile:billing.free')}>
                 {/* TODO will be used with the next iteration */}
@@ -92,41 +102,41 @@ const UserServices = ({ t }) => {
             </Service>
 
             <Service
-                service={{ name: 'teamconstructor', link: COOP_URL }}
+                service={{ title: 'teamconstructor', link: COOP_URL }}
                 ancillaryLinks={[
                     { title: t('profile:billing.manage_subscr'), url: `${COOP_URL}/billing` }
                 ]}
-                tariff="Бесплатный">
+                tariff={usersTariffs.tc || t('profile:billing.free')}>
                 <div className={`${style.item} flex between-xs`}>
                     <a href={pairLink} target="_blank" rel="noopener noreferrer">
                         {t('profile:pair_analysis')}
                     </a>
                     <FiExternalLink />
                 </div>
-                <div className={`${style.item} flex between-xs`}>
+                {usersTariffs.tc && <div className={`${style.item} flex between-xs`}>
                     <a href={`${COOP_URL}/team`} target="_blank" rel="noopener noreferrer">
                         {t('profile:go_to_team')}
                     </a>
                     <FiExternalLink />
-                </div>
+                </div>}
             </Service>
 
-            <Service
-                service={{ name: 'thegreatbase', link: TGB_URL }}
+            {usersTariffs.tgb && <Service
+                service={{ title: 'thegreatbase', link: TGB_URL }}
                 ancillaryLinks={[
                     {
                         title: t('profile:billing.manage_subscr'),
                         url: `${TGB_URL}/Voter/MembershipPlans`
                     }
                 ]}
-                tariff="Бесплатный">
+                tariff={usersTariffs.tgb || t('profile:billing.free')}>
                 <div className={`${style.item} flex between-xs`}>
-                    <a href={TGB_URL} target="_blank" rel="noopener noreferrer">
+                    <a href={`${TGB_URL}/Identity/Account/Manage`} target="_blank" rel="noopener noreferrer">
                         {t('profile:go_to_dashboard')}
                     </a>
                     <FiExternalLink />
                 </div>
-            </Service>
+            </Service>}
         </div>
     )
 }

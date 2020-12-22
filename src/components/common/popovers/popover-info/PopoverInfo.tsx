@@ -4,10 +4,10 @@ import OutsideClickHandler from 'react-outside-click-handler'
 import style from './popover-info.module.scss'
 
 interface IPopoverInfo {
-    contentList: { title: string; url: string }[]
+    links: { title: string; url: string }[]
 }
 
-const PopoverInfo: React.FC<IPopoverInfo> = ({ contentList }) => {
+const PopoverInfo: React.FC<IPopoverInfo> = ({ links }) => {
     const [isOpen, setOpen] = useState(false)
 
     return (
@@ -19,18 +19,15 @@ const PopoverInfo: React.FC<IPopoverInfo> = ({ contentList }) => {
             </div>
             {isOpen && (
                 <div className={`${style.container}`}>
-                    <div className={style.item}>
-                        <FiExternalLink />
-                        <a href={contentList[0].url} target="_blank" rel="noopener noreferrer">
-                            {contentList[0].title}
-                        </a>
-                    </div>
-                    <div className={style.item}>
-                        <FiExternalLink />
-                        <a href={contentList[1].url} target="_blank" rel="noopener noreferrer">
-                            {contentList[1].title}
-                        </a>
-                    </div>
+                    {links &&
+                        links.map(item => (
+                            <div key={item.title} className={style.item}>
+                                <FiExternalLink />
+                                <a href={item.url} target="_blank" rel="noopener noreferrer">
+                                    {item.title}
+                                </a>
+                            </div>
+                        ))}
                 </div>
             )}
         </OutsideClickHandler>
