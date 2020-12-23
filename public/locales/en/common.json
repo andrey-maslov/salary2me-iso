@@ -37,11 +37,8 @@
     "invalid_salary": "The field must contain only numbers"
   },
   "misc": {
-    "subscribe_msg": "I would like to receive newsletters of new vacancies"
-  },
-  "meta": {
-    "description": "Free instant AI CV analytics service with results for multiple cities. The service will also help you find a job. Know your resume score!",
-    "title": "Know your salary"
+    "subscribe_msg": "I would like to receive newsletters of new vacancies",
+    "psychological_test": "Psychological test"
   },
   "nav": {
     "cookie": "Cookie policy",
@@ -60,5 +57,9 @@
     "author_text": "Developed by:",
     "address": "Belarus, Minsk",
     "copy": "LLC Center of Technology Investments"
+  },
+  "meta": {
+    "title": "Инструмент для оценки рыночной стоимости резюме",
+    "description": "Загрузите своё резюме и узнайте свою рыночную зарплату в странах Европы! Бесплатный инструмент аналитики вашего CV"
   }
 }

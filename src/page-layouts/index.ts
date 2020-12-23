@@ -1,9 +1,10 @@
 export { default as HomeLayout } from './home/Home'
-export { default as ContentLayout } from './Content'
+export { default as ContentLayout } from './ContentLayout'
 export { default as ProfileLayout } from './profile/Profile'
 export { default as ResumeLayout } from './resume/Resume'
 export { default as EstimationLayout } from './estimation/Estimation'
 export { default as SigninLayout } from './auth/SigninLayout'
+export { default as SignupLayout } from './auth/SignupLayout'
 export { default as NotFoundLayout } from './error/404Layout'
 export { default as ConfirmEmailLayout } from './confirm-email/ConfirmEmailLayout'
 

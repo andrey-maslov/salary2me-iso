@@ -103,11 +103,14 @@ const Questions = ({ changeBlock, t }: QuestionsProps) => {
 
     function sendAnswers(result: any) {
         dispatch(saveTestData(result))
-
-        if (isLoggedIn && isTestPassed(calculateResults(answers), TEST_THRESHOLD)) {
+        const testData = calculateResults(answers)
+        if (isLoggedIn && isTestPassed(testData, TEST_THRESHOLD)) {
             dispatch(sendTestData())
+            // router.push(`result?encdata=${}`)
         }
-        router.push('result')
+        if (isBrowser) {
+            router.push('result')
+        }
     }
 
     function calculateResults(answersArr: Array<AnswerType>) {

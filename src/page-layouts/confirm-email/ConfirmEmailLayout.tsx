@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { withTranslation } from '@i18n'
 import { useRouter } from 'next/router'
 import { FiAlertCircle, FiCheckCircle } from 'react-icons/fi'
+import Head from 'next/head'
 import Layout from '../../components/layout/Layout'
 import { getQueryFromURL, isBrowser } from '../../helper/helper'
 import { sendEmailConfirmation } from '../../actions/api/accountAPI'
 import style from './confirm.module.scss'
 import { globalStoreType } from '../../typings/types'
+import { SITE_TITLE } from '../../constants/constants'
 
 const ConfirmEmailLayot = ({ t }) => {
     const router = useRouter()
@@ -27,16 +29,19 @@ const ConfirmEmailLayot = ({ t }) => {
                 dispatch(sendEmailConfirmation({ userId, code }))
             }
         }
-    }, [ dispatch ])
+    }, [dispatch])
 
     useEffect(() => {
         if (isEmailConfirmed) {
             router.push('/profile')
         }
-    }, [ isEmailConfirmed ])
+    }, [isEmailConfirmed, router])
 
     return (
         <div className="page-confirm page bg-grey">
+            <Head>
+                <title>{`${t('profile:confirm_email')} - ${SITE_TITLE}`}</title>
+            </Head>
             <Layout>
                 <section className="section text-center">
                     {isLoading && <span>loading...</span>}

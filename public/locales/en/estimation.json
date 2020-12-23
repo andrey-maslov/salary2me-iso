@@ -36,9 +36,5 @@
     "title": "We are wrong? Sorry, we are only beta",
     "desc": "You can support our project by sharing your actual or latest salary (monthly, brutto)",
     "thanx_msg": "Thank you for your help!"
-  },
-  "meta": {
-    "title": "title for result page",
-    "description": "description for result page"
   }
 }

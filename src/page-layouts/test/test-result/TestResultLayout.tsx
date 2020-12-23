@@ -1,30 +1,18 @@
 import Head from 'next/head'
+import { useSelector } from 'react-redux'
+import { withTranslation } from '@i18n'
 import Layout from '../../../components/layout/Layout'
 import Result from './Result'
-import { HOST } from "../../../constants/constants";
+import { SITE_TITLE } from '../../../constants/constants'
+import { globalStoreType } from '../../../typings/types'
 
-const TestResultLayout: React.FC = () => {
+const TestResultLayout: React.FC<{ t: any }> = ({ t }) => {
+    const { testData } = useSelector((store: globalStoreType) => store.test)
+    const title = testData ? t('test:page.title') : t('test:errors.take_the_test')
     return (
         <>
             <Head>
-                <meta name="description" content="" />
-                <title>some title</title>
-                <meta property="og:type" content="website" />
-                <meta property="og:title" content="Know your market rate - Salary2.me" />
-                <meta
-                    property="og:site_name"
-                    content="Free service of CV instant AI analytics with results for multiple cities. Also service helps you to find a job. Know your resume rate!"
-                />
-                <meta property="og:url" content={HOST} />
-                <meta property="og:image" content="/img/social.jpg" />
-                <meta name="twitter:card" content="summary_large_image" />
-                <meta name="twitter:title" content="Know your market rate - Salary2.me" />
-                <meta
-                    name="twitter:description"
-                    content="Free service of CV instant AI analytics with results for multiple cities. Also service helps you to find a job. Know your resume rate!"
-                />
-                <meta name="twitter:site" content={HOST} />
-                <meta name="twitter:image" content="/img/social.jpg" />
+                <title>{`${title} - ${SITE_TITLE}`}</title>
             </Head>
             <div className="page-test-result">
                 <Layout>
@@ -39,4 +27,4 @@ const TestResultLayout: React.FC = () => {
     )
 }
 
-export default TestResultLayout
+export default withTranslation('test')(TestResultLayout)

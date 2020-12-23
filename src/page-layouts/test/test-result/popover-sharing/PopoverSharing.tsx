@@ -6,6 +6,7 @@ import style from '../popover-export/popover-export.module.scss'
 import ButtonMore from '../../../../components/common/buttons/button-more/ButtonMore'
 import { globalStoreType } from '../../../../typings/types'
 import SocialSharing from '../../../../components/common/buttons/social-sharing/SocialSharing'
+import { encodeDataForURL } from '../../../../helper/helper'
 
 type PopoverSharingProps = {
     t: any
@@ -13,7 +14,7 @@ type PopoverSharingProps = {
 
 const PopoverSharing: React.FC<PopoverSharingProps> = ({ t }) => {
     const { personalInfo, testData } = useSelector((state: globalStoreType) => state.test)
-    const encData = btoa(JSON.stringify([personalInfo, testData]))
+    const encData = encodeDataForURL([personalInfo, testData])
     const [isOpen, setOpen] = useState(false)
     const host = typeof window !== 'undefined' ? window.location.host : ''
 

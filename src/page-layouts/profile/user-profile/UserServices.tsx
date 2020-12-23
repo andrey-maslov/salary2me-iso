@@ -1,5 +1,5 @@
 import { Link, withTranslation } from '@i18n'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { RiQrCodeLine } from 'react-icons/ri'
 import { FiExternalLink } from 'react-icons/fi'
 import { useEffect, useState } from 'react'
@@ -9,8 +9,9 @@ import Service from './service/Service'
 import CodeBox from '../../../components/common/code-box/CodeBox'
 import Button from '../../../components/common/buttons/button/Button'
 import { globalStoreType } from '../../../typings/types'
-import { COOP_URL, SERVICE, TGB_URL } from '../../../constants/constants'
+import { COOP_URL, TGB_URL } from '../../../constants/constants'
 import { fetchUsersBillingData } from '../../../actions/api/subscriptionsAPI'
+import { encodeDataForURL, encodeData } from "../../../helper/helper";
 
 const UserServices = ({ t }) => {
     const [isQRCode, setQRCode] = useState(false)
@@ -37,10 +38,11 @@ const UserServices = ({ t }) => {
         })
     }, [])
 
-    const encData: string | null = testData ? btoa(JSON.stringify([personalInfo, testData])) : null
-    const encDataForUrl = encodeURIComponent(encData)
+    const isTestPassed = testData && personalInfo
+    const encData: string | null = isTestPassed ? encodeData([personalInfo, testData]) : null
+    const encDataForUrl: string | null = isTestPassed ? encodeDataForURL([personalInfo, testData]) : null
 
-    const pairLink = `${COOP_URL}/pair${encData ? `?encdata=${encDataForUrl}` : ''}`
+    const pairLink = `${COOP_URL}/pair${isTestPassed ? `?encdata=${encDataForUrl}` : ''}`
     const QRValue = `https://${host}/test/result?encdata=${encDataForUrl}`
 
     return (
@@ -65,7 +67,7 @@ const UserServices = ({ t }) => {
                 </div>
                 <div className={`${style.item}`}>
                     <h4 className={style.itemTitle}>{t('profile:psycho_profile')}</h4>
-                    {testData && (
+                    {isTestPassed && (
                         <>
                             <p style={{ marginBottom: '1rem' }}>{t('profile:enc_result')}</p>
                             <div style={{ marginBottom: '1rem' }}>
@@ -73,11 +75,11 @@ const UserServices = ({ t }) => {
                             </div>
                         </>
                     )}
-                    {testData ? (
+                    {isTestPassed ? (
                         <div className={style.goToProfile}>
                             {!isQRCode ? (
                                 <div>
-                                    <Link href="/test/result">
+                                    <Link href={`/test/result?encdata=${encDataForUrl}`}>
                                         <a>{t('profile:go_to_psycho_profile')}</a>
                                     </Link>
                                 </div>

@@ -34,8 +34,7 @@
     "last_name": "Last name",
     "want_to_open": "I want to open my profile data for searching within the service",
     "looking_for_job": "I am open to job offers",
-    "position": "Position",
-    "onboarding": "Welcome to Salary2me"
+    "position": "Position"
   },
   "email_sent": "Email sent",
   "errors": {

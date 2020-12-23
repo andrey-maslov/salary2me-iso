@@ -26,12 +26,12 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
     const { accountApiErrorMsg, redirectUrl } = useSelector((state: globalStoreType) => state.app)
     const page = getAuthPage(router.pathname)
 
-    useEffect(() => {
-        console.log('in use effect')
-        window.addEventListener('storage', function (event) {
-            console.log(event.key, event.newValue)
-        })
-    })
+    // useEffect(() => {
+    //     console.log('in use effect')
+    //     window.addEventListener('storage', function (event) {
+    //         console.log(event.key, event.newValue)
+    //     })
+    // })
 
     useEffect(() => {
         let termsLink: Element | null

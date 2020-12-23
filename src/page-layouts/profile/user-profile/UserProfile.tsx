@@ -8,7 +8,6 @@ import { globalStoreType, IOneFieldForm, IUserData } from '../../../typings/type
 import InputTransformer from '../../../components/common/inputs/input-transformer/InputTransformer'
 import { changeEmail, updateUserData } from '../../../actions/actionCreator'
 import Loader from '../../../components/common/loaders/loader/Loader'
-import Checkbox from '../../../components/common/inputs/checkbox/Checkbox'
 import { DANGER_MODAL, SET_TOAST } from '../../../actions/actionTypes'
 import UserServices from './UserServices'
 

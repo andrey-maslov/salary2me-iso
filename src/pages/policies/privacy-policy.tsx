@@ -1,16 +1,15 @@
-import React from "react"
-import PageContent from "../../components/common/page-content/PageContent"
-import {fetchPageContent} from "../../helper/helper"
+import React from 'react'
+import { fetchPageContent } from '../../helper/helper'
+import { ContentLayout } from '../../page-layouts'
 
-function PrivacyPolicy({content}) {
+const page = 'privacy-policy'
 
-    return (
-        <PageContent content={content} />
-    )
+function PrivacyPolicy({ content }) {
+    return <ContentLayout content={content} page={page} />
 }
 
 PrivacyPolicy.getInitialProps = async () => {
-    const content = await fetchPageContent('privacy-policy')
+    const content = await fetchPageContent(page)
 
     return {
         namespacesRequired: ['common'],

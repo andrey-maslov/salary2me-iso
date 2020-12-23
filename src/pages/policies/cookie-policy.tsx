@@ -1,16 +1,15 @@
-import React from "react"
-import PageContent from "../../components/common/page-content/PageContent"
-import {fetchPageContent} from "../../helper/helper"
+import React from 'react'
+import { fetchPageContent } from '../../helper/helper'
+import { ContentLayout } from '../../page-layouts'
 
-function CookiePolicy({content}) {
+const page = 'cookie-policy'
 
-    return (
-        <PageContent content={content} />
-    )
+function CookiePolicy({ content }) {
+    return <ContentLayout content={content} page={page} />
 }
 
 CookiePolicy.getInitialProps = async () => {
-    const content = await fetchPageContent('cookie-policy')
+    const content = await fetchPageContent(page)
 
     return {
         namespacesRequired: ['common'],

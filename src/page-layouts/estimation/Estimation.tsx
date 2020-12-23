@@ -3,6 +3,7 @@ import { withTranslation } from '@i18n'
 import Layout from '../../components/layout/Layout'
 import CVEstimation from './cv-estimation/CVEstimation'
 import { SVGSource } from '../../components/common/media/svgflag/SVGFlag'
+import { SITE_TITLE } from '../../constants/constants'
 
 type ResultsType = {
     t: any
@@ -12,8 +13,7 @@ const Estimation: React.FC<ResultsType> = ({ t }) => {
     return (
         <>
             <Head>
-                <meta name="description" content={t('meta.description')} />
-                <title>{t('meta.title')}</title>
+                <title>{`${t('estimation:title')} - ${SITE_TITLE}`}</title>
             </Head>
             <div className="page-estimation page bg-grey">
                 <Layout>

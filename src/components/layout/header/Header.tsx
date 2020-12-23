@@ -13,15 +13,16 @@ import LangSwitcher from '../../common/buttons/lang-switcher/LangSwitcher'
 import MobiNav from '../../mobi/header/nav/MobiNav'
 import TopLogo from './top-logo/TopLogo'
 import WebNav from '../../web/header/nav/WebNav'
+import { encodeDataForURL } from '../../../helper/helper'
 
 const Header = ({ t }) => {
     const { isLoggedIn, email } = useSelector((state: globalStoreType) => state.user)
+    const { testData, personalInfo } = useSelector((state: globalStoreType) => state.test)
     const dispatch = useDispatch()
     const smallDevice = useMediaPredicate('(max-width: 992px)')
     const { isMobile } = useDeviceDetect()
     const router = useRouter()
     const currentRoute = router.pathname
-    const { testData } = useSelector((state: globalStoreType) => state.test)
     const [testLink, setTestLink] = useState('/test')
 
     useEffect(() => {
@@ -39,8 +40,8 @@ const Header = ({ t }) => {
     }, [currentRoute, dispatch])
 
     useEffect(() => {
-        if (testData) {
-            setTestLink('/test/result')
+        if (testData && personalInfo) {
+            setTestLink(`/test/result?encdata=${encodeDataForURL([personalInfo, testData])}`)
         }
     }, [testData])
 

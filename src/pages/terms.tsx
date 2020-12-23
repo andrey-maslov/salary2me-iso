@@ -1,17 +1,15 @@
-import React from "react"
-import PageContent from "../components/common/page-content/PageContent"
-import {fetchPageContent} from "../helper/helper"
+import React from 'react'
+import { fetchPageContent } from '../helper/helper'
+import { ContentLayout } from '../page-layouts'
 
-function Terms({content}) {
+const page = 'terms'
 
-    return (
-        <PageContent content={content} />
-    )
+function Terms({ content }) {
+    return <ContentLayout content={content} page={page} />
 }
 
 Terms.getInitialProps = async () => {
-
-    const content = await fetchPageContent('terms')
+    const content = await fetchPageContent(page)
 
     return {
         namespacesRequired: ['common'],

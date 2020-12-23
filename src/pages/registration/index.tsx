@@ -1,8 +1,7 @@
-import {SigninLayout} from '../../page-layouts'
+import { SignupLayout } from '../../page-layouts'
 
 function Registration() {
-
-    return <SigninLayout />
+    return <SignupLayout />
 }
 
 Registration.getInitialProps = async ({ req }) => {

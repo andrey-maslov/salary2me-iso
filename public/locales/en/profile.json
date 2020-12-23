@@ -33,6 +33,7 @@
   "your_position": "Your position",
   "email_send_success": "Для подтверждения нового email перейдите в почтовый ящик, который вы указывали при регистрации и пройдите по ссылке в письме",
   "email_confirm_success": "Thank you. Your email confirmed",
+  "confirm_email": "Email confirmation",
   "delete": {
     "are_you_sure": "Are you sure?",
     "delete_account": "Delete account",
@@ -44,9 +45,5 @@
     "free": "Free",
     "basic": "Basic",
     "manage_subscr": "Manage subscriptions"
-  },
-  "meta": {
-    "description": "",
-    "title": "Salary2me - account settings"
   }
 }

@@ -5,7 +5,7 @@ function ConfirmEmail(props) {
 }
 
 ConfirmEmail.getInitialProps = async () => ({
-    namespacesRequired: ['profile']
+    namespacesRequired: ['profile', 'common']
 })
 
 export default ConfirmEmail

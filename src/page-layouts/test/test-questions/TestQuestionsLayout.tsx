@@ -1,13 +1,14 @@
 import Head from 'next/head'
+import { withTranslation } from '@i18n'
 import Layout from '../../../components/layout/Layout'
 import Test from './Test'
+import { SITE_TITLE } from '../../../constants/constants'
 
-const TestQuestionsLayout: React.FC = () => {
+const TestQuestionsLayout: React.FC<{ t: any }> = ({ t }) => {
     return (
         <>
             <Head>
-                <meta name="description" content="" />
-                <title>some title</title>
+                <title>{`${t('common:misc.psychological_test')} - ${SITE_TITLE}`}</title>
             </Head>
             <div className="page-test-questions">
                 <Layout>
@@ -26,4 +27,4 @@ const TestQuestionsLayout: React.FC = () => {
     )
 }
 
-export default TestQuestionsLayout
+export default withTranslation('common')(TestQuestionsLayout)

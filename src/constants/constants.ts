@@ -1,7 +1,7 @@
-export const SITE_TITLE = 'salary2me'
+export const SITE_TITLE = 'Salary2me'
 export const IS_BETA = true
 
-export const HOST = 'https://salary2.me'
+export const HOST = 'https://salary.nobugs.today'
 export const BASE_API = 'https://apibase.pashtaljon.by'
 export const CONTENT_API = 'https://api.salary2.me'
 export const TEST_URL = 'https://salary.nobugs.today/test'

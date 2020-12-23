@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { useRouter } from 'next/router'
 import { Link, withTranslation } from '@i18n'
 import { getDescByRange, getFamous, UserResult, getAndDecodeData } from 'psychology'
 import { IUserResult, DecodedDataType } from 'psychology/build/main/types/types'
@@ -9,7 +10,6 @@ import TopBar from './top-bar/TopBar'
 import Table from '../../../components/common/tables/table/Table'
 import Box from '../../../components/common/box/Box'
 import Loader from '../../../components/common/loaders/loader/Loader'
-import { savePersonalInfo, saveTestData } from '../../../actions/actionCreator'
 import { globalStoreType } from '../../../typings/types'
 import Famous from './famous/Famous'
 import ShareResult from './share-result/ShareResult'
@@ -23,33 +23,36 @@ import {
     TablesWithBars
 } from './functions'
 import RobotQuestion from '../../../components/common/media/robots/robot-question/RobotQuestion'
-import { TEST_THRESHOLD } from "../../../constants/constants";
+import { TEST_THRESHOLD } from '../../../constants/constants'
+import { encodeDataForURL, isBrowser } from '../../../helper/helper'
 
 type ResultProps = {
     t: any
 }
 
 const Result: React.FC<ResultProps> = ({ t }) => {
+    const router = useRouter()
     const dispatch = useDispatch()
     const isXL = useMediaPredicate('(min-width: 1360px)')
 
-    // parse url query params if it has encoded data
-    const dataFromUrl: DecodedDataType | null = getAndDecodeData().data
+    const { isLoggedIn } = useSelector((state: globalStoreType) => state.user)
 
-    const { isLoggedIn, email } = useSelector((state: globalStoreType) => state.user)
-    const storeData = useSelector((state: globalStoreType) => state.test)
-    const { personalInfo, testData } = dataFromUrl
-        ? { personalInfo: dataFromUrl[0], testData: dataFromUrl[1] }
-        : storeData
+    // parse url query params if it has encoded data string
+    const dataFromUrl: DecodedDataType | null = getAndDecodeData().data
+    const { personalInfo: userPersonalInfo, testData: userTestData } = useSelector((state: globalStoreType) => state.test)
+
+    const personalInfoForProfile = dataFromUrl ? dataFromUrl[0] : userPersonalInfo
+    const resultForProfile = dataFromUrl ? dataFromUrl[1] : userTestData
     const { terms, descriptions } = useSelector((state: globalStoreType) => state.test)
+    const encDataForURL = encodeDataForURL([personalInfoForProfile, resultForProfile])
 
     const [isReady, setReady] = useState(false)
 
+    if (!dataFromUrl && isBrowser) {
+        router.push(`?encdata=${encDataForURL}`)
+    }
+
     useEffect(() => {
-        if (dataFromUrl) {
-            dispatch(savePersonalInfo(dataFromUrl[0]))
-            dispatch(saveTestData(dataFromUrl[1]))
-        }
         if (descriptions) {
             setReady(true)
             dispatch({
@@ -63,14 +66,14 @@ const Result: React.FC<ResultProps> = ({ t }) => {
                 }
             })
         }
-    }, [terms, email, descriptions])
+    }, [terms, descriptions])
 
     // TODO check this!
     if (!isReady) {
         return <Loader />
     }
 
-    if (!testData || testData.length === 0) {
+    if (!resultForProfile || resultForProfile.length === 0) {
         return (
             <div className="flex-centered">
                 <Link href="/test">
@@ -81,8 +84,8 @@ const Result: React.FC<ResultProps> = ({ t }) => {
     }
 
     const modedSubAxes = getModifiedSubAxes(terms.subAxes)
-    const fullProfile: IUserResult = UserResult(testData)
-    const sex = personalInfo[2] === 2 ? 1 : personalInfo[2]
+    const fullProfile: IUserResult = UserResult(resultForProfile)
+    const sex = personalInfoForProfile[2] === 2 ? 1 : personalInfoForProfile[2]
     const { sortedOctants, mainOctant, profile, mainPsychoTypeList } = fullProfile
     const {
         fullProfileList,
@@ -97,13 +100,13 @@ const Result: React.FC<ResultProps> = ({ t }) => {
         famousList,
         sex
     )
-    const tables = TablesWithBars(modedSubAxes, tablesWithBarsTitles, testData)
+    const tables = TablesWithBars(modedSubAxes, tablesWithBarsTitles, resultForProfile)
     const fullProfileData = getProfileDesc(
         fullProfileList,
         terms,
         getDescByRange,
         tables,
-        testData,
+        resultForProfile,
         fullProfile
     )
     const portraitDesc = getPortraitDesc(mainOctant, complexDataSoft, fullProfileList)
@@ -120,6 +123,8 @@ const Result: React.FC<ResultProps> = ({ t }) => {
         ? getOctantFraction(sortedOctants[1], sortedOctants)
         : null
 
+    const fpTableTile = [t('test:result_page.main_features'), t('test:result_page.revealed')]
+
     if (fullProfile.mainOctant.value <= TEST_THRESHOLD) {
         return (
             <div className="flex-centered center-xs">
@@ -132,17 +137,12 @@ const Result: React.FC<ResultProps> = ({ t }) => {
                         {t('test:errors.test_failed')}
                     </div>
                     <Link href="/test/questions">
-                        <a className="btn btn-outlined">
-                            {t('test:result_page.again')}
-                        </a>
+                        <a className="btn btn-outlined">{t('test:result_page.again')}</a>
                     </Link>
                 </div>
             </div>
         )
     }
-
-    const encData = btoa(JSON.stringify([personalInfo, testData]))
-    const fpTableTile = [t('test:result_page.main_features'), t('test:result_page.revealed')]
 
     return (
         <div id="result">
@@ -256,7 +256,7 @@ const Result: React.FC<ResultProps> = ({ t }) => {
             </Box>
 
             <Box>
-                <ShareResult encData={encData} isLoggedIn={isLoggedIn} />
+                <ShareResult encData={encDataForURL} isLoggedIn={isLoggedIn} />
             </Box>
         </div>
     )

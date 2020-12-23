@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { CONTENT_API, currencies, locations } from '../constants/constants'
 import { AnswerType } from '../typings/types'
+import { DecodedDataType } from "psychology/build/main/types/types";
 
 // export const getLocation = (city = '', locationsArr = locations) => {
 //
@@ -177,4 +178,17 @@ export class Helper {
 
         return `${bytes.toFixed(precision)} ${units[pow]}`
     }
+}
+
+export function encodeData(array: DecodedDataType): string {
+    const string = JSON.stringify(array)
+    const buff = Buffer.from(string)
+    return buff.toString('base64')
+}
+
+export function encodeDataForURL(array: DecodedDataType): string {
+    const string = JSON.stringify(array)
+    const buff = Buffer.from(string)
+    const uriEnc = buff.toString('base64')
+    return encodeURIComponent(uriEnc)
 }

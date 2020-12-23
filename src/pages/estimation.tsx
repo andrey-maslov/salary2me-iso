@@ -5,7 +5,7 @@ function Estimation(props) {
 }
 
 Estimation.getInitialProps = async () => ({
-    namespacesRequired: ['estimation']
+    namespacesRequired: ['estimation', 'common']
 })
 
 export default Estimation

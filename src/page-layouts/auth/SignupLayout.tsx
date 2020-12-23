@@ -8,13 +8,13 @@ type LoginType = {
     t: any
 }
 
-const SigninLayout: React.FC<LoginType> = ({ t }) => {
+const SignupLayout: React.FC<LoginType> = ({ t }) => {
     return (
         <>
             <Head>
-                <title>{`${t('signin:signin')} - ${SITE_TITLE}`}</title>
+                <title>{`${t('signin:signup')} - ${SITE_TITLE}`}</title>
             </Head>
-            <div className="signin-page page">
+            <div className="signup-page page">
                 <Layout>
                     <section className="section main flex-centered">
                         <Auth />
@@ -25,4 +25,4 @@ const SigninLayout: React.FC<LoginType> = ({ t }) => {
     )
 }
 
-export default withTranslation('signin')(SigninLayout)
+export default withTranslation('signin')(SignupLayout)

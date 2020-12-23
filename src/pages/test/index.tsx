@@ -7,7 +7,7 @@ function Index() {
 
 Index.getInitialProps = async () => {
     return {
-        namespacesRequired: ['test', 'questions']
+        namespacesRequired: ['test', 'questions', 'common']
     }
 }
 

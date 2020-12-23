@@ -4,10 +4,6 @@
     "test_failed": "Test failed",
     "all_q_required": "All questions must be answered"
   },
-  "meta": {
-    "description": "test description",
-    "title": "Psychological test"
-  },
   "page": {
     "title": "Psychological profile",
     "test_block_desc": "<p> Here are 75 questions of the main block. You need to choose which statement of the two is closer to you and how much. If you put the label in the far left position, it means that the left statement is definitely closer to you. The second position from the left - the left statement is closer. Central position - both statements are equally close / distant. The second position from the right - the second statement is rather closer. The extreme right position - the second statement is definitely closer to you. </p> <p> When answering questions, try to objectively assess yourself in the given situations and try to tell the truth about yourself, as you would do alone without someone else's help and tips. The test takes 12-15 minutes to complete. If you cannot make a choice between the options and they seem equally close to you, then put the marker in the middle of the scale. Happy passing! </p>",

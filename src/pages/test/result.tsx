@@ -7,7 +7,7 @@ function Test() {
 
 Test.getInitialProps = async () => {
     return {
-        namespacesRequired: ['test']
+        namespacesRequired: ['test', 'common']
     }
 }
 
