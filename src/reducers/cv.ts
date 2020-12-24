@@ -15,7 +15,7 @@ import { loadState } from '../store/sessionStorage'
 import { isBrowser } from '../helper/helper'
 import { currencies } from '../constants/constants'
 
-let STATE = isBrowser ? loadState('cv') : null
+// let STATE = isBrowser ? loadState('cv') : null
 
 export type cvStoreType = {
     predictions: []
@@ -30,19 +30,18 @@ export type cvStoreType = {
     isCvSent: boolean
 }
 
-if (!STATE) {
-    STATE = {
-        predictions: [],
-        position: '',
-        realSalary: '',
-        sorting: 'normal',
-        displayedResults: 'netto-normal',
-        selectedCurrency: currencies.usd.nameISO,
-        currencyRates: { EUR: 0.92, USD: 1, GBP: 0.81 },
-        payPeriod: 'monthly',
-        payTax: 'netto',
-        isCvSent: false
-    }
+
+const STATE = {
+    predictions: [],
+    position: '',
+    realSalary: '',
+    sorting: 'normal',
+    displayedResults: 'netto-normal',
+    selectedCurrency: currencies.usd.nameISO,
+    currencyRates: { EUR: 0.92, USD: 1, GBP: 0.81 },
+    payPeriod: 'monthly',
+    payTax: 'netto',
+    isCvSent: false
 }
 
 export const cv = (

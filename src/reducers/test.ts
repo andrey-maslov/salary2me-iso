@@ -9,29 +9,27 @@ import {
 import { loadState } from '../store/sessionStorage'
 import { isBrowser } from '../helper/helper'
 
-let STATE = isBrowser ? loadState('test') : null
+// let STATE = isBrowser ? loadState('test') : null
 
-if (!STATE) {
-    STATE = {
-        personalInfo: null,
-        testData: null,
-        result: null,
-        terms: null,
-        descriptions: null
-    }
+const STATE = {
+    personalInfo: null,
+    testData: null,
+    dataForPDF: null,
+    terms: null,
+    descriptions: null
 }
 
 export type testStoreType = {
     personalInfo: [] | null
     testData: [] | null
-    result: Record<string, unknown> | null
+    dataForPDF: Record<string, unknown> | null
     terms: Record<string, unknown> | null
     descriptions: [] | null
 }
 
 export const test = (
     state = STATE,
-    { type, personalInfo, testData, terms, descriptions, result }
+    { type, personalInfo, testData, terms, descriptions, dataForPDF }
 ) => {
     switch (type) {
         case SAVE_PERSONAL_INFO:
@@ -47,7 +45,7 @@ export const test = (
         case PSYCHO_RESULT:
             return {
                 ...state,
-                result
+                dataForPDF
             }
         case FETCH_TERMS:
             return {

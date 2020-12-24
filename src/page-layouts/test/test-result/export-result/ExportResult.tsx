@@ -7,7 +7,7 @@ import { FaFilePdf } from 'react-icons/fa'
 import CodeBox from '../../../../components/common/code-box/CodeBox'
 import style from './export-result.module.scss'
 import { globalStoreType } from '../../../../typings/types'
-import { COOP_URL } from "../../../../constants/constants";
+import { COOP_URL } from '../../../../constants/constants'
 
 interface ExportResultProps {
     data: string
@@ -16,7 +16,7 @@ interface ExportResultProps {
 
 const ExportResult: React.FC<ExportResultProps> = ({ data, t }) => {
     const { email } = useSelector((state: globalStoreType) => state.user)
-    const { result } = useSelector((state: globalStoreType) => state.test)
+    const { dataForPDF } = useSelector((state: globalStoreType) => state.test)
 
     return (
         <>
@@ -52,7 +52,7 @@ const ExportResult: React.FC<ExportResultProps> = ({ data, t }) => {
         axios
             .post(
                 '/create-pdf',
-                { radar: dataImg, testData: result },
+                { radar: dataImg, testData: dataForPDF },
                 {
                     headers: {
                         'Content-Type': 'application/json'

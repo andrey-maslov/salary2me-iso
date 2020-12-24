@@ -24,7 +24,7 @@ import {
 } from './functions'
 import RobotQuestion from '../../../components/common/media/robots/robot-question/RobotQuestion'
 import { TEST_THRESHOLD } from '../../../constants/constants'
-import { encodeDataForURL, isBrowser } from '../../../helper/helper'
+import { encodeDataForURL, isBrowser, isTestPassed } from '../../../helper/helper'
 
 type ResultProps = {
     t: any
@@ -36,28 +36,38 @@ const Result: React.FC<ResultProps> = ({ t }) => {
     const isXL = useMediaPredicate('(min-width: 1360px)')
 
     const { isLoggedIn } = useSelector((state: globalStoreType) => state.user)
+    const { terms, descriptions } = useSelector((state: globalStoreType) => state.test)
+    // get test data from store
+    const { personalInfo: userPersonalInfo, testData: userTestData } = useSelector(
+        (state: globalStoreType) => state.test
+    )
 
-    // parse url query params if it has encoded data string
+    // parse url query params if it has encoded data string with default key encdata
     const dataFromUrl: DecodedDataType | null = getAndDecodeData().data
-    const { personalInfo: userPersonalInfo, testData: userTestData } = useSelector((state: globalStoreType) => state.test)
 
+    // set test data for rendering the component
     const personalInfoForProfile = dataFromUrl ? dataFromUrl[0] : userPersonalInfo
     const resultForProfile = dataFromUrl ? dataFromUrl[1] : userTestData
-    const { terms, descriptions } = useSelector((state: globalStoreType) => state.test)
+
+    // encode all test data to base64 string for using in links
     const encDataForURL = encodeDataForURL([personalInfoForProfile, resultForProfile])
 
     const [isReady, setReady] = useState(false)
+    const isPassed = isTestPassed(resultForProfile, TEST_THRESHOLD)
 
-    if (!dataFromUrl && isBrowser) {
+    // generate params in URL for better usability, if user want to copy URL for sharing
+    if (!dataFromUrl && isBrowser && personalInfoForProfile && resultForProfile) {
         router.push(`?encdata=${encDataForURL}`)
     }
 
     useEffect(() => {
         if (descriptions) {
             setReady(true)
+        }
+        if (descriptions && isPassed && resultForProfile) {
             dispatch({
                 type: PSYCHO_RESULT,
-                result: {
+                dataForPDF: {
                     fullProfileData,
                     portraitDesc,
                     famous,
@@ -123,9 +133,9 @@ const Result: React.FC<ResultProps> = ({ t }) => {
         ? getOctantFraction(sortedOctants[1], sortedOctants)
         : null
 
-    const fpTableTile = [t('test:result_page.main_features'), t('test:result_page.revealed')]
+    const fpTableHeader = [t('test:result_page.main_features'), t('test:result_page.revealed')]
 
-    if (fullProfile.mainOctant.value <= TEST_THRESHOLD) {
+    if (!isPassed) {
         return (
             <div className="flex-centered center-xs">
                 <div className="col-lg-8">
@@ -162,6 +172,7 @@ const Result: React.FC<ResultProps> = ({ t }) => {
                     userResult={profile.map((item, i) => [terms.tendencies[i], item.value])}
                     details={tendencies}
                     isLoggedIn={isLoggedIn}
+                    fullTestResult={[personalInfoForProfile, resultForProfile]}
                 />
                 <div className="row middle-xs">
                     <div className="col-lg-7">
@@ -190,7 +201,9 @@ const Result: React.FC<ResultProps> = ({ t }) => {
                             </strong>
                             {`, ${t('test:result_page.sec_type')} `}
                             <strong>
-                                {`${secondaryPsychoType} ${(secondaryOctantFraction * 100).toFixed(1)}%`}
+                                {`${secondaryPsychoType} ${(secondaryOctantFraction * 100).toFixed(
+                                    1
+                                )}%`}
                             </strong>
                         </div>
                         <div style={{ fontSize: '1.2rem', marginBottom: '.5rem' }}>
@@ -210,7 +223,7 @@ const Result: React.FC<ResultProps> = ({ t }) => {
                         item[0],
                         <span dangerouslySetInnerHTML={{ __html: item[1] }} key={item[0]} />
                     ])}
-                    tableHeader={fpTableTile}
+                    tableHeader={fpTableHeader}
                     addClasses={['striped', 'large']}
                 />
                 {secondaryPortraitDesc && (
@@ -238,7 +251,7 @@ const Result: React.FC<ResultProps> = ({ t }) => {
                                     <div className="col-xl-6" key={index}>
                                         <Table
                                             tableData={tablePart}
-                                            tableHeader={fpTableTile}
+                                            tableHeader={fpTableHeader}
                                             addClasses={['striped']}
                                         />
                                     </div>
@@ -248,7 +261,7 @@ const Result: React.FC<ResultProps> = ({ t }) => {
                     ) : (
                         <Table
                             tableData={fullProfileData}
-                            tableHeader={fpTableTile}
+                            tableHeader={fpTableHeader}
                             addClasses={['striped']}
                         />
                     )}

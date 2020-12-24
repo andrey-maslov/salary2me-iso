@@ -35,7 +35,8 @@ const Header = ({ t }) => {
     useEffect(() => {
         const isUnwantedPage = Boolean(currentRoute.match(/(signin)|(registration)|(404)/))
         if (!isUnwantedPage) {
-            dispatch({ type: REDIRECT_URL, redirectUrl: currentRoute })
+            const route = currentRoute !== '/test/result' ? currentRoute : '/test'
+            dispatch({ type: REDIRECT_URL, redirectUrl: route })
         }
     }, [currentRoute, dispatch])
 

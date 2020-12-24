@@ -8,14 +8,21 @@ interface TopBarProps {
     userResult: [string, number][]
     details: string[]
     isLoggedIn: boolean
+    fullTestResult: any
 }
 
-const TopBar: React.FC<TopBarProps> = ({ title, userResult, details, isLoggedIn }) => {
+const TopBar: React.FC<TopBarProps> = ({
+    title,
+    userResult,
+    details,
+    isLoggedIn,
+    fullTestResult
+}) => {
     return (
         <div className={style.top}>
             <h4 className={style.title}>{title}</h4>
             <PopoverMore userResult={userResult} details={details} />
-            {isLoggedIn && <PopoverExport />}
+            {isLoggedIn && <PopoverExport fullResult={fullTestResult} />}
         </div>
     )
 }

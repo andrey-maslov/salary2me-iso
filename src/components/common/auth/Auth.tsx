@@ -64,13 +64,13 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
                 privacyLink.removeEventListener('click', toPrivacy)
             }
         }
-    }, [ agreement, router ])
+    }, [agreement, router])
 
     useEffect(() => {
         if (isLoggedIn) {
             router.push(redirectUrl || '/')
         }
-    }, [ isLoggedIn ])
+    }, [isLoggedIn])
 
     const Form = () => {
         switch (page) {
@@ -206,4 +206,4 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
     }
 }
 
-export default withTranslation([ 'common', 'signin' ])(Auth)
+export default withTranslation(['common', 'signin'])(Auth)

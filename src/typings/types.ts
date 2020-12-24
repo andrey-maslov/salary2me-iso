@@ -1,3 +1,4 @@
+import { baseTestResultType } from 'psychology/build/main/types/types'
 import { userStoreType } from '../reducers/user'
 import { cvStoreType } from '../reducers/cv'
 import { testStoreType } from '../reducers/test'
@@ -34,6 +35,7 @@ export type AnswerType = {
 
 export interface QuestionsProps {
     changeBlock: (blockToShow: string, currentBlock?: string) => void
+    questionsSubmit: (answers: baseTestResultType | number[]) => unknown
     t?: anyType
 }
 

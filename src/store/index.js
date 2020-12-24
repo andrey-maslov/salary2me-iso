@@ -54,9 +54,9 @@ export const initializeStore = preloadedState => {
 const myStore = initializeStore()
 
 myStore.subscribe(() => {
-    saveState('test', myStore.getState().test)
+    // saveState('test', myStore.getState().test)
     // saveState('user', myStore.getState().user)
-    saveState('cv', myStore.getState().cv)
+    // saveState('cv', myStore.getState().cv)
 })
 
 export function useStore(initialState) {

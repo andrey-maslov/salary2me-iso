@@ -1,7 +1,8 @@
 import axios from 'axios'
 import { CONTENT_API, currencies, locations } from '../constants/constants'
 import { AnswerType } from '../typings/types'
-import { DecodedDataType } from "psychology/build/main/types/types";
+import { baseTestResultType, DecodedDataType, IUserResult } from "psychology/build/main/types/types";
+import { UserResult } from "psychology";
 
 // export const getLocation = (city = '', locationsArr = locations) => {
 //
@@ -180,15 +181,28 @@ export class Helper {
     }
 }
 
-export function encodeData(array: DecodedDataType): string {
-    const string = JSON.stringify(array)
+export function encodeData(data: unknown): string {
+    const string = JSON.stringify(data)
     const buff = Buffer.from(string)
     return buff.toString('base64')
 }
 
-export function encodeDataForURL(array: DecodedDataType): string {
-    const string = JSON.stringify(array)
+export function encodeDataForURL(data: unknown): string {
+    const string = JSON.stringify(data)
     const buff = Buffer.from(string)
     const uriEnc = buff.toString('base64')
     return encodeURIComponent(uriEnc)
+}
+
+/**
+ * Validate if user answered thruthly. If value of main octant more than minimum threshold
+ * @param testResult
+ * @param threshold
+ */
+export function isTestPassed(testResult: baseTestResultType, threshold): boolean {
+    if (!testResult) {
+        return false
+    }
+    const fullProfile: IUserResult = UserResult(testResult)
+    return fullProfile.mainOctant.value > threshold
 }

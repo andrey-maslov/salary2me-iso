@@ -11,7 +11,7 @@ import Button from '../../../components/common/buttons/button/Button'
 import { globalStoreType } from '../../../typings/types'
 import { COOP_URL, TGB_URL } from '../../../constants/constants'
 import { fetchUsersBillingData } from '../../../actions/api/subscriptionsAPI'
-import { encodeDataForURL, encodeData } from "../../../helper/helper";
+import { encodeDataForURL, encodeData } from '../../../helper/helper'
 
 const UserServices = ({ t }) => {
     const [isQRCode, setQRCode] = useState(false)

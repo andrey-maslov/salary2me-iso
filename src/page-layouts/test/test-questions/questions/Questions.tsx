@@ -1,23 +1,17 @@
 import React, { useState } from 'react'
-import { useRouter } from 'next/router'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { FiArrowRight, FiArrowLeft, FiMoreVertical } from 'react-icons/fi'
 import { withTranslation } from '@i18n'
 import { useToasts } from 'react-toast-notifications'
-import { UserResult } from 'psychology'
-import { baseTestResultType, IUserResult } from 'psychology/build/main/types/types'
+import { calculateResults } from 'psychology'
 import Button from '../../../../components/common/buttons/button/Button'
-import { checkAnswers, isBrowser } from '../../../../helper/helper'
 import { AnswerType, globalStoreType, IQuestion, QuestionsProps } from '../../../../typings/types'
 import RadioGroupItem from '../radio-group-item/RadioGroupItem'
 import style from './questions.module.scss'
-import { saveTestData, sendTestData } from '../../../../actions/actionCreator'
 import FakeResults from '../../../../pages/test/FakeResults'
-import { TEST_THRESHOLD } from '../../../../constants/constants'
+import { checkAnswers, isBrowser } from '../../../../helper/helper'
 
-const Questions = ({ changeBlock, t }: QuestionsProps) => {
-    const router = useRouter()
-    const dispatch = useDispatch()
+const Questions = ({ changeBlock, t, questionsSubmit }: QuestionsProps) => {
     const { addToast } = useToasts()
     const { isLoggedIn } = useSelector((state: globalStoreType) => state.user)
 
@@ -53,7 +47,7 @@ const Questions = ({ changeBlock, t }: QuestionsProps) => {
                     startIcon={<FiArrowLeft />}
                 />
                 <Button
-                    handle={sendBtnHandler}
+                    handle={testSubmit}
                     btnClass="btn btn-accent"
                     title={t('common:buttons.send')}
                     endIcon={<FiArrowRight />}
@@ -68,11 +62,28 @@ const Questions = ({ changeBlock, t }: QuestionsProps) => {
                     </button>
                 )}
             </div>
-            {isAddButtons && (
-                <FakeResults calculateResults={calculateResults} sendAnswers={sendAnswers} />
-            )}
+            {/* {isAddButtons && ( */}
+            {/*    <FakeResults calculateResults={calculateResults} sendAnswers={sendAnswers} /> */}
+            {/* )} */}
         </>
     )
+
+    function testSubmit() {
+        const check: number = checkAnswers(answers)
+        if (check === -1) {
+            // @ts-ignore
+            questionsSubmit(calculateResults(answers))
+        } else if (isBrowser && check !== -1) {
+            addToast(t('test:errors.all_q_required'), {
+                appearance: 'error'
+            })
+            // scroll to first not answered question
+            const targetElem: any = document.querySelector(
+                `.visible [data-item-index="${check + 1}"]`
+            )
+            targetElem.scrollIntoView({ block: 'center', behavior: 'smooth' })
+        }
+    }
 
     function testHandler(questionNumber: number, value: string) {
         initAnswers = answers
@@ -83,66 +94,6 @@ const Questions = ({ changeBlock, t }: QuestionsProps) => {
     function returnBtnHandler() {
         changeBlock('personalInfo')
         window.scrollTo(0, 0)
-    }
-
-    function sendBtnHandler() {
-        const num = checkAnswers(answers)
-        if (num === -1) {
-            sendAnswers(calculateResults(answers))
-        } else if (isBrowser && num !== -1) {
-            addToast(t('test:errors.all_q_required'), {
-                appearance: 'error'
-            })
-            // scroll to first not answered question
-            const targetElem: any = document.querySelector(
-                `.visible [data-item-index="${num + 1}"]`
-            )
-            targetElem.scrollIntoView({ block: 'center', behavior: 'smooth' })
-        }
-    }
-
-    function sendAnswers(result: any) {
-        dispatch(saveTestData(result))
-        const testData = calculateResults(answers)
-        if (isLoggedIn && isTestPassed(testData, TEST_THRESHOLD)) {
-            dispatch(sendTestData())
-            // router.push(`result?encdata=${}`)
-        }
-        if (isBrowser) {
-            router.push('result')
-        }
-    }
-
-    function calculateResults(answersArr: Array<AnswerType>) {
-        const arrSum = [
-            [0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0]
-        ]
-
-        arrSum.forEach((item, i) => {
-            let k = i
-            const list = [0, 0, 0]
-            item.forEach((value, j) => {
-                list.forEach(() => {
-                    arrSum[i][j] += +answersArr[k].value
-                    k += 5
-                })
-            })
-        })
-        return arrSum
-    }
-
-    /**
-     * Validate if user answered thruthly. If value of main octant more than minimum threshold
-     * @param testResult
-     * @param threshold
-     */
-    function isTestPassed(testResult: baseTestResultType, threshold): boolean {
-        const fullProfile: IUserResult = UserResult(testResult)
-        return fullProfile.mainOctant.value > threshold
     }
 }
 
