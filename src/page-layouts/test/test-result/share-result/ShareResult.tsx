@@ -21,11 +21,11 @@ function ShareResult({ t, encData, isLoggedIn }: IShareResult) {
                 <div className={style.code}>
                     <CodeBox
                         content={`https://${host}/test/result?encdata=${encData}`}
-                        btnLabel="Скопировать ссылку"
+                        btnLabel={t('test:result_page.copy_link')}
                     />
                 </div>
                 <div className={style.team}>
-                    <p>Здесь Вы можете сразу перейти к оценке эффективности вашей пары</p>
+                    <p>{t('test:result_page.go_to_pair_coop')}</p>
                     <div>
                         <img
                             src="/img/tc-logo.png"
@@ -38,14 +38,14 @@ function ShareResult({ t, encData, isLoggedIn }: IShareResult) {
                             className="btn btn-outlined"
                             target="_blank"
                             rel="noopener noreferrer">
-                            Перейти
+                            {t('test:result_page.go')}
                             <FiExternalLink />
                         </a>
                     </div>
                 </div>
             </div>
             <div className="col-sm-6">
-                <h4>Поделитесь с друзьями в социальных сетях</h4>
+                <h4>{t('test:result_page.share_to_social')}</h4>
                 <div className="result-share">
                     <SocialSharing url={`https://${host}/test/result?encdata=${encData}`} />
                 </div>
@@ -53,14 +53,11 @@ function ShareResult({ t, encData, isLoggedIn }: IShareResult) {
             {!isLoggedIn && (
                 <div className="col-sm-12">
                     <div className={style.bottom}>
+                        <div>{t('test:result_page.auth_user_possibility')}</div>
                         <div>
-                            *Зарегистрированные пользователи могут сохранить результат в своем
-                            личном кабинете и экспортировать его в PDF.
-                        </div>
-                        <div>
-                            Перейти к{' '}
+                            {t('test:result_page.go_to')}{' '}
                             <Link href="/registration">
-                                <a>Регистрации</a>
+                                <a>{t('test:result_page.auth')}</a>
                             </Link>
                         </div>
                     </div>

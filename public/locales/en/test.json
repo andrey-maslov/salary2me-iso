@@ -49,6 +49,13 @@
     "your_main_type": "Your main psychotype",
     "main_type_desc": "Main psychotype description",
     "sec_type": "Your secondary psychotype",
-    "sec_type_desc": "Secondary psychotype description"
+    "sec_type_desc": "Secondary psychotype description",
+    "go_to_pair_coop": "Здесь Вы можете сразу перейти к оценке эффективности вашей пары",
+    "go": "Go",
+    "share_to_social": "Поделитесь с друзьями в социальных сетях",
+    "auth_user_possibility": "*авторизованные пользователи могут сохранить результат в своем личном кабинете и экспортировать его в PDF",
+    "go_to": "Перейти к",
+    "auth": "Регистрации",
+    "copy_link": "Copy link"
   }
 }
