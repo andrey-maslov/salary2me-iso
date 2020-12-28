@@ -11,7 +11,7 @@ export const API_VER = 1
 export const SERVICE = 4
 
 export const LANGS = ['ru', 'en']
-export const LANG_DEFAULT = 'en'
+export const LANG_DEFAULT = 'ru'
 
 export const accentColor = '#36A9E0'
 export const parsingDuration = 6000
