@@ -45,7 +45,8 @@ export default async function handler(req, res) {
         const { subAxes } = terms
         const sex = data[0][2] === 2 ? 1 : data[0][2]
         const fullProfile = UserResult(data[1])
-        const { person } = getFamous(fullProfile.mainOctant, famousList, sex)
+        const { person, picture } = getFamous(fullProfile.mainOctant, famousList, sex)
+        const personPicture = [`https://salary.nobugs.today/img/famous/${picture}.png`, `https://salary.nobugs.today/img/famous/${picture}@2x.png`]
         const modedSubAxes = getModifiedSubAxes(subAxes)
 
         const tables = TablesWithBars(modedSubAxes, tablesWithBarsTitles, data[1])
@@ -70,6 +71,7 @@ export default async function handler(req, res) {
                   status: 1,
                   data: {
                       person,
+                      personPicture,
                       psychoTypeDesc,
                       portraitDesc,
                       portraitDescSoft,
