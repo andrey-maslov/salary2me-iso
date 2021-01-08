@@ -7,8 +7,10 @@ import { ToastProvider } from 'react-toast-notifications'
 import { useStore } from '../store'
 import { SVGSource } from '../components/common/media/svgflag/SVGFlag'
 import ScrollToTop from '../components/common/ScrollToTop'
+import { getCookieFromServer } from '../helper/cookie'
+import CookieConsent from '../components/layout/modals/cookie-consent/CookieConsent'
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps, isConsented }) {
     const store = useStore(pageProps.initialReduxState)
 
     return (
@@ -17,13 +19,15 @@ function MyApp({ Component, pageProps }) {
                 <ScrollToTop />
                 <Component {...pageProps} />
                 <SVGSource />
+                {!isConsented && <CookieConsent />}
             </ToastProvider>
         </Provider>
     )
 }
 
 MyApp.getInitialProps = async appContext => {
-    return { ...(await App.getInitialProps(appContext)) }
+    const isConsented = Boolean(getCookieFromServer('cookie-consent', appContext.ctx.req))
+    return { ...(await App.getInitialProps(appContext)), isConsented }
 }
 
 export default appWithTranslation(MyApp)

@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import ParsingModal from './parsing-modal/ParsingModal'
-import CookieConsent from './cookie-consent/CookieConsent'
 import { globalStoreType } from '../../../typings/types'
 import { DANGER_MODAL, PARSING_MODAL, THANX_MODAL } from '../../../actions/actionTypes'
 import { clearErrors } from '../../../actions/errorHandling'
@@ -55,8 +54,6 @@ const Modals: React.FC = () => {
                     }}
                 />
             )}
-
-            <CookieConsent />
         </>
     )
 }

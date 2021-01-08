@@ -1,9 +1,9 @@
 // resource for handling cookies taken from here:
 // https://github.com/carlos-peru/next-with-api/blob/master/lib/session.js
 
-import cookie from 'js-cookie';
+import cookie from 'js-cookie'
 
-export const setCookie = (key, value) => {
+export const setCookie = (key: string, value: string) => {
     if (process.browser) {
         cookie.set(key, value, {
             expires: 1,
@@ -12,7 +12,7 @@ export const setCookie = (key, value) => {
     }
 }
 
-export const removeCookie = (key) => {
+export const removeCookie = (key: string) => {
     if (process.browser) {
         cookie.remove(key, {
             expires: 1
@@ -20,25 +20,21 @@ export const removeCookie = (key) => {
     }
 }
 
-export const getCookie = (key, req) => {
-    return process.browser
-        ? getCookieFromBrowser(key)
-        : getCookieFromServer(key, req);
+export const getCookie = (key: string, req: any) => {
+    return process.browser ? getCookieFromBrowser(key) : getCookieFromServer(key, req)
 }
 
-export const getCookieFromBrowser = key => {
+export const getCookieFromBrowser = (key: string) => {
     return cookie.get(key)
 }
 
-const getCookieFromServer = (key, req) => {
+export const getCookieFromServer = (key: string, req: any) => {
     if (!req.headers.cookie) {
         return undefined
     }
-    const rawCookie = req.headers.cookie
-        .split(';')
-        .find(c => c.trim().startsWith(`${key}=`));
+    const rawCookie = req.headers.cookie.split(';').find(c => c.trim().startsWith(`${key}=`))
     if (!rawCookie) {
-        return undefined;
+        return undefined
     }
     return rawCookie.split('=')[1]
 }
