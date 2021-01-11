@@ -1,7 +1,6 @@
 import { FETCH_TERMS, FETCH_TEST_DESC } from '../actionTypes'
 import { termsApiUrl } from './utils'
 import { anyType } from '../../typings/types'
-import desc from '../../../descriptions.json'
 
 export const fetchTerms = (lang: string) => {
     return (dispatch: anyType) => {
@@ -15,9 +14,8 @@ export const fetchContent = (lang: string) => {
     return (dispatch: anyType) => {
         fetch(`${termsApiUrl}/2`)
             .then(response => response.json())
-            .then(data => {
-                // dispatch({ type: FETCH_TEST_DESC, descriptions: data[`content_${lang}`] })
-                dispatch({ type: FETCH_TEST_DESC, descriptions: desc })
-            })
+            .then(data =>
+                dispatch({ type: FETCH_TEST_DESC, descriptions: data[`content_${lang}`] })
+            )
     }
 }
