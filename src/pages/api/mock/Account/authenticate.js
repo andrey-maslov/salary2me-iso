@@ -1,4 +1,4 @@
-const userData = require('../../userData')
+const userData = require('../userData')
 
 export default function(req, res) {
     res.statusCode = 200

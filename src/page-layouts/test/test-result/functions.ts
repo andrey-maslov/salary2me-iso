@@ -127,7 +127,6 @@ export function getProfileDesc(descriptions, terms, getDescFn, keyValues, testDa
             desc: fullProfile.mainTendencyList.map(item => terms.tendencies[item]).join(', '),
             status: 1
         }, // ведущие тенденции
-        _(fullProfile.mainOctant.index, descriptions[9]), // leadingEmotion - ведущая эмоция
         _(fullProfile.mainOctant.index, descriptions[10]), // reactionType - тип реагирования
         _(getSum(keyValues.managementData), descriptions[11]), // efficiency эффективность
         {
@@ -139,7 +138,7 @@ export function getProfileDesc(descriptions, terms, getDescFn, keyValues, testDa
         _(getSum(keyValues.selfOrganizationData), descriptions[14]), // selfOrganize - самоорганизация
         _(getSum(keyValues.loyaltyData), descriptions[15]), // loyalty - лояльность
         _(getSum(keyValues.initiativeData), descriptions[16]), // Initiative - инициативность
-        _(getSum(keyValues.learnabilityData), descriptions[17]), // learnability - обучаемость
+        _(fullProfile.mainOctant.index, descriptions[17]), // learnability - Оптимальный способ обучения
         _(getSum(keyValues.conformismData), descriptions[18]), // conformism - конформизм
         _(getSum(keyValues.selfEsteemData), descriptions[19]), // selfEsteem - самооценка
         _(getSum(keyValues.conflictData), descriptions[20]), // conflict - конфликтность
