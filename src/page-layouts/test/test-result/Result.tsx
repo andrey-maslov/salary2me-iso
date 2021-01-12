@@ -85,9 +85,11 @@ const Result: React.FC<ResultProps> = ({ t }) => {
 
     if (!resultForProfile || resultForProfile.length === 0) {
         return (
-            <div className="flex-centered">
+            <div className="flex-centered" style={{ padding: '3rem' }}>
                 <Link href="/test">
-                    <a>{t('test:errors.take_the_test')}</a>
+                    <a>
+                        <h4>{t('test:errors.take_the_test')}</h4>
+                    </a>
                 </Link>
             </div>
         )
@@ -132,6 +134,7 @@ const Result: React.FC<ResultProps> = ({ t }) => {
     const secondaryOctantFraction: number | null = secondaryPsychoType
         ? getOctantFraction(sortedOctants[1], sortedOctants)
         : null
+    const accuracy = (mainOctantFraction / (mainOctantFraction + secondaryOctantFraction)) * 100
 
     const fpTableHeader = [t('test:result_page.main_features'), t('test:result_page.revealed')]
 
@@ -192,6 +195,9 @@ const Result: React.FC<ResultProps> = ({ t }) => {
 
             <Box className="result-box full-profile">
                 <h4>{t('test:result_page.psychological_portrait')}</h4>
+                <p style={{ marginBottom: '.5rem', fontSize: '1.2rem' }}>
+                    {t('test:result_page.accuracy_of_result')} - <strong>{accuracy}%</strong>
+                </p>
                 {secondaryPortraitDesc ? (
                     <div style={{ marginBottom: '1rem' }}>
                         <div style={{ fontSize: '1.2rem', marginBottom: '.5rem' }}>
@@ -212,7 +218,7 @@ const Result: React.FC<ResultProps> = ({ t }) => {
                     </div>
                 ) : (
                     <div className="pb-sm">
-                        <div>
+                        <div style={{ fontSize: '1.2rem' }}>
                             {`${t('test:result_page.your_type')} - `}
                             <strong>{mainPsychoType}</strong>
                         </div>
