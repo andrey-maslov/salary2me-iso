@@ -128,7 +128,7 @@ export const sendEmailConfirmation = (data: IEmailConfirmation) => {
             console.log(getState().user)
             axios
                 .post(
-                    `${accountApiUrl}/confirm-email-change`,
+                    `${accountApiUrl}/confirm-email`,
                     data,
                     getAuthConfig(token)
                 )

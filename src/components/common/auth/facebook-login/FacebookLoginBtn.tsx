@@ -15,7 +15,7 @@ export const FacebookLoginBtn: React.FC<LoginBtnProps> = ({ handleLogin, isEnabl
 
     return (
         <FacebookLogin
-            appId={process.env.REACT_APP_FACEBOOK_APP_ID}
+            appId={process.env.FACEBOOK_APP_ID}
             fields="name,email,picture"
             callback={responseFacebook}
             onFailure={handleFailure}
