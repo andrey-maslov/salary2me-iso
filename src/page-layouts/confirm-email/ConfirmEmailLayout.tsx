@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { withTranslation } from '@i18n'
 import { useRouter } from 'next/router'
@@ -11,12 +11,17 @@ import style from './confirm.module.scss'
 import { globalStoreType } from '../../typings/types'
 import { SITE_TITLE } from '../../constants/constants'
 
+type ConfMode = 'confirm-email' | 'confirm-email-change' | null
+
 const ConfirmEmailLayot = ({ t }) => {
     const router = useRouter()
     const dispatch = useDispatch()
-    const { isEmailConfirmed, isLoading, accountApiErrorMsg, apiErrorMsg } = useSelector(
+    const { isEmailConfirmed, isLoading, apiErrorMsg } = useSelector(
         (state: globalStoreType) => state.app
     )
+
+    const [confirmationMode, setConformationMode] = useState<ConfMode>(null)
+
     useEffect(() => {
         if (isBrowser) {
             const query = window.location.search
@@ -24,18 +29,20 @@ const ConfirmEmailLayot = ({ t }) => {
             const code = getQueryFromURL(query, 'code')
             const email = getQueryFromURL(query, 'email')
             if (userId && code && email) {
+                setConformationMode('confirm-email-change')
                 dispatch(sendEmailConfirmation({ userId, code, email }))
-            } else if (userId && code && !email) {
-                dispatch(sendEmailConfirmation({ userId, code }))
+                return
             }
+            setConformationMode('confirm-email')
+            dispatch(sendEmailConfirmation({ code, userId }))
         }
     }, [dispatch])
 
-    useEffect(() => {
-        if (isEmailConfirmed) {
-            router.push('/profile')
-        }
-    }, [isEmailConfirmed, router])
+    // useEffect(() => {
+    //     if (isEmailConfirmed) {
+    //         router.push('/profile')
+    //     }
+    // }, [isEmailConfirmed, router])
 
     return (
         <div className="page-confirm page bg-grey">
@@ -50,7 +57,11 @@ const ConfirmEmailLayot = ({ t }) => {
                             <div className={style.icon}>
                                 <FiCheckCircle />
                             </div>
-                            <div className={style.desc}>{t('profile:email_confirm_success')}</div>
+                            <div className={style.desc}>
+                                {confirmationMode === 'confirm-email'
+                                    ? t('profile:email_confirm_success')
+                                    : t('common:profile.change_email_confirm_success')}
+                            </div>
                         </div>
                     )}
                     {apiErrorMsg && (

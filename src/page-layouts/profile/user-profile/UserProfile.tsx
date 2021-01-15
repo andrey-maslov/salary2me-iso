@@ -16,6 +16,7 @@ const UserProfile = ({ t }) => {
         firstName,
         lastName,
         email,
+        emailConfirmed,
         position,
         isLoggedIn,
         isPublicProfile,
@@ -133,7 +134,6 @@ const UserProfile = ({ t }) => {
         <div className={style.wrapper}>
             <div className="row center-xs">
                 <div className="col-lg-8">
-
                     <div className={style.header}>
                         <h2 className={style.title}>{t('profile:title')}</h2>
                         <p>{t('profile:hello')}</p>
@@ -149,7 +149,12 @@ const UserProfile = ({ t }) => {
                     </div>
 
                     <div className={`${style.box} ${style.account}`}>
-                        <h5 className={style.box_title}>{t('profile:account')}</h5>
+                        <h5 className={style.box_title}>
+                            {t('profile:account')}
+                            {!emailConfirmed && (
+                                <span className="color-red"> Email needs confirmation</span>
+                            )}
+                        </h5>
                         <div className={`${style.box_content}`}>
                             <div className={`${style.list} flex`}>
                                 {textFields.map(item => (

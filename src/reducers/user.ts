@@ -1,4 +1,4 @@
-import { ADD_AUTH_DATA, CLEAR_USER_DATA, SET_AUTH_PROVIDER } from '../actions/actionTypes'
+import { ADD_AUTH_DATA, CLEAR_USER_DATA, EMAIL_CONFIRMATION, SET_AUTH_PROVIDER } from '../actions/actionTypes'
 import { loadState } from '../store/sessionStorage'
 import { isBrowser } from '../helper/helper'
 
@@ -26,7 +26,7 @@ const STATE = {
     isOpenForWork: false
 }
 
-export const user = (state = STATE, { type, userData, provider }) => {
+export const user = (state = STATE, { type, userData, provider, emailConfirmed }) => {
     switch (type) {
         case ADD_AUTH_DATA:
             return {

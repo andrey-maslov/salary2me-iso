@@ -3,10 +3,10 @@
 
 import cookie from 'js-cookie'
 
-export const setCookie = (key: string, value: string) => {
+export const setCookie = (key: string, value: string, expires?: number) => {
     if (process.browser) {
         cookie.set(key, value, {
-            expires: 1,
+            expires: expires || 1,
             path: '/'
         })
     }

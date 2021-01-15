@@ -33,6 +33,7 @@
   "password": "Пароль",
   "email_send_success": "Email будет изменен после подтверждения",
   "email_confirm_success": "Спасибо, ваш email подтвержден",
+  "change_email_confirm_success": "Спасибо, ваш email изменен",
   "confirm_email": "Подтверждение email",
   "delete": {
     "delete_account": "Удалить аккаунт",

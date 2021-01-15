@@ -18,7 +18,6 @@ export const GoogleLogin: React.FC<LoginBtnProps> = ({ handleLogin, isEnabled })
         console.error(`FAIL: ${error}`)
     }
 
-    // @ts-ignore
     const responseGoogle = (googleUser: gapi.auth2.GoogleUser): void => {
         const profile = googleUser.getBasicProfile()
         const name = profile.getName()

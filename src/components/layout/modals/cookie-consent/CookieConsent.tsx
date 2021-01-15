@@ -29,7 +29,7 @@ const CookieConsent: React.FC<{ t: any }> = ({ t }) => {
 
     function handleCookiesConsent() {
         setConsented(true)
-        setCookie('cookie-consent', 'OK')
+        setCookie('cookie-consent', 'OK', 30)
     }
 }
 

@@ -4,7 +4,7 @@ import Rodal from 'rodal'
 import { AiOutlineLoading } from 'react-icons/ai'
 import { withTranslation } from '@i18n'
 import style from './danger-modal.module.scss'
-import { globalStoreType, IModalProps } from '../../../../typings/types'
+import { anyType, globalStoreType, IModalProps } from '../../../../typings/types'
 import Password from '../../../common/inputs/password/Password'
 import Button from '../../../common/buttons/button/Button'
 import { deleteAccount } from '../../../../actions/actionCreator'
@@ -13,7 +13,13 @@ import { clearErrors } from '../../../../actions/errorHandling'
 const DangerModal: React.FC<IModalProps> = ({ isModalShown, closeModal, t }) => {
     const dispatch = useDispatch()
     const { isLoading, apiErrorMsg } = useSelector((state: globalStoreType) => state.app)
-    const pwdField = useRef(null)
+    const pwdField = useRef<anyType>(null)
+
+    const customStyles = {
+        height: 'auto',
+        bottom: 'auto',
+        top: '30%'
+    }
 
     return (
         <Rodal
@@ -22,16 +28,29 @@ const DangerModal: React.FC<IModalProps> = ({ isModalShown, closeModal, t }) => 
             onClose={closeModal}
             closeMaskOnCLick
             height={350}
-            width={400}>
+            width={400}
+            customStyles={customStyles}
+            closeOnEsc>
             <div className={`${style.content}`}>
-                <div className={style.top}><strong>{t('profile:delete.are_you_sure')}</strong></div>
-                <div className={style.desc}><p>{t('profile:delete.warning_msg_2')}</p></div>
+                <div className={style.top}>
+                    <strong>{t('profile:delete.are_you_sure')}</strong>
+                </div>
+                <div className={style.desc}>
+                    <p>{t('profile:delete.warning_msg_2')}</p>
+                </div>
                 <div className={style.form}>
                     <p>{t('profile:delete.enter_pwd')}</p>
                     <form onSubmit={deleteFormHandler}>
                         <div className="form-group">
-                            <Password placeholder={t('profile:password')} required name="password" innerRef={pwdField} />
-                            {apiErrorMsg && <div className="item-explain api-error">{apiErrorMsg}</div>}
+                            <Password
+                                placeholder={t('profile:password')}
+                                required
+                                name="password"
+                                innerRef={pwdField}
+                            />
+                            {apiErrorMsg && (
+                                <div className="item-explain api-error">{apiErrorMsg}</div>
+                            )}
                         </div>
                         <Button
                             title={t('profile:delete_account')}
@@ -47,7 +66,7 @@ const DangerModal: React.FC<IModalProps> = ({ isModalShown, closeModal, t }) => 
 
     function deleteFormHandler(e) {
         e.preventDefault()
-        dispatch(deleteAccount(pwdField.current?.value))
+        dispatch(deleteAccount(pwdField.current.value))
     }
 }
 

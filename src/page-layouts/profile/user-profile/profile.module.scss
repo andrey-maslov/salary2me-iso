@@ -29,6 +29,15 @@
     color: $grey;
     text-transform: uppercase;
     margin: 0 0 .5rem;
+
+    span {
+      display: inline-block;
+      margin-left: 1rem;
+      font-family: $default-font;
+      font-size: 1rem;
+      text-transform: none;
+      font-weight: normal;
+    }
   }
 
   &_content {

@@ -1,5 +1,13 @@
 import axios from 'axios'
-import { AuthData, AuthType, IChangeEmail, IEmailConfirmation, INewPwdData, IUserData } from '../../typings/types'
+import {
+    anyType,
+    AuthData,
+    AuthType,
+    IChangeEmail,
+    IEmailConfirmation,
+    INewPwdData,
+    IUserData
+} from '../../typings/types'
 import { authModes, SERVICE } from '../../constants/constants'
 import { getCookieFromBrowser, setCookie } from '../../helper/cookie'
 import {
@@ -13,7 +21,7 @@ import {
 import { accountApiErrorHandling, apiErrorHandling, clearErrors } from '../errorHandling'
 import { logOut, setUserData, fetchTestData, setLoading } from '../actionCreator'
 import { accountApiUrl, getAuthConfig } from './utils'
-import { fetchUsersBillingData } from "./subscriptionsAPI";
+import { fetchUsersBillingData } from './subscriptionsAPI'
 
 export function checkAuth(jwt?: string): unknown {
     const token = jwt || getCookieFromBrowser('token')
@@ -30,11 +38,15 @@ export function authUser(userData: AuthData, authType: AuthType, setError: unkno
             .post(url, userData)
             .then(res => {
                 const token = res.data.jwtToken
-                setCookie('token', token)
+                setCookie('token', token, 10)
                 dispatch({ type: SET_AUTH_PROVIDER, provider: 'local' })
-                dispatch(fetchUserData(token))
-                dispatch(fetchTestData(token))
+                return token
             })
+            .then(token => {
+                dispatch(fetchUserData(token))
+                return token
+            })
+            .then(token => dispatch(fetchUserData(token)))
             .catch(error => accountApiErrorHandling(error, setError))
     }
 }
@@ -46,9 +58,15 @@ export function fetchUserData(token: string): unknown {
                 .get(accountApiUrl, getAuthConfig(token))
                 .then(res => {
                     dispatch(setUserData(res.data))
+                    dispatch({ type: EMAIL_CONFIRMATION, isEmailConfirmed: res.data.emailConfirmed })
                     dispatch(fetchTestData(token))
                 })
-                .catch(error => console.error(error))
+                .catch(error => {
+                    console.error(error)
+                    if (error.response && error.response.status === 404) {
+                        dispatch(logOut())
+                    }
+                })
         } else {
             dispatch({ type: CLEAR_USER_DATA })
         }
@@ -65,6 +83,7 @@ export const updateUserData = (userData: IUserData) => {
                 .put(`${accountApiUrl}/update`, data, getAuthConfig(token))
                 .then(res => {
                     dispatch(setUserData(res.data))
+                    dispatch({ type: EMAIL_CONFIRMATION, isEmailConfirmed: res.data.emailConfirmed })
                     dispatch({ type: SET_TOAST, setToast: 1 })
                 })
                 .catch(error => {
@@ -122,24 +141,19 @@ export const sendNewPassword = (data: INewPwdData, setError: unknown): unknown =
 
 export const sendEmailConfirmation = (data: IEmailConfirmation) => {
     const token = getCookieFromBrowser('token')
-    return (dispatch, getState) => {
+    const url = `${accountApiUrl}/confirm-email${data.email ? '-change' : ''}`
+
+    return (dispatch: anyType) => {
         if (token) {
             dispatch(setLoading(true))
-            console.log(getState().user)
             axios
-                .post(
-                    `${accountApiUrl}/confirm-email`,
-                    data,
-                    getAuthConfig(token)
-                )
+                .post(url, data, getAuthConfig(token))
                 .then(res => {
                     dispatch(setUserData(res.data))
-                    dispatch({ type: SET_TOAST, setToast: 1 })
                     dispatch({ type: EMAIL_CONFIRMATION, isEmailConfirmed: true })
                 })
                 .catch(error => {
                     apiErrorHandling(error, dispatch)
-                    dispatch({ type: SET_TOAST, setToast: 2 })
                 })
                 .finally(() => dispatch(setLoading(false)))
         } else {
