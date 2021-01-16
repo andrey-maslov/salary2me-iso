@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { withTranslation } from '@i18n'
 import { useDispatch, useSelector } from 'react-redux'
 import style from './social.module.scss'
@@ -6,11 +7,12 @@ import { FacebookLoginBtn } from '../facebook-login/FacebookLoginBtn'
 import { LinkedinLogin } from '../linkedin-login/LinkedinLogin'
 import { socialAuth } from '../../../../actions/api/socialAuthAPI'
 import { globalStoreType } from '../../../../typings/types'
+import { SET_ERROR } from '../../../../actions/actionTypes'
 
 export type Provider = 'google' | 'facebook' | 'linkedin'
 export type SocialAuthData<T> = T
 export type GoogleAuthData = {
-    id_token: string
+    idToken: string
 }
 export type FacebookAuthData = {
     accessToken: string
@@ -43,7 +45,7 @@ const SocialAuth = ({ t }) => {
         </div>
     )
 
-    function socialAuthHandle<T>(data: T, provider): void {
+    function socialAuthHandle<T>(data: T, provider: Provider): void {
         dispatch(socialAuth(data, provider))
     }
 }
