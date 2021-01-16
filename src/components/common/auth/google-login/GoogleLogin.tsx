@@ -2,13 +2,14 @@ import React from 'react'
 import { GoogleLoginButton } from 'ts-react-google-login-component'
 import { FaGoogle } from 'react-icons/fa'
 import Button from '../../buttons/button/Button'
+import { GoogleAuthData, Provider, SocialAuthData } from '../social-auth/SocialAuth'
 
-export interface LoginBtnProps {
-    handleLogin: (name: string, email: string) => void
+export interface LoginBtnProps<T> {
+    handleLogin: (data: T, provider: Provider) => void
     isEnabled: boolean
 }
 
-export const GoogleLogin: React.FC<LoginBtnProps> = ({ handleLogin, isEnabled }) => {
+export const GoogleLogin: React.FC<LoginBtnProps<GoogleAuthData>> = ({ handleLogin, isEnabled }) => {
     const preLoginTracking = (): void => {
         console.log('Attempt to login with google')
     }
@@ -20,7 +21,7 @@ export const GoogleLogin: React.FC<LoginBtnProps> = ({ handleLogin, isEnabled })
 
     const responseGoogle = (googleUser: gapi.auth2.GoogleUser): void => {
         const { id_token } = googleUser.getAuthResponse()
-        console.log('id_token from google login handler', id_token)
+        handleLogin({ id_token }, 'google')
     }
 
     const clientConfig = { client_id: process.env.GOOGLE_CLIENT_ID }

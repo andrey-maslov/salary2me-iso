@@ -3,12 +3,12 @@ import { FaFacebookF } from 'react-icons/fa'
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 import Button from '../../buttons/button/Button'
 import { LoginBtnProps } from '../google-login/GoogleLogin'
+import { FacebookAuthData } from '../social-auth/SocialAuth'
 
-export const FacebookLoginBtn: React.FC<LoginBtnProps> = ({ handleLogin, isEnabled }) => {
+export const FacebookLoginBtn: React.FC<LoginBtnProps<FacebookAuthData>> = ({ handleLogin, isEnabled }) => {
     const responseFacebook = (response: any) => {
-        console.log('response from facebook', response)
-        console.log('assessToken from facebook', response.assessToken)
-        // handleLogin(response.accessToken)
+        const { accessToken } = response
+        handleLogin({ accessToken }, 'facebook')
     }
 
     const handleFailure = (response: any) => {
