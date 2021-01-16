@@ -55,6 +55,7 @@
     "react-facebook-login": "^4.1.1",
     "react-hook-form": "^6.8.6",
     "react-icons": "^3.10.0",
+    "react-linkedin-login-oauth2": "^1.0.8",
     "react-media-hook": "^0.4.7",
     "react-outside-click-handler": "^1.3.0",
     "react-qr-svg": "^2.2.2",
