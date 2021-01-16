@@ -6,7 +6,9 @@ import { LoginBtnProps } from '../google-login/GoogleLogin'
 
 export const FacebookLoginBtn: React.FC<LoginBtnProps> = ({ handleLogin, isEnabled }) => {
     const responseFacebook = (response: any) => {
-        handleLogin(response.name, response.email)
+        console.log('response from facebook', response)
+        console.log('assessToken from facebook', response.assessToken)
+        // handleLogin(response.accessToken)
     }
 
     const handleFailure = (response: any) => {

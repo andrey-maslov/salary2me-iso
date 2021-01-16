@@ -19,11 +19,8 @@ export const GoogleLogin: React.FC<LoginBtnProps> = ({ handleLogin, isEnabled })
     }
 
     const responseGoogle = (googleUser: gapi.auth2.GoogleUser): void => {
-        const profile = googleUser.getBasicProfile()
-        const name = profile.getName()
-        const email = profile.getEmail()
-
-        handleLogin(name, email)
+        const { id_token } = googleUser.getAuthResponse()
+        console.log('id_token from google login handler', id_token)
     }
 
     const clientConfig = { client_id: process.env.GOOGLE_CLIENT_ID }
