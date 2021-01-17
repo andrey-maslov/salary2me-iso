@@ -166,10 +166,19 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
     )
 
     function signIn(data: ISigninForm, setError) {
-        dispatch(authUser(data, 'signin', setError))
+        const userData = {
+            username: data.username.trim(),
+            password: data.password
+        }
+        dispatch(authUser(userData, 'signin', setError))
     }
 
     function signUp(data: ISignUpForm, setError): void {
+        const trimmedData = {
+            email: data.email.trim(),
+            password: data.password,
+            passwordConfirm: data.passwordConfirm
+        }
         const userData = {
             firstName: '',
             lastName: '',
@@ -178,13 +187,13 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
                 name: 'city'
             },
             service: SERVICE,
-            ...data
+            ...trimmedData
         }
         dispatch(authUser(userData, 'registration', setError))
     }
 
     function forgotHandle(data: IForgotForm, setError): void {
-        dispatch(sendForgotEmail(data.email, setError))
+        dispatch(sendForgotEmail(data.email.trim(), setError))
     }
 
     function resetHandle(data: IResetForm, setError): void {
@@ -193,7 +202,7 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
         const newData = {
             code,
             newPassword: data.password,
-            email: data.email
+            email: data.email.trim()
         }
         dispatch(sendNewPassword(newData, setError))
     }
