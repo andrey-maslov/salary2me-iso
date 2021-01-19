@@ -40,6 +40,7 @@
     "focus-visible": "^5.1.0",
     "gray-matter": "^4.0.2",
     "i18next": "^19.7.0",
+    "i18next-browser-languagedetector": "^6.0.1",
     "js-cookie": "^2.2.1",
     "next": "^9.5.4",
     "next-i18next": "^6.0.2",
