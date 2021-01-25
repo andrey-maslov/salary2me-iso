@@ -65,6 +65,7 @@ const Result: React.FC<ResultProps> = ({ t }) => {
             setReady(true)
         }
         if (descriptions && isPassed && resultForProfile) {
+            console.log('data for pdf', fullProfileData)
             dispatch({
                 type: PSYCHO_RESULT,
                 dataForPDF: {
@@ -77,6 +78,21 @@ const Result: React.FC<ResultProps> = ({ t }) => {
             })
         }
     }, [terms, descriptions])
+
+    useEffect(() => {
+        if (isReady) {
+            dispatch({
+                type: PSYCHO_RESULT,
+                dataForPDF: {
+                    fullProfileData,
+                    portraitDesc,
+                    famous,
+                    secondaryPortraitDesc,
+                    psychoTypeDesc
+                }
+            })
+        }
+    }, [isReady, descriptions])
 
     // TODO check this!
     if (!isReady) {

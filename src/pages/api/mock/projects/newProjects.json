@@ -1,0 +1,452 @@
+[
+  {
+    "title": "Мой первый проект",
+    "pool": [
+      {
+        "name": "Олег Смагин",
+        "position": "Психолог",
+        "encData": "W1sxLDMsMF0sW1stMSwxLC00LDIsLTRdLFsyLDIsMiw1LDFdLFsyLDIsNCwzLDFdLFs1LDMsMSwtMywxXSxbLTEsLTMsLTIsMSwwXV1d"
+      },
+      {
+        "name": "Андрей Маслов",
+        "position": "Веб-разработчик",
+        "encData": "W1sxLDEsMV0sW1stMiwtMywtMSwyLC0xXSxbLTIsLTIsLTIsLTQsLTFdLFstMiwtMSwtMiwxLC02XSxbLTEsMSwxLC0yLC0zXSxbMSwtMywyLDEsLTJdXV0="
+      },
+      {
+        "name": "Сергей Лавриненко",
+        "position": "директор",
+        "encData": "W1sxLDEsMF0sW1s0LC01LC02LC0yLDBdLFstMiwtMywtNCwwLDNdLFs2LDQsMiwtMSwyXSxbNCw0LDIsMywtNl0sWy0yLC0xLDIsMywwXV1d"
+      },
+      {
+        "name": "Илья",
+        "position": "QA",
+        "encData": "W1swLDEsMF0sW1stMywtNiwtNCwtNSwtNV0sWzAsLTMsLTMsLTYsM10sWy0xLDMsMCwwLC0zXSxbMiwyLDUsLTEsLTRdLFstMywtNSwtMSw1LC0zXV1d"
+      },
+      {
+        "name": "Павел Самусевич",
+        "position": "Администратор",
+        "encData": "W1swLDEsMF0sW1stMiwyLDQsLTMsLTNdLFstNiwzLDMsLTEsLTNdLFsxLC0yLDAsMiwwXSxbLTMsLTIsMCwtNSw1XSxbLTEsLTQsLTIsMCwtMl1dXQ=="
+      },
+      {
+        "name": "Таня Лавриненко",
+        "position": "помощник",
+        "encData": "W1sxLDEsMV0sW1szLC0yLDIsNSwxXSxbLTQsLTIsLTIsMSwtMV0sWy00LDUsLTUsMSwtMV0sWzAsMSwtMSwxLC00XSxbMSwtNCwtMiwxLC0xXV1d"
+      },
+      {
+        "name": "Олег Смагин2",
+        "position": "sadsad",
+        "encData": "W1swLDAsMV0sW1stMSwxLDAsLTMsLTNdLFsyLC0yLC0zLC0xLDNdLFstNCwwLDEsLTEsM10sWzEsMCwzLDEsLTRdLFstMSwxLC0xLDMsLTNdXV0="
+      },
+      {
+        "name": "Анна Яковлева",
+        "position": "HR",
+        "encData": "W1syLDIsMV0sW1s0LC0xLDAsLTUsMF0sWzEsMCwwLDAsLTFdLFsyLDIsLTIsLTEsLTFdLFstMSwtMywtNiwtMiwxXSxbMCwtMiwxLC00LDFdXV0="
+      }
+    ]
+  },
+  {
+    "title": "Бюро Городской Недвижимости",
+    "pool": [
+      {
+        "name": "Ольга",
+        "position": "спец.по кадрам",
+        "encData": "W1sxLDIsMV0sW1stMSw0LC0zLDMsMF0sWzIsLTIsLTUsLTQsMV0sWy01LC0xLC0zLDMsMF0sWy0zLC02LDIsMywtNl0sWy0xLDYsMCwtMywwXV1d"
+      },
+      {
+        "name": "Юлия",
+        "position": "HR-менеджер",
+        "encData": "W1sxLDIsMV0sW1stMywtNiwtMiw0LC0zXSxbMSwtMywtMywtMiwwXSxbLTQsLTEsLTQsLTMsLTZdLFstMiwtNSwyLDQsLTZdLFswLDAsMiwxLC0yXV1d"
+      },
+      {
+        "name": "Светлана",
+        "position": "агент по недвижимости",
+        "encData": "W1syLDMsMV0sW1sxLDAsLTYsMSwtNF0sWzQsLTMsLTYsMSwzXSxbLTUsLTMsLTEsMiwtNF0sWzQsLTQsMiw2LC00XSxbLTEsMSwtMSwyLDFdXV0="
+      },
+      {
+        "name": "Наталия",
+        "position": "агент по недвижимости",
+        "encData": "W1sxLDMsMV0sW1stMywwLDAsMywtMl0sWzAsLTYsMCwtNiwtM10sWy02LDAsLTYsMywtM10sWy0zLC0zLDAsLTMsLTNdLFswLC0xLC0yLC02LC0zXV1d"
+      },
+      {
+        "name": "Елена Данилова",
+        "position": "агент по недвижимости",
+        "encData": "W1sxLDEsMV0sW1stMyw2LDAsNCwtM10sWzIsLTMsLTMsMCwyXSxbLTEsLTIsMSwzLDBdLFsxLC0yLDIsNiwtM10sWzAsMSwwLDIsMF1dXQ=="
+      },
+      {
+        "name": "Елизавета",
+        "position": "агент по недвижимости",
+        "encData": "W1swLDAsMV0sW1stMiwtMywtNSwtMywtM10sWzAsLTUsMiwtNCwwXSxbLTUsMCwzLC0yLDFdLFswLC01LDEsMCwwXSxbLTIsLTIsMSwtNCwtNV1dXQ=="
+      },
+      {
+        "name": "Элтун",
+        "position": "агент по недвижимости",
+        "encData": "W1swLDAsMF0sW1swLC0yLDIsLTEsMV0sWzIsLTEsMiwtMiwtMl0sWy0yLDAsMCwzLDBdLFswLDAsMSwtMywtMV0sWzEsLTIsMSwtMiwtMV1dXQ=="
+      },
+      {
+        "name": "Владислав",
+        "position": "агент по недвижимости",
+        "encData": "W1swLDAsMF0sW1sxLDIsMiwyLC0yXSxbMCwtMiwtNiwtMiwyXSxbLTYsLTIsMiwyLC0yXSxbMSwtNiw2LC0yLC0yXSxbLTIsMiwtMiw2LDZdXV0="
+      },
+      {
+        "name": "Айна",
+        "position": "Управляющий",
+        "encData": "W1syLDIsMV0sW1stNCw0LC0zLC0yLC0zXSxbMywtMSwtMSwtMiwzXSxbLTMsMSwxLDEsMV0sWzEsLTEsNCw0LC0zXSxbMSwzLC0xLDIsLTFdXV0="
+      },
+      {
+        "name": "Елена Игнатович",
+        "position": "оператор связи/агент",
+        "encData": "W1syLDIsMV0sW1stNSwtNCwtMiwtNSwtNF0sWzAsLTYsMiwtMywxXSxbMiwzLDMsMSwtMV0sWy00LC01LDYsMiwtNl0sWy00LDAsLTUsLTIsLTRdXV0="
+      },
+      {
+        "name": "Наталья",
+        "position": "специалист колл-центра",
+        "encData": "W1sxLDIsMV0sW1stNCwxLC01LDEsLTNdLFsxLC02LC0yLC0zLC0xXSxbLTMsLTIsMywxLDBdLFstMiwtNiwyLDIsLTRdLFstNCwtMywtMSwtMSwtNl1dXQ=="
+      },
+      {
+        "name": "Александр",
+        "position": "специалист по рекламе",
+        "encData": "W1sxLDIsMF0sW1stMiwtMiwtNiwtMiwwXSxbMCwtNSwtMiwtNiwtMV0sWy02LC0xLDIsMCwtNV0sWy0xLC02LDEsLTEsLTVdLFs0LDEsMiwtMSwtMV1dXQ=="
+      },
+      {
+        "name": "Оксана",
+        "position": "специалист по рекламе",
+        "encData": "W1swLDMsMV0sW1syLDIsNCwtMyw0XSxbLTQsLTEsLTIsLTQsLTZdLFstNSwtMSwtNCwwLDFdLFstMiwtNSwtMywxLC0yXSxbMiwzLC0yLC01LDBdXV0="
+      },
+      {
+        "name": "Диана",
+        "position": "специалист по рекламе",
+        "encData": "W1swLDIsMV0sW1s1LDIsNiw2LDZdLFstNiwtNiwtMiwtMiwtNl0sWzEsLTMsMSwtNSwtMV0sWy01LC02LDEsMiwtNl0sWzMsLTYsMiwtNiwyXV1d"
+      },
+      {
+        "name": "Вероника",
+        "position": "агент по недвжижимости",
+        "encData": "W1syLDIsMV0sW1syLC0xLDIsLTIsMl0sWzIsMywyLDUsMl0sWzQsNCwxLC0xLDNdLFszLDQsLTEsMSw2XSxbMiwwLDAsLTEsNF1dXQ=="
+      },
+      {
+        "name": "Инна",
+        "position": "11",
+        "encData": "W1sxLDQsMV0sW1stMiw1LDAsLTIsLTJdLFszLDAsLTYsLTYsLTNdLFstNiwtNCwtMSwzLC0zXSxbLTMsMCwyLDUsLTRdLFstNCwzLC0xLDAsMl1dXQ=="
+      }
+    ]
+  },
+  {
+    "title": "Mikalai Kudlasevich",
+    "pool": [
+      {
+        "name": "Mikalai",
+        "position": "Division head",
+        "encData": "W1sxLDEsMF0sW1syLC0xLC00LDMsMV0sWzIsLTEsLTEsMiwxXSxbMSwtMSw2LDIsLTJdLFsyLDAsMywxLDFdLFstMSwtNCwyLDMsLTFdXV0="
+      },
+      {
+        "name": "Yana",
+        "position": "Marketing",
+        "encData": "W1swLDAsMV0sW1stNCwyLDAsMywtM10sWy00LC00LC0yLC0zLC0yXSxbLTMsLTQsLTEsNiwtMV0sWy0xLDIsLTEsLTEsLTFdLFstMSwxLDIsLTMsLTJdXV0="
+      },
+      {
+        "name": "Iryna",
+        "position": "Marketing",
+        "encData": "W1swLDEsMV0sW1stNCwtNCwtMywzLC0yXSxbLTMsLTEsMSwtNCwtMV0sWzAsLTIsLTQsLTMsLTNdLFstMiwzLC0xLC01LDFdLFsyLDQsMiwtNiwwXV1d"
+      },
+      {
+        "name": "Tatsiana",
+        "position": "Designer",
+        "encData": "W1swLDAsMV0sW1swLDIsMiwtMSwzXSxbLTMsMSw0LC01LC0zXSxbLTQsLTIsMiwxLDFdLFstMSwtMSwtMSwwLDFdLFstMSwtMiwwLC0yLDRdXV0="
+      }
+    ]
+  },
+  {
+    "title": "Дима Гнатюк",
+    "pool": [
+      {
+        "name": "Дима Гнатюк",
+        "position": "PM",
+        "encData": "W1sxLDIsMF0sW1sxLC0xLC01LC0yLC0yXSxbLTIsLTIsLTIsLTIsMF0sWy0xLDAsMSwwLC0xXSxbMSwtMiwzLDEsLTRdLFstMiwxLDMsMSwwXV1d"
+      },
+      {
+        "name": "Ваня Навалоцкий",
+        "position": "dev",
+        "encData": "W1swLDAsMF0sW1stMywxLC0yLC0xLDNdLFsxLC0zLC01LC0yLC0xXSxbLTQsMSwxLDAsLTFdLFsxLDAsMSwtMSwtNV0sWy0yLC0yLDAsMSwtMV1dXQ=="
+      },
+      {
+        "name": "Женя Чумак",
+        "position": "dev",
+        "encData": "W1sxLDEsMF0sW1syLDMsMSwwLDBdLFstMiwxLDAsMSwtM10sWzAsMSwtMywwLC0xXSxbMSwyLC0zLC0xLC0zXSxbMSwtMywxLDAsLTNdXV0="
+      },
+      {
+        "name": "Саша Янович",
+        "position": "dev",
+        "encData": "W1sxLDEsMF0sW1stMSwzLC0xLDAsLTJdLFstMSwtMiwtMSwtNCwtM10sWy0zLC0yLDAsLTIsLTJdLFstMywxLDEsMCw0XSxbMywtMiwxLC0zLDJdXV0="
+      },
+      {
+        "name": "Женя Гвоздик",
+        "position": "dev",
+        "encData": "W1sxLDEsMF0sW1swLDMsMSwtMSwtMl0sWzAsMCwtMiwtMywzXSxbLTEsLTQsNiwtNiwtMV0sWzIsLTIsNiwwLDBdLFstMiwtNiwtMSwzLDVdXV0="
+      },
+      {
+        "name": "Паша Ярошевич",
+        "position": "dev",
+        "encData": "W1sxLDEsMF0sW1stMywxLC0yLC0xLC0yXSxbMCwtNCwtNCwtNCwxXSxbLTMsLTQsMSwwLC0zXSxbMCwtNCwyLC0yLC01XSxbMCwtNCwxLDIsLTRdXV0="
+      }
+    ]
+  },
+  {
+    "title": "МК Консалтинг",
+    "pool": [
+      {
+        "name": "Михаил",
+        "position": "директор",
+        "encData": "W1swLDIsMF0sW1stMywtMiwtMiwtMSwtMV0sWzIsLTEsLTQsMCwzXSxbNiwtMywzLC0xLDBdLFs0LDIsMywxLC0xXSxbMCwtMSwtMSwxLC0zXV1d"
+      },
+      {
+        "name": "Екатерина",
+        "position": "сотрудник",
+        "encData": "W1sxLDEsMV0sW1syLC0xLC00LDEsLTNdLFs0LC0zLC00LDEsNF0sWzAsLTQsMywxLC0xXSxbNCwwLDYsNSwtNl0sWy0yLDEsMCwzLDJdXV0="
+      },
+      {
+        "name": "Анастасия",
+        "position": "сотрудник",
+        "encData": "W1swLDEsMV0sW1stMSwwLC0xLC0xLC0zXSxbLTEsLTMsLTIsMCwtM10sWzAsLTEsMiwxLDBdLFs0LDEsMiwtMSwxXSxbMiwtMSwtMSwtMiwtMl1dXQ=="
+      },
+      {
+        "name": "Ирина",
+        "position": "сотрудник",
+        "encData": "W1syLDIsMV0sW1swLC0yLC01LDMsLTNdLFsxLC0yLDEsMCwyXSxbLTUsLTEsLTMsMSwtMl0sWy0yLC0xLDEsLTEsLTJdLFstMiwyLC0yLC01LC00XV1d"
+      },
+      {
+        "name": "Ольга",
+        "position": "сотрудник",
+        "encData": "W1sxLDEsMV0sW1sxLC0yLDQsNSwtM10sWy0xLC00LC01LC0yLDJdLFstMSwtMSwtMiwxLC0xXSxbMCwtMiwwLDIsLTFdLFswLC0yLC00LC0zLC0xXV1d"
+      },
+      {
+        "name": "Дмитрий",
+        "position": "сотрудник",
+        "encData": "W1sxLDIsMF0sW1stNCwtNCwtNCwtMywtMV0sWzEsMCwtMiwwLC0yXSxbLTIsLTMsLTIsMywtMl0sWzQsMiwxLC01LDBdLFswLDMsLTIsLTIsMl1dXQ=="
+      },
+      {
+        "name": "Алексей",
+        "position": "сотрудник",
+        "encData": "W1sxLDIsMF0sW1swLDEsLTEsLTQsLTFdLFsxLDIsLTEsMywyXSxbMCwtMywyLC0yLDBdLFszLDEsMSwtMywxXSxbMSwtMSwtMSwtMiwxXV1d"
+      }
+    ]
+  },
+  {
+    "title": "Новый проект",
+    "pool": [
+      {
+        "name": "Алексей",
+        "position": "Специалист по продаже",
+        "encData": "W1sxLDEsMF0sW1stMywtMiwtNCwwLC0xXSxbMiwwLDAsMiw0XSxbMCwtMiwxLDIsLTVdLFstMywyLDQsLTMsLTFdLFswLDIsNCw1LDFdXV0="
+      },
+      {
+        "name": "Владимир",
+        "position": "Специалист по продаже",
+        "encData": "W1sxLDEsMF0sW1stNSwxLC0zLC0zLC0zXSxbLTEsLTIsLTEsMCwyXSxbMCwwLC0yLDQsMV0sWzIsLTEsLTEsMywtNF0sWy00LC0zLDIsMCwtMl1dXQ=="
+      },
+      {
+        "name": "Ольга",
+        "position": "Специалист по продаже",
+        "encData": "W1swLDEsMV0sW1stMSwzLC01LC0zLC0zXSxbLTIsMSwtMywxLDFdLFsxLDAsLTIsLTEsLTFdLFsxLC00LC0xLDEsMF0sWzIsMywyLDEsMl1dXQ=="
+      },
+      {
+        "name": "Наталья",
+        "position": "Специалист по поддержке продаж",
+        "encData": "W1sxLDEsMV0sW1stMSwwLC0yLC0xLDFdLFswLDAsLTMsLTIsMV0sWy00LC0zLC0xLC0xLC0xXSxbMCwtNCwzLDMsLTRdLFstMSwyLDEsLTMsMV1dXQ=="
+      },
+      {
+        "name": "Александр",
+        "position": "Менеджер по работе с ключевыми клиентами",
+        "encData": "W1swLDEsMF0sW1stNiwyLC02LC0zLC02XSxbMCwtNSwtNiwtMiw0XSxbLTYsLTMsLTUsNCwwXSxbNiwtMiw0LDIsLTRdLFstNSwtMiwtMiwtNCwtMl1dXQ=="
+      },
+      {
+        "name": "Арсений",
+        "position": "Руковоитель направления Microsoft (Product manager)",
+        "encData": "W1sxLDEsMF0sW1swLDMsMiwyLC0xXSxbMCwtMywtMSwyLDNdLFsyLDEsLTEsLTIsM10sWzUsLTEsNCw2LDBdLFsxLC00LDIsMiwtMl1dXQ=="
+      }
+    ]
+  },
+  {
+    "title": "Мерц1",
+    "pool": [
+      {
+        "name": "1",
+        "position": "1",
+        "encData": "W1syLDIsMV0sW1szLDEsLTYsLTMsLTNdLFswLC0xLC0zLC0xLC0xXSxbNCwwLDAsMSwtM10sWzAsLTMsMywtMywtNV0sWzIsMSwwLDMsLTJdXV0="
+      },
+      {
+        "name": "2",
+        "position": "2",
+        "encData": "W1sxLDIsMV0sW1swLDYsNCwxLC0xXSxbMywtMywyLC0xLC0yXSxbLTIsLTQsLTUsLTIsLTNdLFswLC0xLDQsLTEsMl0sWzMsMCwwLDMsNF1dXQ=="
+      },
+      {
+        "name": "3",
+        "position": "3",
+        "encData": "W1syLDIsMF0sW1sxLDEsMiwzLDNdLFswLDEsLTEsMSwxXSxbLTUsLTMsMCwtMSwxXSxbMywxLDIsLTMsM10sWzMsMiwzLDMsNF1dXQ=="
+      },
+      {
+        "name": "4",
+        "position": "4",
+        "encData": "W1sxLDMsMV0sW1stMywtMSwtNSwxLC02XSxbMSwtNSwtNSwwLC0xXSxbLTMsLTYsMCwtMSwtM10sWzMsLTQsNCwxLC01XSxbLTIsMCwtMiwwLC0xXV1d"
+      },
+      {
+        "name": "5",
+        "position": "5",
+        "encData": "W1syLDMsMV0sW1swLC00LC0yLDMsLTNdLFsxLC0yLDEsNSwtMl0sWzEsLTIsMCwyLDBdLFsxLDEsMSwwLC00XSxbLTEsMSwtMiwwLC0yXV1d"
+      },
+      {
+        "name": "6",
+        "position": "6",
+        "encData": "W1sxLDEsMV0sW1stMiwtMywtNCwyLDBdLFstMiwxLC0zLC0yLC0yXSxbLTEsLTMsMiwyLC0yXSxbMiwtMSwyLC0yLC0zXSxbLTIsMSwtNCwtNiwtMl1dXQ=="
+      },
+      {
+        "name": "7",
+        "position": "7",
+        "encData": "W1swLDEsMV0sW1stMywxLC01LC01LC02XSxbMiwtMiwtMywtMiwtMl0sWzMsLTEsLTEsNCw0XSxbLTEsNSwtMywtMiwxXSxbLTIsLTIsLTUsLTQsLTVdXV0="
+      },
+      {
+        "name": "8",
+        "position": "8",
+        "encData": "W1swLDEsMV0sW1szLDQsNCwtMywtM10sWy0xLC0zLC01LC01LC01XSxbNiwwLC0xLC0yLDFdLFstMiwwLC0yLC0yLC0yXSxbMiwtMiwxLC01LDFdXV0="
+      },
+      {
+        "name": "9",
+        "position": "9",
+        "encData": "W1swLDIsMV0sW1stNiwtNSwtNiw0LC01XSxbMiwtNCwtNiwtMiw2XSxbLTEsLTMsMiw2LDJdLFswLC0xLDYsNiwtNl0sWy0zLC01LC0yLDQsLTRdXV0="
+      },
+      {
+        "name": "10",
+        "position": "10",
+        "encData": "W1sxLDEsMV0sW1swLC0yLC00LDAsLTNdLFstMywxLC0yLC00LC0xXSxbMCwtMSwtMSwtMywwXSxbLTUsLTIsMCwtMywtM10sWzMsMCwtMSwtNCwtMV1dXQ=="
+      },
+      {
+        "name": "11",
+        "position": "11",
+        "encData": "W1sxLDMsMF0sW1syLDEsMSwxLC0xXSxbMSwtMywtMywwLC0zXSxbLTMsLTEsMywtMSwtMV0sWzEsLTMsMywxLC0zXSxbMSwzLDMsMiwtMV1dXQ=="
+      }
+    ]
+  },
+  {
+    "title": "Мерц",
+    "pool": [
+      {
+        "name": "Сотрудник 1",
+        "position": "Должность 1 ",
+        "encData": "W1swLDAsMF0sW1stNCwwLC02LC0xLC01XSxbMCwwLDEsMiwwXSxbMSw1LDEsMiwxXSxbMywtMSwtMSwwLC0xXSxbLTMsLTEsLTEsLTMsLTRdXV0="
+      },
+      {
+        "name": "Сотрудник 2",
+        "position": "Должность 2 ",
+        "encData": "W1swLDAsMF0sW1szLC0yLDEsMywtMV0sWzIsMywyLC01LDFdLFstNCwtNCwzLC0zLC01XSxbLTIsLTQsLTEsLTMsLTFdLFszLDAsMiwzLC0xXV1d"
+      },
+      {
+        "name": "Сотрудник 3",
+        "position": "Должность 3 ",
+        "encData": "W1swLDAsMF0sW1stNCwxLDQsMSwyXSxbLTEsLTEsMiwxLDJdLFswLC0yLDMsLTEsLTJdLFstMSwtMSw0LDAsM10sWzAsLTEsMiw2LC0xXV1d"
+      },
+      {
+        "name": "Сотрудник 4",
+        "position": "Должность 4",
+        "encData": "W1syLDMsMV0sW1sxLDAsMiwzLDFdLFstMywtMSwxLC0yLC0zXSxbLTMsLTEsLTMsLTQsLTRdLFsxLC00LC0yLC00LC0xXSxbMCwwLDAsLTQsMl1dXQ=="
+      },
+      {
+        "name": "Сотрудник 5",
+        "position": "Должность 5 ",
+        "encData": "W1swLDAsMV0sW1swLDIsLTIsLTQsLTJdLFstMywyLDAsLTUsLTJdLFsyLC0yLC0yLC0xLC0yXSxbLTMsLTMsLTQsLTIsLTNdLFstMywtMSwtNCwtNCwtNF1dXQ=="
+      },
+      {
+        "name": "Сотрудник 6",
+        "position": "Должность 6",
+        "encData": "W1sxLDMsMV0sW1swLDEsMiwwLDVdLFstMyw0LC0yLDYsMF0sWzIsMiwxLDUsMV0sWzMsMiwtNSwzLDZdLFswLDIsLTIsNCwtMl1dXQ=="
+      }
+    ]
+  },
+  {
+    "title": "Киберспорт команда",
+    "pool": [
+      {
+        "name": "Никита ",
+        "position": "Главный менеджер Нежить",
+        "encData": "W1swLDEsMF0sW1sxLDEsNCwyLDJdLFstMSwtMywyLDEsLTFdLFstNiwtNCwtNCw2LC0yXSxbLTQsLTIsMSwtNCwxXSxbMSwtMiw2LC02LDJdXV0="
+      },
+      {
+        "name": "Рамзес",
+        "position": "Игрок Альянс",
+        "encData": "W1s0LDAsMF0sW1syLDEsMCwxLDBdLFstNCwwLC0yLDAsLTFdLFstMywtMywtMiwtMywtMl0sWy0zLDAsLTIsLTMsMV0sWzAsLTEsMSwwLC0xXV1d"
+      },
+      {
+        "name": "Миша",
+        "position": "Менеджер Эльф",
+        "encData": "W1swLDAsMF0sW1swLDMsMSwtNCwtMl0sWy0zLDMsMSwwLC0xXSxbMSwyLDMsMSwyXSxbMiwtMSwxLC0yLDFdLFsyLDEsNCwxLDFdXV0="
+      },
+      {
+        "name": "Игорь",
+        "position": "Игрок Орк",
+        "encData": "W1swLDEsMF0sW1s1LDAsNSwtMSwxXSxbLTYsLTQsMiwtNSwtMl0sWy0zLC0xLDUsNSwtMV0sWzAsMiwtMSwtMiwtNl0sWy0yLC02LDQsNCwtMl1dXQ=="
+      },
+      {
+        "name": "Борис",
+        "position": "Игрок 2*2 Нежить",
+        "encData": "W1s0LDEsMF0sW1s2LDIsLTQsMiwwXSxbLTIsLTQsLTQsLTIsMF0sWzAsLTIsMiwtNCwtNl0sWy0zLDAsMCwtNCwwXSxbLTEsMCwyLDQsMF1dXQ=="
+      },
+      {
+        "name": "Кирилл",
+        "position": "Игрок Орк",
+        "encData": "W1sxLDEsMF0sW1stMywxLC0zLC0xLC0xXSxbLTEsLTIsLTIsLTMsMV0sWy0yLC0xLC0xLDEsLTFdLFswLC0yLDEsLTIsLTJdLFswLC0yLC0yLDEsLTFdXV0="
+      },
+      {
+        "name": "Джейд",
+        "position": "Игрок Эльф",
+        "encData": "W1swLDEsMF0sW1stMywtMiwtMywtMiwwXSxbMSwwLDIsMSwwXSxbLTEsLTIsNSwxLDJdLFswLDEsNSwwLDFdLFstMiwzLDAsNCwwXV1d"
+      },
+      {
+        "name": "Максим",
+        "position": "игрок",
+        "encData": "W1swLDEsMF0sW1syLDQsLTEsNCwtM10sWzAsLTIsMCwtMSwtMl0sWy0zLC0zLC0xLC01LC02XSxbMCwtNSwwLDAsLTRdLFsxLDEsMiw2LC0xXV1d"
+      }
+    ]
+  },
+  {
+    "title": "Flatlogic",
+    "pool": [
+      {
+        "name": "Alexey",
+        "position": "CTO",
+        "encData": "W1syLDIsMF0sW1stNCwwLC0yLC0xLC0zXSxbMCwtMiwtMiwyLDFdLFszLDMsLTMsLTEsLTFdLFswLDEsLTIsMSwtM10sWy0xLC0xLC0zLC0zLC0yXV1d"
+      },
+      {
+        "name": "Filipp",
+        "position": "CEO",
+        "encData": "W1swLDEsMF0sW1stNSw0LC00LC0xLC0xXSxbMywxLC00LDMsM10sWzAsLTIsMiwxLDBdLFsyLC00LDUsNiwtNV0sWy0xLDIsNSwyLC0yXV1d"
+      },
+      {
+        "name": "Anastasia",
+        "position": "CFO",
+        "encData": "W1sxLDEsMV0sW1stMywyLDMsMSwwXSxbLTEsMCwtMSwtMSwtMl0sWy00LC0yLC0zLC00LC01XSxbLTMsMywxLC0xLDFdLFswLC0yLDYsLTYsLTFdXV0="
+      },
+      {
+        "name": "Eugene",
+        "position": "Ops",
+        "encData": "W1sxLDEsMF0sW1syLDMsMywxLDZdLFstNCwtMywyLC0yLC0yXSxbLTIsLTMsLTIsLTMsMF0sWy0yLDAsLTQsLTYsNV0sWzIsLTIsMywyLDVdXV0="
+      }
+    ]
+  },
+  {
+    "title": "Дмитрий",
+    "pool": [
+      {
+        "name": "Маша",
+        "position": "сотрудник",
+        "encData": "W1swLDAsMV0sW1stMSwtNCwxLC0zLC0xXSxbLTIsMSwtMywwLDNdLFstMywxLC0xLDIsMF0sWzEsLTEsMiwyLC00XSxbLTEsLTIsMCwtMSwtNF1dXQ=="
+      },
+      {
+        "name": "Лера",
+        "position": "сотрудник",
+        "encData": "W1sxLDEsMV0sW1s1LDEsLTMsMiwtMV0sWy0xLC0xLDEsMCwtNF0sWy0xLC0zLC00LDEsLTRdLFstNiwtNCwtMSwtNCwyXSxbMywtMiwyLC01LC00XV1d"
+      },
+      {
+        "name": "Дима",
+        "position": "сотрудник",
+        "encData": "W1swLDEsMF0sW1swLC0yLC01LDMsLTNdLFstMSwtNCwtMywxLDBdLFstMywtMiwtMSwxLC0xXSxbMCwtMSwwLC0xLC0zXSxbLTEsLTYsLTIsLTYsLTNdXV0="
+      }
+    ]
+  }
+]

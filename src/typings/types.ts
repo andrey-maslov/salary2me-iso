@@ -8,6 +8,15 @@ import { authModes } from '../constants/constants'
 
 export type anyType = any
 
+/**
+ * all tariffs ids are real tariffs if from data base
+ * 0 - free basic tariff
+ * 3 - paid Month tariff with all access
+ * 4 - paid Year tariff with all access
+ * 5 - free Promo tariff with all access
+ */
+export type TariffId = 0 | 1 | 2 | 3 | 4 | 5 | 6
+
 export interface IModalProps {
     isModalShown: boolean
     closeModal: () => void
@@ -107,12 +116,30 @@ export interface IChangeEmail {
     service: number
 }
 
-export interface ITariff {
-    id: number
+export interface IMembershipPlan {
+    id: TariffId
     title: string
-    description: string
-    service: number
+    description: string | null
     price: number
+    service: number
     monthCount: number
-    autoSearchCount: number
+    autoSearchCount?: number | null
+    features?: string[]
+}
+
+export interface ISubscription {
+    id: string
+    membershipPlan: IMembershipPlan
+    startedDate: string | null
+    endedDate: string | null
+    status: number
+    autoPayment: boolean
+}
+
+export interface ITariffText {
+    title: string
+    period?: string
+    desc: string
+    features: string[]
+    link_title: string
 }
