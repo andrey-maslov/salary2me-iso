@@ -16,7 +16,7 @@ export const FacebookLoginBtn: React.FC<LoginBtnProps<FacebookAuthData>> = ({ ha
 
     const handleFailure = (response: any) => {
         console.log('facebook auth failure')
-        dispatch({ type: SET_ERROR, apiErrorMsg: 'facebook auth failure' })
+        // dispatch({ type: SET_ERROR, apiErrorMsg: 'facebook auth failure' })
     }
 
     return (

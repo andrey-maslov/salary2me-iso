@@ -22,7 +22,7 @@ export const GoogleLogin: React.FC<LoginBtnProps<GoogleAuthData>> = ({
     const errorHandler = (error: string): void => {
         // handle error if login got failed...
         console.error(`FAIL: ${error}`)
-        dispatch({ type: SET_ERROR, apiErrorMsg: `Google auth failure: ${error}` })
+        // dispatch({ type: SET_ERROR, apiErrorMsg: `Google auth failure: ${error}` })
     }
 
     const responseGoogle = (googleUser: gapi.auth2.GoogleUser): void => {
