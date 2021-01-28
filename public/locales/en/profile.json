@@ -35,6 +35,8 @@
   "email_confirm_success": "Thank you. Your email confirmed",
   "change_email_confirm_success": "Спасибо, ваш email изменен",
   "confirm_email": "Email confirmation",
+  "email_needs_confirm": "You should to confirm your email",
+  "need_to_set_email": "You must to set email",
   "delete": {
     "are_you_sure": "Are you sure?",
     "delete_account": "Delete account",

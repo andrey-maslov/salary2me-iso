@@ -9,7 +9,15 @@ import Service from './service/Service'
 import CodeBox from '../../../components/common/code-box/CodeBox'
 import Button from '../../../components/common/buttons/button/Button'
 import { globalStoreType, IMembershipPlan, ISubscription } from '../../../typings/types'
-import { COOP_URL, TGB_URL } from '../../../constants/constants'
+import {
+    COOP_PAIR_URL,
+    COOP_PROFILE_URL,
+    COOP_TEAM_URL,
+    COOP_URL,
+    TGB_DASHBOARD_URL,
+    TGB_SUBSCRIPTIONS_URL,
+    TGB_URL
+} from '../../../constants/constants'
 import { fetchUsersBillingData } from '../../../actions/api/subscriptionsAPI'
 import { encodeDataForURL, encodeData } from '../../../helper/helper'
 
@@ -42,15 +50,13 @@ const UserServices = ({ t }) => {
         })
     }, [])
 
-    console.log(usersTariffs)
-
     const isTestPassed = testData && personalInfo
     const encData: string | null = isTestPassed ? encodeData([personalInfo, testData]) : null
     const encDataForUrl: string | null = isTestPassed
         ? encodeDataForURL([personalInfo, testData])
         : null
 
-    const pairLink = `${COOP_URL}/pair${isTestPassed ? `?encdata=${encDataForUrl}` : ''}`
+    const pairLink = `${COOP_PAIR_URL}${isTestPassed ? `?encdata=${encDataForUrl}` : ''}`
     const QRValue = `https://${host}/test/result?encdata=${encDataForUrl}`
 
     return (
@@ -107,7 +113,7 @@ const UserServices = ({ t }) => {
             <Service
                 service={{ title: 'teamconstructor', link: COOP_URL }}
                 ancillaryLinks={[
-                    { title: t('profile:billing.manage_subscr'), url: `${COOP_URL}/billing` }
+                    { title: t('profile:billing.manage_subscr'), url: COOP_PROFILE_URL }
                 ]}
                 tariff={usersTariffs.tc || t('profile:billing.free')}>
                 <div className={`${style.item} flex between-xs`}>
@@ -118,7 +124,7 @@ const UserServices = ({ t }) => {
                 </div>
                 {usersTariffs.tc && (
                     <div className={`${style.item} flex between-xs`}>
-                        <a href={`${COOP_URL}/team`} target="_blank" rel="noopener noreferrer">
+                        <a href={COOP_TEAM_URL} target="_blank" rel="noopener noreferrer">
                             {t('profile:go_to_team')}
                         </a>
                         <FiExternalLink />
@@ -132,15 +138,12 @@ const UserServices = ({ t }) => {
                     ancillaryLinks={[
                         {
                             title: t('profile:billing.manage_subscr'),
-                            url: `${TGB_URL}/Voter/MembershipPlans`
+                            url: TGB_SUBSCRIPTIONS_URL
                         }
                     ]}
                     tariff={usersTariffs.tgb || t('profile:billing.free')}>
                     <div className={`${style.item} flex between-xs`}>
-                        <a
-                            href={`${TGB_URL}/Identity/Account/Manage`}
-                            target="_blank"
-                            rel="noopener noreferrer">
+                        <a href={TGB_DASHBOARD_URL} target="_blank" rel="noopener noreferrer">
                             {t('profile:go_to_dashboard')}
                         </a>
                         <FiExternalLink />

@@ -1,18 +1,37 @@
 export const SITE_TITLE = 'Salary2me'
 export const IS_BETA = true
-
-export const HOST = 'https://salary.nobugs.today'
-export const BASE_API = 'https://apibase.pashtaljon.by'
-export const CONTENT_API = 'https://api.salary2.me'
-export const TEST_URL = 'https://salary.nobugs.today/test'
-export const COOP_URL = 'https://teamconstructor.nobugs.today'
-export const TGB_URL = 'https://base.pashtaljon.by'
 export const API_VER = 1
 export const SERVICE = 4
+
+/* LINKS */
+// Self
+// TODO change to production domain
+export const HOST = 'https://salary.nobugs.today'
+
+// API
+// TODO change to production domain
+export const BASE_API = 'https://apibase.pashtaljon.by'
+export const CONTENT_API = 'https://api.salary2.me'
+
+// Salary2me
+export const TEST_URL = `${HOST}/test`
+
+// Teamconstructor
+// TODO change to production domain
+export const COOP_URL = 'https://teamconstructor.nobugs.today'
+export const COOP_PROFILE_URL = `${COOP_URL}/profile`
+export const COOP_TEAM_URL = `${COOP_URL}/team`
+export const COOP_PAIR_URL = `${COOP_URL}/pair`
+
+// TODO change to production domain
+export const TGB_URL = 'https://base.pashtaljon.by'
+export const TGB_DASHBOARD_URL = `${TGB_URL}/Identity/Account/Manage`
+export const TGB_SUBSCRIPTIONS_URL = `${TGB_URL}/Voter/MembershipPlans`
 
 export const LANGS = ['ru', 'en']
 export const LANG_DEFAULT = 'ru'
 
+/* COLORS */
 export const accentColor = '#36A9E0'
 export const parsingDuration = 6000
 

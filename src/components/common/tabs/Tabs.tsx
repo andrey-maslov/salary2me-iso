@@ -1,31 +1,34 @@
 import React, { useCallback } from 'react'
 import style from './tabs.module.scss'
+import { TabsDataItem } from '../../../page-layouts/estimation/est-sidebar/EstSidebar'
 
 interface ITabsProps {
     handler: (p: string) => void
     activeValue: string
-    values: Array<string>
+    data: TabsDataItem[]
 }
 
-const Tabs: React.FC<ITabsProps> = ({ handler, activeValue, values = [] }) => {
+const Tabs: React.FC<ITabsProps> = ({ handler, activeValue, data = [] }) => {
     const selectValue = useCallback(
         e => {
-            handler(e.target.textContent.toLowerCase())
+            handler(e.target.dataset.value.toLowerCase())
         },
         [handler]
     )
 
     return (
         <div className={style.wrapper}>
-            {values.map(val => {
-                const activeClass =
-                    activeValue.toLowerCase() === val.toLowerCase() ? 'active' : 'passive'
+            {data.map(item => {
+                const activeClass = activeValue.toLowerCase() === item.value.toLowerCase()
+                        ? 'active'
+                        : 'passive'
                 return (
                     <button
                         className={`${style.tab} ${style[activeClass]}`}
-                        key={val}
+                        key={item.value}
+                        data-value={item.value}
                         onClick={selectValue}>
-                        {val}
+                        {item.title}
                     </button>
                 )
             })}

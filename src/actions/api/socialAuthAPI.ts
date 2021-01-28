@@ -7,7 +7,6 @@ import { apiErrorHandling } from '../errorHandling'
 import { fetchUserData } from './accountAPI'
 import { anyType } from '../../typings/types'
 
-// TODO change
 export const socialAuth = <T>(data: T, provider: Provider) => {
     return (dispatch: anyType) => {
         axios
@@ -16,6 +15,10 @@ export const socialAuth = <T>(data: T, provider: Provider) => {
                 const token = res.data.jwtToken
                 setCookie('token', token, 10)
                 dispatch({ type: SET_AUTH_PROVIDER, provider })
+                // TODO facebook can return response without email, for example
+                if (!res.data.email) {
+                    console.log('no email!')
+                }
                 return token
             })
             .then(token => {

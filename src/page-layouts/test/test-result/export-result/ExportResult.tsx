@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import axios from 'axios'
 import { saveAs } from 'file-saver'
 import { withTranslation } from '@i18n'
@@ -66,7 +66,7 @@ const ExportResult: React.FC<ExportResultProps> = ({ data, t }) => {
                 }
             )
             .then(res => {
-                const fileName = email.split('@')[0].replace('.', '-')
+                const fileName = email ? email.split('@')[0].replace('.', '-') : 'psychological-'
                 const fileBlob = new Blob([res.data], { type: 'application/pdf' })
                 saveAs(fileBlob, `${fileName}-profile.pdf`)
             })

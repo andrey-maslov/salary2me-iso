@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { getCookieFromBrowser } from '../../helper/cookie'
 import { getAuthConfig, billingApiUrl } from './utils'
-import { anyType, ISubscription } from '../../typings/types'
+import { ISubscription } from '../../typings/types'
 
 export async function fetchUsersBillingData(): Promise<ISubscription[] | number> {
     const token = getCookieFromBrowser('token')

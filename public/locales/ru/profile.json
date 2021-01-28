@@ -35,6 +35,8 @@
   "email_confirm_success": "Спасибо, ваш email подтвержден",
   "change_email_confirm_success": "Спасибо, ваш email изменен",
   "confirm_email": "Подтверждение email",
+  "email_needs_confirm": "Требуется подтвердить email",
+  "need_to_set_email": "Вам нужно заполнить email",
   "delete": {
     "delete_account": "Удалить аккаунт",
     "warning_msg_1": "Если Вы удалите аккаунт, то вы не сможете его восстановить",

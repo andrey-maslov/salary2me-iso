@@ -3,7 +3,6 @@ import {
     anyType,
     AuthData,
     AuthType,
-    IChangeEmail,
     IEmailConfirmation,
     INewPwdData,
     IUserData
@@ -13,7 +12,8 @@ import { getCookieFromBrowser, setCookie } from '../../helper/cookie'
 import {
     CHANGE_PWD,
     CLEAR_USER_DATA,
-    DANGER_MODAL, EMAIL_CONFIRMATION,
+    DANGER_MODAL,
+    EMAIL_CONFIRMATION,
     SEND_EMAIL,
     SET_AUTH_PROVIDER,
     SET_TOAST
@@ -21,7 +21,6 @@ import {
 import { accountApiErrorHandling, apiErrorHandling, clearErrors } from '../errorHandling'
 import { logOut, setUserData, fetchTestData, setLoading } from '../actionCreator'
 import { accountApiUrl, getAuthConfig } from './utils'
-import { fetchUsersBillingData } from './subscriptionsAPI'
 
 export function checkAuth(jwt?: string): unknown {
     const token = jwt || getCookieFromBrowser('token')
@@ -58,11 +57,13 @@ export function fetchUserData(token: string): unknown {
                 .get(accountApiUrl, getAuthConfig(token))
                 .then(res => {
                     dispatch(setUserData(res.data))
-                    dispatch({ type: EMAIL_CONFIRMATION, isEmailConfirmed: res.data.emailConfirmed })
+                    dispatch({
+                        type: EMAIL_CONFIRMATION,
+                        isEmailConfirmed: res.data.emailConfirmed
+                    })
                     dispatch(fetchTestData(token))
                 })
                 .catch(error => {
-                    console.error(error)
                     if (error.response && error.response.status === 404) {
                         dispatch(logOut())
                     }
@@ -83,7 +84,10 @@ export const updateUserData = (userData: IUserData) => {
                 .put(`${accountApiUrl}/update`, data, getAuthConfig(token))
                 .then(res => {
                     dispatch(setUserData(res.data))
-                    dispatch({ type: EMAIL_CONFIRMATION, isEmailConfirmed: res.data.emailConfirmed })
+                    dispatch({
+                        type: EMAIL_CONFIRMATION,
+                        isEmailConfirmed: res.data.emailConfirmed
+                    })
                     dispatch({ type: SET_TOAST, setToast: 1 })
                 })
                 .catch(error => {

@@ -63,10 +63,9 @@ export const sendCvForResults = (formData: IResumeUpload): anyType => {
 export const sendRealSalary = (salary: number) => {
     const token = getCookieFromBrowser('token')
 
-    return (dispatch, getState) => {
+    return (dispatch) => {
         dispatch({ type: LOADING, loading: true })
         const data = {
-            email: getState().user.email,
             salary,
             estimate: false
         }

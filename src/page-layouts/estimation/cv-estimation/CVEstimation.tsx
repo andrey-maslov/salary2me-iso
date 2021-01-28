@@ -31,7 +31,6 @@ const CVEstimation = ({ t }) => {
 
     useEffect(() => {
         if (predictions.length !== 0) {
-            console.log('predictions.length !== 0')
             setState({ ...state, predictions, position })
         } else {
             dispatch(getPredictions())

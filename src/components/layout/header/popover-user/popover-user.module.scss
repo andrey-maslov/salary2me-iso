@@ -77,9 +77,7 @@
     }
 
     span {
-      &:first-letter {
-        text-transform: uppercase;
-      }
+      text-transform: capitalize;
     }
 
     svg {

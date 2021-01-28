@@ -53,7 +53,7 @@ const DangerModal: React.FC<IModalProps> = ({ isModalShown, closeModal, t }) => 
                             )}
                         </div>
                         <Button
-                            title={t('profile:delete_account')}
+                            title={t('profile:delete.delete_account')}
                             startIcon={isLoading && <AiOutlineLoading />}
                             handle={() => clearErrors(dispatch)}
                             btnClass="btn btn-danger btn-loader"

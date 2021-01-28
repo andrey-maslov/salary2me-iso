@@ -7,7 +7,6 @@ import { FacebookLoginBtn } from '../facebook-login/FacebookLoginBtn'
 import { LinkedinLogin } from '../linkedin-login/LinkedinLogin'
 import { socialAuth } from '../../../../actions/api/socialAuthAPI'
 import { globalStoreType } from '../../../../typings/types'
-import { SET_ERROR } from '../../../../actions/actionTypes'
 
 export type Provider = 'google' | 'facebook' | 'linkedin'
 export type SocialAuthData<T> = T

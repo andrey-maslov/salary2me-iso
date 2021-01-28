@@ -22,10 +22,6 @@
   margin-bottom: 30px;
 }
 
-.form {
-  margin-bottom: 20px;
-}
-
 .content {
   max-width: 500px;
 }
@@ -59,14 +55,17 @@
   .content {
     max-width: unset;
     display: flex;
+    align-items: center;
     justify-content: space-around;
   }
+
   .desc {
     font-size: 18px;
     margin-right: 20px;
     max-width: 42%;
     margin-bottom: 0;
   }
+
   .title {
     font-family: $font;
     font-size: 18px;
@@ -129,10 +128,6 @@
   border-radius: 3px;
 }
 
-.group {
-  margin-bottom: 1rem;
-}
-
 .error {
   color: $danger;
   font-size: .8rem;
@@ -170,7 +165,6 @@
     .form {
 
       input {
-        width: auto;
         max-width: 70%;
       }
 
@@ -189,7 +183,7 @@
     display: flex;
     position: relative;
     height: 57px;
-    max-width: unset;
     width: 100%;
+    max-width: unset;
   }
 }

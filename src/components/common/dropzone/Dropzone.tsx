@@ -29,7 +29,7 @@ const Dropzone = ({ t }) => {
     const { isMobile } = useDeviceDetect()
     const acceptedTypes = isMobile ? '' : ACCEPTED_FILE_TYPES
 
-    const { email, name, isLoggedIn } = useSelector((state: globalStoreType) => state.user)
+    const { isLoggedIn } = useSelector((state: globalStoreType) => state.user)
     const { isParsingTextShowed, isParsingModal } = useSelector(
         (state: globalStoreType) => state.modals
     )
@@ -137,12 +137,7 @@ const Dropzone = ({ t }) => {
     function pushFile(files) {
         if (files.length > 0) {
             const formData = new FormData()
-            formData.append('email', email)
-            formData.append('ContentType', files[0].type)
-            formData.append('Name', name)
-            formData.append('FileName', files[0].path)
             formData.append('file', files[0])
-
             dispatch(sendCvForResults(formData))
         }
     }

@@ -7,26 +7,18 @@ import style from './profile.module.scss'
 import { globalStoreType, IOneFieldForm, IUserData } from '../../../typings/types'
 import InputTransformer from '../../../components/common/inputs/input-transformer/InputTransformer'
 import { changeEmail, updateUserData } from '../../../actions/actionCreator'
-import Loader from '../../../components/common/loaders/loader/Loader'
 import { DANGER_MODAL, SET_TOAST } from '../../../actions/actionTypes'
 import UserServices from './UserServices'
 
 const UserProfile = ({ t }) => {
-    const {
-        firstName,
-        lastName,
-        email,
-        emailConfirmed,
-        position,
-        isLoggedIn,
-        isPublicProfile,
-        isOpenForWork
-    } = useSelector((state: globalStoreType) => state.user)
+    const { firstName, lastName, email, emailConfirmed, position, isLoggedIn } = useSelector(
+        (state: globalStoreType) => state.user
+    )
 
     const { setToast, apiErrorMsg, isEmailSent } = useSelector(
         (state: globalStoreType) => state.app
     )
-    const [isReady, setReady] = useState(false)
+
     const { addToast } = useToasts()
     const dispatch = useDispatch()
     const router = useRouter()
@@ -35,16 +27,10 @@ const UserProfile = ({ t }) => {
         firstName,
         lastName,
         email,
-        position,
-        isPublicProfile,
-        isOpenForWork
+        position
     })
 
     useEffect(() => {
-        if (email && email.length > 0) {
-            setReady(true)
-        }
-
         if (setToast === 1) {
             addToast('Изменения приняты', {
                 appearance: 'success'
@@ -60,9 +46,7 @@ const UserProfile = ({ t }) => {
                 firstName,
                 lastName,
                 email,
-                position,
-                isPublicProfile,
-                isOpenForWork
+                position
             })
 
             dispatch({ type: SET_TOAST, setToast: 0 })
@@ -74,19 +58,13 @@ const UserProfile = ({ t }) => {
         lastName,
         email,
         position,
-        isPublicProfile,
         isLoggedIn,
-        isOpenForWork,
         apiErrorMsg,
         setToast,
         router,
         addToast,
         dispatch
     ])
-
-    if (!isReady) {
-        return <Loader />
-    }
 
     const textFields = [
         {
@@ -115,21 +93,6 @@ const UserProfile = ({ t }) => {
         defaultValue: 'email'
     }
 
-    /* TODO will be used with the next iteration
-    const checkBoxes = [
-        {
-            label: t('signin:extra.want_to_open'),
-            key: 'isPublicProfile',
-            value: localUser.isPublicProfile
-        },
-        {
-            label: t('signin:extra.looking_for_job'),
-            key: 'isOpenForWork',
-            value: localUser.isOpenForWork
-        }
-    ]
-    */
-
     return (
         <div className={style.wrapper}>
             <div className="row center-xs">
@@ -151,8 +114,14 @@ const UserProfile = ({ t }) => {
                     <div className={`${style.box} ${style.account}`}>
                         <h5 className={style.box_title}>
                             {t('profile:account')}
-                            {!emailConfirmed && (
-                                <span className="color-red"> Email needs confirmation</span>
+
+                            {email && !emailConfirmed && (
+                                <span className="color-red">
+                                    {t('profile:email_needs_confirm')}
+                                </span>
+                            )}
+                            {!email && (
+                                <span className="color-red">{t('profile:need_to_set_email')}</span>
                             )}
                         </h5>
                         <div className={`${style.box_content}`}>
@@ -204,27 +173,7 @@ const UserProfile = ({ t }) => {
                             </div>
                         </div>
                     </div>
-                    {/* TODO will be used with the next iteration */}
-                    {/* <div className={`${style.box} ${style.privacy}`}> */}
-                    {/*     <h5 className={style.box_title}>{t('profile:privacy')}</h5> */}
-                    {/*     <div className={`${style.box_content}`}> */}
-                    {/*         <div className={style.list}> */}
-                    {/*             {checkBoxes.map(item => ( */}
-                    {/*                 <div className={style.item} key={item.key}> */}
-                    {/*                     <Checkbox */}
-                    {/*                         label={item.label} */}
-                    {/*                         handle={checkBoxHandle} */}
-                    {/*                         isChecked={item.value} */}
-                    {/*                         {...{ name: item.key }} */}
-                    {/*                     /> */}
-                    {/*                 </div> */}
-                    {/*             ))} */}
-                    {/*         </div> */}
-                    {/*     </div> */}
-                    {/* </div> */}
-
                     <UserServices />
-
                     <div className={`${style.box} ${style.danger}`}>
                         <h5 className={style.box_title}>Danger zone</h5>
                         <div className={`${style.box_content}`}>
