@@ -10,7 +10,7 @@
     "standard": "Standardized formats are preferred",
     "etc": "etc.",
     "format_error": "This file has not accepted type. Only following file types are accepted:",
-    "unlogged_error": "Log in first",
+    "unlogged_error": "Log in first to continue",
     "btn_cta": "send"
   },
   "about": {
