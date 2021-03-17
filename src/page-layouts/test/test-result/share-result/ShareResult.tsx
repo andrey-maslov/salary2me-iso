@@ -3,7 +3,7 @@ import { FiExternalLink } from 'react-icons/fi'
 import CodeBox from '../../../../components/common/code-box/CodeBox'
 import style from './share.module.scss'
 import SocialSharing from '../../../../components/common/buttons/social-sharing/SocialSharing'
-import { COOP_URL } from '../../../../constants/constants'
+import { COOP_URL, HOST } from '../../../../constants/constants'
 
 interface IShareResult {
     encData: string
@@ -47,7 +47,7 @@ function ShareResult({ t, encData, isLoggedIn }: IShareResult) {
             <div className="col-sm-6">
                 <h4>{t('test:result_page.share_to_social')}</h4>
                 <div className="result-share">
-                    <SocialSharing url={`https://${host}/test/result?encdata=${encData}`} />
+                    <SocialSharing url={`https://salary2.me/test/result?encdata=${encData}`} />
                 </div>
             </div>
             {!isLoggedIn && (

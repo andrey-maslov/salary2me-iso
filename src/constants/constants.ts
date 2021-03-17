@@ -5,26 +5,22 @@ export const SERVICE = 4
 
 /* LINKS */
 // Self
-// TODO change to production domain
-export const HOST = 'https://salary.nobugs.today'
+export const HOST = 'https://salary2.me'
 
 // API
-// TODO change to production domain
-export const BASE_API = 'https://apibase.pashtaljon.by'
+export const BASE_API = 'https://api.thegreatbase.online'
 export const CONTENT_API = 'https://api.salary2.me'
 
 // Salary2me
 export const TEST_URL = `${HOST}/test`
 
 // Teamconstructor
-// TODO change to production domain
-export const COOP_URL = 'https://teamconstructor.nobugs.today'
+export const COOP_URL = 'https://teamconstructor.com'
 export const COOP_PROFILE_URL = `${COOP_URL}/profile`
 export const COOP_TEAM_URL = `${COOP_URL}/team`
 export const COOP_PAIR_URL = `${COOP_URL}/pair`
 
-// TODO change to production domain
-export const TGB_URL = 'https://base.pashtaljon.by'
+export const TGB_URL = 'https://thegreatbase.online'
 export const TGB_DASHBOARD_URL = `${TGB_URL}/Identity/Account/Manage`
 export const TGB_SUBSCRIPTIONS_URL = `${TGB_URL}/Voter/MembershipPlans`
 
