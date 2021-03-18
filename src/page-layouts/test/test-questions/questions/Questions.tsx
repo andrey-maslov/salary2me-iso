@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { FiArrowRight, FiArrowLeft, FiMoreVertical } from 'react-icons/fi'
+import { FiArrowRight, FiArrowLeft } from 'react-icons/fi'
 import { withTranslation } from '@i18n'
 import { useToasts } from 'react-toast-notifications'
 import { calculateResults } from 'psychology'
@@ -8,7 +8,6 @@ import Button from '../../../../components/common/buttons/button/Button'
 import { AnswerType, globalStoreType, IQuestion, QuestionsProps } from '../../../../typings/types'
 import RadioGroupItem from '../radio-group-item/RadioGroupItem'
 import style from './questions.module.scss'
-import FakeResults from '../../../../pages/test/FakeResults'
 import { checkAnswers, isBrowser } from '../../../../helper/helper'
 
 const Questions = ({ changeBlock, t, questionsSubmit }: QuestionsProps) => {
@@ -23,7 +22,6 @@ const Questions = ({ changeBlock, t, questionsSubmit }: QuestionsProps) => {
     }))
 
     const [answers, setAnswers] = useState<AnswerType[]>(initAnswers)
-    const [isAddButtons, setAddButtons] = useState(false)
 
     return (
         <>
@@ -52,19 +50,7 @@ const Questions = ({ changeBlock, t, questionsSubmit }: QuestionsProps) => {
                     title={t('common:buttons.send')}
                     endIcon={<FiArrowRight />}
                 />
-                {isLoggedIn && (
-                    <button
-                        onClick={() => {
-                            setAddButtons(!isAddButtons)
-                        }}
-                        className={style.more}>
-                        <FiMoreVertical />
-                    </button>
-                )}
             </div>
-            {/* {isAddButtons && ( */}
-            {/*    <FakeResults calculateResults={calculateResults} sendAnswers={sendAnswers} /> */}
-            {/* )} */}
         </>
     )
 
