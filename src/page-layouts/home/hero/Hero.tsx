@@ -1,4 +1,5 @@
 import { Link, withTranslation } from '@i18n'
+import { useSelector } from 'react-redux'
 import RobotWide from '../../../components/common/media/robots/robot-wide/RobotWide'
 import RobotTall from '../../../components/common/media/robots/robot-tall/RobotTall'
 import Dropzone from '../../../components/common/dropzone/Dropzone'
@@ -10,6 +11,9 @@ type HeroType = {
 }
 
 const Hero: React.FC<HeroType> = ({ t }) => {
+    const { isLoggedIn } = useSelector(state => state.user)
+    const btnCtaUrl = !isLoggedIn ? '/registration' : '#upload'
+
     return (
         <div className={`${style.wrapper} pt-lg pb-lg`}>
             <div className="container">
@@ -21,7 +25,7 @@ const Hero: React.FC<HeroType> = ({ t }) => {
                                 dangerouslySetInnerHTML={{ __html: t('main:hero.title') }}
                             />
                             <p className={style.desc}>{t('main:hero.subtitle')}</p>
-                            <Link href="/registration">
+                            <Link href={btnCtaUrl}>
                                 <a className={`btn btn-accent ${style.btn}`}>
                                     {t('main:hero.btn_cta')}
                                 </a>

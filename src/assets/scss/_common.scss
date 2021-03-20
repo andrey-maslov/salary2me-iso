@@ -9,9 +9,11 @@ body {
   font-family: $font;
   font-size: 1rem;
   overflow-x: hidden;
+  scroll-behavior: smooth;
   //background-color: $grey-bg;
 
   * {
+    scroll-behavior: smooth;
     //border: 1px solid red;
     //outline: none;
 
