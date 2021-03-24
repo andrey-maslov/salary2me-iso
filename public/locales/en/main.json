@@ -6,7 +6,7 @@
   },
   "dropzone": {
     "desc": "Create a free account, upload your CV to our service and get an estimation of your salary in more than 20 cities over the world",
-    "instruction": "<span>Choose file</span> or drug it here",
+    "instruction": "<span>Choose file</span> or drag it here",
     "standard": "Standardized formats are preferred",
     "etc": "etc.",
     "format_error": "This file has not accepted type. Only following file types are accepted:",
@@ -53,7 +53,7 @@
   },
   "test": {
     "title": "Psychological test",
-    "desc": "Spend 15 minutes of your time taking a quick psychological test. You will find out our talents and strength together with tools for building effective relationships. You will also get an encrypted result of the passed test, which can be used in our other services.",
+    "desc": "Spend 15 minutes of your time taking a quick psychological test. You will find out your talents and strengths along with tools for building effective relationships. You will also get an encrypted result of the passed test, which can be used in our other services.",
     "features_title": "How can a test help?",
     "features_list": [
       "A complete characteristic of a person's personality, his innate strengths and weaknesses, the optimal communication format",
