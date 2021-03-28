@@ -6,16 +6,12 @@ export const API_VER = 1
 export const SERVICE = 4
 
 // Self
-export const HOST =
-    PHASE_DEVELOPMENT_SERVER || process.env.STAGING
-        ? 'https://salary.nobugs.today'
-        : 'https://salary2.me'
+export const HOST = process.env.PRODUCTION ? 'https://salary2.me' : 'https://salary.nobugs.today'
 
 // API
-export const BASE_API =
-    PHASE_DEVELOPMENT_SERVER || process.env.STAGING
-        ? 'https://apibase.pashtaljon.by'
-        : 'https://api.thegreatbase.online'
+export const BASE_API = process.env.PRODUCTION
+    ? 'https://api.thegreatbase.online'
+    : 'https://apibase.pashtaljon.by'
 
 export const CONTENT_API = 'https://api.salary2.me'
 
