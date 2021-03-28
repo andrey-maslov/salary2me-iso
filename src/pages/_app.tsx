@@ -18,10 +18,12 @@ function MyApp({ Component, pageProps, isConsented }) {
 
     // Initiate GTM
     useEffect(() => {
-        const handleRouteChange = (url: string) => GTMPageView(url)
-        Router.events.on('routeChangeComplete', handleRouteChange)
-        return () => {
-            Router.events.off('routeChangeComplete', handleRouteChange)
+        if (process.env.PRODUCTION) {
+            const handleRouteChange = (url: string) => GTMPageView(url)
+            Router.events.on('routeChangeComplete', handleRouteChange)
+            return () => {
+                Router.events.off('routeChangeComplete', handleRouteChange)
+            }
         }
     }, [])
 
