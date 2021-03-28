@@ -10,7 +10,7 @@ import Reset, { IResetForm } from './Reset'
 import { authModes, SERVICE } from '../../../constants/constants'
 import style from './auth.module.scss'
 import ForgotSuccess from './ForgotSuccess'
-import { getQueryFromURL } from '../../../helper/helper'
+import { getQueryFromURL, isBrowser } from '../../../helper/helper'
 import { globalStoreType } from '../../../typings/types'
 import SocialAuth from './social-auth/SocialAuth'
 
@@ -26,12 +26,15 @@ const Auth: React.FC<AuthProps> = ({ t }) => {
     const { accountApiErrorMsg, redirectUrl } = useSelector((state: globalStoreType) => state.app)
     const page = getAuthPage(router.pathname)
 
-    // useEffect(() => {
-    //     console.log('in use effect')
-    //     window.addEventListener('storage', function (event) {
-    //         console.log(event.key, event.newValue)
-    //     })
-    // })
+    useEffect(() => {
+        if (isBrowser && isLoggedIn) {
+            const query = window.location.search
+            const userId = getQueryFromURL(query, 'userId')
+            if (typeof userId === 'string' && userId.length > 1) {
+                router.push(`/confirm-email${query.replace('confirmCode', 'code')}`)
+            }
+        }
+    }, [isLoggedIn])
 
     useEffect(() => {
         let termsLink: Element | null

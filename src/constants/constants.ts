@@ -1,15 +1,25 @@
+const { PHASE_DEVELOPMENT_SERVER, PHASE_PRODUCTION_BUILD } = require('next/constants')
+
 export const SITE_TITLE = 'Salary2me'
 export const IS_BETA = true
 export const API_VER = 1
 export const SERVICE = 4
 
-/* LINKS */
 // Self
-export const HOST = 'https://salary2.me'
+export const HOST =
+    PHASE_DEVELOPMENT_SERVER || process.env.STAGING
+        ? 'https://salary.nobugs.today'
+        : 'https://salary2.me'
 
 // API
-export const BASE_API = 'https://api.thegreatbase.online'
+export const BASE_API =
+    PHASE_DEVELOPMENT_SERVER || process.env.STAGING
+        ? 'https://apibase.pashtaljon.by'
+        : 'https://api.thegreatbase.online'
+
 export const CONTENT_API = 'https://api.salary2.me'
+
+export const LINKEDIN_REDIRECT_URI = `${BASE_API}/callbacklinkedin`
 
 // Salary2me
 export const TEST_URL = `${HOST}/test`
@@ -20,20 +30,19 @@ export const COOP_PROFILE_URL = `${COOP_URL}/profile`
 export const COOP_TEAM_URL = `${COOP_URL}/team`
 export const COOP_PAIR_URL = `${COOP_URL}/pair`
 
+// Thegreatbase
 export const TGB_URL = 'https://thegreatbase.online'
 export const TGB_DASHBOARD_URL = `${TGB_URL}/Identity/Account/Manage`
 export const TGB_SUBSCRIPTIONS_URL = `${TGB_URL}/Voter/MembershipPlans`
 
+// Languages
 export const LANGS = ['ru', 'en']
 export const LANG_DEFAULT = 'ru'
 
-/* COLORS */
+// Colors
 export const accentColor = '#36A9E0'
-export const parsingDuration = 6000
-
 export const COLORS = {
-    // accent: '#556587',
-    accent: '#36a9e0',
+    accent: accentColor,
     yellow: '#FFC734',
     orange: '#FF5E34',
     text: '#203152',
@@ -41,8 +50,6 @@ export const COLORS = {
     grey: '#7D7D7D',
     greyBg: '#EFF1F4'
 }
-
-export const LINKEDIN_REDIRECT_URI = `${BASE_API}/callbacklinkedin`
 
 export const ACCEPTED_FILE_TYPES = '.rtf, .png, .jpg, .jpeg, .pdf, .doc, .docx'
 
@@ -95,7 +102,7 @@ export enum authModes {
     'onboarding'
 }
 
-// export const LANGS = ['ru', 'en', 'pl', 'es', 'de', 'fr', 'it', 'tk']
+export const parsingDuration = 6000
 
 // minimal value of main octant to pass the test
 export const TEST_THRESHOLD = 6.75

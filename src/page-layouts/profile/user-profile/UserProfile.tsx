@@ -3,19 +3,23 @@ import { Link, withTranslation } from '@i18n'
 import { useSelector, useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
 import { useToasts } from 'react-toast-notifications'
+import axios from 'axios'
 import style from './profile.module.scss'
 import { globalStoreType, IOneFieldForm, IUserData } from '../../../typings/types'
 import InputTransformer from '../../../components/common/inputs/input-transformer/InputTransformer'
 import { changeEmail, updateUserData } from '../../../actions/actionCreator'
-import { DANGER_MODAL, SET_TOAST } from '../../../actions/actionTypes'
+import { CLEAR_USER_DATA, DANGER_MODAL, SET_TOAST } from '../../../actions/actionTypes'
 import UserServices from './UserServices'
+import { getCookieFromBrowser } from '../../../helper/cookie'
+import { accountApiUrl, getAuthConfig } from '../../../actions/api/utils'
+import { SERVICE } from '../../../constants/constants'
 
 const UserProfile = ({ t }) => {
-    const { firstName, lastName, email, emailConfirmed, position, isLoggedIn } = useSelector(
+    const { firstName, lastName, email, position, isLoggedIn } = useSelector(
         (state: globalStoreType) => state.user
     )
 
-    const { setToast, apiErrorMsg, isEmailSent } = useSelector(
+    const { setToast, apiErrorMsg, isEmailSent, isEmailConfirmed } = useSelector(
         (state: globalStoreType) => state.app
     )
 
@@ -28,6 +32,13 @@ const UserProfile = ({ t }) => {
         lastName,
         email,
         position
+    })
+
+    const [resendEmailConf, setResendEmailConf] = useState({
+        send: false,
+        isLoading: false,
+        isError: false,
+        isSuccess: false
     })
 
     useEffect(() => {
@@ -65,6 +76,46 @@ const UserProfile = ({ t }) => {
         addToast,
         dispatch
     ])
+
+    useEffect(() => {
+        function resendEmailConfirmation() {
+            const token = getCookieFromBrowser('token')
+            const url = `${accountApiUrl}/resend-email-confirmation`
+            if (token) {
+                setResendEmailConf({ ...resendEmailConf, isLoading: true })
+                axios
+                    .post(url, { email, service: SERVICE }, getAuthConfig(token))
+                    .then(() =>
+                        setResendEmailConf({
+                            send: false,
+                            isLoading: false,
+                            isError: false,
+                            isSuccess: true
+                        })
+                    )
+                    .catch(() =>
+                        setResendEmailConf({
+                            send: false,
+                            isLoading: false,
+                            isError: true,
+                            isSuccess: false
+                        })
+                    )
+            } else {
+                dispatch({ type: CLEAR_USER_DATA })
+            }
+        }
+
+        if (resendEmailConf.send) {
+            resendEmailConfirmation()
+        }
+
+        if (resendEmailConf.isSuccess) {
+            setTimeout(() => {
+                setResendEmailConf({ ...resendEmailConf, isSuccess: false })
+            }, 5000)
+        }
+    }, [resendEmailConf.send])
 
     const textFields = [
         {
@@ -115,13 +166,23 @@ const UserProfile = ({ t }) => {
                         <h5 className={style.box_title}>
                             {t('profile:account')}
 
-                            {email && !emailConfirmed && (
+                            {email && !isEmailConfirmed && (
                                 <span className="color-red">
                                     {t('profile:email_needs_confirm')}
                                 </span>
                             )}
                             {!email && (
                                 <span className="color-red">{t('profile:need_to_set_email')}</span>
+                            )}
+                            {email && !isEmailConfirmed && (
+                                <button
+                                    className="link"
+                                    onClick={() => setResendEmailConf({ ...resendEmailConf, send: true })}
+                                    style={{ marginLeft: '5px' }}>
+                                    {resendEmailConf.isSuccess
+                                        ? 'письмо отправлено'
+                                        : 'Не пришло письмо для подтверждения?'}
+                                </button>
                             )}
                         </h5>
                         <div className={`${style.box_content}`}>

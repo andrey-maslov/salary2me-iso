@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { withTranslation } from '@i18n'
 import { useDispatch, useSelector } from 'react-redux'
 import style from './social.module.scss'

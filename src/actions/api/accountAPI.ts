@@ -146,14 +146,12 @@ export const sendNewPassword = (data: INewPwdData, setError: unknown): unknown =
 export const sendEmailConfirmation = (data: IEmailConfirmation) => {
     const token = getCookieFromBrowser('token')
     const url = `${accountApiUrl}/confirm-email${data.email ? '-change' : ''}`
-
     return (dispatch: anyType) => {
         if (token) {
             dispatch(setLoading(true))
             axios
                 .post(url, data, getAuthConfig(token))
-                .then(res => {
-                    dispatch(setUserData(res.data))
+                .then(() => {
                     dispatch({ type: EMAIL_CONFIRMATION, isEmailConfirmed: true })
                 })
                 .catch(error => {

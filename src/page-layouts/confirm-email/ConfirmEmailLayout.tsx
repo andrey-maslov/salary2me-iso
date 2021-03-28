@@ -19,15 +19,28 @@ const ConfirmEmailLayot = ({ t }) => {
     const { isEmailConfirmed, isLoading, apiErrorMsg } = useSelector(
         (state: globalStoreType) => state.app
     )
+    const { isLoggedIn } = useSelector((state: globalStoreType) => state.user)
 
     const [confirmationMode, setConformationMode] = useState<ConfMode>(null)
 
     useEffect(() => {
         if (isBrowser) {
             const query = window.location.search
+
+            if (isEmailConfirmed) {
+                router.push(`/`)
+            }
+
+            // FIXME ФБ логин авозагружается, когда видит в строке запроса ключ code.
+            // Поэтому меняем его на другой и возвращаем обратно code когда редиректим на этот компонент
+            if (!isLoggedIn) {
+                router.push(`/signin${query.replace('code', 'confirmCode')}`)
+            }
+
             const userId = getQueryFromURL(query, 'userId')
             const code = getQueryFromURL(query, 'code')
             const email = getQueryFromURL(query, 'email')
+
             if (userId && code && email) {
                 setConformationMode('confirm-email-change')
                 dispatch(sendEmailConfirmation({ userId, code, email }))
@@ -36,7 +49,7 @@ const ConfirmEmailLayot = ({ t }) => {
             setConformationMode('confirm-email')
             dispatch(sendEmailConfirmation({ code, userId }))
         }
-    }, [dispatch])
+    }, [isLoggedIn, isEmailConfirmed])
 
     // useEffect(() => {
     //     if (isEmailConfirmed) {

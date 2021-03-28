@@ -1,14 +1,11 @@
-import {SigninLayout} from '../../page-layouts'
+import { SigninLayout } from '../../page-layouts'
 
-function Signin({...props}) {
-
-    return (
-        <SigninLayout {...props} />
-    )
+function Signin({ ...props }) {
+    return <SigninLayout {...props} />
 }
 
 Signin.getInitialProps = async () => ({
-    namespacesRequired: ['signin', 'common'],
+    namespacesRequired: ['signin', 'common']
 })
 
 export default Signin
