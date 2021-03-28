@@ -1,5 +1,7 @@
+import { useEffect } from 'react'
 import { Provider } from 'react-redux'
 import App from 'next/app'
+import Router from 'next/router'
 import '../assets/scss/index.scss'
 import { appWithTranslation } from '@i18n'
 import 'focus-visible/dist/focus-visible.js'
@@ -9,9 +11,19 @@ import { SVGSource } from '../components/common/media/svgflag/SVGFlag'
 import ScrollToTop from '../components/common/ScrollToTop'
 import { getCookie } from '../helper/cookie'
 import CookieConsent from '../components/layout/modals/cookie-consent/CookieConsent'
+import { GTMPageView } from '../helper/gmt'
 
 function MyApp({ Component, pageProps, isConsented }) {
     const store = useStore(pageProps.initialReduxState)
+
+    // Initiate GTM
+    useEffect(() => {
+        const handleRouteChange = (url: string) => GTMPageView(url)
+        Router.events.on('routeChangeComplete', handleRouteChange)
+        return () => {
+            Router.events.off('routeChangeComplete', handleRouteChange)
+        }
+    }, [])
 
     return (
         <Provider store={store}>
