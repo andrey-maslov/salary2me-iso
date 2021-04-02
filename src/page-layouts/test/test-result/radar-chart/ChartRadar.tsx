@@ -8,7 +8,7 @@ import style from './radar-chart.module.scss'
 
 type ChartsPropsType = {
     profile: readonly ITendency[]
-    chartLabels: string[]
+    chartLabels: string[] | any
     label?: string
 }
 
