@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import RobotWide from '../../../components/common/media/robots/robot-wide/RobotWide'
 import RobotTall from '../../../components/common/media/robots/robot-tall/RobotTall'
 import Dropzone from '../../../components/common/dropzone/Dropzone'
-
+import { globalStoreType } from '../../../typings/types'
 import style from './hero.module.scss'
 
 type HeroType = {
@@ -11,7 +11,7 @@ type HeroType = {
 }
 
 const Hero: React.FC<HeroType> = ({ t }) => {
-    const { isLoggedIn } = useSelector(state => state.user)
+    const { isLoggedIn } = useSelector((state: globalStoreType) => state.user)
     const btnCtaUrl = !isLoggedIn ? '/registration' : '#upload'
 
     return (
