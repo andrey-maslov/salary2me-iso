@@ -24,7 +24,7 @@ export type testStoreType = {
     testData: [] | null
     dataForPDF: Record<string, unknown> | null
     terms: Record<string, unknown> | null
-    descriptions: [] | null
+    descriptions: [] | null | any
 }
 
 export const test = (
