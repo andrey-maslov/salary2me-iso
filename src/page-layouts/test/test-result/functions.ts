@@ -1,7 +1,7 @@
 import { IOctant, ITendency, IDescWithRange, IDescWithStatus, baseTestResultType } from "psychology/build/main/types/types";
 import { getIndexByRange } from "psychology";
 
-export function getModifiedSubAxes(subAxes: string[][]) {
+export function getModifiedSubAxes(subAxes: string[][] | any) {
     return subAxes.map(item => item.map(str => str.split(' - ')))
 }
 
