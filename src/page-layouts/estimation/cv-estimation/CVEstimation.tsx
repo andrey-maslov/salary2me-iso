@@ -30,14 +30,14 @@ const CVEstimation = ({ t }) => {
     const mobiOptionsClass = isMobileOptionsShown ? style.mobiOptionsOpened : ''
 
     useEffect(() => {
-        if (predictions.length && predictions.length !== 0) {
+        if (predictions && predictions.length && predictions.length !== 0) {
             setState({ ...state, predictions, position })
         } else {
             dispatch(getPredictions())
         }
     }, [position, displayedResults, predictions])
 
-    if (state.predictions && state.predictions.length && state.predictions.length === 0) {
+    if (!predictions || (state.predictions && state.predictions.length && state.predictions.length === 0)) {
         return (
             <div className={style.wrapper}>
                 <div className="flex-centered text-center">
@@ -142,6 +142,9 @@ const CVEstimation = ({ t }) => {
     }
 
     function getSortedSalaries(predictionsArr) {
+        if (!predictionsArr) {
+            return
+        }
         const bruttoNormal = [...predictionsArr]
             .map(({ city, salaryWithTaxes, salaryWithTaxesMax }) => ({
                 city,
