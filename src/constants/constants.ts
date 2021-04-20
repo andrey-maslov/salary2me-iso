@@ -9,9 +9,11 @@ export const SERVICE = 4
 export const HOST = process.env.PRODUCTION ? 'https://salary2.me' : 'https://salary.nobugs.today'
 
 // API
-export const BASE_API = process.env.PRODUCTION
-    ? 'https://api.thegreatbase.online'
-    : 'https://apibase.pashtaljon.by'
+// export const BASE_API = process.env.PRODUCTION
+//     ? 'https://api.thegreatbase.online'
+//     : 'https://apibase.pashtaljon.by'
+
+export const BASE_API = 'https://api.thegreatbase.online'
 
 export const CONTENT_API = 'https://api.salary2.me'
 

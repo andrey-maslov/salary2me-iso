@@ -32,7 +32,7 @@ const Test = ({ t }) => {
         if (data.personalInfo && data.testData) {
             sendAnswers([data.personalInfo, data.testData])
         }
-        console.log('data from useEffect', data)
+        // console.log('data from useEffect', data)
     }, [data.personalInfo, data.testData])
 
 
@@ -72,7 +72,7 @@ const Test = ({ t }) => {
     }
 
     function sendAnswers(fullResult: DecodedDataType) {
-        console.log('data from send answ', data)
+        // console.log('data from send answ', data)
         const isPassed = isTestPassed(fullResult[1], TEST_THRESHOLD)
         if (isPassed) {
             dispatch(savePersonalInfo(fullResult[0]))

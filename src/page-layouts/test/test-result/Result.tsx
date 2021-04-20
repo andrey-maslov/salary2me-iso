@@ -65,7 +65,7 @@ const Result: React.FC<ResultProps> = ({ t }) => {
             setReady(true)
         }
         if (descriptions && isPassed && resultForProfile) {
-            console.log('data for pdf', fullProfileData)
+            // console.log('data for pdf', fullProfileData)
             dispatch({
                 type: PSYCHO_RESULT,
                 dataForPDF: {
