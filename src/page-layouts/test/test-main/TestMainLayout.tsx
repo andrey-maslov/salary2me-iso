@@ -8,7 +8,7 @@ const TestMainLayout: React.FC<{ t: any }> = ({ t }) => {
     return (
         <>
             <Head>
-                <title>{`${t('common:misc.psychological_test')} - ${SITE_TITLE}`}</title>
+                <title>{`${t('test:page.meta_title')} - ${SITE_TITLE}`}</title>
             </Head>
             <div className="page-test-main main">
                 <Layout>
@@ -19,4 +19,4 @@ const TestMainLayout: React.FC<{ t: any }> = ({ t }) => {
     )
 }
 
-export default withTranslation('common')(TestMainLayout)
+export default withTranslation('test')(TestMainLayout)
