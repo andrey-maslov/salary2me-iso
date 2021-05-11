@@ -27,7 +27,7 @@ const Footer: React.FC<{ t: any }> = ({ t }) => {
     return (
         <footer className={`${style.footer} pt-lg`}>
             <div className="container">
-                {currentRoute === '/test' && (
+                {currentRoute.match('/test') && (
                     <img
                         src="/img/brain-laborotory.svg"
                         alt="лаборотория мозга"
