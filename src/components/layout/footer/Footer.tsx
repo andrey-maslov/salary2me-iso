@@ -1,10 +1,14 @@
 import { FiMail, FiMapPin } from 'react-icons/fi'
 import { Link, withTranslation } from '@i18n'
+import { useRouter } from 'next/router'
 import { HOST, SITE_TITLE } from '../../../constants/constants'
 import SocialSharing from '../../common/buttons/social-sharing/SocialSharing'
 import style from './footer.module.scss'
 
 const Footer: React.FC<{ t: any }> = ({ t }) => {
+    const router = useRouter()
+    const currentRoute = router.pathname
+
     const links = [
         {
             link: '/policies/privacy-policy',
@@ -23,6 +27,13 @@ const Footer: React.FC<{ t: any }> = ({ t }) => {
     return (
         <footer className={`${style.footer} pt-lg`}>
             <div className="container">
+                {currentRoute === '/test' && (
+                    <img
+                        src="/img/brain-laborotory.svg"
+                        alt="лаборотория мозга"
+                        className={style.partnerLogo}
+                    />
+                )}
                 <div className="row justify-content-between">
                     <div className="col-xl-4">
                         <div className={style.widget}>

@@ -76,7 +76,18 @@ $text-color: #d1d1d1;
   color: #999;
 }
 
+.partnerLogo {
+  max-width: 300px;
+  display: block;
+  margin: 0 auto 60px;
+}
+
 
 @media(max-width: 992px) {
+
+  .partnerLogo {
+    max-width: 260px;
+    margin: 0 auto 20px 0;
+  }
 
 }
