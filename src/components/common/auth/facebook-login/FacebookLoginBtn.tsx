@@ -4,8 +4,10 @@ import Button from '../../buttons/button/Button'
 import { LoginBtnProps } from '../google-login/GoogleLogin'
 import { FacebookAuthData } from '../social-auth/SocialAuth'
 
-export const FacebookLoginBtn: React.FC<LoginBtnProps<FacebookAuthData>> = ({ handleLogin, isEnabled }) => {
-
+export const FacebookLoginBtn: React.FC<LoginBtnProps<FacebookAuthData>> = ({
+    handleLogin,
+    isEnabled
+}) => {
     const responseFacebook = (response: any) => {
         const { accessToken } = response
         handleLogin({ accessToken }, 'facebook')
