@@ -8,8 +8,7 @@ export const FacebookLoginBtn: React.FC<LoginBtnProps<FacebookAuthData>> = ({ ha
 
     const responseFacebook = (response: any) => {
         const { accessToken } = response
-        console.log('facebook handler')
-        // handleLogin({ accessToken }, 'facebook')
+        handleLogin({ accessToken }, 'facebook')
     }
 
     const handleFailure = (response: any) => {
