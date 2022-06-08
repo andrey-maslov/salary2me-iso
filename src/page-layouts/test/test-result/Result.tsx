@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
-import { Link, withTranslation } from '@i18n'
+import { Link, withTranslation, i18n } from '@i18n'
 import { getDescByRange, getFamous, UserResult, getAndDecodeData } from 'psychology'
 import { IUserResult, DecodedDataType } from 'psychology/build/main/types/types'
 import { useMediaPredicate } from 'react-media-hook'
@@ -25,6 +25,8 @@ import {
 import RobotQuestion from '../../../components/common/media/robots/robot-question/RobotQuestion'
 import { TEST_THRESHOLD } from '../../../constants/constants'
 import { encodeDataForURL, isBrowser, isTestPassed } from '../../../helper/helper'
+import allTerms from '../../../terms.json'
+import allDescriptions from '../../../descriptions.json'
 
 type ResultProps = {
     t: any
@@ -34,9 +36,12 @@ const Result: React.FC<ResultProps> = ({ t }) => {
     const router = useRouter()
     const dispatch = useDispatch()
     const isXL = useMediaPredicate('(min-width: 1360px)')
+    const { language } = i18n
 
     const { isLoggedIn } = useSelector((state: globalStoreType) => state.user)
-    const { terms, descriptions } = useSelector((state: globalStoreType) => state.test)
+    const terms = allTerms[language]
+    const descriptions = allDescriptions[language]
+
     // get test data from store
     const { personalInfo: userPersonalInfo, testData: userTestData } = useSelector(
         (state: globalStoreType) => state.test

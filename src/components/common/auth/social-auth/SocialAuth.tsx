@@ -32,12 +32,6 @@ const SocialAuth = ({ t }) => {
                 <div className={style.item}>
                     <GoogleLogin isEnabled={isEnabled} handleLogin={socialAuthHandle} />
                 </div>
-                <div className={style.item}>
-                    <FacebookLoginBtn handleLogin={socialAuthHandle} isEnabled={isEnabled} />
-                </div>
-                <div className={style.item}>
-                    <LinkedinLogin isEnabled={isEnabled} />
-                </div>
             </div>
             {apiErrorMsg && <div className="item-explain danger">{apiErrorMsg}</div>}
         </div>

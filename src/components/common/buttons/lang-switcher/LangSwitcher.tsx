@@ -6,7 +6,6 @@ import { LANGS } from '../../../../constants/constants'
 import { SVGFlag } from '../../media/svgflag/SVGFlag'
 import { Popover } from '../../popovers/Popover'
 import style from './lang-switcher.module.scss'
-import { fetchContent, fetchTerms } from '../../../../actions/actionCreator'
 
 const LangSwitcher: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false)
@@ -19,15 +18,8 @@ const LangSwitcher: React.FC = () => {
         }
     }
 
-    useEffect(() => {
-        dispatch(fetchTerms(language))
-        dispatch(fetchContent(language))
-    }, [dispatch, language])
-
     const changeLanguage = (lng: any) => {
         i18n.changeLanguage(lng).then(res => {
-            dispatch(fetchTerms(lng))
-            dispatch(fetchContent(lng))
             if (isOpen) {
                 setIsOpen(false)
             }
